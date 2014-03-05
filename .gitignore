@@ -1,3 +1,10 @@
+# directory
+router/work/
+
+#modelsim
+*.mpf
+*.mti
+
 # Object files
 *.o
 *.ko

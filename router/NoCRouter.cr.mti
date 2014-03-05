@@ -5,13 +5,6 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_fifo_tracker
 
-} {} {}} D:/Workspace/NoCRouter/router/vcr_sw_alloc_wf.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_sw_alloc_wf.v}
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module vcr_sw_alloc_wf
-
-Top level modules:
-	vcr_sw_alloc_wf
-
 } {} {}} D:/Workspace/NoCRouter/router/rtr_op_ctrl_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_op_ctrl_mac.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 -- Compiling module rtr_op_ctrl_mac
@@ -19,12 +12,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	rtr_op_ctrl_mac
 
-} {} {}} D:/Workspace/NoCRouter/router/vcr_sw_alloc_sep_if.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_sw_alloc_sep_if.v}
+} {} {}} D:/Workspace/NoCRouter/router/vcr_sw_alloc_wf.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_sw_alloc_wf.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module vcr_sw_alloc_sep_if
+-- Compiling module vcr_sw_alloc_wf
 
 Top level modules:
-	vcr_sw_alloc_sep_if
+	vcr_sw_alloc_wf
 
 } {} {}} D:/Workspace/NoCRouter/router/rtr_flow_ctrl_output.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_flow_ctrl_output.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -33,12 +26,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	rtr_flow_ctrl_output
 
-} {} {}} D:/Workspace/NoCRouter/router/rtr_flit_type_check.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/rtr_flit_type_check.v
+} {} {}} D:/Workspace/NoCRouter/router/vcr_sw_alloc_sep_if.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_sw_alloc_sep_if.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module rtr_flit_type_check
+-- Compiling module vcr_sw_alloc_sep_if
 
 Top level modules:
-	rtr_flit_type_check
+	vcr_sw_alloc_sep_if
 
 } {} {}} D:/Workspace/NoCRouter/router/c_add_nto1.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_add_nto1.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -47,6 +40,13 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_add_nto1
 
+} {} {}} D:/Workspace/NoCRouter/router/rtr_flit_type_check.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/rtr_flit_type_check.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module rtr_flit_type_check
+
+Top level modules:
+	rtr_flit_type_check
+
 } {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_dpa.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_wf_alloc_dpa.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 -- Compiling module c_wf_alloc_dpa
@@ -54,19 +54,19 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_wf_alloc_dpa
 
-} {} {}} D:/Workspace/NoCRouter/router/c_decode.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_decode.v
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_decode
-
-Top level modules:
-	c_decode
-
 } {} {}} D:/Workspace/NoCRouter/router/c_reverse.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_reverse.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 -- Compiling module c_reverse
 
 Top level modules:
 	c_reverse
+
+} {} {}} D:/Workspace/NoCRouter/router/c_decode.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_decode.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module c_decode
+
+Top level modules:
+	c_decode
 
 } {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_sdpa.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_wf_alloc_sdpa.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -323,19 +323,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	rtr_flit_buffer
 
-} {} {}} D:/Workspace/NoCRouter/router/vcr_vc_alloc_sep_of.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_vc_alloc_sep_of.v}
+} {} {}} D:/Workspace/NoCRouter/router/c_rr_arbiter_base.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_rr_arbiter_base.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module vcr_vc_alloc_sep_of
+-- Compiling module c_rr_arbiter_base
 
 Top level modules:
-	vcr_vc_alloc_sep_of
-
-} {} {}} D:/Workspace/NoCRouter/router/vcr_ivc_ctrl.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_ivc_ctrl.v}
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module vcr_ivc_ctrl
-
-Top level modules:
-	vcr_ivc_ctrl
+	c_rr_arbiter_base
 
 } {} {}} D:/Workspace/NoCRouter/router/c_prefix_arbiter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_prefix_arbiter.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -344,19 +337,26 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_prefix_arbiter
 
-} {} {}} D:/Workspace/NoCRouter/router/c_rr_arbiter_base.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_rr_arbiter_base.v
+} {} {}} D:/Workspace/NoCRouter/router/vcr_ivc_ctrl.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_ivc_ctrl.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_rr_arbiter_base
+-- Compiling module vcr_ivc_ctrl
 
 Top level modules:
-	c_rr_arbiter_base
+	vcr_ivc_ctrl
 
-} {} {}} D:/Workspace/NoCRouter/router/c_interleave.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_interleave.v
+} {} {}} D:/Workspace/NoCRouter/router/vcr_vc_alloc_sep_of.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_vc_alloc_sep_of.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_interleave
+-- Compiling module vcr_vc_alloc_sep_of
 
 Top level modules:
-	c_interleave
+	vcr_vc_alloc_sep_of
+
+} {} {}} D:/Workspace/NoCRouter/router/c_select_mofn.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_select_mofn.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module c_select_mofn
+
+Top level modules:
+	c_select_mofn
 
 } {} {}} D:/Workspace/NoCRouter/router/c_prio_enc.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_prio_enc.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -365,12 +365,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_prio_enc
 
-} {} {}} D:/Workspace/NoCRouter/router/c_select_mofn.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_select_mofn.v
+} {} {}} D:/Workspace/NoCRouter/router/c_interleave.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_interleave.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_select_mofn
+-- Compiling module c_interleave
 
 Top level modules:
-	c_select_mofn
+	c_interleave
 
 } {} {}} D:/Workspace/NoCRouter/router/rtr_alloc_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_alloc_mac.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -386,12 +386,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_arbiter
 
-} {} {}} D:/Workspace/NoCRouter/router/c_fifo.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_fifo.v
+} {} {}} D:/Workspace/NoCRouter/router/c_rr_arbiter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_rr_arbiter.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_fifo
+-- Compiling module c_rr_arbiter
 
 Top level modules:
-	c_fifo
+	c_rr_arbiter
 
 } {} {}} D:/Workspace/NoCRouter/router/c_prefix_net.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_prefix_net.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -400,19 +400,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_prefix_net
 
-} {} {}} D:/Workspace/NoCRouter/router/c_rr_arbiter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_rr_arbiter.v
+} {} {}} D:/Workspace/NoCRouter/router/c_fifo.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_fifo.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_rr_arbiter
+-- Compiling module c_fifo
 
 Top level modules:
-	c_rr_arbiter
-
-} {} {}} D:/Workspace/NoCRouter/router/c_matrix_arbiter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_matrix_arbiter.v
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_matrix_arbiter
-
-Top level modules:
-	c_matrix_arbiter
+	c_fifo
 
 } {} {}} D:/Workspace/NoCRouter/router/c_prio_sel.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_prio_sel.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -421,19 +414,19 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_prio_sel
 
+} {} {}} D:/Workspace/NoCRouter/router/c_matrix_arbiter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_matrix_arbiter.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module c_matrix_arbiter
+
+Top level modules:
+	c_matrix_arbiter
+
 } {} {}} D:/Workspace/NoCRouter/router/c_samq_ctrl.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_samq_ctrl.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 -- Compiling module c_samq_ctrl
 
 Top level modules:
 	c_samq_ctrl
-
-} {} {}} D:/Workspace/NoCRouter/router/vcr_vc_alloc_wf.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_vc_alloc_wf.v}
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module vcr_vc_alloc_wf
-
-Top level modules:
-	vcr_vc_alloc_wf
 
 } {} {}} D:/Workspace/NoCRouter/router/c_damq_ctrl.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_damq_ctrl.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -442,19 +435,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_damq_ctrl
 
-} {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_mux.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_wf_alloc_mux.v
+} {} {}} D:/Workspace/NoCRouter/router/vcr_vc_alloc_wf.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_vc_alloc_wf.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_wf_alloc_mux
+-- Compiling module vcr_vc_alloc_wf
 
 Top level modules:
-	c_wf_alloc_mux
-
-} {} {}} D:/Workspace/NoCRouter/router/c_dff.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_dff.v
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_dff
-
-Top level modules:
-	c_dff
+	vcr_vc_alloc_wf
 
 } {} {}} D:/Workspace/NoCRouter/router/c_prefix_arbiter_base.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_prefix_arbiter_base.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -463,12 +449,19 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_prefix_arbiter_base
 
-} {} {}} D:/Workspace/NoCRouter/router/whr_alloc_mac.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/whr_alloc_mac.v
+} {} {}} D:/Workspace/NoCRouter/router/c_dff.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_dff.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module whr_alloc_mac
+-- Compiling module c_dff
 
 Top level modules:
-	whr_alloc_mac
+	c_dff
+
+} {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_mux.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_wf_alloc_mux.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module c_wf_alloc_mux
+
+Top level modules:
+	c_wf_alloc_mux
 
 } {} {}} D:/Workspace/NoCRouter/router/c_one_hot_filter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_one_hot_filter.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -477,12 +470,19 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_one_hot_filter
 
-} {} {}} D:/Workspace/NoCRouter/router/vcr_alloc_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_alloc_mac.v}
+} {} {}} D:/Workspace/NoCRouter/router/whr_alloc_mac.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/whr_alloc_mac.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module vcr_alloc_mac
+-- Compiling module whr_alloc_mac
 
 Top level modules:
-	vcr_alloc_mac
+	whr_alloc_mac
+
+} {} {}} D:/Workspace/NoCRouter/router/c_gather.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_gather.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module c_gather
+
+Top level modules:
+	c_gather
 
 } {} {}} D:/Workspace/NoCRouter/router/c_binary_op.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_binary_op.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -491,12 +491,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_binary_op
 
-} {} {}} D:/Workspace/NoCRouter/router/c_gather.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_gather.v
+} {} {}} D:/Workspace/NoCRouter/router/vcr_alloc_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_alloc_mac.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_gather
+-- Compiling module vcr_alloc_mac
 
 Top level modules:
-	c_gather
+	vcr_alloc_mac
 
 } {} {}} D:/Workspace/NoCRouter/router/c_incr.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_incr.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -512,26 +512,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	vcr_ip_ctrl_mac
 
-} {} {}} D:/Workspace/NoCRouter/router/rtr_fc_state.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_fc_state.v}
+} {} {}} D:/Workspace/NoCRouter/router/c_scatter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_scatter.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module rtr_fc_state
+-- Compiling module c_scatter
 
 Top level modules:
-	rtr_fc_state
-
-} {} {}} D:/Workspace/NoCRouter/router/c_damq_tracker.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_damq_tracker.v}
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_damq_tracker
-
-Top level modules:
-	c_damq_tracker
-
-} {} {}} D:/Workspace/NoCRouter/router/c_encode.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_encode.v}
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_encode
-
-Top level modules:
-	c_encode
+	c_scatter
 
 } {} {}} D:/Workspace/NoCRouter/router/c_regfile.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_regfile.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -540,19 +526,26 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_regfile
 
-} {} {}} D:/Workspace/NoCRouter/router/c_scatter.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_scatter.v
+} {} {}} D:/Workspace/NoCRouter/router/c_encode.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_encode.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_scatter
+-- Compiling module c_encode
 
 Top level modules:
-	c_scatter
+	c_encode
 
-} {} {}} D:/Workspace/NoCRouter/router/c_lfsr.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_lfsr.v
+} {} {}} D:/Workspace/NoCRouter/router/c_damq_tracker.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_damq_tracker.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_lfsr
+-- Compiling module c_damq_tracker
 
 Top level modules:
-	c_lfsr
+	c_damq_tracker
+
+} {} {}} D:/Workspace/NoCRouter/router/rtr_fc_state.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_fc_state.v}
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module rtr_fc_state
+
+Top level modules:
+	rtr_fc_state
 
 } {} {}} D:/Workspace/NoCRouter/router/c_lod.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_lod.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -561,12 +554,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_lod
 
-} {} {}} D:/Workspace/NoCRouter/router/router_wrap.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\router_wrap.v}
+} {} {}} D:/Workspace/NoCRouter/router/c_lfsr.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_lfsr.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module router_wrap
+-- Compiling module c_lfsr
 
 Top level modules:
-	router_wrap
+	c_lfsr
 
 } {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_loop.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_wf_alloc_loop.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -575,19 +568,19 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_wf_alloc_loop
 
+} {} {}} D:/Workspace/NoCRouter/router/router_wrap.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\router_wrap.v}
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module router_wrap
+
+Top level modules:
+	router_wrap
+
 } {} {}} D:/Workspace/NoCRouter/router/whr_top.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\whr_top.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 -- Compiling module whr_top
 
 Top level modules:
 	whr_top
-
-} {} {}} D:/Workspace/NoCRouter/router/rtr_routing_logic.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_routing_logic.v}
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module rtr_routing_logic
-
-Top level modules:
-	rtr_routing_logic
 
 } {} {}} D:/Workspace/NoCRouter/router/rtr_ip_ctrl_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_ip_ctrl_mac.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -596,19 +589,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	rtr_ip_ctrl_mac
 
-} {} {}} D:/Workspace/NoCRouter/router/vcr_op_ctrl_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_op_ctrl_mac.v}
+} {} {}} D:/Workspace/NoCRouter/router/rtr_routing_logic.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\rtr_routing_logic.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module vcr_op_ctrl_mac
+-- Compiling module rtr_routing_logic
 
 Top level modules:
-	vcr_op_ctrl_mac
-
-} {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_rot.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_wf_alloc_rot.v}
-Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_wf_alloc_rot
-
-Top level modules:
-	c_wf_alloc_rot
+	rtr_routing_logic
 
 } {} {}} D:/Workspace/NoCRouter/router/c_shift_reg.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_shift_reg.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -617,6 +603,20 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_shift_reg
 
+} {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_rot.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\c_wf_alloc_rot.v}
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module c_wf_alloc_rot
+
+Top level modules:
+	c_wf_alloc_rot
+
+} {} {}} D:/Workspace/NoCRouter/router/vcr_op_ctrl_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\vcr_op_ctrl_mac.v}
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module vcr_op_ctrl_mac
+
+Top level modules:
+	vcr_op_ctrl_mac
+
 } {} {}} D:/Workspace/NoCRouter/router/c_wf_alloc_rep.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_wf_alloc_rep.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 -- Compiling module c_wf_alloc_rep
@@ -624,12 +624,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	c_wf_alloc_rep
 
-} {} {}} D:/Workspace/NoCRouter/router/tc_router_wrap.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\tc_router_wrap.v}
+} {} {}} D:/Workspace/NoCRouter/router/c_decr.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_decr.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module tc_router_wrap
+-- Compiling module c_decr
 
 Top level modules:
-	tc_router_wrap
+	c_decr
 
 } {} {}} D:/Workspace/NoCRouter/router/tc_node_ctrl_mac.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\tc_node_ctrl_mac.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
@@ -638,11 +638,11 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	tc_node_ctrl_mac
 
-} {} {}} D:/Workspace/NoCRouter/router/c_decr.v {1 {vlog -work work -vopt D:/Workspace/NoCRouter/router/c_decr.v
+} {} {}} D:/Workspace/NoCRouter/router/tc_router_wrap.v {1 {vlog -work work -vopt {D:\Workspace\NoCRouter\router\tc_router_wrap.v}
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module c_decr
+-- Compiling module tc_router_wrap
 
 Top level modules:
-	c_decr
+	tc_router_wrap
 
 } {} {}}
