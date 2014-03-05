@@ -3,7 +3,10 @@ router/work/
 
 #modelsim
 *.mpf
-*.mti
+*.cr.mti
+
+#backup
+*.bak
 
 # Object files
 *.o
