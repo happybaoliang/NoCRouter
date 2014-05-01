@@ -1,0 +1,15 @@
+K 13
+svn:externals
+V 62
+clib	https://nocs.stanford.edu/cgi-bin/svn.cgi/clib/trunk/src
+
+K 10
+svn:ignore
+V 29
+._*
+.Apple*
+.DS_Store
+*~
+#*#
+
+END

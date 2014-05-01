@@ -1,0 +1,18 @@
+K 10
+svn:ignore
+V 29
+._*
+.Apple*
+.DS_Store
+*~
+#*#
+
+K 13
+svn:mergeinfo
+V 185
+/router/branches/dual_path:2479-3203
+/router/branches/new_spec:2624-3239
+/router/branches/tickets/1:1762-2095
+/router/branches/tickets/45:1467-1509
+/router/branches/wh_precomp:2609-2614
+END
