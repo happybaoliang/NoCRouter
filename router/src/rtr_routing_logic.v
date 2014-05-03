@@ -152,10 +152,8 @@ module rtr_routing_logic
 	  begin
 	     
 	     // all router addresses (intermediate + final)
-	     wire [0:num_resource_classes*
-		   router_addr_width-1] dest_router_addr_irc;
-	     assign dest_router_addr_irc
-	       = dest_info[0:num_resource_classes*router_addr_width-1];
+	     wire [0:num_resource_classes*router_addr_width-1] dest_router_addr_irc;
+	     assign dest_router_addr_irc = dest_info[0:num_resource_classes*router_addr_width-1];
 	     
 	     wire [0:num_resource_classes-1] reached_dest_irc;
 	     
@@ -166,9 +164,7 @@ module rtr_routing_logic
 		  
 		  // address of destination router for current resource class
 		  wire [0:router_addr_width-1] dest_router_addr;
-		  assign dest_router_addr
-		    = dest_router_addr_irc[irc*router_addr_width:
-					   (irc+1)*router_addr_width-1];
+		  assign dest_router_addr = dest_router_addr_irc[irc*router_addr_width:(irc+1)*router_addr_width-1];
 		  
 		  wire [0:num_network_ports-1] route_onp;
 		  

@@ -88,9 +88,7 @@ module whr_ip_ctrl_mac
    parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? 1 :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? 1 : -1;
    
    // select whether to exclude full or non-empty VCs from VC allocation
    parameter elig_mask = `ELIG_MASK_NONE;
@@ -311,8 +309,7 @@ module whr_ip_ctrl_mac
    assign lar_info_in = route_info_in[0:lar_info_width-1];
    
    wire [0:dest_info_width-1] 	  dest_info_in;
-   assign dest_info_in = route_info_in[lar_info_width:
-				       lar_info_width+dest_info_width-1];
+   assign dest_info_in = route_info_in[lar_info_width: lar_info_width+dest_info_width-1];
    
    
    //---------------------------------------------------------------------------

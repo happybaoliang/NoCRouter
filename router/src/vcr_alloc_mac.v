@@ -170,6 +170,7 @@ module vcr_alloc_mac
    assign vc_req_ip_ivc = flit_valid_ip_ivc & ~allocated_ip_ivc;
    
    wire [0:num_ports-1] 			      vc_active_ip;
+   
    c_reduce_bits
      #(.num_ports(num_ports),
        .width(num_vcs),
@@ -240,8 +241,7 @@ module vcr_alloc_mac
 	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
 	   
 	end
-      else if((vc_allocator_type >= `VC_ALLOC_TYPE_WF_BASE) &&
-	      (vc_allocator_type <= `VC_ALLOC_TYPE_WF_LIMIT))
+      else if((vc_allocator_type >= `VC_ALLOC_TYPE_WF_BASE) && (vc_allocator_type <= `VC_ALLOC_TYPE_WF_LIMIT))
 	begin
 	   
 	   wire vc_active;

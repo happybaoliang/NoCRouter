@@ -203,8 +203,7 @@ module rtr_next_hop_addr
 				// worry about the cases where an underflow or 
 				// overflow occurs.
 				
-				assign next_dim_addr
-				  = curr_dim_addr + dim_addr_delta;
+				assign next_dim_addr = curr_dim_addr + dim_addr_delta;
 				
 			     end
 			   
@@ -229,10 +228,7 @@ module rtr_next_hop_addr
 				  (.data_in(curr_dim_addr),
 				   .data_out(dim_addr_minus1));
 				
-				assign next_dim_addr
-				  = route_down ? dim_addr_minus1 :
-				    route_up ? dim_addr_plus1 : 
-				    curr_dim_addr;
+				assign next_dim_addr  = route_down ? dim_addr_minus1 : route_up ? dim_addr_plus1 : curr_dim_addr;
 				
 			     end
 			   
@@ -244,9 +240,7 @@ module rtr_next_hop_addr
 		      begin
 			 
 			 wire route_dim;
-			 assign route_dim
-			   = (route_port >= dim*num_neighbors_per_dim) &&
-			     (route_port < (dim+1)*num_neighbors_per_dim);
+			 assign route_dim = (route_port >= dim*num_neighbors_per_dim) && (route_port < (dim+1)*num_neighbors_per_dim);
 			 
 			 // In a topology with fully connected dimensions,
 			 // every hop sets the corresponding part of the 
@@ -254,51 +248,15 @@ module rtr_next_hop_addr
 			 // destination address.
 			 
 			 wire [0:dim_addr_width-1] dest_dim_addr;
-			 assign dest_dim_addr
-			   = dest_addr[dim*dim_addr_width:
-				       (dim+1)*dim_addr_width-1];
+			 assign dest_dim_addr = dest_addr[dim*dim_addr_width:(dim+1)*dim_addr_width-1];
 			 
-			 assign next_dim_addr
-			   = route_dim ? dest_dim_addr : curr_dim_addr;
+			 assign next_dim_addr = route_dim ? dest_dim_addr : curr_dim_addr;
 
-			 // Alternatively, the destination address can be
-			 // computed as follows:
-			 /*
-			 wire [0:port_idx_width-1] port_offset;
-			 assign port_offset
-			   = route_port - dim*num_neighbors_per_dim;
-			 
-			 wire [0:dim_addr_width-1] dim_addr_offset;
-			 assign dim_addr_offset
-			   = port_offset[port_idx_width-dim_addr_width:
-					 port_idx_width-1];
-			 
-			 wire [0:dim_addr_width-1] dim_addr_thresh;
-			 assign dim_addr_thresh
-			   = num_routers_per_dim - curr_dim_addr;
-			 
-			 wire 			   wrap;
-			 assign wrap = (dim_addr_offset >= dim_addr_thresh);
-			 
-			 wire [0:dim_addr_width-1] next_dim_addr_nowrap;
-			 assign next_dim_addr_nowrap
-			   = curr_dim_addr + dim_addr_offset;
-			 
-			 wire [0:dim_addr_width-1] next_dim_addr_wrap;
-			 assign next_dim_addr_wrap
-			   = dim_addr_offset - dim_addr_thresh;
-			 
-			 assign next_dim_addr
-			   = wrap ? next_dim_addr_wrap : next_dim_addr_nowrap;
-			 */
-			 
 		      end
 		    
 		  endcase
 		  
-		  assign next_router_address[dim*dim_addr_width:
-					     (dim+1)*dim_addr_width-1]
-		    = next_dim_addr;
+		  assign next_router_address[dim*dim_addr_width:(dim+1)*dim_addr_width-1] = next_dim_addr;
 		  
 	       end
 	     

@@ -118,8 +118,7 @@ module vcr_sw_alloc_sep_if
 	   assign active = active_ip[ip];
 	   
 	   wire [0:num_vcs*num_ports-1] route_ivc_op;
-	   assign route_ivc_op
-	     = route_ip_ivc_op[ip*num_vcs*num_ports:(ip+1)*num_vcs*num_ports-1];
+	   assign route_ivc_op = route_ip_ivc_op[ip*num_vcs*num_ports:(ip+1)*num_vcs*num_ports-1];
 	   
 	   
 	   //-------------------------------------------------------------------

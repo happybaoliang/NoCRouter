@@ -37,7 +37,6 @@ module rtr_flit_buffer
 `include "c_functions.v"
 `include "c_constants.v"
    
-   
    //---------------------------------------------------------------------------
    // parameters
    //---------------------------------------------------------------------------
@@ -154,20 +153,16 @@ module rtr_flit_buffer
    // internal error conditions detected
    output [0:num_vcs*2-1] 	  errors_ivc;
    wire [0:num_vcs*2-1] 	  errors_ivc;
-   
    wire [0:addr_width-1] 	  push_addr;
    wire [0:num_vcs*addr_width-1]  pop_addr_ivc;
    wire [0:num_vcs*addr_width-1]  pop_next_addr_ivc;
    
    generate
-      
       //------------------------------------------------------------------------
       // tail flit tracking (atomic)
       //------------------------------------------------------------------------
-      
       if(atomic_vc_allocation)
 	begin
-	   
 	   wire [0:num_vcs-1] has_tail_ivc_s, has_tail_ivc_q;
 	   assign has_tail_ivc_s
 	     = push_valid ?
@@ -184,27 +179,19 @@ module rtr_flit_buffer
 	      .active(push_active),
 	      .d(has_tail_ivc_s),
 	      .q(has_tail_ivc_q));
-	   
 	   assign pop_tail_ivc = almost_empty_ivc & has_tail_ivc_q;
-	   
 	end
       
       case(mgmt_type)
-
 	`FB_MGMT_TYPE_STATIC:
 	  begin
-	     
 	     //-----------------------------------------------------------------
 	     // tail flit tracking (non-atomic)
 	     //-----------------------------------------------------------------
-	     
 	     wire [0:num_vcs*addr_width-1] push_addr_ivc;
-	     
 	     if(!atomic_vc_allocation)
 	       begin
-		  
 		  genvar ivc;
-		  
 		  for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
 		    begin:ivcs
 		       
@@ -290,12 +277,8 @@ module rtr_flit_buffer
 			  .data_out(pop_tail));
 		       
 		       assign pop_tail_ivc[ivc] = pop_tail;
-		       
 		    end
-		  
 	       end
-	     
-	     
 	     //-----------------------------------------------------------------
 	     // buffer control
 	     //-----------------------------------------------------------------

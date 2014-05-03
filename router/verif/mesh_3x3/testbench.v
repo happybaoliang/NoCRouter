@@ -4,6 +4,7 @@
  Copyright (c) 2007-2012, Trustees of The Leland Stanford Junior University
  All rights reserved.
 
+ Copyright (c) 2007-2012, Trustees of The Leland Stanford Junior University
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
 
@@ -65,7 +66,6 @@ module testbench
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
-   
    
    // width required to select individual resource class
    localparam resource_class_idx_width = clogb(num_resource_classes);
