@@ -73,8 +73,7 @@ module rtr_alloc_mac
    parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
    
    // filter out illegal destination ports
-   // (the intent is to allow synthesis to optimize away the logic associated 
-   // with such turns)
+   // (the intent is to allow synthesis to optimize away the logic associated with such turns)
    parameter restrict_turns = 1;
    
    // select routing function type
@@ -700,9 +699,9 @@ module rtr_alloc_mac
 	   // input VCs
 	   //-------------------------------------------------------------------
 	   
-	   wire [0:num_vcs-1] ial_flit_sel_ivc;
+	   wire [0:num_vcs-1] 			   ial_flit_sel_ivc;
 	   
-	   wire [0:num_vcs*num_ports-1] rf_route_ivc_op;
+	   wire [0:num_vcs*num_ports-1] 	   rf_route_ivc_op;
 	   wire [0:num_vcs*num_resource_classes-1] rf_route_ivc_orc;
 	   
 	   wire [0:num_vcs-1] 			   ivs_allocated_ivc;
@@ -720,16 +719,10 @@ module rtr_alloc_mac
 		//--------------------------------------------------------------
 		
 		wire [0:num_ports-1] route_in_op;
-		assign route_in_op
-		  = route_in_ip_ivc_op[(ip*num_vcs+ivc)*num_ports:
-				       (ip*num_vcs+ivc+1)*num_ports-1];
+		assign route_in_op = route_in_ip_ivc_op[(ip*num_vcs+ivc)*num_ports:(ip*num_vcs+ivc+1)*num_ports-1];
 		
 		wire [0:num_resource_classes-1] route_in_orc;
-		assign route_in_orc
-		  = route_in_ip_ivc_orc[(ip*num_vcs+ivc)*
-					num_resource_classes:
-					(ip*num_vcs+ivc+1)*
-					num_resource_classes-1];
+		assign route_in_orc  = route_in_ip_ivc_orc[(ip*num_vcs+ivc)*num_resource_classes:(ip*num_vcs+ivc+1)*num_resource_classes-1];
 		
 		wire 				flit_valid_in;
 		assign flit_valid_in = flit_valid_in_ivc[ivc];
@@ -752,13 +745,10 @@ module rtr_alloc_mac
 		//--------------------------------------------------------------
 		
 		wire [0:num_ports-1] 		rf_route_op;
-		assign rf_route_ivc_op[ivc*num_ports:(ivc+1)*num_ports-1]
-		  = rf_route_op;
+		assign rf_route_ivc_op[ivc*num_ports:(ivc+1)*num_ports-1] = rf_route_op;
 		
 		wire [0:num_resource_classes-1] rf_route_orc;
-		assign rf_route_ivc_orc[ivc*num_resource_classes:
-					(ivc+1)*num_resource_classes-1]
-		  = rf_route_orc;
+		assign rf_route_ivc_orc[ivc*num_resource_classes:(ivc+1)*num_resource_classes-1] = rf_route_orc;
 		
 		wire 				ivs_allocated;
 		assign ivs_allocated_ivc[ivc] = ivs_allocated;

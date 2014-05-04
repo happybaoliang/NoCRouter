@@ -1,5 +1,5 @@
 psSimBaseName                      	simv
-pDaiDir                            	/home/happy/NoCRouter/router/verif/router/simv.daidir
+pDaiDir                            	/home/happy/NoCRouter/vc_sharing_router/verif/router/simv.daidir
 destPath                           	csrc/
 hsMainFileCount                    	0
 hsMainFileName                     	dummy
