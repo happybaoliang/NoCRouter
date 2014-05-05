@@ -35,7 +35,7 @@ module rtr_route_filter
    errors);
    
 `include "c_constants.v"
-`include "rtr_constants.v"
+`include "vcr_constants.v"
    
    
    //---------------------------------------------------------------------------

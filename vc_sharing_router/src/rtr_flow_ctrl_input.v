@@ -35,7 +35,7 @@ module rtr_flow_ctrl_input
    
 `include "c_functions.v"
 `include "c_constants.v"
-`include "rtr_constants.v"
+`include "vcr_constants.v"
    
    
    //---------------------------------------------------------------------------

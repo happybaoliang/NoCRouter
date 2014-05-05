@@ -37,7 +37,6 @@ module vcr_ip_ctrl_mac
    
 `include "c_functions.v"
 `include "c_constants.v"
-`include "rtr_constants.v"
 `include "vcr_constants.v"
    
    // total buffer size per port in flits

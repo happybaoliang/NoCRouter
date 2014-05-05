@@ -189,9 +189,6 @@ module vcr_alloc_mac
    
    generate
       
-      if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_IF)
-	begin
-	   
 	   vcr_vc_alloc_sep_if
 	     #(.num_message_classes(num_message_classes),
 	       .num_resource_classes(num_resource_classes),
@@ -214,62 +211,6 @@ module vcr_alloc_mac
 	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
 	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
 	   
-	end
-      else if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_OF)
-	begin
-	   
-	   vcr_vc_alloc_sep_of
-	     #(.num_message_classes(num_message_classes),
-	       .num_resource_classes(num_resource_classes),
-	       .num_vcs_per_class(num_vcs_per_class),
-	       .num_ports(num_ports),
-	       .arbiter_type(vc_arbiter_type),
-	       .reset_type(reset_type))
-	   vc_core_sep_of
-	     (.clk(clk),
-	      .reset(reset),
-	      .active_ip(vc_active_ip),
-	      .active_op(vc_active_op),
-	      .route_ip_ivc_op(route_ip_ivc_op),
-	      .route_ip_ivc_orc(route_ip_ivc_orc),
-	      .elig_op_ovc(elig_op_ovc),
-	      .req_ip_ivc(vc_req_ip_ivc),
-	      .gnt_ip_ivc(vc_gnt_ip_ivc),
-	      .sel_ip_ivc_ovc(vc_sel_ip_ivc_ovc),
-	      .gnt_op_ovc(vc_gnt_op_ovc),
-	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
-	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
-	   
-	end
-      else if((vc_allocator_type >= `VC_ALLOC_TYPE_WF_BASE) && (vc_allocator_type <= `VC_ALLOC_TYPE_WF_LIMIT))
-	begin
-	   
-	   wire vc_active;
-	   assign vc_active = |vc_active_ip;
-	   
-	   vcr_vc_alloc_wf
-	     #(.num_message_classes(num_message_classes),
-	       .num_resource_classes(num_resource_classes),
-	       .num_vcs_per_class(num_vcs_per_class),
-	       .num_ports(num_ports),
-	       .wf_alloc_type(vc_allocator_type - `VC_ALLOC_TYPE_WF_BASE),
-	       .reset_type(reset_type))
-	   vc_core_wf
-	     (.clk(clk),
-	      .reset(reset),
-	      .active(vc_active),
-	      .route_ip_ivc_op(route_ip_ivc_op),
-	      .route_ip_ivc_orc(route_ip_ivc_orc),
-	      .elig_op_ovc(elig_op_ovc),
-	      .req_ip_ivc(vc_req_ip_ivc),
-	      .gnt_ip_ivc(vc_gnt_ip_ivc),
-	      .sel_ip_ivc_ovc(vc_sel_ip_ivc_ovc),
-	      .gnt_op_ovc(vc_gnt_op_ovc),
-	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
-	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
-	   
-	end
-      
    endgenerate
    
    wire [0:num_ports*num_vcs-1] sw_req_nonspec_ip_ivc;
@@ -297,10 +238,6 @@ module vcr_alloc_mac
       .data_out(sw_active_op));
    
    generate
-      
-      if(sw_allocator_type == `SW_ALLOC_TYPE_SEP_IF)
-	begin
-	   
 	   vcr_sw_alloc_sep_if
 	     #(.num_vcs(num_vcs),
 	       .num_ports(num_ports),
@@ -321,57 +258,6 @@ module vcr_alloc_mac
 	      .sel_op_ip(sw_sel_op_ip),
 	      .sel_op_ivc(sw_sel_op_ivc));
 	   
-	end
-      else if(sw_allocator_type == `SW_ALLOC_TYPE_SEP_OF)
-	begin
-	   
-	   vcr_sw_alloc_sep_of
-	     #(.num_vcs(num_vcs),
-	       .num_ports(num_ports),
-	       .arbiter_type(sw_arbiter_type),
-	       .spec_type(spec_type),
-	       .reset_type(reset_type))
-	   sw_core_sep_of
-	     (.clk(clk),
-	      .reset(reset),
-	      .active_ip(sw_active_ip),
-	      .active_op(sw_active_op),
-	      .route_ip_ivc_op(route_ip_ivc_op),
-	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc),
-	      .req_spec_ip_ivc(sw_req_spec_ip_ivc),
-	      .sel_ip_ivc(sw_sel_ip_ivc),
-	      .gnt_ip(sw_gnt_ip),
-	      .gnt_op(sw_gnt_op),
-	      .sel_op_ip(sw_sel_op_ip),
-	      .sel_op_ivc(sw_sel_op_ivc));
-	   
-	end
-      else if((sw_allocator_type >= `SW_ALLOC_TYPE_WF_BASE) &&
-	      (sw_allocator_type <= `SW_ALLOC_TYPE_WF_LIMIT))
-	begin
-	   
-	   vcr_sw_alloc_wf
-	     #(.num_vcs(num_vcs),
-	       .num_ports(num_ports),
-	       .wf_alloc_type(sw_allocator_type - `SW_ALLOC_TYPE_WF_BASE),
-	       .arbiter_type(sw_arbiter_type),
-	       .spec_type(spec_type),
-	       .reset_type(reset_type))
-	   sw_core_wf
-	     (.clk(clk),
-	      .reset(reset),
-	      .active_ip(sw_active_ip),
-	      .route_ip_ivc_op(route_ip_ivc_op),
-	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc),
-	      .req_spec_ip_ivc(sw_req_spec_ip_ivc),
-	      .sel_ip_ivc(sw_sel_ip_ivc),
-	      .gnt_ip(sw_gnt_ip),
-	      .gnt_op(sw_gnt_op),
-	      .sel_op_ip(sw_sel_op_ip),
-	      .sel_op_ivc(sw_sel_op_ivc));
-	   
-	end
-      
    endgenerate
    
    wire [0:num_ports-1] flit_head_ip;

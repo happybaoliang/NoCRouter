@@ -34,7 +34,6 @@ module packet_source
    
 `include "c_functions.v"
 `include "c_constants.v"
-`include "rtr_constants.v"
 `include "vcr_constants.v"
    
    parameter initial_seed = 0;

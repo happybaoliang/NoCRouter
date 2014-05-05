@@ -29,6 +29,135 @@
 // VC router related constant definitions
 //==============================================================================
 
+//------------------------------------------------------------------------------
+// network topologies
+//------------------------------------------------------------------------------
+
+// mesh
+`define TOPOLOGY_MESH  0
+
+// torus
+`define TOPOLOGY_TORUS 1
+
+// flattened butterfly
+`define TOPOLOGY_FBFLY 2
+
+`define TOPOLOGY_LAST  `TOPOLOGY_FBFLY
+
+
+//------------------------------------------------------------------------------
+// what does connectivity look like within a dimension?
+//------------------------------------------------------------------------------
+
+// nodes are connected to their neighbors with no wraparound (e.g. mesh)
+`define CONNECTIVITY_LINE 0
+
+// nodes are connected to their neighbors with wraparound (e.g. torus)
+`define CONNECTIVITY_RING 1
+
+// nodes are fully connected (e.g. flattened butterfly)
+`define CONNECTIVITY_FULL 2
+
+`define CONNECTIVITY_LAST `CONNECTIVITY_FULL
+
+
+//------------------------------------------------------------------------------
+// router implementations
+//------------------------------------------------------------------------------
+
+// wormhole router
+`define ROUTER_TYPE_WORMHOLE 0
+
+// virtual channel router
+`define ROUTER_TYPE_VC       1
+
+// router with combined VC and switch allocation
+`define ROUTER_TYPE_COMBINED 2
+
+`define ROUTER_TYPE_LAST `ROUTER_TYPE_COMBINED
+
+
+//------------------------------------------------------------------------------
+// routing function types
+//------------------------------------------------------------------------------
+
+// dimension-order routing (using multiple phases if num_resource_classes > 1)
+`define ROUTING_TYPE_PHASED_DOR 0
+
+`define ROUTING_TYPE_LAST `ROUTING_TYPE_PHASED_DOR
+
+
+//------------------------------------------------------------------------------
+// dimension order
+//------------------------------------------------------------------------------
+
+// traverse dimensions in ascending order
+`define DIM_ORDER_ASCENDING  0
+
+// traverse dimensions in descending order
+`define DIM_ORDER_DESCENDING 1
+
+// order of dimension traversal depends on message class
+`define DIM_ORDER_BY_CLASS   2
+
+`define DIM_ORDER_LAST `DIM_ORDER_BY_CLASS
+
+
+//------------------------------------------------------------------------------
+// packet formats
+//------------------------------------------------------------------------------
+
+// packets are delimited by head and tail bits
+`define PACKET_FORMAT_HEAD_TAIL       0
+
+// the last flit in each packet is marked by having its tail bit set; head bits 
+// are inferred by checking if the preceding flit was a tail flit
+`define PACKET_FORMAT_TAIL_ONLY       1
+
+// head flits are identified by header bit, and contain encoded packet length
+`define PACKET_FORMAT_EXPLICIT_LENGTH 2
+
+`define PACKET_FORMAT_LAST `PACKET_FORMAT_EXPLICIT_LENGTH
+
+
+//------------------------------------------------------------------------------
+// flow control types
+//------------------------------------------------------------------------------
+
+// credit-based flow control
+`define FLOW_CTRL_TYPE_CREDIT 0
+
+`define FLOW_CTRL_TYPE_LAST `FLOW_CTRL_TYPE_CREDIT
+
+
+//------------------------------------------------------------------------------
+// VC allocation masking
+//------------------------------------------------------------------------------
+
+// no masking
+`define ELIG_MASK_NONE 0
+
+// mask VCs that have no buffer space available
+`define ELIG_MASK_FULL 1
+
+// mask VCs that are not completely empty
+`define ELIG_MASK_USED 2
+
+`define ELIG_MASK_LAST `ELIG_MASK_USED
+
+
+//------------------------------------------------------------------------------
+// flit buffer management schemes
+//------------------------------------------------------------------------------
+
+// statically partitioned
+`define FB_MGMT_TYPE_STATIC  0
+
+// dynamically managed
+`define FB_MGMT_TYPE_DYNAMIC 1
+
+`define FB_MGMT_TYPE_LAST    `FB_MGMT_TYPE_DYNAMIC
+
 
 //------------------------------------------------------------------------------
 // VC allocator implementation variants

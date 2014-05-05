@@ -36,7 +36,6 @@ module router_wrap
    
 `include "c_functions.v"   
 `include "c_constants.v"
-`include "rtr_constants.v"
 `include "vcr_constants.v"
 `include "parameters.v"
    
@@ -132,57 +131,9 @@ module router_wrap
    // internal error condition detected
    output 				  error;
    wire 				  error;
-   
-   generate
-      
-      case(router_type)
-	
-	`ROUTER_TYPE_WORMHOLE:
-	  begin
-	     
-	     whr_top
-	       #(.buffer_size(buffer_size),
-		 .num_routers_per_dim(num_routers_per_dim),
-		 .num_dimensions(num_dimensions),
-		 .num_nodes_per_router(num_nodes_per_router),
-		 .connectivity(connectivity),
-		 .packet_format(packet_format),
-		 .flow_ctrl_type(flow_ctrl_type),
-		 .flow_ctrl_bypass(flow_ctrl_bypass),
-		 .max_payload_length(max_payload_length),
-		 .min_payload_length(min_payload_length),
-		 .enable_link_pm(enable_link_pm),
-		 .flit_data_width(flit_data_width),
-		 .error_capture_mode(error_capture_mode),
-		 .restrict_turns(restrict_turns),
-		 .routing_type(routing_type),
-		 .dim_order(dim_order),
-		 .input_stage_can_hold(input_stage_can_hold),
-		 .fb_regfile_type(fb_regfile_type),
-		 .fb_fast_peek(fb_fast_peek),
-		 .explicit_pipeline_register(explicit_pipeline_register),
-		 .gate_buffer_write(gate_buffer_write),
-		 .precomp_ip_sel(precomp_ip_sel),
-		 .arbiter_type(sw_alloc_arbiter_type),
-		 .crossbar_type(crossbar_type),
-		 .reset_type(reset_type))
-	     whr
-	       (.clk(clk),
-		.reset(reset),
-		.router_address(router_address),
-		.channel_in_ip(channel_in_ip),
-		.flow_ctrl_out_ip(flow_ctrl_out_ip),
-		.channel_out_op(channel_out_op),
-		.flow_ctrl_in_op(flow_ctrl_in_op),
-		.error(error));
-	     
-	  end
-	
-	`ROUTER_TYPE_VC:
-	  begin
-	     
-	     vcr_top
-	       #(.buffer_size(buffer_size),
+     
+      vcr_top
+	#(.buffer_size(buffer_size),
 		 .num_message_classes(num_message_classes),
 		 .num_resource_classes(num_resource_classes),
 		 .num_vcs_per_class(num_vcs_per_class),
@@ -224,64 +175,5 @@ module router_wrap
 		.channel_out_op(channel_out_op),
 		.flow_ctrl_in_op(flow_ctrl_in_op),
 		.error(error));
-	     
-	  end
-	
-	`ROUTER_TYPE_COMBINED:
-	  begin
-	     
-	     rtr_top
-	       #(.buffer_size(buffer_size),
-		 .num_message_classes(num_message_classes),
-		 .num_resource_classes(num_resource_classes),
-		 .num_vcs_per_class(num_vcs_per_class),
-		 .num_routers_per_dim(num_routers_per_dim),
-		 .num_dimensions(num_dimensions),
-		 .num_nodes_per_router(num_nodes_per_router),
-		 .connectivity(connectivity),
-		 .packet_format(packet_format),
-		 .flow_ctrl_type(flow_ctrl_type),
-		 .flow_ctrl_bypass(flow_ctrl_bypass),
-		 .max_payload_length(max_payload_length),
-		 .min_payload_length(min_payload_length),
-		 .enable_link_pm(enable_link_pm),
-		 .flit_data_width(flit_data_width),
-		 .error_capture_mode(error_capture_mode),
-		 .restrict_turns(restrict_turns),
-		 .predecode_lar_info(predecode_lar_info),
-		 .routing_type(routing_type),
-		 .dim_order(dim_order),
-		 .fb_regfile_type(fb_regfile_type),
-		 .fb_mgmt_type(fb_mgmt_type),
-		 .fb_fast_peek(fb_fast_peek),
-		 .disable_static_reservations(disable_static_reservations),
-		 .explicit_pipeline_register(explicit_pipeline_register),
-		 .gate_buffer_write(gate_buffer_write),
-		 .dual_path_alloc(dual_path_alloc),
-		 .dual_path_allow_conflicts(dual_path_allow_conflicts),
-		 .dual_path_mask_on_ready(dual_path_mask_on_ready),
-		 .precomp_ivc_sel(precomp_ivc_sel),
-		 .precomp_ip_sel(precomp_ip_sel),
-		 .elig_mask(elig_mask),
-		 .sw_alloc_arbiter_type(sw_alloc_arbiter_type),
-		 .vc_alloc_arbiter_type(vc_alloc_arbiter_type),
-		 .vc_alloc_prefer_empty(vc_alloc_prefer_empty),
-		 .crossbar_type(crossbar_type),
-		 .reset_type(reset_type))
-	     rtr
-	       (.clk(clk),
-		.reset(reset),
-		.router_address(router_address),
-		.channel_in_ip(channel_in_ip),
-		.flow_ctrl_out_ip(flow_ctrl_out_ip),
-		.channel_out_op(channel_out_op),
-		.flow_ctrl_in_op(flow_ctrl_in_op),
-		.error(error));
-	     
-	  end
-	
-      endcase
-      
-   endgenerate
    
 endmodule
