@@ -187,9 +187,7 @@ module vcr_alloc_mac
       .data_in(route_ip_ivc_op),
       .data_out(vc_active_op));
    
-   generate
-      
-	   vcr_vc_alloc_sep_if
+   vcr_vc_alloc_sep_if
 	     #(.num_message_classes(num_message_classes),
 	       .num_resource_classes(num_resource_classes),
 	       .num_vcs_per_class(num_vcs_per_class),
@@ -210,8 +208,6 @@ module vcr_alloc_mac
 	      .gnt_op_ovc(vc_gnt_op_ovc),
 	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
 	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
-	   
-   endgenerate
    
    wire [0:num_ports*num_vcs-1] sw_req_nonspec_ip_ivc;
    assign sw_req_nonspec_ip_ivc
@@ -237,8 +233,8 @@ module vcr_alloc_mac
       .data_in(route_ip_ivc_op),
       .data_out(sw_active_op));
    
-   generate
-	   vcr_sw_alloc_sep_if
+
+   vcr_sw_alloc_sep_if
 	     #(.num_vcs(num_vcs),
 	       .num_ports(num_ports),
 	       .arbiter_type(sw_arbiter_type),
@@ -257,8 +253,6 @@ module vcr_alloc_mac
 	      .gnt_op(sw_gnt_op),
 	      .sel_op_ip(sw_sel_op_ip),
 	      .sel_op_ivc(sw_sel_op_ivc));
-	   
-   endgenerate
    
    wire [0:num_ports-1] flit_head_ip;
    wire [0:num_ports-1] flit_tail_ip;
