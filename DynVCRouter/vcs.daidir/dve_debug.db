@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<opml version="1.0">
+	<head>
+		<title>VCS dump file for DVE debugging</title>
+		<vcsVersion>D-2009.12</vcsVersion>
+		<dateCreated>Mon May 12 15:41:18 2014</dateCreated>
+	</head>
+	<body>
+		<!-- VCS compile options -->
+		<vcsCompileOptions text="/usr/synopsys/D-2009.12/linux/bin/vcs1 -Mcc=gcc -Mcplusplus=g++ -Masflags= -Mcfl= -pipe -O -I/usr/synopsys/D-2009.12/include  -Mldflags=-melf_i386  -Mout=vcs -Mamsrun= -Mvcsaceobjs= -Mcmodrun= -Mobjects= /usr/synopsys/D-2009.12/linux/lib/libvirsim.a /usr/synopsys/D-2009.12/linux/lib/librterrorinf.so /usr/synopsys/D-2009.12/linux/lib/libsnpsmalloc.so  -Msaverestoreobj=/usr/synopsys/D-2009.12/linux/lib/vcs_save_restore_new.o -Mcrtn= -Mcsrc= -Mupdate -Msyslibs=/usr/synopsys/D-2009.12/linux/lib/ctype-stubs_32.a -ldl -lm  -o vcs +lint=all,noVCDE +v2k +libext+.v -timescale=1ns/1ns -Xcbug=0x1 +cli+4 +vcsd +itf+/usr/synopsys/D-2009.12/linux/lib/vcsd.tab +vpi -debug=3 +memcbk +vpi -gen_obj testbench.v free_buffer_tracker.v "/>
+		<!-- File list for the whole design -->
+		<fileList>
+			<file fid="0" path="/home/happy/NoCRouter/DynVCRouter/testbench.v" />
+			<file fid="1" path="/home/happy/NoCRouter/DynVCRouter/c_functions.v" />
+			<file fid="2" path="/home/happy/NoCRouter/DynVCRouter/free_buffer_tracker.v" />
+		</fileList>
+		<!-- Include file list for the whole design -->
+		<includeFileList>
+			<incfile fid="0" lineno="7" includeID="1" />
+			<incfile fid="2" lineno="4" includeID="1" />
+		</includeFileList>
+		<!-- Encrypted codes list for the whole design -->
+		<encryptedCodesList>
+		</encryptedCodesList>
+		<!-- Inactive codes list for the whole design -->
+		<inactiveCodesList>
+		</inactiveCodesList>
+		<!-- Compile options UUM based -->
+		<langKeywords>
+			<v2kFiles fid="0-2" />
+		</langKeywords>
+		<!--  Case insensitive file list -->
+		<caseInsensitiveFiles fid="" />
+		<!-- Macro definition list for the whole design --> 
+		<macroDefinitionList>
+		</macroDefinitionList>
+		<!-- Macro value list for the whole design --> 
+		<macroValueList>
+		</macroValueList>
+	</body>
+</opml>

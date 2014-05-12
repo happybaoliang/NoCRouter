@@ -74,9 +74,7 @@ module vcr_op_ctrl_mac
    parameter flow_ctrl_bypass = 1;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width  = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // enable link power management
    parameter enable_link_pm = 1;
@@ -98,8 +96,7 @@ module vcr_op_ctrl_mac
    parameter flit_data_width = 64;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // configure error checking logic
    parameter error_capture_mode = `ERROR_CAPTURE_MODE_NO_HOLD;
@@ -117,8 +114,7 @@ module vcr_op_ctrl_mac
    parameter elig_mask = `ELIG_MASK_NONE;
    
    // generate almost_empty signal early on in clock cycle
-   localparam fast_almost_empty
-     = flow_ctrl_bypass && (elig_mask == `ELIG_MASK_USED);
+   localparam fast_almost_empty = flow_ctrl_bypass && (elig_mask == `ELIG_MASK_USED);
    
    // enable speculative switch allocation
    parameter sw_alloc_spec = 1;

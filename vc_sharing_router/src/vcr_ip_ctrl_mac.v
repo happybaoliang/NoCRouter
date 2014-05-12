@@ -97,8 +97,7 @@ module vcr_ip_ctrl_mac
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width required to select an individual port
    localparam port_idx_width = clogb(num_ports);
@@ -110,9 +109,7 @@ module vcr_ip_ctrl_mac
    parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // maximum payload length (in flits)
    // (note: only used if packet_format==`PACKET_FORMAT_EXPLICIT_LENGTH)
@@ -123,8 +120,7 @@ module vcr_ip_ctrl_mac
    parameter min_payload_length = 1;
    
    // number of bits required to represent all possible payload sizes
-   localparam payload_length_width
-     = clogb(max_payload_length-min_payload_length+1);
+   localparam payload_length_width = clogb(max_payload_length-min_payload_length+1);
 
    // enable link power management
    parameter enable_link_pm = 1;
@@ -146,8 +142,7 @@ module vcr_ip_ctrl_mac
    parameter flit_data_width = 64;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // filter out illegal destination ports
    // (the intent is to allow synthesis to optimize away the logic associated 
@@ -344,8 +339,7 @@ module vcr_ip_ctrl_mac
 	   wire [0:num_vcs-1] spec_mask_ivc;
 	   
 	   if(elig_mask == `ELIG_MASK_NONE)
-	     assign spec_mask_ivc
-	       = allocated_ivc | (vc_gnt_ivc & free_spec_ivc);
+	     assign spec_mask_ivc = allocated_ivc | (vc_gnt_ivc & free_spec_ivc);
 	   else
 	     assign spec_mask_ivc = allocated_ivc | vc_gnt_ivc;
 	   

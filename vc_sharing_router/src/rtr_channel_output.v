@@ -68,8 +68,7 @@ module rtr_channel_output
    localparam link_ctrl_width = enable_link_pm ? 1 : 0;
    
    // width of flit control signals
-   localparam flit_ctrl_width
-     = (packet_format == `PACKET_FORMAT_HEAD_TAIL) ? 
+   localparam flit_ctrl_width = (packet_format == `PACKET_FORMAT_HEAD_TAIL) ? 
        (1 + vc_idx_width + 1 + 1) : 
        (packet_format == `PACKET_FORMAT_TAIL_ONLY) ? 
        (1 + vc_idx_width + 1) : 
@@ -78,8 +77,7 @@ module rtr_channel_output
        -1;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    
    //---------------------------------------------------------------------------
@@ -124,12 +122,8 @@ module rtr_channel_output
    wire [0:flit_ctrl_width-1]  flit_ctrl_out;
    wire [0:flit_data_width-1]  flit_data_out;
    
-   assign channel_out[link_ctrl_width:
-		      link_ctrl_width+flit_ctrl_width-1]
-     = flit_ctrl_out;
-   assign channel_out[link_ctrl_width+flit_ctrl_width:
-		      link_ctrl_width+flit_ctrl_width+flit_data_width-1]
-     = flit_data_out;
+   assign channel_out[link_ctrl_width:link_ctrl_width+flit_ctrl_width-1] = flit_ctrl_out;
+   assign channel_out[link_ctrl_width+flit_ctrl_width:link_ctrl_width+flit_ctrl_width+flit_data_width-1] = flit_data_out;
    
    wire [0:flit_data_width-1]  flit_data_s, flit_data_q;
    assign flit_data_s = flit_data_in;

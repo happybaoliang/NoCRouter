@@ -14,7 +14,7 @@
 
 set DESIGN_NAME                   "router_wrap"  ;#  The name of the top-level design
 
-set DESIGN_REF_DATA_PATH          "/home/qtedq/router/trunk/src"  ;
+set DESIGN_REF_DATA_PATH          "/home/happy/NoCRouter/vc_sharing_router/src"  ;
                                        #  Absolute path prefix variable for library/design data.
                                        #  Use this variable to prefix the common absolute path to 
                                        #  the common variables defined below.
@@ -34,7 +34,7 @@ set HIERARCHICAL_CELLS             "" ;# List of hierarchical block cell instanc
 # For the following variables, use a blank space to separate multiple entries
 # Example: set TARGET_LIBRARY_FILES "lib1.db lib2.db lib3.db"
 
-set ADDITIONAL_SEARCH_PATH        "/home/qtedq/tsmc45/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tcbn45gsbwp_120a /home/qtedq/router/trunk/synopsys_reference_tsmc/rm_setup"  ;#  Additional search path to be added to the default search path
+set ADDITIONAL_SEARCH_PATH        "/home/qtedq/tsmc45/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tcbn45gsbwp_120a /home/happy/NoCRouter/synopsys_reference_tsmc/rm_setup"  ;#  Additional search path to be added to the default search path
 
 set TARGET_LIBRARY_FILES          "tcbn45gsbwpwc.db"  ;#  Target technology logical libraries
 set ADDITIONAL_LINK_LIB_FILES     ""  ;#  Extra link logical libraries not included in TARGET_LIBRARY_FILES

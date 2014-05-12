@@ -2,7 +2,7 @@ dc:
 	dc_shell-xg-t -topographical_mode -f rm_dc_scripts/dc.tcl |tee dc.log
 
 fm:
-	/cad/synopsys/fm/2010.03/bin/fm_shell -f rm_dc_scripts/fm.tcl |tee fm.log
+	/usr/synopsys/A-2008.03-SP3/bin/fm_shell -f rm_dc_scripts/fm.tcl |tee fm.log
 
 icc:
 	make -f rm_setup/Makefile_zrt ic

@@ -1,0 +1,37 @@
+
+                        DC Professional (TM)
+                           DC Expert (TM)
+                            DC Ultra (TM)
+                       FloorPlan Manager (TM)
+                          HDL Compiler (TM)
+                         VHDL Compiler (TM)
+                        Library Compiler (TM)
+                      DesignWare Developer (TM)
+                          DFT Compiler (TM)
+                            BSD Compiler
+                         Power Compiler (TM)
+
+             Version B-2008.09 for linux -- Aug 25, 2008
+              Copyright (c) 1988-2008 by Synopsys, Inc.
+                         ALL RIGHTS RESERVED
+
+This software and the associated documentation are confidential and 
+proprietary to Synopsys, Inc. Your use or disclosure of this software 
+is subject to the terms and conditions of a written license agreement 
+between you, or your company, and Synopsys, Inc.
+
+The above trademark notice does not imply that you are licensed to use 
+all of the listed products. You are licensed to use only those products 
+for which you have lawfully obtained a valid license key.
+
+Initializing...
+Starting shell in Topographical mode...
+Error: could not open script file "/home/happy/NoCRouter/sysnopsys_reference_tsmc/router/rm_dc_scripts/dc.tcl" (CMD-015)
+dc_shell-topo> guit[K_start
+dc_shell-topo> Information: Defining new variable 'ALL_OPS'. (CMD-041)
+dc_shell-topo> gui_start[K[K[K[K[K[K[K[K[Kquit
+
+Memory usage for this session 44 Mbytes.
+CPU usage for this session 2 seconds.
+
+Thank you...

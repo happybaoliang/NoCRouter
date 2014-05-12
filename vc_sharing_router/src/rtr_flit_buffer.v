@@ -164,12 +164,7 @@ module rtr_flit_buffer
       if(atomic_vc_allocation)
 	begin
 	   wire [0:num_vcs-1] has_tail_ivc_s, has_tail_ivc_q;
-	   assign has_tail_ivc_s
-	     = push_valid ?
-	       ((has_tail_ivc_q & 
-		 ~({num_vcs{push_head}} & push_sel_ivc)) | 
-		({num_vcs{push_tail}} & push_sel_ivc)) : 
-	       has_tail_ivc_q;
+	   assign has_tail_ivc_s = push_valid ? ((has_tail_ivc_q & ~({num_vcs{push_head}} & push_sel_ivc)) | ({num_vcs{push_tail}} & push_sel_ivc)) : has_tail_ivc_q;
 	   c_dff
 	     #(.width(num_vcs),
 	       .reset_type(reset_type))
@@ -212,8 +207,7 @@ module rtr_flit_buffer
 			 begin
 			    
 			    wire [0:vc_addr_width-1] push_vc_addr;
-			    assign push_vc_addr
-			      = push_addr[addr_pad_width:addr_width-1];
+			    assign push_vc_addr = push_addr[addr_pad_width:addr_width-1];
 			    
 			    c_decode
 			      #(.num_ports(buffer_size_per_vc),
@@ -226,11 +220,7 @@ module rtr_flit_buffer
 			 end
 		       
 		       wire [0:buffer_size_per_vc-1] tail_s, tail_q;
-		       assign tail_s
-			 = push_valid_sel ? 
-			   (({buffer_size_per_vc{push_tail}} & push_mask) | 
-			    (tail_q & ~push_mask)) :
-			   tail_q;
+		       assign tail_s = push_valid_sel ? (({buffer_size_per_vc{push_tail}} & push_mask) | (tail_q & ~push_mask)) : tail_q;
 		       c_dff
 			 #(.width(buffer_size_per_vc),
 			   .reset_type(reset_type))
@@ -242,8 +232,7 @@ module rtr_flit_buffer
 			  .q(tail_q));
 		       
 		       wire [0:addr_width-1] 	     pop_addr;
-		       assign pop_addr
-			 = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
+		       assign pop_addr = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
 		       
 		       wire [0:buffer_size_per_vc-1] pop_mask;
 		       
@@ -253,8 +242,7 @@ module rtr_flit_buffer
 			 begin
 			    
 			    wire [0:vc_addr_width-1] pop_vc_addr;
-			    assign pop_vc_addr
-			      = pop_addr[addr_pad_width:addr_width-1];
+			    assign pop_vc_addr = pop_addr[addr_pad_width:addr_width-1];
 			    
 			    c_decode
 			      #(.num_ports(buffer_size_per_vc),
@@ -336,10 +324,7 @@ module rtr_flit_buffer
 		     .data_out(push_mask));
 		  
 		  wire [0:buffer_size-1] tail_s, tail_q;
-		  assign tail_s = push_valid ? 
-				  (({buffer_size{push_tail}} & push_mask) | 
-				   (tail_q & ~push_mask)) :
-				  tail_q;
+		  assign tail_s = push_valid ? (({buffer_size{push_tail}} & push_mask) | (tail_q & ~push_mask)) : tail_q;
 		  c_dff
 		    #(.width(buffer_size),
 		      .reset_type(reset_type))
@@ -356,8 +341,7 @@ module rtr_flit_buffer
 		    begin:ivcs
 		       
 		       wire [0:addr_width-1] pop_addr;
-		       assign pop_addr
-			 = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
+		       assign pop_addr = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
 		       
 		       wire [0:buffer_size-1] pop_mask;
 		       c_decode
@@ -465,8 +449,7 @@ module rtr_flit_buffer
 	   assign read_addr = pop_addr;
 	   
 	   wire [0:flit_data_width-1] pop_data_s, pop_data_q;
-	   assign pop_data_s
-	     = pop_valid ? (empty ? write_data : read_data) : pop_data_q;
+	   assign pop_data_s = pop_valid ? (empty ? write_data : read_data) : pop_data_q;
 	   c_dff
 	     #(.width(flit_data_width),
 	       .reset_type(reset_type))

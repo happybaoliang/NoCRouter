@@ -59,9 +59,7 @@ module rtr_flow_ctrl_input
    localparam vc_idx_width = clogb(num_vcs);
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    
    //---------------------------------------------------------------------------

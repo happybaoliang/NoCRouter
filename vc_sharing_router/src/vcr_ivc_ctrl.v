@@ -56,8 +56,7 @@ module vcr_ivc_ctrl
    parameter num_vcs_per_class = 1;
    
    // number of VCs available for each message class
-   localparam num_vcs_per_message_class
-     = num_resource_classes * num_vcs_per_class;
+   localparam num_vcs_per_message_class = num_resource_classes * num_vcs_per_class;
    
    // number of VCs
    localparam num_vcs = num_packet_classes * num_vcs_per_class;
@@ -87,8 +86,7 @@ module vcr_ivc_ctrl
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width required to select an individual port
    localparam port_idx_width = clogb(num_ports);
@@ -105,8 +103,7 @@ module vcr_ivc_ctrl
    parameter min_payload_length = 1;
    
    // number of bits required to represent all possible payload sizes
-   localparam payload_length_width
-     = clogb(max_payload_length-min_payload_length+1);
+   localparam payload_length_width = clogb(max_payload_length-min_payload_length+1);
    
    // width of counter for remaining flits
    localparam flit_ctr_width = clogb(max_payload_length);
@@ -145,10 +142,7 @@ module vcr_ivc_ctrl
    parameter routing_type = `ROUTING_TYPE_PHASED_DOR;
    
    // total number of bits required for storing routing information
-   localparam dest_info_width
-     = (routing_type == `ROUTING_TYPE_PHASED_DOR) ? 
-       (num_resource_classes * router_addr_width + node_addr_width) : 
-       -1;
+   localparam dest_info_width = (routing_type == `ROUTING_TYPE_PHASED_DOR) ? (num_resource_classes * router_addr_width + node_addr_width) : -1;
    
    // total number of bits required for routing-related information
    localparam route_info_width = lar_info_width + dest_info_width;
@@ -185,12 +179,10 @@ module vcr_ivc_ctrl
    parameter vc_id = 0;
    
    // message class to which this VC belongs
-   localparam message_class
-     = (vc_id / num_vcs_per_message_class) % num_message_classes;
+   localparam message_class = (vc_id / num_vcs_per_message_class) % num_message_classes;
    
    // resource class to which this VC belongs
-   localparam resource_class
-     = (vc_id / num_vcs_per_class) % num_resource_classes;
+   localparam resource_class = (vc_id / num_vcs_per_class) % num_resource_classes;
    
    // ID of current input port
    parameter port_id = 0;
@@ -215,15 +207,13 @@ module vcr_ivc_ctrl
    // incoming flit is for current VC
    input 			 flit_sel_in;
    
-   // header info for incoming flit
-   // (NOTE: only valid if flit_head_in=1)
+   // header info for incoming flit (NOTE: only valid if flit_head_in=1)
    input [0:header_info_width-1] header_info_in;
    
    // tail indicator for frontmost flit in buffer (if any)
    input 			 fb_pop_tail;
    
-   // header info from next flit in buffer
-   // (NOTE: only valid if buffer contains at least two entries)
+   // header info from next flit in buffer (NOTE: only valid if buffer contains at least two entries)
    input [0:header_info_width-1] fb_pop_next_header_info;
    
    // which output VC have only a single credit left?
@@ -267,8 +257,7 @@ module vcr_ivc_ctrl
    output 			     flit_tail;
    wire 			     flit_tail;
    
-   // updated lookahead routing info
-   // (NOTE: only valid if the current flit is a head flit)
+   // updated lookahead routing info (NOTE: only valid if the current flit is a head flit)
    output [0:lar_info_width-1] 	     next_lar_info;
    wire [0:lar_info_width-1] 	     next_lar_info;
    
@@ -349,14 +338,11 @@ module vcr_ivc_ctrl
 	begin
 	   
 	   wire [0:num_vcs_per_message_class-1] vc_sel_orc_ocvc;
-	   assign vc_sel_orc_ocvc
-	     = vc_sel_ovc[message_class*num_vcs_per_message_class:
-	                  (message_class+1)*num_vcs_per_message_class-1];
+	   assign vc_sel_orc_ocvc = vc_sel_ovc[message_class*num_vcs_per_message_class:(message_class+1)*num_vcs_per_message_class-1];
 	   
 	   wire [0:num_vcs_per_message_class-1] vc_allocated_orc_ocvc_q;
 	   
-	   assign vc_allocated_next_orc_ocvc
-	     = allocated ? vc_allocated_orc_ocvc_q : vc_sel_orc_ocvc;
+	   assign vc_allocated_next_orc_ocvc = allocated ? vc_allocated_orc_ocvc_q : vc_sel_orc_ocvc;
 	   
 	   wire [0:num_vcs_per_message_class-1] vc_allocated_orc_ocvc_s;
 	   assign vc_allocated_orc_ocvc_s = vc_allocated_next_orc_ocvc;
@@ -425,8 +411,7 @@ module vcr_ivc_ctrl
       else
 	begin
 	   assign hdr_active = ~fb_empty | (flit_valid_in & flit_head_in);
-	   assign hdr_capture = (fb_empty & flit_valid_sel_head_in) | 
-				flit_sent_tail;
+	   assign hdr_capture = (fb_empty & flit_valid_sel_head_in) | flit_sent_tail;
 	end
    endgenerate
    
@@ -434,8 +419,7 @@ module vcr_ivc_ctrl
    assign two_plus_flits = ~fb_empty & ~fb_almost_empty;
    
    wire [0:route_info_width-1] fb_pop_next_route_info;
-   assign fb_pop_next_route_info
-     = fb_pop_next_header_info[0:route_info_width-1];
+   assign fb_pop_next_route_info = fb_pop_next_header_info[0:route_info_width-1];
    
    wire [0:lar_info_width-1]   lar_info_in;
    assign lar_info_in = route_info_in[0:lar_info_width-1];
@@ -448,13 +432,8 @@ module vcr_ivc_ctrl
 	begin
 	   
 	   wire [0:lar_info_width-1] fb_pop_next_lar_info;
-	   assign fb_pop_next_lar_info
-	     = fb_pop_next_route_info[0:lar_info_width-1];
-	   
-	   assign hdr_lar_info_s
-	     = hdr_capture ?
-	       (two_plus_flits ? fb_pop_next_lar_info : lar_info_in) :
-	       hdr_lar_info_q;
+	   assign fb_pop_next_lar_info = fb_pop_next_route_info[0:lar_info_width-1];
+	   assign hdr_lar_info_s = hdr_capture ? (two_plus_flits ? fb_pop_next_lar_info : lar_info_in) : hdr_lar_info_q;
 	   
 	end
    endgenerate
@@ -469,8 +448,7 @@ module vcr_ivc_ctrl
       .q(hdr_lar_info_q));
    
    wire [0:dest_info_width-1] 	     dest_info_in;
-   assign dest_info_in = route_info_in[lar_info_width:
-				       lar_info_width+dest_info_width-1];
+   assign dest_info_in = route_info_in[lar_info_width:lar_info_width+dest_info_width-1];
    
    wire [0:dest_info_width-1] 	     hdr_dest_info_s, hdr_dest_info_q;
    generate
@@ -478,17 +456,9 @@ module vcr_ivc_ctrl
 	assign hdr_dest_info_s = hdr_capture ? dest_info_in : hdr_dest_info_q;
       else
 	begin
-	   
 	   wire [0:dest_info_width-1] fb_pop_next_dest_info;
-	   assign fb_pop_next_dest_info
-	     = fb_pop_next_route_info[lar_info_width:
-				      lar_info_width+dest_info_width-1];
-	   
-	   assign hdr_dest_info_s
-	     = hdr_capture ?
-	       (two_plus_flits ? fb_pop_next_dest_info : dest_info_in) :
-	       hdr_dest_info_q;
-	   
+	   assign fb_pop_next_dest_info = fb_pop_next_route_info[lar_info_width:lar_info_width+dest_info_width-1];
+	   assign hdr_dest_info_s = hdr_capture ? (two_plus_flits ? fb_pop_next_dest_info : dest_info_in) : hdr_dest_info_q;
 	end
    endgenerate
    c_dff
@@ -547,9 +517,7 @@ module vcr_ivc_ctrl
 	begin
 	   
 	   wire [0:resource_class_idx_width-1] route_rcsel_in;
-	   assign route_rcsel_in
-	     = lar_info_in[port_idx_width:
-			   port_idx_width+resource_class_idx_width-1];
+	   assign route_rcsel_in = lar_info_in[port_idx_width:port_idx_width+resource_class_idx_width-1];
 	   
 	   wire [0:num_resource_classes-1]     route_in_orc;
 	   c_decode
@@ -559,9 +527,7 @@ module vcr_ivc_ctrl
 	      .data_out(route_in_orc));
 	   
 	   wire [0:resource_class_idx_width-1] hdr_route_rcsel;
-	   assign hdr_route_rcsel
-	     = hdr_lar_info_q[port_idx_width:
-				   port_idx_width+resource_class_idx_width-1];
+	   assign hdr_route_rcsel = hdr_lar_info_q[port_idx_width:port_idx_width+resource_class_idx_width-1];
 	   
 	   wire [0:num_resource_classes-1]     hdr_route_orc;
 	   c_decode
@@ -570,8 +536,7 @@ module vcr_ivc_ctrl
 	     (.data_in(hdr_route_rcsel),
 	      .data_out(hdr_route_orc));
 	   
-	   assign route_unmasked_orc
-	     = bypass_route_info ? route_in_orc : hdr_route_orc;
+	   assign route_unmasked_orc = bypass_route_info ? route_in_orc : hdr_route_orc;
 	   
 	end
       
@@ -681,9 +646,7 @@ module vcr_ivc_ctrl
 	     (.data_in(next_route_orc),
 	      .data_out(next_route_rcsel));
 	   
-	   assign next_lar_info[port_idx_width:
-				port_idx_width+resource_class_idx_width-1]
-	     = next_route_rcsel;
+	   assign next_lar_info[port_idx_width:port_idx_width+resource_class_idx_width-1] = next_route_rcsel;
 	   
 	end
       
@@ -741,8 +704,7 @@ module vcr_ivc_ctrl
    
    wire [0:num_vcs_per_message_class-1]        next_free_orc_ocvc;
    assign next_free_orc_ocvc
-     = next_free_ovc[message_class*num_vcs_per_message_class:
-		     (message_class+1)*num_vcs_per_message_class-1];
+     = next_free_ovc[message_class*num_vcs_per_message_class:(message_class+1)*num_vcs_per_message_class-1];
    
    wire 				       free_nonspec_muxed;
    c_select_1ofn
