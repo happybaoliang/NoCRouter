@@ -1,34 +1,41 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Mon May 12 20:15:27 2014
+[*] Tue May 13 01:26:36 2014
 [*]
 [dumpfile] "/home/happy/NoCRouter/DynVCRouter/debug.vcd"
-[dumpfile_mtime] "Mon May 12 20:10:02 2014"
-[dumpfile_size] 6566
+[dumpfile_mtime] "Tue May 13 01:24:46 2014"
+[dumpfile_size] 25001
 [savefile] "/home/happy/NoCRouter/DynVCRouter/selected.gtkw"
-[timestart] 0
+[timestart] 87
 [size] 1535 1146
-[pos] -1 -1
-*-4.106355 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 65 24
+*-1.961850 101 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
-[treeopen] testbench.tracker.
+[treeopen] testbench.bank.
+[treeopen] testbench.bank.tracker.
 [sst_width] 223
-[signals_width] 222
+[signals_width] 238
 [sst_expanded] 1
 [sst_vpaned_height] 352
 @28
-testbench.tracker.clk
-testbench.tracker.reset
-testbench.tracker.read_enable
-testbench.tracker.write_enable
+testbench.clk
+testbench.reset
+testbench.read_enable
+testbench.write_enable
 @22
-testbench.tracker.read_ptr[0:4]
-testbench.tracker.write_ptr[0:4]
+testbench.flit_in[0:63]
+testbench.flit_out[0:63]
 @28
-testbench.tracker.memory_bank_full
-testbench.tracker.memory_bank_empty
+testbench.memory_bank_full
+testbench.memory_bank_empty
+testbench.vc_read_from[0:1]
 @22
-testbench.tracker.new_freed_slot[0:4]
-testbench.tracker.next_available_slot[0:4]
+testbench.bank.wtail_pointer[0:4]
+testbench.bank.whead_pointer[0:9]
+@28
+testbench.vc_written_into[0:1]
+@22
+testbench.bank.memory_bank_read_ptr[0:4]
+testbench.bank.memory_bank_write_ptr[0:4]
 [pattern_trace] 1
 [pattern_trace] 0
