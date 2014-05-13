@@ -7,11 +7,12 @@ module testbench();
 `include "c_functions.v"
 
 
-parameter max_vc_number=2;
+parameter max_vc_number=1;
 parameter memory_bank_depth=32;
 parameter memory_bank_width=64;
 
 
+localparam vc_pointer_width=clogb(max_vc_number);
 localparam memory_addr_width=clogb(memory_bank_depth);
 
 
@@ -20,8 +21,8 @@ reg reset;
 reg read_enable;
 reg write_enable;
 reg [0:memory_bank_width-1] flit_in;
-reg [0:max_vc_number-1] vc_read_from;
-reg [0:max_vc_number-1] vc_written_into;
+reg [0:vc_pointer_width-1] vc_read_from;
+reg [0:vc_pointer_width-1] vc_written_into;
 
 wire [0:memory_bank_width-1] flit_out;
 
@@ -35,7 +36,7 @@ begin
 	$display($time,"simulation started.\n");
 
 	clk=0;
-	reset=0;
+	reset=1;
 
 	flit_in=0;
 	read_enable=0;
@@ -43,11 +44,9 @@ begin
 	vc_read_from=0;
 	vc_written_into=0;
 
-	#1  reset=1;
-	#1  reset=0;
-	#1  reset=1;
+	#2  reset=0;
 
-	#100 $finish;
+	#1000 $finish;
 	$display($time,"simulation finalized.\n");
 end
 
@@ -66,12 +65,15 @@ always
 
 always
 begin
-	#1;
-	flit_in={$random}%100;
-	vc_read_from={$random}%2;
-	vc_written_into={$random}%2;
-	read_enable=memory_bank_empty?0:{$random}%5;
-	write_enable=memory_bank_full?0:{$random}%5;
+	#2;
+	vc_read_from=0;	
+	vc_written_into=0;
+	read_enable=memory_bank_empty?0:{$random}%2;
+	write_enable=memory_bank_full?0:{$random}%2;
+
+	if (write_enable)
+		flit_in=flit_in+1;
+
 end
 
 
