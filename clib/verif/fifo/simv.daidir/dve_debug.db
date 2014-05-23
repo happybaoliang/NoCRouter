@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<opml version="1.0">
+	<head>
+		<title>VCS dump file for DVE debugging</title>
+		<vcsVersion>D-2009.12</vcsVersion>
+		<dateCreated>Mon May 19 14:41:38 2014</dateCreated>
+	</head>
+	<body>
+		<!-- VCS compile options -->
+		<vcsCompileOptions text="/usr/synopsys/D-2009.12/linux/bin/vcs1 -Mcc=gcc -Mcplusplus=g++ -Masflags= -Mcfl= -pipe -O -I/usr/synopsys/D-2009.12/include  -Mldflags=-melf_i386  -Mout=simv -Mamsrun= -Mvcsaceobjs= -Mcmodrun= -Mobjects= /usr/synopsys/D-2009.12/linux/lib/libvirsim.a /usr/synopsys/D-2009.12/linux/lib/librterrorinf.so /usr/synopsys/D-2009.12/linux/lib/libsnpsmalloc.so  -Msaverestoreobj=/usr/synopsys/D-2009.12/linux/lib/vcs_save_restore_new.o -Mcrtn= -Mcsrc= -Mupdate -Msyslibs=/usr/synopsys/D-2009.12/linux/lib/ctype-stubs_32.a -ldl -lm  -o simv +lint=all,noVCDE +v2k +libext+.v -timescale=1ns/1ns -Xcbug=0x1 +cli+4 +vcsd +itf+/usr/synopsys/D-2009.12/linux/lib/vcsd.tab +vpi -debug=3 +memcbk +vpi -gen_obj -y ../../src -y /usr/synopsys/dw/sim_ver -y . testbench.v "/>
+		<!-- File list for the whole design -->
+		<fileList>
+			<file fid="8" path="/home/happy/NoCRouter/clib/src/c_incr.v" />
+			<file fid="1" path="/home/happy/NoCRouter/clib/verif/fifo/c_functions.v" />
+			<file fid="4" path="/home/happy/NoCRouter/clib/src/c_fifo_tracker.v" />
+			<file fid="3" path="/home/happy/NoCRouter/clib/src/c_fifo.v" />
+			<file fid="5" path="/home/happy/NoCRouter/clib/src/c_decr.v" />
+			<file fid="6" path="/home/happy/NoCRouter/clib/src/c_dff.v" />
+			<file fid="0" path="/home/happy/NoCRouter/clib/verif/fifo/testbench.v" />
+			<file fid="11" path="/home/happy/NoCRouter/clib/src/c_interleave.v" />
+			<file fid="12" path="/home/happy/NoCRouter/clib/src/c_select_1ofn.v" />
+			<file fid="9" path="/home/happy/NoCRouter/clib/src/c_regfile.v" />
+			<file fid="10" path="/home/happy/NoCRouter/clib/src/c_decode.v" />
+			<file fid="2" path="/home/happy/NoCRouter/clib/verif/fifo/c_constants.v" />
+			<file fid="7" path="/home/happy/NoCRouter/clib/src/c_fifo_ctrl.v" />
+		</fileList>
+		<!-- Include file list for the whole design -->
+		<includeFileList>
+			<incfile fid="8" lineno="35" includeID="1" />
+			<incfile fid="4" lineno="36" includeID="1" />
+			<incfile fid="4" lineno="37" includeID="2" />
+			<incfile fid="3" lineno="36" includeID="1" />
+			<incfile fid="3" lineno="37" includeID="2" />
+			<incfile fid="5" lineno="35" includeID="1" />
+			<incfile fid="6" lineno="35" includeID="2" />
+			<incfile fid="0" lineno="33" includeID="1" />
+			<incfile fid="0" lineno="34" includeID="2" />
+			<incfile fid="12" lineno="37" includeID="2" />
+			<incfile fid="9" lineno="36" includeID="1" />
+			<incfile fid="9" lineno="37" includeID="2" />
+			<incfile fid="10" lineno="37" includeID="1" />
+			<incfile fid="7" lineno="36" includeID="1" />
+			<incfile fid="7" lineno="37" includeID="2" />
+		</includeFileList>
+		<!-- Encrypted codes list for the whole design -->
+		<encryptedCodesList>
+		</encryptedCodesList>
+		<!-- Inactive codes list for the whole design -->
+		<inactiveCodesList>
+		</inactiveCodesList>
+		<!-- Compile options UUM based -->
+		<langKeywords>
+			<v95Files fid="12" />
+			<v2kFiles fid="0-11" />
+		</langKeywords>
+		<!--  Case insensitive file list -->
+		<caseInsensitiveFiles fid="" />
+		<!-- Macro definition list for the whole design --> 
+		<macroDefinitionList>
+			<macro name="RESET_TYPE_ASYNC" module="c_fifo_tracker" sourceID="4" lineno="51" defID="2" defLine="38" value="1" />
+			<macro name="REGFILE_TYPE_FF_2D" module="c_fifo" sourceID="3" lineno="46" defID="2" defLine="107" value="1" />
+			<macro name="RESET_TYPE_ASYNC" module="c_fifo" sourceID="3" lineno="51" defID="2" defLine="38" value="1" />
+			<macro name="RESET_TYPE_ASYNC" module="c_dff" sourceID="6" lineno="43" defID="2" defLine="38" value="1" />
+			<macro name="RESET_TYPE_ASYNC" module="" sourceID="6" lineno="62" defID="2" defLine="38" value="1" />
+			<macro name="RESET_TYPE_SYNC" module="" sourceID="6" lineno="69" defID="2" defLine="41" value="2" />
+			<macro name="REGFILE_TYPE_FF_2D" module="testbench" sourceID="0" lineno="38" defID="2" defLine="107" value="1" />
+			<macro name="RESET_TYPE_ASYNC" module="testbench" sourceID="0" lineno="40" defID="2" defLine="38" value="1" />
+			<macro name="REGFILE_TYPE_FF_2D" module="c_regfile" sourceID="9" lineno="52" defID="2" defLine="107" value="1" />
+			<macro name="REGFILE_TYPE_FF_2D" module="" sourceID="9" lineno="84" defID="2" defLine="107" value="1" />
+			<macro name="REGFILE_TYPE_FF_1D_MUX" module="" sourceID="9" lineno="132" defID="2" defLine="110" value="2" />
+			<macro name="REGFILE_TYPE_FF_1D_SEL" module="" sourceID="9" lineno="132" defID="2" defLine="113" value="3" />
+			<macro name="REGFILE_TYPE_FF_1D_SEL" module="read_ports_1d" sourceID="9" lineno="218" defID="2" defLine="113" value="3" />
+			<macro name="REGFILE_TYPE_FF_1D_MUX" module="read_ports_1d" sourceID="9" lineno="238" defID="2" defLine="110" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_fifo_ctrl" sourceID="7" lineno="63" defID="2" defLine="38" value="1" />
+		</macroDefinitionList>
+		<!-- Macro value list for the whole design --> 
+		<macroValueList>
+			<mv i="1" n="0" />
+			<mv i="3" n="2" />
+			<mv i="2" n="1" />
+		</macroValueList>
+	</body>
+</opml>

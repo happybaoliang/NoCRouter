@@ -77,8 +77,7 @@ module rtr_channel_input
    localparam vc_idx_width = clogb(num_vcs);
    
    // number of bits required to represent all possible payload sizes
-   localparam payload_length_width
-     = clogb(max_payload_length-min_payload_length+1);
+   localparam payload_length_width = clogb(max_payload_length-min_payload_length+1);
    
    // width of counter for remaining flits
    localparam flit_ctr_width = clogb(max_payload_length);
@@ -107,8 +106,7 @@ module rtr_channel_input
        -1;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    
    //---------------------------------------------------------------------------
@@ -183,9 +181,7 @@ module rtr_channel_input
 				    link_ctrl_width+flit_ctrl_width-1];
    
    wire [0:flit_data_width-1] 	  flit_data_in;
-   assign flit_data_in
-     = channel_in[link_ctrl_width+flit_ctrl_width:
-		  link_ctrl_width+flit_ctrl_width+flit_data_width-1];
+   assign flit_data_in = channel_in[link_ctrl_width+flit_ctrl_width:link_ctrl_width+flit_ctrl_width+flit_data_width-1];
    
    wire [0:flit_data_width-1] 	  flit_data_s, flit_data_q;
    assign flit_data_s = flit_data_in;

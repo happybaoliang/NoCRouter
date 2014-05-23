@@ -67,12 +67,10 @@ module c_damq_tracker
    //---------------------------------------------------------------------------
    
    // number of shared credits
-   localparam num_shared_slots
-     = enable_reservations ? (num_slots - num_queues) : num_slots;
+   localparam num_shared_slots = enable_reservations ? (num_slots - num_queues) : num_slots;
    
    // max. number of slots per queue
-   localparam num_queue_slots
-     = enable_reservations ? (1 + num_shared_slots) : num_slots;
+   localparam num_queue_slots = enable_reservations ? (1 + num_shared_slots) : num_slots;
    
    
    //---------------------------------------------------------------------------
@@ -147,15 +145,12 @@ module c_damq_tracker
 	   wire same_queue;
 	   assign same_queue = |(push_sel_qu & pop_sel_qu);
 	   
-	   assign push_shared = push_valid & ~push_empty & 
-				(~pop_valid | (pop_almost_empty & ~same_queue));
+	   assign push_shared = push_valid & ~push_empty & (~pop_valid | (pop_almost_empty & ~same_queue));
 	   
 	   if(enable_bypass)
-	     assign pop_shared = pop_valid & ~pop_almost_empty & 
-				 (~push_valid | (push_empty & ~same_queue));
+	     assign pop_shared = pop_valid & ~pop_almost_empty & (~push_valid | (push_empty & ~same_queue));
 	   else
-	     assign pop_shared = pop_valid & ~pop_almost_empty & 
-				 (~push_valid | push_empty);
+	     assign pop_shared = pop_valid & ~pop_almost_empty & (~push_valid | push_empty);
 	   
 	end
       else

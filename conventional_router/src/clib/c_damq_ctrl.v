@@ -252,8 +252,7 @@ module c_damq_ctrl
 	   assign free_tail_sel = free_tail_sel_sl[slot];
 	   
 	   wire [0:1] update_sel;
-	   assign update_sel = {update_queue_tail & push_queue_tail_sel,
-				update_free_tail & free_tail_sel};
+	   assign update_sel = {update_queue_tail & push_queue_tail_sel,update_free_tail & free_tail_sel};
 	   
 	   wire       update;
 	   assign update = |update_sel;
@@ -287,8 +286,7 @@ module c_damq_ctrl
    endgenerate
    
    wire [0:addr_width-1] 	    next_free_head_addr;
-   assign next_free_head_addr
-     = addr_sl[free_head_addr*addr_width +: addr_width];
+   assign next_free_head_addr = addr_sl[free_head_addr*addr_width +: addr_width];
    
    wire 			    equal;
    assign equal = (free_head_addr == free_tail_addr);
@@ -303,10 +301,8 @@ module c_damq_ctrl
       .data_out(pop_addr));
    
    wire [0:addr_width-1] 	    free_head_addr_s, free_head_addr_q;
-   assign free_head_addr_s
-     = ((full | (equal & push_valid)) & pop_valid) ? 
-       pop_addr : 
-       (push_valid ? next_free_head_addr : free_head_addr_q);
+   assign free_head_addr_s = ((full | (equal & push_valid)) & pop_valid) ? 
+       pop_addr : (push_valid ? next_free_head_addr : free_head_addr_q);
    
    c_dff
      #(.width(addr_width),
@@ -383,8 +379,7 @@ module c_damq_ctrl
       .data_out(pop_mask));
    
    wire [0:num_slots-1]  unused_s, unused_q;
-   assign unused_s = (unused_q & ~({num_slots{push_valid}} & push_mask)) |
-		     ({num_slots{pop_valid}} & pop_mask);
+   assign unused_s = (unused_q & ~({num_slots{push_valid}} & push_mask)) | ({num_slots{pop_valid}} & pop_mask);
    c_dff
      #(.width(num_slots),
        .reset_value({num_slots{1'b1}}),
@@ -505,14 +500,11 @@ module c_damq_ctrl
 		assign next_equal = (next_head_addr == tail_addr);
 		
 		wire [0:addr_width-1] next_next_head_addr;
-		assign next_next_head_addr
-		  = addr_sl[next_head_addr*addr_width +: addr_width];
+		assign next_next_head_addr = addr_sl[next_head_addr*addr_width +: addr_width];
 		
 		wire [0:addr_width-1] next_head_addr_s, next_head_addr_q;
-		assign next_head_addr_s
-		  = ((equal | (next_equal & pop_valid_sel)) & push_valid_sel) ?
-		    free_head_addr :
-		    (pop_valid_sel ? next_next_head_addr : next_head_addr_q);
+		assign next_head_addr_s = ((equal | (next_equal & pop_valid_sel)) & push_valid_sel) ?
+		    free_head_addr : (pop_valid_sel ? next_next_head_addr : next_head_addr_q);
 		c_dff
 		  #(.width(addr_width),
 		    .reset_type(reset_type))
@@ -527,14 +519,11 @@ module c_damq_ctrl
 		
 	     end
 	   else
-	     assign next_head_addr
-	       = addr_sl[head_addr*addr_width +: addr_width];
+	     assign next_head_addr = addr_sl[head_addr*addr_width +: addr_width];
 	   
 	   wire [0:addr_width-1] head_addr_s, head_addr_q;
-	   assign head_addr_s
-	     = ((empty | (equal & pop_valid_sel)) & push_valid_sel) ?
-	       free_head_addr :
-	       (pop_valid_sel ? next_head_addr : head_addr_q);
+	   assign head_addr_s = ((empty | (equal & pop_valid_sel)) & push_valid_sel) ?
+	       free_head_addr : (pop_valid_sel ? next_head_addr : head_addr_q);
 	   c_dff
 	     #(.width(addr_width),
 	       .reset_type(reset_type))
@@ -566,12 +555,9 @@ module c_damq_ctrl
 	   
 	   wire 		 empty_s, empty_q;
 	   if(enable_bypass)
-	     assign empty_s = empty ? 
-			      ~(push_valid_sel & ~pop_valid_sel) : 
-			      (equal & (~push_valid_sel & pop_valid_sel));
+	     assign empty_s = empty ? ~(push_valid_sel & ~pop_valid_sel) : (equal & (~push_valid_sel & pop_valid_sel));
 	   else
-	     assign empty_s
-	       = (empty | (equal & pop_valid_sel)) & ~push_valid_sel;
+	     assign empty_s = (empty | (equal & pop_valid_sel)) & ~push_valid_sel;
 	   c_dff
 	     #(.width(1),
 	       .reset_value(1'b1),
@@ -628,8 +614,7 @@ module c_damq_ctrl
 	   // synopsys translate_off
 	   
 	   wire [0:num_slots-1]  used_s, used_q;
-	   assign used_s
-	     = (used_q | ({num_slots{push_valid_sel}} & push_mask)) & ~({num_slots{pop_valid_sel}} & pop_mask);
+	   assign used_s = (used_q | ({num_slots{push_valid_sel}} & push_mask)) & ~({num_slots{pop_valid_sel}} & pop_mask);
 	   c_dff
 	     #(.width(num_slots),
 	       .reset_type(reset_type))

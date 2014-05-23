@@ -1,0 +1,6 @@
+Maximal LFSR values for size=4
+         starting value = 0x8
+           ending value = 0xF
+   iterations per value = 0xF
+9
+C

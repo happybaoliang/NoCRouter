@@ -38,6 +38,7 @@ module testbench
 `include "parameters.v"
    
    parameter Tclk = 2;
+   
    parameter initial_seed = 0;
    
    // maximum number of packets to generate (-1 = no limit)
@@ -80,8 +81,7 @@ module testbench
    localparam vc_idx_width = clogb(num_vcs);
    
    // total number of routers
-   localparam num_routers
-     = (num_nodes + num_nodes_per_router - 1) / num_nodes_per_router;
+   localparam num_routers = (num_nodes + num_nodes_per_router - 1) / num_nodes_per_router;
    
    // number of routers in each dimension
    localparam num_routers_per_dim = croot(num_routers, num_dimensions);
@@ -112,8 +112,7 @@ module testbench
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width required to select individual port
    localparam port_idx_width = clogb(num_ports);
@@ -125,18 +124,13 @@ module testbench
    localparam lar_info_width = port_idx_width + resource_class_idx_width;
    
    // total number of bits required for storing routing information
-   localparam dest_info_width
-     = (routing_type == `ROUTING_TYPE_PHASED_DOR) ? 
-       (num_resource_classes * router_addr_width + node_addr_width) : 
-       -1;
+   localparam dest_info_width = (routing_type == `ROUTING_TYPE_PHASED_DOR) ? (num_resource_classes * router_addr_width + node_addr_width) : -1;
    
    // total number of bits required for routing-related information
    localparam route_info_width = lar_info_width + dest_info_width;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // width of link management signals
    localparam link_ctrl_width = enable_link_pm ? 1 : 0;
@@ -152,8 +146,7 @@ module testbench
        -1;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // use atomic VC allocation
    localparam atomic_vc_allocation = (elig_mask == `ELIG_MASK_USED);

@@ -1,0 +1,30 @@
+Common Component Library
+========================
+Copyright (c) 2007-2012, Trustees of The Leland Stanford Junior University.
+All rights reserved.
+
+
+Overview
+--------
+
+This directory tree contains the source code for a library of parameterized RTL 
+components that was originally developed in the context of the CVA Open-Source 
+Network-on-Chip Router RTL [1,2]; we hope that it might prove useful for other 
+applications as well.
+
+It includes the following subdirectories:
+
+src/   - The actual component implementations.
+utils/ - Code generators for optimized implementations of several components.
+verif/ - Verification testbenches.
+
+For contact information and instructions on how to obtain the most up-to-date 
+version of this code, please consult [2].
+
+
+References
+----------
+
+[1] Daniel U. Becker. Efficient Microarchitecture for Network-on-Chip Routers. 
+    PhD thesis, Stanford University, August 2012.
+[2] Enabling Technology for On-Chip Networks. https://nocs.stanford.edu/

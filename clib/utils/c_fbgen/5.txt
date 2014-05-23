@@ -1,0 +1,10 @@
+Maximal LFSR values for size=5
+         starting value = 0x10
+           ending value = 0x1F
+   iterations per value = 0x1F
+12
+14
+17
+1B
+1D
+1E

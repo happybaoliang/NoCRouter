@@ -102,8 +102,7 @@ module rtr_routing_logic
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // number of network-facing ports on router (i.e., w/o inject/eject ports)
    localparam num_network_ports = num_ports - num_nodes_per_router;
@@ -176,24 +175,18 @@ module rtr_routing_logic
 		    begin:dims
 		       
 		       wire [0:dim_addr_width-1] dest_dim_addr;
-		       assign dest_dim_addr
-			 = dest_router_addr[dim*dim_addr_width:
-					    (dim+1)*dim_addr_width-1];
+		       assign dest_dim_addr  = dest_router_addr[dim*dim_addr_width:(dim+1)*dim_addr_width-1];
 		       
 		       wire [0:dim_addr_width-1] curr_dim_addr;
-		       assign curr_dim_addr
-			 = router_address[dim*dim_addr_width:
-					  (dim+1)*dim_addr_width-1];
+		       assign curr_dim_addr = router_address[dim*dim_addr_width: (dim+1)*dim_addr_width-1];
 		       
 		       wire 			 dest_lt_curr;
 		       wire [0:dim_addr_width-1] dest_minus_curr;
-		       assign {dest_lt_curr, dest_minus_curr}
-			 = dest_dim_addr - curr_dim_addr;
+		       assign {dest_lt_curr, dest_minus_curr} = dest_dim_addr - curr_dim_addr;
 		       
 		       wire 			 curr_lt_dest;
 		       wire [0:dim_addr_width-1] curr_minus_dest;
-		       assign {curr_lt_dest, curr_minus_dest}
-			 = curr_dim_addr - dest_dim_addr;
+		       assign {curr_lt_dest, curr_minus_dest} = curr_dim_addr - dest_dim_addr;
 		       
 		       assign addr_match_d[dim] = ~dest_lt_curr & ~curr_lt_dest;
 		       
@@ -363,15 +356,12 @@ module rtr_routing_logic
 			 
 		       endcase
 		       
-		       assign route_onp[dim*num_neighbors_per_dim:
-					(dim+1)*num_neighbors_per_dim-1]
+		       assign route_onp[dim*num_neighbors_per_dim:(dim+1)*num_neighbors_per_dim-1]
 			 = port_dec & {num_neighbors_per_dim{dim_sel}};
 		       
 		    end
 		  
-		  assign route_orc_onp[irc*num_network_ports:
-				       (irc+1)*num_network_ports-1]
-		    = route_onp;
+		  assign route_orc_onp[irc*num_network_ports:(irc+1)*num_network_ports-1] = route_onp;
 		  
 		  assign reached_dest_irc[irc] = &addr_match_d;
 		  
@@ -384,7 +374,6 @@ module rtr_routing_logic
 	       end
 	     else
 	       begin
-		  
 		  wire [0:num_resource_classes-1] class_done_irc;
 		  assign class_done_irc = sel_irc & reached_dest_irc;
 		  
@@ -393,10 +382,7 @@ module rtr_routing_logic
 		  
 		  assign eject = class_done_irc[num_resource_classes-1];
 		  
-		  assign route_orc = inc_rc ?
-				     {1'b0, sel_irc[0:num_resource_classes-2]} :
-				     sel_irc;
-		  
+		  assign route_orc = inc_rc ? {1'b0, sel_irc[0:num_resource_classes-2]} : sel_irc;
 	       end
 	     
 	  end
@@ -421,8 +407,7 @@ module rtr_routing_logic
 	begin
 	   
 	   wire [0:node_addr_width-1] dest_node_address;
-	   assign dest_node_address
-	     = dest_info[dest_info_width-node_addr_width:dest_info_width-1];
+	   assign dest_node_address = dest_info[dest_info_width-node_addr_width:dest_info_width-1];
 	   
 	   wire [0:num_nodes_per_router-1] node_sel;
 	   c_decode
@@ -431,8 +416,7 @@ module rtr_routing_logic
 	     (.data_in(dest_node_address),
 	      .data_out(node_sel));
 	   
-	   assign route_op[num_ports-num_nodes_per_router:num_ports-1]
-		    = node_sel & {num_nodes_per_router{eject}};
+	   assign route_op[num_ports-num_nodes_per_router:num_ports-1] = node_sel & {num_nodes_per_router{eject}};
 	   
 	end
       

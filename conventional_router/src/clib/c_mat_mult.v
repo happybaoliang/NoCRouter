@@ -78,8 +78,7 @@ module c_mat_mult
 			    .width(1),
 			    .op(prod_op))
 		     prod
-			  (.data_in({input_a[row*dim2_width+idx], 
-				     input_b[idx*dim3_width+col]}),
+			  (.data_in({input_a[row*dim2_width+idx],input_b[idx*dim3_width+col]}),
 			   .data_out(products[idx]));
 		     
 		  end

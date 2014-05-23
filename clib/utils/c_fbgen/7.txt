@@ -1,0 +1,22 @@
+Maximal LFSR values for size=7
+         starting value = 0x40
+           ending value = 0x7F
+   iterations per value = 0x7F
+41
+44
+47
+48
+4E
+53
+55
+5C
+5F
+60
+65
+69
+6A
+72
+77
+78
+7B
+7E
