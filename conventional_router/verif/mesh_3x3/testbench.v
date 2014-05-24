@@ -1507,9 +1507,11 @@ module testbench
    integer cycles;
    integer d;
    
+   integer file_ptr;
+   
    initial
-   begin
-      
+   begin  
+      file_ptr=$fopen("/mnt/share/value.txt");
       reset = 1'b0;
       clk_en = 1'b0;
       run = 1'b0;
@@ -1574,8 +1576,29 @@ module testbench
       
       $display("%d flits received, %d flits sent", in_flits, out_flits);
       
+      $fclose(file_ptr);
+      
       $finish;
       
    end
-   
+
+
+	wire is_valid_flit;
+	assign is_valid_flit=channel_router_0_ip_4[link_ctrl_width+vc_idx_width];
+
+	wire is_head_flit;
+	assign is_head_flit=channel_router_0_ip_4[link_ctrl_width+1+vc_idx_width];
+
+	wire [0:dest_info_width-node_addr_width-1] dest_router;
+	assign dest_router=channel_router_0_ip_4[link_ctrl_width+flit_ctrl_width+lar_info_width:
+			link_ctrl_width+flit_ctrl_width+route_info_width-node_addr_width-1];
+
+	always @(channel_router_0_ip_4)
+	if (is_valid_flit&is_head_flit)
+		$fdisplay(file_ptr,"%d: node [%h,%h] sends a new packet to router[%h,%h]",
+			cycles,0,0,dest_router[0:dim_addr_width-1],dest_router[dim_addr_width:2*dim_addr_width-1]);
+
+
+
 endmodule
+

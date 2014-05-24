@@ -429,7 +429,7 @@ module packet_source
 	      .d(allocated_s),
 	      .q(allocated_q));
 	   wire flit_sent;
-	   assign flit_sent = flit_valid_q & flit_sel_ovc_q[ovc];i
+	   assign flit_sent = flit_valid_q & flit_sel_ovc_q[ovc];
 // this allocated signal only update when the tail flit has been transmitted. 
 	   assign allocated = flit_sent ? ~flit_tail_q : allocated_q;
 	   wire empty;
@@ -468,8 +468,6 @@ module packet_source
       .data_in(elig_ovc),
       .data_out(elig));
    
-// compute the 'flit_sent' signals according to three other singals.  
-   wire 	flit_pending_q;
    
    wire 	flit_sent;
    assign flit_sent = flit_pending_q & ~full & (elig | ~flit_head);
@@ -505,6 +503,7 @@ module packet_source
      end
    
 // fill the content of header_info of each flit. the header_info includes dest addr, lar_info, length, tail/head, etc.
+// only the 'flit_data' of header flit includes the header_info. 
    wire [0:header_info_width-1] header_info;
    assign flit_data[0:header_info_width-1] = flit_head ? header_info : data_q[0:header_info_width-1];
    assign flit_data[header_info_width:flit_data_width-1] = data_q[header_info_width:flit_data_width-1];
@@ -556,8 +555,7 @@ module packet_source
       .result(sel_orc));
    
 // generate the routing information.
-// TODO: but now, I'm not clear whether the source node should compute the routing information, 
-// and what are the exact meaning of the 'message' and 'resource' refer to. 
+// TODO: what are the exact meaning of the 'message' and 'resource' refer to. 
    wire [0:num_ports-1] 			       route_op;
    wire [0:num_resource_classes-1] 		       route_orc;
    rtr_routing_logic
@@ -646,11 +644,9 @@ module packet_source
 			 wire flit_kill_base;
 			 if(connectivity == `CONNECTIVITY_LINE)
 			   assign flit_kill_base
-			     = (((port_id % 2) == 0) && 
-				(rc_dest[curr_dim*dim_addr_width:(curr_dim+1)*dim_addr_width-1] <
+			     = (((port_id % 2) == 0) && (rc_dest[curr_dim*dim_addr_width:(curr_dim+1)*dim_addr_width-1] <
 				 router_address[curr_dim*dim_addr_width:(curr_dim+1)*dim_addr_width-1])) ||
-			       (((port_id % 2) == 1) && 
-				(rc_dest[curr_dim*dim_addr_width:(curr_dim+1)*dim_addr_width-1] >
+			       (((port_id % 2) == 1) && (rc_dest[curr_dim*dim_addr_width:(curr_dim+1)*dim_addr_width-1] >
 				 router_address[curr_dim*dim_addr_width:(curr_dim+1)*dim_addr_width-1]));
 			 else
 			   assign flit_kill_base = 1'b0;
@@ -670,10 +666,8 @@ module packet_source
 			      // FIXME: add implementation here!
 			      initial
 				begin
-				   $display({"ERROR: The packet source module ",
-					     "does not properly support class-",
-					     "based dimension order traversal ",
-					     "in the flit kill logic yet."});
+				   $display({"ERROR: The packet source module ", "does not properly support class-",
+					     "based dimension order traversal ", "in the flit kill logic yet."});
 				   $stop;
 				end
 			   end
@@ -718,11 +712,12 @@ module packet_source
 		if(reset | packet_sent)
 		  begin
 		     for(d = 0; d < num_dimensions; d = d + 1)
-		       random_router_address[d*dim_addr_width +: dim_addr_width] = (router_address[d*dim_addr_width +: dim_addr_width] +
+		       random_router_address[d*dim_addr_width +: dim_addr_width] 
+			= (router_address[d*dim_addr_width +: dim_addr_width] +
 			    $dist_uniform(seed, 0, num_routers_per_dim-1)) % num_routers_per_dim;
 		     random_node_address = (node_address + $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) &&
-					 (random_router_address == router_address)) ? 1 : 0, num_nodes_per_router - 1)) % 
-			 num_nodes_per_router;
+					 	(random_router_address == router_address)) ? 1 : 0, num_nodes_per_router - 1)) % 
+						 num_nodes_per_router;
 		     dest_info[dest_info_width-addr_width:dest_info_width-1] = {random_router_address, random_node_address};
 		  end		
 	     end
@@ -783,6 +778,7 @@ module packet_source
 	   reg [0:packet_length_width-1] random_length_q;
 	   reg [0:packet_length_width-1] flit_count_q;
 	   reg 				 tail_q;
+// udpate the flit_count_q and tail_q each clock cycle.
 	   always @(posedge clk, posedge reset)
 	     begin
 		case(packet_length_mode)
@@ -808,6 +804,7 @@ module packet_source
 		  end
 	     end
 	   
+// update flit_head, the next flit is a header flit if the previous packet has been sent, or this flit is the first flit.
 	   wire head_s, head_q;
 	   assign head_s = (head_q & ~flit_sent) | packet_sent;
 	   c_dff
@@ -820,10 +817,12 @@ module packet_source
 	      .active(1'b1),
 	      .d(head_s),
 	      .q(head_q));
-	   
+
+// the head and tail information connected to the injeciton router.	   
 	   assign flit_head = head_q;
 	   assign flit_tail = tail_q;
 	   
+// whether the packet length be stored in the header_info.
 	   if((packet_format == `PACKET_FORMAT_EXPLICIT_LENGTH) && (payload_length_width > 0))
 	     begin
 		wire [0:payload_length_width-1] payload_length;
@@ -852,7 +851,8 @@ module packet_source
 	   sel_ovc_dec
 	     (.data_in(random_vc),
 	      .data_out(sel_ovc));
-	   assign curr_dest_addr = dest_info[((random_vc / num_vcs_per_class) % num_resource_classes)*router_addr_width +: router_addr_width];
+	   assign curr_dest_addr 
+			= dest_info[((random_vc / num_vcs_per_class) % num_resource_classes)*router_addr_width +: router_addr_width];
 	end
       else
 	begin
@@ -862,5 +862,6 @@ module packet_source
    endgenerate
    
    assign error = |fcs_errors_ovc;
-   
+
+
 endmodule

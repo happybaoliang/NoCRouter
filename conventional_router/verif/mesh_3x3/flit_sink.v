@@ -59,9 +59,7 @@ module flit_sink
    parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // maximum payload length (in flits)
    // (note: only used if packet_format==`PACKET_FORMAT_EXPLICIT_LENGTH)
@@ -72,8 +70,7 @@ module flit_sink
    parameter min_payload_length = 1;
    
    // number of bits required to represent all possible payload sizes
-   localparam payload_length_width
-     = clogb(max_payload_length-min_payload_length+1);
+   localparam payload_length_width = clogb(max_payload_length-min_payload_length+1);
    
    // total number of bits required for routing-related information
    parameter route_info_width = 14;
@@ -98,8 +95,7 @@ module flit_sink
    parameter flit_data_width = 64;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // select implementation variant for flit buffer register file
    parameter fb_regfile_type = `REGFILE_TYPE_FF_2D;

@@ -321,18 +321,18 @@ void  rmaPropagate84r(UB  * pcode);
 void  rmaPropagate85(UB  * pcode, scalar  val);
 void  rmaPropagate85f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate85r(UB  * pcode);
-void  rmaPropagate87(UB  * pcode, scalar  val);
-void  rmaPropagate87f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate87r(UB  * pcode);
-void  rmaPropagate90(UB  * pcode, scalar  val);
-void  rmaPropagate90f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate90r(UB  * pcode);
+void  rmaPropagate88(UB  * pcode, scalar  val);
+void  rmaPropagate88f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate88r(UB  * pcode);
 void  rmaPropagate91(UB  * pcode, scalar  val);
 void  rmaPropagate91f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate91r(UB  * pcode);
 void  rmaPropagate92(UB  * pcode, scalar  val);
 void  rmaPropagate92f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate92r(UB  * pcode);
+void  rmaPropagate93(UB  * pcode, scalar  val);
+void  rmaPropagate93f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate93r(UB  * pcode);
 void  schedNewEvent(struct dummyq_struct * pQ, EBLK  * peblk, U  delay);
 #ifdef __cplusplus
 }
@@ -444,18 +444,18 @@ FP rmaFunctionArray[] = {
 	(FP) rmaPropagate85,
 	(FP) rmaPropagate85f,
 	(FP) rmaPropagate85r,
-	(FP) rmaPropagate87,
-	(FP) rmaPropagate87f,
-	(FP) rmaPropagate87r,
-	(FP) rmaPropagate90,
-	(FP) rmaPropagate90f,
-	(FP) rmaPropagate90r,
+	(FP) rmaPropagate88,
+	(FP) rmaPropagate88f,
+	(FP) rmaPropagate88r,
 	(FP) rmaPropagate91,
 	(FP) rmaPropagate91f,
 	(FP) rmaPropagate91r,
 	(FP) rmaPropagate92,
 	(FP) rmaPropagate92f,
-	(FP) rmaPropagate92r
+	(FP) rmaPropagate92r,
+	(FP) rmaPropagate93,
+	(FP) rmaPropagate93f,
+	(FP) rmaPropagate93r
 };
 
 #ifdef __cplusplus

@@ -16,7 +16,7 @@ DPI_WRAPPER_OBJS =
 # filelist.dpi will populate and build DPI_WRAPPER_OBJS
 include filelist.dpi
 
-VCS_OBJS =rmapats_mop.o rmapats.o 8buD_1_d.o Ub2v_1_d.o 1Tcz_1_d.o n5bc_1_d.o xb7V_1_d.o \
+VCS_OBJS =5NrI_d.o 5NrIB_d.o 8buD_1_d.o Ub2v_1_d.o 1Tcz_1_d.o n5bc_1_d.o xb7V_1_d.o \
 	pywL_1_d.o 6Vlx_1_d.o Qq08_1_d.o i4cH_1_d.o kfjB_1_d.o \
 	ZqZm_1_d.o rqZG_1_d.o HgKx_1_d.o 6dEF_1_d.o eVSS_1_d.o \
 	rWoy_1_d.o 0dx4_1_d.o Ixmj_1_d.o jSR0_1_d.o AiRN_1_d.o \
@@ -31,7 +31,7 @@ VCS_OBJS =rmapats_mop.o rmapats.o 8buD_1_d.o Ub2v_1_d.o 1Tcz_1_d.o n5bc_1_d.o xb
 	7hiZ_1_d.o HJKg_1_d.o G7H9_1_d.o xAbY_1_d.o DXMT_1_d.o \
 	yMuD_1_d.o HWcT_1_d.o eNni_1_d.o RwsG_1_d.o lpxt_1_d.o \
 	iLlM_1_d.o JDAN_1_d.o pb99_1_d.o kcQp_1_d.o qd0Q_1_d.o \
-	SIM_l.o 5NrI_d.o 5NrIB_d.o 
+	rmapats_mop.o rmapats.o SIM_l.o 
 VCS_INCR_OBJS=
 
 

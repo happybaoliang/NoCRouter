@@ -78,8 +78,7 @@ module rtr_channel_output
        -1;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    
    //---------------------------------------------------------------------------
@@ -124,12 +123,8 @@ module rtr_channel_output
    wire [0:flit_ctrl_width-1]  flit_ctrl_out;
    wire [0:flit_data_width-1]  flit_data_out;
    
-   assign channel_out[link_ctrl_width:
-		      link_ctrl_width+flit_ctrl_width-1]
-     = flit_ctrl_out;
-   assign channel_out[link_ctrl_width+flit_ctrl_width:
-		      link_ctrl_width+flit_ctrl_width+flit_data_width-1]
-     = flit_data_out;
+   assign channel_out[link_ctrl_width:link_ctrl_width+flit_ctrl_width-1] = flit_ctrl_out;
+   assign channel_out[link_ctrl_width+flit_ctrl_width:link_ctrl_width+flit_ctrl_width+flit_data_width-1] = flit_data_out;
    
    wire [0:flit_data_width-1]  flit_data_s, flit_data_q;
    assign flit_data_s = flit_data_in;
