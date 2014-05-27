@@ -2,8 +2,7 @@
 // pseudo-random packet source
 //==============================================================================
 
-module packet_source
-  (clk, reset, router_address, channel, flit_valid, flow_ctrl, run, error);
+module packet_source (clk, reset, router_address, channel, flit_valid, flow_ctrl, run, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -33,7 +32,7 @@ module packet_source
    // number of message classes (e.g. request, reply)
    parameter num_message_classes = 2;
    
-   // nuber of resource classes (e.g. minimal, adaptive)
+   // number of resource classes (e.g. minimal, adaptive)
    parameter num_resource_classes = 2;
    
    // width required to select individual resource class
@@ -154,9 +153,7 @@ module packet_source
    parameter routing_type = `ROUTING_TYPE_PHASED_DOR;
    
    // total number of bits required for storing routing information
-   localparam dest_info_width = (routing_type == `ROUTING_TYPE_PHASED_DOR) ? 
-       (num_resource_classes * router_addr_width + node_addr_width) : 
-       -1;
+   localparam dest_info_width=(routing_type==`ROUTING_TYPE_PHASED_DOR)?(num_resource_classes*router_addr_width+node_addr_width):-1;
    
    // total number of bits required for routing-related information
    localparam route_info_width = lar_info_width + dest_info_width;
@@ -233,7 +230,7 @@ module packet_source
    
    wire waiting_packet_count_zero;
 
-// whether a packet should be put into the source buffer at each cycle. 
+// packet_ready: whether a packet should be generated and put into the source buffer at each cycle. 
    wire packet_ready;
    assign packet_ready = new_packet & ~waiting_packet_count_zero;
    
@@ -265,15 +262,16 @@ module packet_source
 	assign waiting_packet_count_zero = 1'b0;
    endgenerate
    
-// '*_waiting' singal mean the number of packets has not been generated. 
-// Whereas, '*_ready' signals mean the number of packets waiting to be injected at the source node.
-// this part of source code generate the required singal 'ready_packet_count_zero'.
-// TODO: this part of code should be further investegated.
+// 'waiting_packet_count_*' singal mean the number of packets has not been generated. 
+// Whereas, 'ready_packet_count_*' signals mean the number of packets at the source node 
+// and waiting to be injected. this part of source code generate the required singal 'ready_packet_count_zero'.
    wire 				 packet_sent;
    wire					 flit_pending_q;
    wire 				 ready_packet_count_zero;
    wire [0:packet_count_reg_width-1] 	 ready_packet_count_s;
    wire [0:packet_count_reg_width-1] 	 ready_packet_count_q;
+// 'ready_packet_count_s' means the number of packet queued at the buffer of source node. When the packet has 
+// been fully injected, this counted decrease by one, whereas, it increase by one when 'packet_ready' asserts.
    assign ready_packet_count_s = run 
 		? (ready_packet_count_q - ((!flit_pending_q || packet_sent) && !ready_packet_count_zero) + packet_ready) 
 		: {packet_count_reg_width{1'b0}};
@@ -328,7 +326,8 @@ module packet_source
    
 // 'flit_*_s' signals are equal to the corresponding 'flit_*' singals, 
 // these signals will be delayed for a cycle and used for the flow_control_tracker
-//  module to update the credit statistics.
+//  module to update the credit statistics. All these signals and the signals connected
+// to rtr_output_channel based on the 'flit_*' singals.
    wire 				 flit_valid_s, flit_valid_q;
    assign flit_valid_s = flit_valid;
    c_dff
@@ -428,6 +427,7 @@ module packet_source
 	      .active(1'b1),
 	      .d(allocated_s),
 	      .q(allocated_q));
+// if this flit is valid and the ovc for this flit is ready to accept new flits, then we can infer that this flit must be sent this cycle.
 	   wire flit_sent;
 	   assign flit_sent = flit_valid_q & flit_sel_ovc_q[ovc];
 // this allocated signal only update when the tail flit has been transmitted. 
@@ -450,6 +450,7 @@ module packet_source
    endgenerate
 
 // this part of source code utilize the mux module to select the corresponding full/eligible singals for the ovc.
+// 'sel_ovc' signal was generated at the end of this file by a decoder. This signal is used to generate the full/eligible signals.
    wire 	full;
    c_select_1ofn
      #(.num_ports(num_vcs),
@@ -467,8 +468,9 @@ module packet_source
      (.select(sel_ovc),
       .data_in(elig_ovc),
       .data_out(elig));
-   
-   
+  
+// if there are pending flits, and the injection router is not full, the corresponding OVC is not full, then we can
+// infer that the flit must be successfully transmitted. 
    wire 	flit_sent;
    assign flit_sent = flit_pending_q & ~full & (elig | ~flit_head);
   
@@ -479,8 +481,8 @@ module packet_source
 // 'packet_sent' signal asserts when the sent flit is a tail flit.
    assign packet_sent = flit_tail & flit_sent;
    
-// update the 'flit_pending' singal.
-// TODO: the meaning of this singal is not very clear now.
+// update the 'flit_pending' singal. 'flit_pending_s' signal asserts when the source queue is not empty or there is
+// partial transmitted packet.
    wire 	flit_pending_s;
    assign flit_pending_s = (flit_pending_q & ~packet_sent) | ~ready_packet_count_zero;
    c_dff
@@ -502,13 +504,15 @@ module packet_source
 	    data_q[i] <= $dist_uniform(seed, 0, 1);
      end
    
-// fill the content of header_info of each flit. the header_info includes dest addr, lar_info, length, tail/head, etc.
+// fill the content of header_info of each flit. 
+// The header_info includes dest addr, lar_info, length, tail/head, etc.
 // only the 'flit_data' of header flit includes the header_info. 
    wire [0:header_info_width-1] header_info;
    assign flit_data[0:header_info_width-1] = flit_head ? header_info : data_q[0:header_info_width-1];
    assign flit_data[header_info_width:flit_data_width-1] = data_q[header_info_width:flit_data_width-1];
    
-// TODO: this part of code is hard to understand.
+// This part of code checks whether a specific packet class (#message_class X #resource_class) request
+// their specific output virtual channel.
    reg [0:dest_info_width-1] dest_info;
    wire [0:num_message_classes*num_resource_classes-1] sel_mc_orc;
    c_mat_mult
@@ -522,6 +526,7 @@ module packet_source
       .input_b({num_vcs_per_class{1'b1}}),
       .result(sel_mc_orc));
    
+// This part of code checks whether a specific message class request its specific resource class.
    wire [0:num_message_classes-1] 		       sel_mc;
    c_mat_mult
      #(.dim1_width(num_message_classes),
@@ -534,6 +539,7 @@ module packet_source
       .input_b({num_resource_classes{1'b1}}),
       .result(sel_mc));
    
+// This part of code generate the reversed request vector according to the sel_mc_orc;
    wire [0:num_resource_classes*num_message_classes-1] sel_orc_mc;
    c_interleave
      #(.width(num_message_classes*num_resource_classes),
@@ -542,6 +548,7 @@ module packet_source
      (.data_in(sel_mc_orc),
       .data_out(sel_orc_mc));
    
+// This part of code generates the specific output resource class for each message class.
    wire [0:num_resource_classes-1] 		       sel_orc;
    c_mat_mult
      #(.dim1_width(num_resource_classes),
@@ -554,8 +561,10 @@ module packet_source
       .input_b({num_message_classes{1'b1}}),
       .result(sel_orc));
    
-// generate the routing information.
-// TODO: what are the exact meaning of the 'message' and 'resource' refer to. 
+// generate the routing information. The message class refers to the request/reply information.
+// The 'resource' refer to the minimal and adaptive. 
+// These information are quite important for the routing algorithm to avoid deadlock.
+// To avoid deadlock, we should ensure that, at least one VC is reserved for each class.
    wire [0:num_ports-1] 			       route_op;
    wire [0:num_resource_classes-1] 		       route_orc;
    rtr_routing_logic
@@ -621,6 +630,9 @@ module packet_source
       .data_out(rc_dest));
    
 // the addr_width includes the router address and node addr. 
+// if there is only one node connected to each router, 
+// then the source_address of a packet is the address of its injection router.
+// Or else, the source_address of a packet is the address of the node that generates this packet.
    wire [0:addr_width-1] 			     source_address;
    assign source_address[0:router_addr_width-1] = router_address;
    
@@ -863,5 +875,48 @@ module packet_source
    
    assign error = |fcs_errors_ovc;
 
+
+// Dump the generation time of each packet.
+// used for the end-to-end latency calculation.
+reg [0:packet_count_reg_width-1] pkt_gened;
+
+always @(posedge clk, posedge reset)
+if (reset)
+	pkt_gened<=0;
+else if(packet_ready)
+begin
+	pkt_gened<=pkt_gened+1;
+	$display("node %d generates the No. %d packet at ",router_address,pkt_gened,$time);
+end
+
+
+// Dump the destination time of each packet.
+// used for the end-to-end-latency calculation.
+reg [0:packet_count_reg_width-1] pkt_sent;
+reg [0:dest_info_width-1] dest_info_q;
+
+always @(posedge clk, posedge reset)
+if (reset)
+	dest_info_q<=0;
+else
+	#1 dest_info_q<=dest_info;
+
+always @(negedge packet_sent, posedge reset)
+if (reset)
+	pkt_sent<=0;
+else if (!packet_sent)
+begin
+	pkt_sent<=pkt_sent+1;
+	$display("destination of No. %d packet generated by node %d is [%d,%d]", 
+		pkt_sent, router_address, dest_info_q[0:dim_addr_width-1], dest_info_q[dim_addr_width:2*dim_addr_width-1]);
+end
+
+
+// Used for the debugging purpose.
+initial
+begin
+	$dumpfile("packet_source.txt");
+	$dumpvars(1,packet_source);
+end
 
 endmodule

@@ -1,0 +1,61 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Tue May 27 04:22:10 2014
+[*]
+[dumpfile] "/home/happy/Dropbox/NoCRouter/conventional_router/verif/mesh_3x3/packet_source.txt"
+[dumpfile_mtime] "Tue May 27 04:18:23 2014"
+[dumpfile_size] 48576618
+[savefile] "/home/happy/Dropbox/NoCRouter/conventional_router/verif/mesh_3x3/packet_source.gtkw"
+[timestart] 81
+[size] 1215 776
+[pos] -1 -1
+*-4.000000 130 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.ips[0].
+[sst_width] 259
+[signals_width] 238
+[sst_expanded] 1
+[sst_vpaned_height] 252
+@28
+testbench.ips[0].ps.clk
+testbench.ips[0].ps.run
+@22
+testbench.ips[0].ps.channel[0:69]
+@28
+testbench.ips[0].ps.new_packet
+testbench.ips[0].ps.packet_ready
+@24
+testbench.ips[0].ps.ready_packet_count_q[0:31]
+@28
+testbench.ips[0].ps.packet_sent
+testbench.ips[0].ps.lar_info[0:2]
+@8000028
+testbench.ips[0].ps.dest_info[0:3]
+@29
+testbench.ips[0].ps.dest_info_q[0:3]
+@24
+testbench.ips[0].ps.flit_count_q[0:2]
+testbench.ips[0].ps.random_length_q[0:2]
+@28
+testbench.ips[0].ps.tail_q
+testbench.ips[0].ps.header_info[0:6]
+testbench.ips[0].ps.flit_valid
+testbench.ips[0].ps.flit_head
+testbench.ips[0].ps.flit_head_q
+testbench.ips[0].ps.flit_head_s
+testbench.ips[0].ps.flit_tail
+testbench.ips[0].ps.flit_tail_s
+testbench.ips[0].ps.flit_sent
+testbench.ips[0].ps.packet_sent
+testbench.ips[0].ps.flit_kill
+testbench.ips[0].ps.flit_pending_q
+testbench.ips[0].ps.flit_pending_s
+testbench.ips[0].ps.route_op[0:4]
+testbench.ips[0].ps.route_port[0:2]
+testbench.ips[0].ps.flit_sel_ovc_q[0:3]
+testbench.ips[0].ps.fc_event_sel_ovc[0:3]
+testbench.ips[0].ps.full
+testbench.ips[0].ps.ready_packet_count_zero
+testbench.ips[0].ps.waiting_packet_count_zero
+[pattern_trace] 1
+[pattern_trace] 0

@@ -55,24 +55,16 @@ module c_mat_mult
    wire [0:dim1_width*dim3_width-1] result;
    
    generate
-      
       genvar 			    row;
-      
       for(row = 0; row < dim1_width; row = row + 1)
 	begin:rows
-	   
 	   genvar col;
-	   
 	   for(col = 0; col < dim3_width; col = col + 1)
 	     begin:cols
-		
 		wire [0:dim2_width-1] products;
-		
 		genvar 		      idx;
-		
 		for(idx = 0; idx < dim2_width; idx = idx + 1)
 		  begin:idxs
-		     
 		     c_binary_op
 			  #(.num_ports(2),
 			    .width(1),
@@ -80,9 +72,7 @@ module c_mat_mult
 		     prod
 			  (.data_in({input_a[row*dim2_width+idx],input_b[idx*dim3_width+col]}),
 			   .data_out(products[idx]));
-		     
 		  end
-		
 		c_binary_op
 		  #(.num_ports(dim2_width),
 		    .width(1),
@@ -90,11 +80,7 @@ module c_mat_mult
 		sum
 		  (.data_in(products),
 		   .data_out(result[row*dim3_width+col]));
-		
 	     end
-	   
 	end
-      
    endgenerate
-   
 endmodule

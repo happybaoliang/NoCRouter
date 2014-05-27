@@ -25,8 +25,7 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-module flit_sink
-  (clk, reset, channel, flow_ctrl, error);
+module flit_sink (clk, reset, channel, flow_ctrl, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -156,18 +155,22 @@ module flit_sink
      begin
 	consume <= $dist_uniform(seed, 0, 99) < consume_rate;
      end
-   
+  
+// An indicator means the input vc is empty 
    wire [0:num_vcs-1] empty_ivc;
    
+// 
    wire [0:num_vcs-1] req_ivc;
    assign req_ivc = ({num_vcs{flit_valid}} & flit_sel_ivc) | ~empty_ivc;
    
    wire 	      gnt;
    assign gnt = |req_ivc & consume;
    
+// the arbiter update its priorities only when a previous grant asserts.
    wire 	      update;
    assign update = gnt;
    
+// The arbiter selects one flits from the input buffer and release it.
    wire [0:num_vcs-1] gnt_ivc;
    c_arbiter
      #(.num_ports(num_vcs),
@@ -183,6 +186,8 @@ module flit_sink
       .gnt_pr(gnt_ivc),
       .gnt());
    
+// this module accept signals from 'rtr_channel_output' and write flit into buffer.
+// the flit release occurs only when the arbiter grant an request.
    wire [0:num_vcs*2-1] errors_ivc;
    rtr_flit_buffer
      #(.num_vcs(num_vcs),
@@ -216,6 +221,7 @@ module flit_sink
       .full(),
       .errors_ivc(errors_ivc));
    
+// generates the neccessary flow control information.
    rtr_flow_ctrl_output
      #(.num_vcs(num_vcs),
        .flow_ctrl_type(flow_ctrl_type),

@@ -156,7 +156,13 @@ module testbench
    
    reg clk;
    reg reset;
-   
+  
+// port 0: West
+// port 1: East
+// port 2: South
+// port 3: North
+// port 4: Local
+ 
 	//wires that are directly conected to the channel/flow_ctrl ports of each router
 	wire [0:channel_width-1] channel_router_0_op_0;
 	wire [0:channel_width-1] channel_router_0_op_1;
@@ -1511,7 +1517,7 @@ module testbench
    
    initial
    begin  
-      file_ptr=$fopen("/mnt/share/value.txt");
+      file_ptr=$fopen("value.txt");
       reset = 1'b0;
       clk_en = 1'b0;
       run = 1'b0;
