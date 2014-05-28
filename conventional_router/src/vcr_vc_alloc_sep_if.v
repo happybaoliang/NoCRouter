@@ -144,7 +144,7 @@ module vcr_vc_alloc_sep_if
 			  wire [0:num_resource_classes-1] route_orc;
 			  
 			  if(irc == (num_resource_classes - 1))
-			    assign route_orc = 'd1;
+			    assign route_orc = 'b1;
 			  else
 			    assign route_orc
 			      = route_ip_ivc_orc[(((ip*num_message_classes+mc)*

@@ -48,7 +48,7 @@ module testbench
    parameter packet_rate = 25;
    
    // flit consumption rate (percentage of cycles)
-   parameter consume_rate = 50;
+   parameter consume_rate = 100;
    
    // width of packet count register
    parameter packet_count_reg_width = 32;
@@ -1517,7 +1517,6 @@ module testbench
    
    initial
    begin  
-      file_ptr=$fopen("value.txt");
       reset = 1'b0;
       clk_en = 1'b0;
       run = 1'b0;
@@ -1540,7 +1539,7 @@ module testbench
       
       #(Tclk/2);
       
-      $display("warming up...");
+      //$display("warming up...");
       
       run = 1'b1;
 
@@ -1550,7 +1549,7 @@ module testbench
 	   #(Tclk);
 	end
       
-      $display("measuring...");
+      //$display("measuring...");
       
       count_en = 1'b1;
       
@@ -1562,11 +1561,11 @@ module testbench
       
       count_en = 1'b0;
       
-      $display("measured %d cycles", measure_time);
+      //$display("measured %d cycles", measure_time);
       
-      $display("%d flits in, %d flits out", count_in_flits, count_out_flits);
+      //$display("%d flits in, %d flits out", count_in_flits, count_out_flits);
       
-      $display("cooling down...");
+      //$display("cooling down...");
       
       run = 1'b0;
       
@@ -1578,33 +1577,13 @@ module testbench
       
       #(Tclk*10);
       
-      $display("simulation ended after %d cycles", cycles);
+      //$display("simulation ended after %d cycles", cycles);
       
-      $display("%d flits received, %d flits sent", in_flits, out_flits);
-      
-      $fclose(file_ptr);
+      //$display("%d flits received, %d flits sent", in_flits, out_flits);
       
       $finish;
       
    end
-
-
-	wire is_valid_flit;
-	assign is_valid_flit=channel_router_0_ip_4[link_ctrl_width+vc_idx_width];
-
-	wire is_head_flit;
-	assign is_head_flit=channel_router_0_ip_4[link_ctrl_width+1+vc_idx_width];
-
-	wire [0:dest_info_width-node_addr_width-1] dest_router;
-	assign dest_router=channel_router_0_ip_4[link_ctrl_width+flit_ctrl_width+lar_info_width:
-			link_ctrl_width+flit_ctrl_width+route_info_width-node_addr_width-1];
-
-	always @(channel_router_0_ip_4)
-	if (is_valid_flit&is_head_flit)
-		$fdisplay(file_ptr,"%d: node [%h,%h] sends a new packet to router[%h,%h]",
-			cycles,0,0,dest_router[0:dim_addr_width-1],dest_router[dim_addr_width:2*dim_addr_width-1]);
-
-
 
 endmodule
 

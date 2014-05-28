@@ -34,7 +34,7 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    parameter initial_seed = 0;
    
    // flit consumption rate (percentage of cycles)
-   parameter consume_rate = 50;
+   parameter consume_rate = 100;
    
    // total buffer size per port in flits
    parameter buffer_size = 64;
@@ -59,6 +59,10 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    
    // width of flow control signals
    localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
+
+   localparam dim1_addr=(initial_seed-9)/3;
+
+   localparam dim2_addr=(initial_seed-9)%3;
    
    // maximum payload length (in flits)
    // (note: only used if packet_format==`PACKET_FORMAT_EXPLICIT_LENGTH)
@@ -106,6 +110,7 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    parameter atomic_vc_allocation = 0;
    
    parameter reset_type = `RESET_TYPE_ASYNC;
+
    
    input clk;
    input reset;
@@ -159,10 +164,13 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
 // An indicator means the input vc is empty 
    wire [0:num_vcs-1] empty_ivc;
    
-// 
+// This vc issues an request to consume a flit when this flit is not empty
+// or a new flit is written into this vc. 
    wire [0:num_vcs-1] req_ivc;
    assign req_ivc = ({num_vcs{flit_valid}} & flit_sel_ivc) | ~empty_ivc;
-   
+  
+// When the 'consume' signal asserts and there are request vc, 
+// there must be a flit consumed next cycle.
    wire 	      gnt;
    assign gnt = |req_ivc & consume;
    
@@ -185,7 +193,11 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
       .req_pr(req_ivc),
       .gnt_pr(gnt_ivc),
       .gnt());
-   
+  
+
+wire [0:num_vcs-1] pop_flit_tail;
+wire [0:flit_data_width-1] pop_flit;
+ 
 // this module accept signals from 'rtr_channel_output' and write flit into buffer.
 // the flit release occurs only when the arbiter grant an request.
    wire [0:num_vcs*2-1] errors_ivc;
@@ -213,8 +225,8 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
       .pop_active(1'b1),
       .pop_valid(gnt),
       .pop_sel_ivc(gnt_ivc),
-      .pop_data(),
-      .pop_tail_ivc(),
+      .pop_data(pop_flit),
+      .pop_tail_ivc(pop_flit_tail),
       .pop_next_header_info(),
       .almost_empty_ivc(),
       .empty_ivc(empty_ivc),
@@ -235,5 +247,48 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
       .flow_ctrl_out(flow_ctrl));
    
    assign error = |errors_ivc;
-   
+
+
+wire [0:31] pkt_cnt;
+assign pkt_cnt=pop_flit[flit_data_width-36:flit_data_width-5];
+
+wire [0:1] src_addr_dim1;
+assign src_addr_dim1=pop_flit[flit_data_width-4:flit_data_width-3];
+
+wire [0:1] src_addr_dim2;
+assign src_addr_dim2=pop_flit[flit_data_width-2:flit_data_width-1];
+
+
+// To syn with the consumed flit.
+reg flit_tail_q;
+reg flit_valid_q;
+
+always @(posedge clk or posedge reset)
+if (reset)
+begin
+	flit_tail_q<=0;
+	flit_valid_q<=0;
+end
+else
+begin
+	flit_tail_q<=flit_tail;
+	flit_valid_q<=flit_valid;
+end
+
+always @(posedge clk or posedge reset)
+if (flit_valid_q & flit_tail_q)
+	$display("rev:\n %d %d %d %d %d %d", 
+		dim2_addr,
+		dim1_addr,
+		src_addr_dim1,
+		src_addr_dim2,
+		pkt_cnt,
+		$time);
+
+// the cosumming rate is 1 flit/cycle.
+initial
+begin
+	$dumpvars(1,flit_sink);
+end
+
 endmodule

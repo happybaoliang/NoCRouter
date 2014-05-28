@@ -29,7 +29,7 @@
 #
 
 TOP_SRC = testbench.v
-DEP_SRCS = parameters.v packet_source.v
+DEP_SRCS = parameters.v packet_source.v flit_sink.v
 
 SRCS = $(TOP_SRC) $(DEP_SRCS)
 
