@@ -45,10 +45,10 @@ module testbench
    parameter max_packet_count = -1;
    
    // packet injection rate (percentage of cycles)
-   parameter packet_rate = 25;
+   parameter packet_rate = 500;
    
    // flit consumption rate (percentage of cycles)
-   parameter consume_rate = 100;
+   parameter consume_rate = 10000;
    
    // width of packet count register
    parameter packet_count_reg_width = 32;
@@ -124,7 +124,9 @@ module testbench
    localparam lar_info_width = port_idx_width + resource_class_idx_width;
    
    // total number of bits required for storing routing information
-   localparam dest_info_width = (routing_type == `ROUTING_TYPE_PHASED_DOR) ? (num_resource_classes * router_addr_width + node_addr_width) : -1;
+   localparam dest_info_width = (routing_type == `ROUTING_TYPE_PHASED_DOR) 
+				? (num_resource_classes * router_addr_width + node_addr_width) 
+				: -1;
    
    // total number of bits required for routing-related information
    localparam route_info_width = lar_info_width + dest_info_width;
@@ -1539,7 +1541,7 @@ module testbench
       
       #(Tclk/2);
       
-      //$display("warming up...");
+      $display("warming up...");
       
       run = 1'b1;
 
@@ -1549,7 +1551,7 @@ module testbench
 	   #(Tclk);
 	end
       
-      //$display("measuring...");
+      $display("measuring...");
       
       count_en = 1'b1;
       
@@ -1561,11 +1563,11 @@ module testbench
       
       count_en = 1'b0;
       
-      //$display("measured %d cycles", measure_time);
+      $display("measured %d cycles", measure_time);
       
-      //$display("%d flits in, %d flits out", count_in_flits, count_out_flits);
+      $display("%d flits in, %d flits out", count_in_flits, count_out_flits);
       
-      //$display("cooling down...");
+      $display("cooling down...");
       
       run = 1'b0;
       
@@ -1577,9 +1579,9 @@ module testbench
       
       #(Tclk*10);
       
-      //$display("simulation ended after %d cycles", cycles);
+      $display("simulation ended after %d cycles", cycles);
       
-      //$display("%d flits received, %d flits sent", in_flits, out_flits);
+      $display("%d flits received, %d flits sent", in_flits, out_flits);
       
       $finish;
       

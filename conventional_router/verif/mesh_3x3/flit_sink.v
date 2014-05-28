@@ -34,7 +34,7 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    parameter initial_seed = 0;
    
    // flit consumption rate (percentage of cycles)
-   parameter consume_rate = 100;
+   parameter consume_rate = 10000;
    
    // total buffer size per port in flits
    parameter buffer_size = 64;
@@ -158,7 +158,7 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    
    always @(posedge clk, posedge reset)
      begin
-	consume <= $dist_uniform(seed, 0, 99) < consume_rate;
+	consume <= $dist_uniform(seed, 0, 9999) < consume_rate;
      end
   
 // An indicator means the input vc is empty 
