@@ -1,6 +1,9 @@
 # directory
 router/work/
 
+# database file
+*.db
+
 #modelsim
 *.mpf
 *.cr.mti
