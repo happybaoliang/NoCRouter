@@ -1,0 +1,21 @@
+max packet latency: 86
+min packet latency: 13
+total average packet latency is: 26.7725
+average packet latency arrived at 0:
+   -nan	22.2281	24.5152	18.1026	 28.087	32.1667	24.6111	 30.413	32.2105	
+average packet latency arrived at 1:
+25.2771	   -nan	21.7619	29.8205	 22.275	29.9032	   30.8	27.8605	29.4889	
+average packet latency arrived at 2:
+31.2121	20.5676	   -nan	30.9167	25.7857	     23	35.2791	29.3125	22.2766	
+average packet latency arrived at 3:
+23.2545	25.7619	32.8571	   -nan	25.0896	32.8293	19.7719	28.8864	 31.125	
+average packet latency arrived at 4:
+29.7843	20.9487	25.9375	18.7333	   -nan	27.5256	24.8788	21.7551	 26.766	
+average packet latency arrived at 5:
+ 33.814	29.2593	21.5818	25.7179	26.2778	   -nan	     29	 26.717	21.0926	
+average packet latency arrived at 6:
+27.6364	32.1364	35.0811	19.5435	29.7609	35.3404	   -nan	21.1912	25.1129	
+average packet latency arrived at 7:
+32.0682	   30.8	   32.2	23.1429	29.1731	29.4464	17.6027	   -nan	23.2405	
+average packet latency arrived at 8:
+   37.5	31.8824	27.5946	27.8542	 32.875	 26.375	23.8209	19.6667	   -nan

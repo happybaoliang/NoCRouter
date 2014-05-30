@@ -898,7 +898,7 @@ begin
 		router_address[0:dim_addr_width-1], 
 		router_address[dim_addr_width:2*dim_addr_width-1],
 		pkt_gened,
-		$time);
+		($time-8)/2);
 end
 
 
@@ -930,8 +930,8 @@ end
 // Used for the debugging purpose.
 initial
 begin
-	$dumpfile("packets.db");
-	$dumpvars(1,packet_source);
+//	$dumpfile("packets.db");
+//	$dumpvars(1,packet_source);
 end
 
 endmodule

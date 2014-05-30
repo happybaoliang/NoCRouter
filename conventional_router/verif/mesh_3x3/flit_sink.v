@@ -283,12 +283,12 @@ if (flit_valid_q & flit_tail_q)
 		src_addr_dim1,
 		src_addr_dim2,
 		pkt_cnt,
-		$time);
+		($time-10)/2);
 
 // the cosumming rate is 1 flit/cycle.
 initial
 begin
-	$dumpvars(1,flit_sink);
+	//$dumpvars(1,flit_sink);
 end
 
 endmodule

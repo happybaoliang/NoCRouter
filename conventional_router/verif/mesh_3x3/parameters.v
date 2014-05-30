@@ -42,7 +42,7 @@ parameter num_message_classes = 1;
 parameter num_resource_classes = 1;
 
 // number of VCs per class
-parameter num_vcs_per_class = 4;
+parameter num_vcs_per_class = 16;
 
 // total number of nodes
 parameter num_nodes = 9;
@@ -63,10 +63,10 @@ parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
 parameter flow_ctrl_bypass = 0;
 
 // maximum payload length (in flits)
-parameter max_payload_length = 4;
+parameter max_payload_length = 3;
 
 // minimum payload length (in flits)
-parameter min_payload_length = 0;
+parameter min_payload_length = 3;
 
 // select router implementation
 parameter router_type = `ROUTER_TYPE_VC;
@@ -102,7 +102,7 @@ parameter input_stage_can_hold = 0;
 parameter fb_regfile_type = `REGFILE_TYPE_FF_2D;
 
 // select flit buffer management scheme
-parameter fb_mgmt_type = `FB_MGMT_TYPE_STATIC;
+parameter fb_mgmt_type = `FB_MGMT_TYPE_DYNAMIC;
 
 // improve timing for peek access
 parameter fb_fast_peek = 1;
@@ -137,7 +137,7 @@ parameter precomp_ivc_sel = 0;
 parameter precomp_ip_sel = 0;
 
 // select whether to exclude full or non-empty VCs from VC allocation
-parameter elig_mask = `ELIG_MASK_FULL;
+parameter elig_mask = `ELIG_MASK_USED;
 
 // select implementation variant for VC allocator
 parameter vc_alloc_type = `VC_ALLOC_TYPE_SEP_IF;

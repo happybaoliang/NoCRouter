@@ -3,6 +3,7 @@ router/work/
 
 # database file
 *.db
+*.vcd
 
 #modelsim
 *.mpf

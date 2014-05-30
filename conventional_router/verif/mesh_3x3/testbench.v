@@ -44,10 +44,10 @@ module testbench
    // maximum number of packets to generate (-1 = no limit)
    parameter max_packet_count = -1;
    
-   // packet injection rate (percentage of cycles)
-   parameter packet_rate = 500;
+   // packet injection rate (per 10k cycles)
+   parameter packet_rate = 2000;
    
-   // flit consumption rate (percentage of cycles)
+   // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
    
    // width of packet count register
@@ -60,7 +60,7 @@ module testbench
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 100;
+   parameter warmup_time = 3000;
    
    // measurement interval in cycles
    parameter measure_time = 3000;
@@ -1514,8 +1514,6 @@ module testbench
    
    integer cycles;
    integer d;
-   
-   integer file_ptr;
    
    initial
    begin  

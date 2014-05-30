@@ -3,7 +3,7 @@
 	<head>
 		<title>VCS dump file for DVE debugging</title>
 		<vcsVersion>D-2009.12</vcsVersion>
-		<dateCreated>Wed May 28 02:48:23 2014</dateCreated>
+		<dateCreated>Fri May 30 08:29:37 2014</dateCreated>
 	</head>
 	<body>
 		<!-- VCS compile options -->
@@ -486,8 +486,8 @@
 			<macro name="ROUTING_TYPE_PHASED_DOR" module="testbench" sourceID="5" lineno="93" defID="4" defLine="85" value="2" />
 			<macro name="DIM_ORDER_ASCENDING" module="testbench" sourceID="5" lineno="96" defID="4" defLine="95" value="2" />
 			<macro name="REGFILE_TYPE_FF_2D" module="testbench" sourceID="5" lineno="102" defID="2" defLine="107" value="2" />
-			<macro name="FB_MGMT_TYPE_STATIC" module="testbench" sourceID="5" lineno="105" defID="4" defLine="154" value="2" />
-			<macro name="ELIG_MASK_FULL" module="testbench" sourceID="5" lineno="140" defID="4" defLine="141" value="3" />
+			<macro name="FB_MGMT_TYPE_DYNAMIC" module="testbench" sourceID="5" lineno="105" defID="4" defLine="157" value="3" />
+			<macro name="ELIG_MASK_USED" module="testbench" sourceID="5" lineno="140" defID="4" defLine="144" value="1" />
 			<macro name="VC_ALLOC_TYPE_SEP_IF" module="testbench" sourceID="5" lineno="143" defID="4" defLine="167" value="2" />
 			<macro name="ARBITER_TYPE_ROUND_ROBIN_BINARY" module="testbench" sourceID="5" lineno="146" defID="2" defLine="51" value="2" />
 			<macro name="SW_ALLOC_TYPE_SEP_IF" module="testbench" sourceID="5" lineno="152" defID="4" defLine="185" value="2" />
@@ -503,8 +503,8 @@
 			<macro name="ROUTING_TYPE_PHASED_DOR" module="router_wrap" sourceID="5" lineno="93" defID="4" defLine="85" value="2" />
 			<macro name="DIM_ORDER_ASCENDING" module="router_wrap" sourceID="5" lineno="96" defID="4" defLine="95" value="2" />
 			<macro name="REGFILE_TYPE_FF_2D" module="router_wrap" sourceID="5" lineno="102" defID="2" defLine="107" value="2" />
-			<macro name="FB_MGMT_TYPE_STATIC" module="router_wrap" sourceID="5" lineno="105" defID="4" defLine="154" value="2" />
-			<macro name="ELIG_MASK_FULL" module="router_wrap" sourceID="5" lineno="140" defID="4" defLine="141" value="3" />
+			<macro name="FB_MGMT_TYPE_DYNAMIC" module="router_wrap" sourceID="5" lineno="105" defID="4" defLine="157" value="3" />
+			<macro name="ELIG_MASK_USED" module="router_wrap" sourceID="5" lineno="140" defID="4" defLine="144" value="1" />
 			<macro name="VC_ALLOC_TYPE_SEP_IF" module="router_wrap" sourceID="5" lineno="143" defID="4" defLine="167" value="2" />
 			<macro name="ARBITER_TYPE_ROUND_ROBIN_BINARY" module="router_wrap" sourceID="5" lineno="146" defID="2" defLine="51" value="2" />
 			<macro name="SW_ALLOC_TYPE_SEP_IF" module="router_wrap" sourceID="5" lineno="152" defID="4" defLine="185" value="2" />

@@ -52,5 +52,10 @@ simv: $(SRCS) $(DUMP_CTRL) $(SRC_DIR)/*.v
 simvfast: $(SRCS) $(DUMP_CTRL) $(SRC_DIR)/*.v
 	vcs -o simvfast +rad $(VCS_FLAGS) $(INT_CTRL) -y $(SRC_DIR) -y $(CLIB_DIR) -y $(DW_DIR) -y . $(TOP_SRC) $(DUMP_CTRL)
 
+run: simv parser.cpp
+	g++ parser.cpp -o parser
+	./simv > stat.db
+	./parser
+	
 clean:
 	rm -rf work simv simvfast simv.daidir simvfast.daidir transcript *.vcd *.vpd ucli.key vcs.key run.args csrc DVEfiles .vcsmx_rebuild *~
