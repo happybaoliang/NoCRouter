@@ -1,5 +1,5 @@
 psSimBaseName                      	simv
-pDaiDir                            	/home/happy/NoCRouter/DynVCRouter/simv.daidir
+pDaiDir                            	/home/happy/Dropbox/NoCRouter/DynVCRouter/simv.daidir
 destPath                           	csrc/
 hsMainFileCount                    	0
 hsMainFileName                     	dummy
@@ -9,7 +9,7 @@ fNewdaidirpath                     	0
 fHsimSdfData                       	0
 fHsimDumpFlatData                  	1
 fHsimDumpElabData                  	1
-fHsimDumpOffsetData                	0
+fHsimDumpOffsetData                	1
 fNoOfsOpt                          	0
 fHsimDynamicElab                   	1
 fHsimDynamicElabForGates           	0
