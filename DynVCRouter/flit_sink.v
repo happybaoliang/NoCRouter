@@ -25,7 +25,7 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-module flit_sink (clk, reset, channel, flow_ctrl, error);
+module flit_sink (clk, reset, channel, memory_bank_grant, shared_vc, flow_ctrl, credit_for_shared, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -41,6 +41,8 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    
    // number of VCs
    parameter num_vcs = 8;
+
+   parameter num_ports = 5;
    
    // width required to select individual VC
    localparam vc_idx_width = clogb(num_vcs);
@@ -50,6 +52,10 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    
    // width required to express number of flits in a VC
    localparam flit_count_width = clogb(buffer_size_per_vc + 1);
+
+   localparam memory_bank_size = buffer_size/6;
+
+   localparam num_vcs_per_bank = num_vcs/6;
    
    // select packet format
    parameter packet_format = `PACKET_FORMAT_EXPLICIT_LENGTH;
@@ -115,10 +121,17 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    input clk;
    input reset;
    
-   input [0:channel_width-1] channel;
-   
+   input [0:channel_width-1] 	channel;
+  
+   input			shared_vc;
+
+   output [0:num_ports-1]	memory_bank_grant;
+   wire [0:num_ports-1]		memory_bank_grant;
+  
    output [0:flow_ctrl_width-1] flow_ctrl;
    wire [0:flow_ctrl_width-1] 	flow_ctrl;
+
+   output 			credit_for_shared;
    
    output 			error;
    wire 			error;
@@ -132,6 +145,7 @@ module flit_sink (clk, reset, channel, flow_ctrl, error);
    wire [0:num_vcs-1] 		flit_tail_ivc;
    wire [0:flit_data_width-1] 	flit_data;
    wire [0:num_vcs-1] 		flit_sel_ivc;
+
    rtr_channel_input
      #(.num_vcs(num_vcs),
        .packet_format(packet_format),
@@ -248,6 +262,10 @@ wire [0:flit_data_width-1] pop_flit;
    
    assign error = |errors_ivc;
 
+
+assign credit_for_shared = 1'b0;
+
+assign memory_bank_grant = {num_ports{1'b0}};
 
 wire [0:31] pkt_cnt;
 assign pkt_cnt=pop_flit[flit_data_width-36:flit_data_width-5];

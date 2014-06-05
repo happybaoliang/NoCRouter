@@ -31,8 +31,9 @@
 //==============================================================================
 
 module router_wrap
-  (clk, reset, router_address, channel_in_ip, flow_ctrl_out_ip, channel_out_op, 
-   flow_ctrl_in_op, error);
+  (clk, reset, router_address, channel_in_ip, memory_bank_grant_in, flow_ctrl_out_ip, 
+   channel_out_op, memory_bank_grant_out, flow_ctrl_in_op, credit_for_shared_in, 
+   shared_vc_in, credit_for_shared_out, shared_vc_out, error);
    
 `include "c_functions.v"   
 `include "c_constants.v"
@@ -51,8 +52,7 @@ module router_wrap
    localparam vc_idx_width = clogb(num_vcs);
    
    // total number of routers
-   localparam num_routers
-     = (num_nodes + num_nodes_per_router - 1) / num_nodes_per_router;
+   localparam num_routers = (num_nodes + num_nodes_per_router - 1) / num_nodes_per_router;
    
    // number of routers in each dimension
    localparam num_routers_per_dim = croot(num_routers, num_dimensions);
@@ -83,13 +83,10 @@ module router_wrap
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // width of link management signals
    localparam link_ctrl_width = enable_link_pm ? 1 : 0;
@@ -105,9 +102,11 @@ module router_wrap
        -1;
    
    // width of channel
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
+   localparam memory_bank_size = buffer_size/num_ports;
+
+   localparam num_vcs_per_bank = num_vcs/num_ports;
    
    input clk;
    input reset;
@@ -118,10 +117,25 @@ module router_wrap
    // incoming channels
    input [0:num_ports*channel_width-1] channel_in_ip;
    
+   input [0:num_ports*num_ports-1] 	memory_bank_grant_in;
+
+   output [0:num_ports*num_ports-1]	memory_bank_grant_out;
+   wire [0:num_ports*num_ports-1]	memory_bank_grant_out;
+
+   input [0:num_ports-1]		shared_vc_in;
+
+   output [0:num_ports-1]		shared_vc_out;
+   wire [0:num_ports-1]			shared_vc_out;
+
    // outgoing flow control signals
    output [0:num_ports*flow_ctrl_width-1] flow_ctrl_out_ip;
    wire [0:num_ports*flow_ctrl_width-1]   flow_ctrl_out_ip;
-   
+
+   output [0:num_ports-1]		credit_for_shared_out;   
+   wire [0:num_ports-1]			credit_for_shared_out;
+
+   input [0:num_ports-1]		credit_for_shared_in;
+
    // outgoing channels
    output [0:num_ports*channel_width-1]   channel_out_op;
    wire [0:num_ports*channel_width-1] 	  channel_out_op;
@@ -220,7 +234,13 @@ module router_wrap
 		.reset(reset),
 		.router_address(router_address),
 		.channel_in_ip(channel_in_ip),
+		.memory_bank_grant_in(memory_bank_grant_in),
+		.memory_bank_grant_out(memory_bank_grant_out),
+		.shared_vc_in(shared_vc_in),
+		.shared_vc_out(shared_vc_out),
 		.flow_ctrl_out_ip(flow_ctrl_out_ip),
+		.credit_for_shared_in(credit_for_shared_in),
+		.credit_for_shared_out(credit_for_shared_out),
 		.channel_out_op(channel_out_op),
 		.flow_ctrl_in_op(flow_ctrl_in_op),
 		.error(error));

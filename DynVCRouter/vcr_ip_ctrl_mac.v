@@ -29,11 +29,12 @@
 // input port controller
 //==============================================================================
 
-module vcr_ip_ctrl_mac
-  (clk, reset, router_address, channel_in, route_ivc_op, route_ivc_orc, 
-   allocated_ivc, flit_valid_ivc, flit_head_ivc, flit_tail_ivc, 
-   free_nonspec_ivc, vc_gnt_ivc, vc_sel_ivc_ovc, sw_gnt, sw_sel_ivc, sw_gnt_op, 
-   almost_full_op_ovc, full_op_ovc, flit_data, flow_ctrl_out, error);
+module vcr_ip_ctrl_mac (clk, reset, router_address, channel_in, route_ivc_op, 
+route_ivc_orc, allocated_ivc, flit_valid_ivc, flit_head_ivc, flit_tail_ivc, 
+free_nonspec_ivc, vc_gnt_ivc, vc_sel_ivc_ovc, sw_gnt, sw_sel_ivc, sw_gnt_op, 
+almost_full_op_ovc, full_op_ovc, flit_data, flow_ctrl_out, shared_fb_active, 
+shared_fb_push_valid, shared_fb_push_head, shared_fb_push_tail, shared_fb_alloc_active, shared_fb_pop_active,
+shared_fb_pop_valid, shared_fb_push_sel_ivc, shared_fb_push_data, shared_fb_pop_sel_ivc, shared_fb_pop_data, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -98,8 +99,7 @@ module vcr_ip_ctrl_mac
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width required to select an individual port
    localparam port_idx_width = clogb(num_ports);
@@ -111,9 +111,7 @@ module vcr_ip_ctrl_mac
    parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // maximum payload length (in flits)
    // (note: only used if packet_format==`PACKET_FORMAT_EXPLICIT_LENGTH)
@@ -124,8 +122,7 @@ module vcr_ip_ctrl_mac
    parameter min_payload_length = 1;
    
    // number of bits required to represent all possible payload sizes
-   localparam payload_length_width
-     = clogb(max_payload_length-min_payload_length+1);
+   localparam payload_length_width = clogb(max_payload_length-min_payload_length+1);
 
    // enable link power management
    parameter enable_link_pm = 1;
@@ -147,8 +144,7 @@ module vcr_ip_ctrl_mac
    parameter flit_data_width = 64;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // filter out illegal destination ports
    // (the intent is to allow synthesis to optimize away the logic associated 
@@ -217,6 +213,7 @@ module vcr_ip_ctrl_mac
    parameter reset_type = `RESET_TYPE_ASYNC;
       
    input clk;
+  
    input reset;
    
    // current router's address
@@ -277,11 +274,44 @@ module vcr_ip_ctrl_mac
    // outgoing flit data
    output [0:flit_data_width-1] 	     flit_data;
    wire [0:flit_data_width-1] 		     flit_data;
-   
+
    // outgoing flow control signals
    output [0:flow_ctrl_width-1] 	     flow_ctrl_out;
    wire [0:flow_ctrl_width-1] 		     flow_ctrl_out;
+  
+   output 				     shared_fb_active;
+   wire 				     shared_fb_active;
+
+   output				     shared_fb_push_valid;
+   wire					     shared_fb_push_valid;
+
+   output				     shared_fb_push_head;
+   wire					     shared_fb_push_head;
+
+   output				     shared_fb_push_tail;
+   wire					     shared_fb_push_tail;
+
+   output [0:num_vcs-1]			     shared_fb_push_sel_ivc;
+   wire [0:num_vcs-1]			     shared_fb_push_sel_ivc;
    
+   output [0:flit_data_width-1]		     shared_fb_push_data;
+   wire [0:flit_data_width-1]		     shared_fb_push_data;
+
+   output				     shared_fb_alloc_active;
+   wire					     shared_fb_alloc_active;
+
+   output				     shared_fb_pop_active;
+   wire					     shared_fb_pop_active;
+
+   output 				     shared_fb_pop_valid;
+   wire					     shared_fb_pop_valid;
+
+   output [0:num_vcs-1]			     shared_fb_pop_sel_ivc;
+   wire [0:num_vcs-1]			     shared_fb_pop_sel_ivc;
+
+   output [0:flit_data_width-1]		     shared_fb_pop_data;
+   wire [0:flit_data_width-1]		     shared_fb_pop_data;
+ 
    // internal error condition detected
    output 				     error;
    wire 				     error;
@@ -362,20 +392,17 @@ module vcr_ip_ctrl_mac
    //---------------------------------------------------------------------------
    // input vc controllers
    //---------------------------------------------------------------------------
-   wire [0:num_vcs-1] 	      fb_pop_tail_ivc;
-   wire [0:header_info_width-1] fb_pop_next_header_info;
+   wire [0:num_vcs-1] 	      	    fb_pop_tail_ivc;
+   wire [0:header_info_width-1]     fb_pop_next_header_info;
    wire [0:num_vcs-1] 		    fb_almost_empty_ivc;
    wire [0:num_vcs-1] 		    fb_empty_ivc;
-   
    wire [0:num_vcs*lar_info_width-1] next_lar_info_ivc;
    wire [0:num_vcs*3-1] 	     ivcc_errors_ivc;
    
    genvar 			     ivc;
-   
    generate
       for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
-	begin:ivcs
-	   
+	begin:ivcs	   
 	   //-------------------------------------------------------------------
 	   // connect inputs
 	   //-------------------------------------------------------------------
@@ -419,6 +446,7 @@ module vcr_ip_ctrl_mac
 	   wire 			    free_nonspec;
 	   wire 			    free_spec;
 	   wire [0:2] 			    ivcc_errors;
+
 	   vcr_ivc_ctrl
 	     #(.num_message_classes(num_message_classes),
 	       .num_resource_classes(num_resource_classes),
@@ -487,11 +515,9 @@ module vcr_ip_ctrl_mac
 	end
    endgenerate
    
-   
    //---------------------------------------------------------------------------
    // flit buffer
    //---------------------------------------------------------------------------
-   
    wire 				    fb_push_active;
    assign fb_push_active = flit_valid_in;
    
@@ -557,11 +583,9 @@ module vcr_ip_ctrl_mac
       .full(fb_full),
       .errors_ivc(fb_errors_ivc));
    
-   
    //---------------------------------------------------------------------------
    // update lookahead routing info
    //---------------------------------------------------------------------------
-   
    wire [0:lar_info_width-1] 	      next_lar_info;
    c_select_1ofn
      #(.num_ports(num_vcs),
@@ -590,11 +614,9 @@ module vcr_ip_ctrl_mac
    assign flit_data[0:lar_info_width-1] = flit_head_prev ? lar_info_q : fb_pop_data[0:lar_info_width-1];
    assign flit_data[lar_info_width:flit_data_width-1] = fb_pop_data[lar_info_width:flit_data_width-1];
    
-   
    //---------------------------------------------------------------------------
    // generate signals to crossbar module
    //---------------------------------------------------------------------------
-   
    // NOTE: Because we need to clear it in the cycle after a flit / credit has 
    // been transmitted, this register cannot be included in any of the other 
    // clock gating domains. If we could change things such that flits are 
@@ -604,9 +626,7 @@ module vcr_ip_ctrl_mac
    // this would allow us to include flit_validq in the gating domain at 
    // the cost of some unnecessary activity. As synthesis will probably not 
    // create a clock gating domain for just these two registers, they currently 
-   // will most likely end up being free-running, so this may be a reasonable 
-   // tradeoff.
-   
+   // will most likely end up being free-running, so this may be a reasonable tradeoff.
    wire 			      flit_sent_prev;
    
    wire 			      flit_valid_active;
@@ -648,16 +668,14 @@ module vcr_ip_ctrl_mac
    
    assign flit_head_prev = flit_head_q;
    
-   
    //---------------------------------------------------------------------------
    // generate outgoing flow control signals
    //---------------------------------------------------------------------------
-   
    rtr_flow_ctrl_output
      #(.num_vcs(num_vcs),
        .flow_ctrl_type(flow_ctrl_type),
        .reset_type(reset_type))
-   fco
+   fco_private
      (.clk(clk),
       .reset(reset),
       .active(alloc_active),
@@ -665,16 +683,12 @@ module vcr_ip_ctrl_mac
       .fc_event_sel_in_ivc(sw_sel_ivc),
       .flow_ctrl_out(flow_ctrl_out));
    
-   
    //---------------------------------------------------------------------------
    // error checking
    //---------------------------------------------------------------------------
-   
    generate
-      
       if(error_capture_mode != `ERROR_CAPTURE_MODE_NONE)
 	begin
-	   
 	   wire [0:num_vcs*3+num_vcs*2-1] errors_s, errors_q;
 	   assign errors_s = {ivcc_errors_ivc, fb_errors_ivc};
 	   c_err_rpt
@@ -689,11 +703,8 @@ module vcr_ip_ctrl_mac
 	      .errors_out(errors_q));
 	   
 	   assign error = |errors_q;
-	   
 	end
       else
 	assign error = 1'bx;
-      
    endgenerate
-   
 endmodule

@@ -320,13 +320,11 @@ module rtr_channel_input
 		    
 		    if(max_payload_length == 0)
 		      begin
-			 
 			 if(max_payload_length == min_payload_length)
 			   begin
 			      assign flit_tail_out = flit_head_out;
 			      assign flit_tail_out_ivc = flit_head_out_ivc;
 			   end
-			 
 			 // synopsys translate_off
 			 else
 			   begin

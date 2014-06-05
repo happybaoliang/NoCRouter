@@ -174,20 +174,16 @@ module rtr_ip_ctrl_mac
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width required to select an individual port
    localparam port_idx_width = clogb(num_ports);
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // number of bits required to represent all possible payload sizes
-   localparam payload_length_width
-     = clogb(max_payload_length-min_payload_length+1);
+   localparam payload_length_width = clogb(max_payload_length-min_payload_length+1);
    
    // width required for lookahead routing information
    localparam lar_info_width = port_idx_width + resource_class_idx_width;
@@ -215,8 +211,7 @@ module rtr_ip_ctrl_mac
        -1;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // total number of bits of header information encoded in header flit payload
    localparam header_info_width
@@ -231,11 +226,9 @@ module rtr_ip_ctrl_mac
    // VC allocation is atomic
    localparam atomic_vc_allocation = (elig_mask == `ELIG_MASK_USED);
    
-   
    //---------------------------------------------------------------------------
    // interface
    //---------------------------------------------------------------------------
-   
    input clk;
    input reset;
    
@@ -321,7 +314,6 @@ module rtr_ip_ctrl_mac
    //---------------------------------------------------------------------------
    // channel input staging
    //---------------------------------------------------------------------------
-   
    wire 				     fb_full;
    
    wire 				     chi_active;
@@ -366,14 +358,12 @@ module rtr_ip_ctrl_mac
    assign chi_lar_info = chi_route_info[0:lar_info_width-1];
    
    wire [0:dest_info_width-1] 		     chi_dest_info;
-   assign chi_dest_info = chi_route_info[lar_info_width:
-					 lar_info_width+dest_info_width-1];
+   assign chi_dest_info = chi_route_info[lar_info_width:lar_info_width+dest_info_width-1];
    
    
    //---------------------------------------------------------------------------
    // global lookahead routing information decoder
    //---------------------------------------------------------------------------
-   
    wire [0:num_ports-1] 		     gld_route_op;
    wire [0:num_resource_classes-1] 	     gld_route_orc;
    

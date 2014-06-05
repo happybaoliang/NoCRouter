@@ -186,6 +186,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_0_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_0_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_0_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr0_op4;
+	wire 	credit_for_shared_rtr0_ip0;
+	wire 	credit_for_shared_rtr0_op0;
+	wire 	credit_for_shared_rtr0_ip1;
+	wire 	credit_for_shared_rtr0_op1;
+	wire 	credit_for_shared_rtr0_ip2;
+	wire 	credit_for_shared_rtr0_op2;
+	wire 	credit_for_shared_rtr0_ip3;
+	wire 	credit_for_shared_rtr0_op3;
+	wire 	credit_for_shared_rtr0_ip4;
+	wire 	credit_for_shared_rtr0_op4;
+	wire 	shared_vc_rtr0_op0;
+	wire 	shared_vc_rtr0_op1;
+	wire 	shared_vc_rtr0_op2;
+	wire 	shared_vc_rtr0_op3;
+	wire 	shared_vc_rtr0_op4;
+	wire 	shared_vc_rtr0_ip0;
+	wire 	shared_vc_rtr0_ip1;
+	wire 	shared_vc_rtr0_ip2;
+	wire 	shared_vc_rtr0_ip3;
+	wire 	shared_vc_rtr0_ip4;
 	wire [0:channel_width-1] channel_router_1_op_0;
 	wire [0:channel_width-1] channel_router_1_op_1;
 	wire [0:channel_width-1] channel_router_1_op_2;
@@ -206,6 +236,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_1_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_1_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_1_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr1_op4;
+	wire 	credit_for_shared_rtr1_ip0;
+	wire 	credit_for_shared_rtr1_op0;
+	wire 	credit_for_shared_rtr1_ip1;
+	wire 	credit_for_shared_rtr1_op1;
+	wire 	credit_for_shared_rtr1_ip2;
+	wire 	credit_for_shared_rtr1_op2;
+	wire 	credit_for_shared_rtr1_ip3;
+	wire 	credit_for_shared_rtr1_op3;
+	wire 	credit_for_shared_rtr1_ip4;
+	wire 	credit_for_shared_rtr1_op4;
+	wire 	shared_vc_rtr1_op0;
+	wire 	shared_vc_rtr1_op1;
+	wire 	shared_vc_rtr1_op2;
+	wire 	shared_vc_rtr1_op3;
+	wire 	shared_vc_rtr1_op4;
+	wire 	shared_vc_rtr1_ip0;
+	wire 	shared_vc_rtr1_ip1;
+	wire 	shared_vc_rtr1_ip2;
+	wire 	shared_vc_rtr1_ip3;
+	wire 	shared_vc_rtr1_ip4;
 	wire [0:channel_width-1] channel_router_2_op_0;
 	wire [0:channel_width-1] channel_router_2_op_1;
 	wire [0:channel_width-1] channel_router_2_op_2;
@@ -226,6 +286,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_2_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_2_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_2_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr2_op4;
+	wire 	credit_for_shared_rtr2_ip0;
+	wire 	credit_for_shared_rtr2_op0;
+	wire 	credit_for_shared_rtr2_ip1;
+	wire 	credit_for_shared_rtr2_op1;
+	wire 	credit_for_shared_rtr2_ip2;
+	wire 	credit_for_shared_rtr2_op2;
+	wire 	credit_for_shared_rtr2_ip3;
+	wire 	credit_for_shared_rtr2_op3;
+	wire 	credit_for_shared_rtr2_ip4;
+	wire 	credit_for_shared_rtr2_op4;
+	wire 	shared_vc_rtr2_op0;
+	wire 	shared_vc_rtr2_op1;
+	wire 	shared_vc_rtr2_op2;
+	wire 	shared_vc_rtr2_op3;
+	wire 	shared_vc_rtr2_op4;
+	wire 	shared_vc_rtr2_ip0;
+	wire 	shared_vc_rtr2_ip1;
+	wire 	shared_vc_rtr2_ip2;
+	wire 	shared_vc_rtr2_ip3;
+	wire 	shared_vc_rtr2_ip4;
 	wire [0:channel_width-1] channel_router_3_op_0;
 	wire [0:channel_width-1] channel_router_3_op_1;
 	wire [0:channel_width-1] channel_router_3_op_2;
@@ -246,6 +336,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_3_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_3_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_3_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr3_op4;
+	wire 	credit_for_shared_rtr3_ip0;
+	wire 	credit_for_shared_rtr3_op0;
+	wire 	credit_for_shared_rtr3_ip1;
+	wire 	credit_for_shared_rtr3_op1;
+	wire 	credit_for_shared_rtr3_ip2;
+	wire 	credit_for_shared_rtr3_op2;
+	wire 	credit_for_shared_rtr3_ip3;
+	wire 	credit_for_shared_rtr3_op3;
+	wire 	credit_for_shared_rtr3_ip4;
+	wire 	credit_for_shared_rtr3_op4;
+	wire 	shared_vc_rtr3_op0;
+	wire 	shared_vc_rtr3_op1;
+	wire 	shared_vc_rtr3_op2;
+	wire 	shared_vc_rtr3_op3;
+	wire 	shared_vc_rtr3_op4;
+	wire 	shared_vc_rtr3_ip0;
+	wire 	shared_vc_rtr3_ip1;
+	wire 	shared_vc_rtr3_ip2;
+	wire 	shared_vc_rtr3_ip3;
+	wire 	shared_vc_rtr3_ip4;
 	wire [0:channel_width-1] channel_router_4_op_0;
 	wire [0:channel_width-1] channel_router_4_op_1;
 	wire [0:channel_width-1] channel_router_4_op_2;
@@ -266,6 +386,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_4_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_4_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_4_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr4_op4;
+	wire 	credit_for_shared_rtr4_ip0;
+	wire 	credit_for_shared_rtr4_op0;
+	wire 	credit_for_shared_rtr4_ip1;
+	wire 	credit_for_shared_rtr4_op1;
+	wire 	credit_for_shared_rtr4_ip2;
+	wire 	credit_for_shared_rtr4_op2;
+	wire 	credit_for_shared_rtr4_ip3;
+	wire 	credit_for_shared_rtr4_op3;
+	wire 	credit_for_shared_rtr4_ip4;
+	wire 	credit_for_shared_rtr4_op4;
+	wire 	shared_vc_rtr4_op0;
+	wire 	shared_vc_rtr4_op1;
+	wire 	shared_vc_rtr4_op2;
+	wire 	shared_vc_rtr4_op3;
+	wire 	shared_vc_rtr4_op4;
+	wire 	shared_vc_rtr4_ip0;
+	wire 	shared_vc_rtr4_ip1;
+	wire 	shared_vc_rtr4_ip2;
+	wire 	shared_vc_rtr4_ip3;
+	wire 	shared_vc_rtr4_ip4;
 	wire [0:channel_width-1] channel_router_5_op_0;
 	wire [0:channel_width-1] channel_router_5_op_1;
 	wire [0:channel_width-1] channel_router_5_op_2;
@@ -286,6 +436,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_5_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_5_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_5_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr5_op4;
+	wire 	credit_for_shared_rtr5_ip0;
+	wire 	credit_for_shared_rtr5_op0;
+	wire 	credit_for_shared_rtr5_ip1;
+	wire 	credit_for_shared_rtr5_op1;
+	wire 	credit_for_shared_rtr5_ip2;
+	wire 	credit_for_shared_rtr5_op2;
+	wire 	credit_for_shared_rtr5_ip3;
+	wire 	credit_for_shared_rtr5_op3;
+	wire 	credit_for_shared_rtr5_ip4;
+	wire 	credit_for_shared_rtr5_op4;
+	wire 	shared_vc_rtr5_op0;
+	wire 	shared_vc_rtr5_op1;
+	wire 	shared_vc_rtr5_op2;
+	wire 	shared_vc_rtr5_op3;
+	wire 	shared_vc_rtr5_op4;
+	wire 	shared_vc_rtr5_ip0;
+	wire 	shared_vc_rtr5_ip1;
+	wire 	shared_vc_rtr5_ip2;
+	wire 	shared_vc_rtr5_ip3;
+	wire 	shared_vc_rtr5_ip4;
 	wire [0:channel_width-1] channel_router_6_op_0;
 	wire [0:channel_width-1] channel_router_6_op_1;
 	wire [0:channel_width-1] channel_router_6_op_2;
@@ -306,6 +486,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_6_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_6_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_6_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr6_op4;
+	wire 	credit_for_shared_rtr6_ip0;
+	wire 	credit_for_shared_rtr6_op0;
+	wire 	credit_for_shared_rtr6_ip1;
+	wire 	credit_for_shared_rtr6_op1;
+	wire 	credit_for_shared_rtr6_ip2;
+	wire 	credit_for_shared_rtr6_op2;
+	wire 	credit_for_shared_rtr6_ip3;
+	wire 	credit_for_shared_rtr6_op3;
+	wire 	credit_for_shared_rtr6_ip4;
+	wire 	credit_for_shared_rtr6_op4;
+	wire 	shared_vc_rtr6_op0;
+	wire 	shared_vc_rtr6_op1;
+	wire 	shared_vc_rtr6_op2;
+	wire 	shared_vc_rtr6_op3;
+	wire 	shared_vc_rtr6_op4;
+	wire 	shared_vc_rtr6_ip0;
+	wire 	shared_vc_rtr6_ip1;
+	wire 	shared_vc_rtr6_ip2;
+	wire 	shared_vc_rtr6_ip3;
+	wire 	shared_vc_rtr6_ip4;
 	wire [0:channel_width-1] channel_router_7_op_0;
 	wire [0:channel_width-1] channel_router_7_op_1;
 	wire [0:channel_width-1] channel_router_7_op_2;
@@ -326,6 +536,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_7_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_7_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_7_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr7_op4;
+	wire 	credit_for_shared_rtr7_ip0;
+	wire 	credit_for_shared_rtr7_op0;
+	wire 	credit_for_shared_rtr7_ip1;
+	wire 	credit_for_shared_rtr7_op1;
+	wire 	credit_for_shared_rtr7_ip2;
+	wire 	credit_for_shared_rtr7_op2;
+	wire 	credit_for_shared_rtr7_ip3;
+	wire 	credit_for_shared_rtr7_op3;
+	wire 	credit_for_shared_rtr7_ip4;
+	wire 	credit_for_shared_rtr7_op4;
+	wire 	shared_vc_rtr7_op0;
+	wire 	shared_vc_rtr7_op1;
+	wire 	shared_vc_rtr7_op2;
+	wire 	shared_vc_rtr7_op3;
+	wire 	shared_vc_rtr7_op4;
+	wire 	shared_vc_rtr7_ip0;
+	wire 	shared_vc_rtr7_ip1;
+	wire 	shared_vc_rtr7_ip2;
+	wire 	shared_vc_rtr7_ip3;
+	wire 	shared_vc_rtr7_ip4;
 	wire [0:channel_width-1] channel_router_8_op_0;
 	wire [0:channel_width-1] channel_router_8_op_1;
 	wire [0:channel_width-1] channel_router_8_op_2;
@@ -346,6 +586,36 @@ module testbench
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_8_op_2;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_8_op_3;
 	wire [0:flow_ctrl_width-1] flow_ctrl_router_8_op_4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_ip0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_ip1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_ip2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_ip3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_ip4;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_op0;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_op1;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_op2;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_op3;
+	wire [0:num_ports-1]	memory_bank_grant_rtr8_op4;
+	wire 	credit_for_shared_rtr8_ip0;
+	wire 	credit_for_shared_rtr8_op0;
+	wire 	credit_for_shared_rtr8_ip1;
+	wire 	credit_for_shared_rtr8_op1;
+	wire 	credit_for_shared_rtr8_ip2;
+	wire 	credit_for_shared_rtr8_op2;
+	wire 	credit_for_shared_rtr8_ip3;
+	wire 	credit_for_shared_rtr8_op3;
+	wire 	credit_for_shared_rtr8_ip4;
+	wire 	credit_for_shared_rtr8_op4;
+	wire 	shared_vc_rtr8_op0;
+	wire 	shared_vc_rtr8_op1;
+	wire 	shared_vc_rtr8_op2;
+	wire 	shared_vc_rtr8_op3;
+	wire 	shared_vc_rtr8_op4;
+	wire 	shared_vc_rtr8_ip0;
+	wire 	shared_vc_rtr8_ip1;
+	wire 	shared_vc_rtr8_ip2;
+	wire 	shared_vc_rtr8_ip3;
+	wire 	shared_vc_rtr8_ip4;
 
 	//wires that are connected to the flit_sink and packet_source modules
    wire [0:(num_routers*channel_width)-1] injection_channels;
@@ -364,7 +634,22 @@ module testbench
    assign flow_ctrl_router_0_op_2 = {flow_ctrl_width{1'b0}};
    assign flow_ctrl_router_0_op_3 = flow_ctrl_router_3_ip_2;
    assign flow_ctrl_router_0_op_4 = ejection_flow_ctrl[0*flow_ctrl_width:(1*flow_ctrl_width)-1];
-
+   assign shared_vc_rtr0_ip0 = 1'b0;
+   assign shared_vc_rtr0_ip1 = shared_vc_rtr1_op0;
+   assign shared_vc_rtr0_ip2 = 1'b0;
+   assign shared_vc_rtr0_ip3 = shared_vc_rtr3_op2;
+   assign shared_vc_rtr0_ip4 = 1'b0;
+   assign credit_for_shared_rtr0_ip0 = 1'b0;
+   assign credit_for_shared_rtr0_ip1 = credit_for_shared_rtr1_op0;
+   assign credit_for_shared_rtr0_ip2 = 1'b0;
+   assign credit_for_shared_rtr0_ip3 = credit_for_shared_rtr3_op2;
+   assign credit_for_shared_rtr0_ip4 = 1'b0;
+   assign memory_bank_grant_rtr0_ip0 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr0_ip1 = memory_bank_grant_rtr1_op0;
+   assign memory_bank_grant_rtr0_ip2 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr0_ip3 = memory_bank_grant_rtr3_op2;
+   assign memory_bank_grant_rtr0_ip4 = {num_ports{1'b0}};
+   
    assign channel_router_1_ip_0 = channel_router_0_op_1;
    assign channel_router_1_ip_1 = channel_router_2_op_0;
    assign channel_router_1_ip_2 = {channel_width{1'b0}};
@@ -375,6 +660,21 @@ module testbench
    assign flow_ctrl_router_1_op_2 = {flow_ctrl_width{1'b0}};
    assign flow_ctrl_router_1_op_3 = flow_ctrl_router_4_ip_2;
    assign flow_ctrl_router_1_op_4 = ejection_flow_ctrl[1*flow_ctrl_width:(2*flow_ctrl_width)-1];
+   assign shared_vc_rtr1_ip0 = shared_vc_rtr0_op1;
+   assign shared_vc_rtr1_ip1 = shared_vc_rtr2_op0;
+   assign shared_vc_rtr1_ip2 = 1'b0;
+   assign shared_vc_rtr1_ip3 = shared_vc_rtr4_op2;
+   assign shared_vc_rtr1_ip4 = 1'b0;
+   assign credit_for_shared_rtr1_ip0 = credit_for_shared_rtr0_op1;
+   assign credit_for_shared_rtr1_ip1 = credit_for_shared_rtr2_op0;
+   assign credit_for_shared_rtr1_ip2 = 1'b0;
+   assign credit_for_shared_rtr1_ip3 = credit_for_shared_rtr4_op2;
+   assign credit_for_shared_rtr1_ip4 = 1'b0;
+   assign memory_bank_grant_rtr1_ip0 = memory_bank_grant_rtr0_op1;
+   assign memory_bank_grant_rtr1_ip1 = memory_bank_grant_rtr2_op0;
+   assign memory_bank_grant_rtr1_ip2 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr1_ip3 = memory_bank_grant_rtr4_op2;
+   assign memory_bank_grant_rtr1_ip4 = {num_ports{1'b0}};
 
    assign channel_router_2_ip_0 = channel_router_1_op_1;
    assign channel_router_2_ip_1 = {channel_width{1'b0}};
@@ -386,6 +686,21 @@ module testbench
    assign flow_ctrl_router_2_op_2 = {flow_ctrl_width{1'b0}};
    assign flow_ctrl_router_2_op_3 = flow_ctrl_router_5_ip_2;
    assign flow_ctrl_router_2_op_4 = ejection_flow_ctrl[2*flow_ctrl_width:(3*flow_ctrl_width)-1];
+   assign shared_vc_rtr2_ip0 = shared_vc_rtr1_op1;
+   assign shared_vc_rtr2_ip1 = 1'b0;
+   assign shared_vc_rtr2_ip2 = 1'b0;
+   assign shared_vc_rtr2_ip3 = shared_vc_rtr5_op2;
+   assign shared_vc_rtr2_ip4 = 1'b0;
+   assign credit_for_shared_rtr2_ip0 = credit_for_shared_rtr1_op1;
+   assign credit_for_shared_rtr2_ip1 = 1'b0;
+   assign credit_for_shared_rtr2_ip2 = 1'b0;
+   assign credit_for_shared_rtr2_ip3 = credit_for_shared_rtr5_op2;
+   assign credit_for_shared_rtr2_ip4 = 1'b0;
+   assign memory_bank_grant_rtr2_ip0 = memory_bank_grant_rtr1_op1;
+   assign memory_bank_grant_rtr2_ip1 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr2_ip2 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr2_ip3 = memory_bank_grant_rtr5_op2;
+   assign memory_bank_grant_rtr2_ip4 = {num_ports{1'b0}};
 
    assign channel_router_3_ip_0 = {channel_width{1'b0}};
    assign channel_router_3_ip_1 = channel_router_4_op_0;
@@ -397,6 +712,21 @@ module testbench
    assign flow_ctrl_router_3_op_2 = flow_ctrl_router_0_ip_3;
    assign flow_ctrl_router_3_op_3 = flow_ctrl_router_6_ip_2;
    assign flow_ctrl_router_3_op_4 = ejection_flow_ctrl[3*flow_ctrl_width:(4*flow_ctrl_width)-1];
+   assign shared_vc_rtr3_ip0 = 1'b0;
+   assign shared_vc_rtr3_ip1 = shared_vc_rtr4_op0;
+   assign shared_vc_rtr3_ip2 = shared_vc_rtr0_op3;
+   assign shared_vc_rtr3_ip3 = shared_vc_rtr6_op2;
+   assign shared_vc_rtr3_ip4 = 1'b0;
+   assign credit_for_shared_rtr3_ip0 = 1'b0;
+   assign credit_for_shared_rtr3_ip1 = credit_for_shared_rtr4_op0;
+   assign credit_for_shared_rtr3_ip2 = credit_for_shared_rtr0_op3;
+   assign credit_for_shared_rtr3_ip3 = credit_for_shared_rtr6_op2;
+   assign credit_for_shared_rtr3_ip4 = 1'b0;
+   assign memory_bank_grant_rtr3_ip0 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr3_ip1 = memory_bank_grant_rtr4_op0;
+   assign memory_bank_grant_rtr3_ip2 = memory_bank_grant_rtr0_op3;
+   assign memory_bank_grant_rtr3_ip3 = memory_bank_grant_rtr6_op2;
+   assign memory_bank_grant_rtr3_ip4 = {num_ports{1'b0}};
 
    assign channel_router_4_ip_0 = channel_router_3_op_1;
    assign channel_router_4_ip_1 = channel_router_5_op_0;
@@ -408,6 +738,21 @@ module testbench
    assign flow_ctrl_router_4_op_2 = flow_ctrl_router_1_ip_3;
    assign flow_ctrl_router_4_op_3 = flow_ctrl_router_7_ip_2;
    assign flow_ctrl_router_4_op_4 = ejection_flow_ctrl[4*flow_ctrl_width:(5*flow_ctrl_width)-1];
+   assign shared_vc_rtr4_ip0 = shared_vc_rtr3_op1;
+   assign shared_vc_rtr4_ip1 = shared_vc_rtr5_op0;
+   assign shared_vc_rtr4_ip2 = shared_vc_rtr1_op3;
+   assign shared_vc_rtr4_ip3 = shared_vc_rtr7_op2;
+   assign shared_vc_rtr4_ip4 = 1'b0;
+   assign credit_for_shared_rtr4_ip0 = credit_for_shared_rtr3_op1;
+   assign credit_for_shared_rtr4_ip1 = credit_for_shared_rtr5_op0;
+   assign credit_for_shared_rtr4_ip2 = credit_for_shared_rtr1_op3;
+   assign credit_for_shared_rtr4_ip3 = credit_for_shared_rtr7_op2;
+   assign credit_for_shared_rtr4_ip4 = 1'b0;
+   assign memory_bank_grant_rtr4_ip0 = memory_bank_grant_rtr3_op1;
+   assign memory_bank_grant_rtr4_ip1 = memory_bank_grant_rtr5_op0;
+   assign memory_bank_grant_rtr4_ip2 = memory_bank_grant_rtr1_op3;
+   assign memory_bank_grant_rtr4_ip3 = memory_bank_grant_rtr7_op2;
+   assign memory_bank_grant_rtr4_ip4 = {num_ports{1'b0}};
 
    assign channel_router_5_ip_0 = channel_router_4_op_1;
    assign channel_router_5_ip_1 = {channel_width{1'b0}};
@@ -419,6 +764,21 @@ module testbench
    assign flow_ctrl_router_5_op_2 = flow_ctrl_router_2_ip_3;
    assign flow_ctrl_router_5_op_3 = flow_ctrl_router_8_ip_2;
    assign flow_ctrl_router_5_op_4 = ejection_flow_ctrl[5*flow_ctrl_width:(6*flow_ctrl_width)-1];
+   assign shared_vc_rtr5_ip0 = shared_vc_rtr4_op1;
+   assign shared_vc_rtr5_ip1 = 1'b0;
+   assign shared_vc_rtr5_ip2 = shared_vc_rtr2_op3;
+   assign shared_vc_rtr5_ip3 = shared_vc_rtr8_op2;
+   assign shared_vc_rtr5_ip4 = 1'b0;
+   assign credit_for_shared_rtr5_ip0 = credit_for_shared_rtr4_op1;
+   assign credit_for_shared_rtr5_ip1 = 1'b0;
+   assign credit_for_shared_rtr5_ip2 = credit_for_shared_rtr2_op3;
+   assign credit_for_shared_rtr5_ip3 = credit_for_shared_rtr8_op2;
+   assign credit_for_shared_rtr5_ip4 = 1'b0;
+   assign memory_bank_grant_rtr5_ip0 = memory_bank_grant_rtr4_op1;
+   assign memory_bank_grant_rtr5_ip1 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr5_ip2 = memory_bank_grant_rtr2_op3;
+   assign memory_bank_grant_rtr5_ip3 = memory_bank_grant_rtr8_op2;
+   assign memory_bank_grant_rtr5_ip4 = {num_ports{1'b0}};
 
    assign channel_router_6_ip_0 = {channel_width{1'b0}};
    assign channel_router_6_ip_1 = channel_router_7_op_0;
@@ -430,6 +790,21 @@ module testbench
    assign flow_ctrl_router_6_op_2 = flow_ctrl_router_3_ip_3;
    assign flow_ctrl_router_6_op_3 = {flow_ctrl_width{1'b0}};
    assign flow_ctrl_router_6_op_4 = ejection_flow_ctrl[6*flow_ctrl_width:(7*flow_ctrl_width)-1];
+   assign shared_vc_rtr6_ip0 = 1'b0;
+   assign shared_vc_rtr6_ip1 = shared_vc_rtr7_op0;
+   assign shared_vc_rtr6_ip2 = shared_vc_rtr3_op3;
+   assign shared_vc_rtr6_ip3 = 1'b0;
+   assign shared_vc_rtr6_ip4 = 1'b0;
+   assign credit_for_shared_rtr6_ip0 = 1'b0;
+   assign credit_for_shared_rtr6_ip1 = credit_for_shared_rtr7_op0;
+   assign credit_for_shared_rtr6_ip2 = credit_for_shared_rtr3_op3;
+   assign credit_for_shared_rtr6_ip3 = 1'b0;
+   assign credit_for_shared_rtr6_ip4 = 1'b0;
+   assign memory_bank_grant_rtr6_ip0 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr6_ip1 = memory_bank_grant_rtr7_op0;
+   assign memory_bank_grant_rtr6_ip2 = memory_bank_grant_rtr3_op3;
+   assign memory_bank_grant_rtr6_ip3 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr6_ip4 = {num_ports{1'b0}};
 
    assign channel_router_7_ip_0 = channel_router_6_op_1;
    assign channel_router_7_ip_1 = channel_router_8_op_0;
@@ -441,6 +816,21 @@ module testbench
    assign flow_ctrl_router_7_op_2 = flow_ctrl_router_4_ip_3;
    assign flow_ctrl_router_7_op_3 = {flow_ctrl_width{1'b0}};
    assign flow_ctrl_router_7_op_4 = ejection_flow_ctrl[7*flow_ctrl_width:(8*flow_ctrl_width)-1];
+   assign shared_vc_rtr7_ip0 = shared_vc_rtr6_op1;
+   assign shared_vc_rtr7_ip1 = shared_vc_rtr8_op0;
+   assign shared_vc_rtr7_ip2 = shared_vc_rtr4_op3;
+   assign shared_vc_rtr7_ip3 = 1'b0;
+   assign shared_vc_rtr7_ip4 = 1'b0;
+   assign credit_for_shared_rtr7_ip0 = credit_for_shared_rtr6_op1;
+   assign credit_for_shared_rtr7_ip1 = credit_for_shared_rtr8_op0;
+   assign credit_for_shared_rtr7_ip2 = credit_for_shared_rtr4_op3;
+   assign credit_for_shared_rtr7_ip3 = 1'b0;
+   assign credit_for_shared_rtr7_ip4 = 1'b0;
+   assign memory_bank_grant_rtr7_ip0 = memory_bank_grant_rtr6_op1;
+   assign memory_bank_grant_rtr7_ip1 = memory_bank_grant_rtr8_op0;
+   assign memory_bank_grant_rtr7_ip2 = memory_bank_grant_rtr4_op3;
+   assign memory_bank_grant_rtr7_ip3 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr7_ip4 = {num_ports{1'b0}};
 
    assign channel_router_8_ip_0 = channel_router_7_op_1;
    assign channel_router_8_ip_1 = {channel_width{1'b0}};
@@ -452,6 +842,22 @@ module testbench
    assign flow_ctrl_router_8_op_2 = flow_ctrl_router_5_ip_3;
    assign flow_ctrl_router_8_op_3 = {flow_ctrl_width{1'b0}};
    assign flow_ctrl_router_8_op_4 = ejection_flow_ctrl[8*flow_ctrl_width:(9*flow_ctrl_width)-1];
+   assign shared_vc_rtr8_ip0 = shared_vc_rtr7_op1;
+   assign shared_vc_rtr8_ip1 = 1'b0;
+   assign shared_vc_rtr8_ip2 = shared_vc_rtr5_op3;
+   assign shared_vc_rtr8_ip3 = 1'b0;
+   assign shared_vc_rtr8_ip4 = 1'b0;
+   assign credit_for_shared_rtr8_ip0 = credit_for_shared_rtr7_op1;
+   assign credit_for_shared_rtr8_ip1 = 1'b0;
+   assign credit_for_shared_rtr8_ip2 = credit_for_shared_rtr5_op3;
+   assign credit_for_shared_rtr8_ip3 = 1'b0;
+   assign credit_for_shared_rtr8_ip4 = 1'b0;
+   assign memory_bank_grant_rtr8_ip0 = memory_bank_grant_rtr7_op1;
+   assign memory_bank_grant_rtr8_ip1 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr8_ip2 = memory_bank_grant_rtr5_op3;
+   assign memory_bank_grant_rtr8_ip3 = {num_ports{1'b0}};
+   assign memory_bank_grant_rtr8_ip4 = {num_ports{1'b0}};
+   
 	
 	//connected routers to flit_sink and packet_source
 	assign injection_flow_ctrl[0*flow_ctrl_width:(1*flow_ctrl_width)-1] = flow_ctrl_router_0_ip_4;
@@ -491,17 +897,15 @@ module testbench
    
    reg 					run;
    
+
    genvar 				ip;
-      
-   generate
-      
-		//9 packet sources, one for each router in the 3x3 mesh
+   generate      
+//9 packet sources, one for each router in the 3x3 mesh
       for(ip = 0; ip < num_routers; ip = ip + 1) //variable name is "ip" but it's really the router id
 	begin:ips
 	   
 	   wire [0:flow_ctrl_width-1] flow_ctrl_out;
-	   assign flow_ctrl_out = injection_flow_ctrl[ip*flow_ctrl_width:
-						   (ip+1)*flow_ctrl_width-1];
+	   assign flow_ctrl_out = injection_flow_ctrl[ip*flow_ctrl_width:(ip+1)*flow_ctrl_width-1];
 	   
 	   assign cred_valid_out_ip[ip] = flow_ctrl_out[0];
 	   
@@ -570,7 +974,10 @@ module testbench
 		   .reset(reset),
 		   .router_address(router_address),
 		   .channel(channel),
+		   .memory_bank_grant(5'b0),
+		   .shared_vc(),
 		   .flit_valid(flit_valid),
+		   .credit_for_shared(1'b0),
 		   .flow_ctrl(flow_ctrl_dly),
 		   .run(run),
 		   .error(ps_error));
@@ -589,8 +996,7 @@ module testbench
 		   .data_in(channel),
 		   .data_out(channel_dly));
 		
-		assign injection_channels[ip*channel_width:(ip+1)*channel_width-1]
-		  = channel_dly;
+		assign injection_channels[ip*channel_width:(ip+1)*channel_width-1] = channel_dly;
 		
 		wire 			    flit_valid_dly;
 		c_shift_reg
@@ -613,7 +1019,25 @@ module testbench
    
 	//routers currently connected as a 3X3 mesh
    wire [0:num_routers-1]				    rtr_error;
-   
+
+
+   wire [0:num_ports-1] shared_vc_in_rtr0;
+   wire [0:num_ports-1] shared_vc_out_rtr0;
+   wire [0:num_ports-1] credit_for_shared_in_rtr0;
+   wire [0:num_ports-1] credit_for_shared_out_rtr0;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr0;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr0;
+
+   assign shared_vc_in_rtr0 = {shared_vc_rtr0_ip0,shared_vc_rtr0_ip1,shared_vc_rtr0_ip2,shared_vc_rtr0_ip3,shared_vc_rtr0_ip4};
+   assign shared_vc_out_rtr0 = {shared_vc_rtr0_op0,shared_vc_rtr0_op1,shared_vc_rtr0_op2,shared_vc_rtr0_op3,shared_vc_rtr0_op4};
+   assign credit_for_shared_in_rtr0 = {credit_for_shared_rtr0_ip0,credit_for_shared_rtr0_ip1,credit_for_shared_rtr0_ip2, 
+					credit_for_shared_rtr0_ip3,credit_for_shared_rtr0_ip4};
+   assign credit_for_shared_out_rtr0 = {credit_for_shared_rtr0_op0,credit_for_shared_rtr0_op1,credit_for_shared_rtr0_op2,
+					credit_for_shared_rtr0_op3,credit_for_shared_rtr0_op4};
+   assign memory_bank_grant_in_rtr0 = {memory_bank_grant_rtr0_ip0,memory_bank_grant_rtr0_ip1,memory_bank_grant_rtr0_ip2,
+					memory_bank_grant_rtr0_ip3,memory_bank_grant_rtr0_ip4};
+   assign memory_bank_grant_out_rtr0 = {memory_bank_grant_rtr0_op0,memory_bank_grant_rtr0_op1,memory_bank_grant_rtr0_op2,
+					memory_bank_grant_rtr0_op3,memory_bank_grant_rtr0_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -658,12 +1082,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b0000),
-      .channel_in_ip({channel_router_0_ip_0, channel_router_0_ip_1, channel_router_0_ip_2, channel_router_0_ip_3, channel_router_0_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_0_ip_0, flow_ctrl_router_0_ip_1, flow_ctrl_router_0_ip_2, flow_ctrl_router_0_ip_3, flow_ctrl_router_0_ip_4 }),
-      .channel_out_op({ channel_router_0_op_0, channel_router_0_op_1, channel_router_0_op_2, channel_router_0_op_3, channel_router_0_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_0_op_0, flow_ctrl_router_0_op_1, flow_ctrl_router_0_op_2, flow_ctrl_router_0_op_3, flow_ctrl_router_0_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr0),
+      .shared_vc_out(shared_vc_out_rtr0),
+      .credit_for_shared_in(credit_for_shared_in_rtr0),
+      .credit_for_shared_out(credit_for_shared_out_rtr0),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr0),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr0),
+      .channel_in_ip({channel_router_0_ip_0, channel_router_0_ip_1, channel_router_0_ip_2, 
+			channel_router_0_ip_3, channel_router_0_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_0_ip_0, flow_ctrl_router_0_ip_1, flow_ctrl_router_0_ip_2, 
+			flow_ctrl_router_0_ip_3, flow_ctrl_router_0_ip_4 }),
+      .channel_out_op({ channel_router_0_op_0, channel_router_0_op_1, channel_router_0_op_2, 
+			channel_router_0_op_3, channel_router_0_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_0_op_0, flow_ctrl_router_0_op_1, flow_ctrl_router_0_op_2, 
+			flow_ctrl_router_0_op_3, flow_ctrl_router_0_op_4 }),
       .error(rtr_error[0]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr1;
+   wire [0:num_ports-1] shared_vc_out_rtr1;
+   wire [0:num_ports-1] credit_for_shared_in_rtr1;
+   wire [0:num_ports-1] credit_for_shared_out_rtr1;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr1;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr1;
+
+   assign shared_vc_in_rtr1 = {shared_vc_rtr1_ip0,shared_vc_rtr1_ip1,shared_vc_rtr1_ip2,shared_vc_rtr1_ip3,shared_vc_rtr1_ip4};
+   assign shared_vc_out_rtr1 = {shared_vc_rtr1_op0,shared_vc_rtr1_op1,shared_vc_rtr1_op2,shared_vc_rtr1_op3,shared_vc_rtr1_op4};
+   assign credit_for_shared_in_rtr1 = {credit_for_shared_rtr1_ip0,credit_for_shared_rtr1_ip1,credit_for_shared_rtr1_ip2, 
+					credit_for_shared_rtr1_ip3,credit_for_shared_rtr1_ip4};
+   assign credit_for_shared_out_rtr1 = {credit_for_shared_rtr1_op0,credit_for_shared_rtr1_op1,credit_for_shared_rtr1_op2,
+					credit_for_shared_rtr1_op3,credit_for_shared_rtr1_op4};
+   assign memory_bank_grant_in_rtr1 = {memory_bank_grant_rtr1_ip0,memory_bank_grant_rtr1_ip1,memory_bank_grant_rtr1_ip2,
+					memory_bank_grant_rtr1_ip3,memory_bank_grant_rtr1_ip4};
+   assign memory_bank_grant_out_rtr1 = {memory_bank_grant_rtr1_op0,memory_bank_grant_rtr1_op1,memory_bank_grant_rtr1_op2,
+					memory_bank_grant_rtr1_op3,memory_bank_grant_rtr1_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -708,12 +1159,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b0100),
-      .channel_in_ip({channel_router_1_ip_0, channel_router_1_ip_1, channel_router_1_ip_2, channel_router_1_ip_3, channel_router_1_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_1_ip_0, flow_ctrl_router_1_ip_1, flow_ctrl_router_1_ip_2, flow_ctrl_router_1_ip_3, flow_ctrl_router_1_ip_4 }),
-      .channel_out_op({ channel_router_1_op_0, channel_router_1_op_1, channel_router_1_op_2, channel_router_1_op_3, channel_router_1_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_1_op_0, flow_ctrl_router_1_op_1, flow_ctrl_router_1_op_2, flow_ctrl_router_1_op_3, flow_ctrl_router_1_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr1),
+      .shared_vc_out(shared_vc_out_rtr1),
+      .credit_for_shared_in(credit_for_shared_in_rtr1),
+      .credit_for_shared_out(credit_for_shared_out_rtr1),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr1),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr1),
+      .channel_in_ip({channel_router_1_ip_0, channel_router_1_ip_1, channel_router_1_ip_2, 
+			channel_router_1_ip_3, channel_router_1_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_1_ip_0, flow_ctrl_router_1_ip_1, flow_ctrl_router_1_ip_2, 
+			flow_ctrl_router_1_ip_3, flow_ctrl_router_1_ip_4 }),
+      .channel_out_op({ channel_router_1_op_0, channel_router_1_op_1, channel_router_1_op_2, 
+			channel_router_1_op_3, channel_router_1_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_1_op_0, flow_ctrl_router_1_op_1, flow_ctrl_router_1_op_2, 
+			flow_ctrl_router_1_op_3, flow_ctrl_router_1_op_4 }),
       .error(rtr_error[1]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr2;
+   wire [0:num_ports-1] shared_vc_out_rtr2;
+   wire [0:num_ports-1] credit_for_shared_in_rtr2;
+   wire [0:num_ports-1] credit_for_shared_out_rtr2;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr2;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr2;
+
+   assign shared_vc_in_rtr2 = {shared_vc_rtr2_ip0,shared_vc_rtr2_ip1,shared_vc_rtr2_ip2,shared_vc_rtr2_ip3,shared_vc_rtr2_ip4};
+   assign shared_vc_out_rtr2 = {shared_vc_rtr2_op0,shared_vc_rtr2_op1,shared_vc_rtr2_op2,shared_vc_rtr2_op3,shared_vc_rtr2_op4};
+   assign credit_for_shared_in_rtr2 = {credit_for_shared_rtr2_ip0,credit_for_shared_rtr2_ip1,credit_for_shared_rtr2_ip2, 
+					credit_for_shared_rtr2_ip3,credit_for_shared_rtr2_ip4};
+   assign credit_for_shared_out_rtr2 = {credit_for_shared_rtr2_op0,credit_for_shared_rtr2_op1,credit_for_shared_rtr2_op2,
+					credit_for_shared_rtr2_op3,credit_for_shared_rtr2_op4};
+   assign memory_bank_grant_in_rtr2 = {memory_bank_grant_rtr2_ip0,memory_bank_grant_rtr2_ip1,memory_bank_grant_rtr2_ip2,
+					memory_bank_grant_rtr2_ip3,memory_bank_grant_rtr2_ip4};
+   assign memory_bank_grant_out_rtr2 = {memory_bank_grant_rtr2_op0,memory_bank_grant_rtr2_op1,memory_bank_grant_rtr2_op2,
+					memory_bank_grant_rtr2_op3,memory_bank_grant_rtr2_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -758,12 +1236,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b1000),
-      .channel_in_ip({channel_router_2_ip_0, channel_router_2_ip_1, channel_router_2_ip_2, channel_router_2_ip_3, channel_router_2_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_2_ip_0, flow_ctrl_router_2_ip_1, flow_ctrl_router_2_ip_2, flow_ctrl_router_2_ip_3, flow_ctrl_router_2_ip_4 }),
-      .channel_out_op({ channel_router_2_op_0, channel_router_2_op_1, channel_router_2_op_2, channel_router_2_op_3, channel_router_2_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_2_op_0, flow_ctrl_router_2_op_1, flow_ctrl_router_2_op_2, flow_ctrl_router_2_op_3, flow_ctrl_router_2_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr2),
+      .shared_vc_out(shared_vc_out_rtr2),
+      .credit_for_shared_in(credit_for_shared_in_rtr2),
+      .credit_for_shared_out(credit_for_shared_out_rtr2),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr2),
+      .memory_bank_grant_out(memory_bank_grant_in_rtr2),
+      .channel_in_ip({channel_router_2_ip_0, channel_router_2_ip_1, channel_router_2_ip_2, 
+			channel_router_2_ip_3, channel_router_2_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_2_ip_0, flow_ctrl_router_2_ip_1, flow_ctrl_router_2_ip_2, 
+			flow_ctrl_router_2_ip_3, flow_ctrl_router_2_ip_4 }),
+      .channel_out_op({ channel_router_2_op_0, channel_router_2_op_1, channel_router_2_op_2, 
+			channel_router_2_op_3, channel_router_2_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_2_op_0, flow_ctrl_router_2_op_1, flow_ctrl_router_2_op_2, 
+			flow_ctrl_router_2_op_3, flow_ctrl_router_2_op_4 }),
       .error(rtr_error[2]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr3;
+   wire [0:num_ports-1] shared_vc_out_rtr3;
+   wire [0:num_ports-1] credit_for_shared_in_rtr3;
+   wire [0:num_ports-1] credit_for_shared_out_rtr3;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr3;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr3;
+
+   assign shared_vc_in_rtr3 = {shared_vc_rtr3_ip0,shared_vc_rtr3_ip1,shared_vc_rtr3_ip2,shared_vc_rtr3_ip3,shared_vc_rtr3_ip4};
+   assign shared_vc_out_rtr3 = {shared_vc_rtr3_op0,shared_vc_rtr3_op1,shared_vc_rtr3_op2,shared_vc_rtr3_op3,shared_vc_rtr3_op4};
+   assign credit_for_shared_in_rtr3 = {credit_for_shared_rtr3_ip0,credit_for_shared_rtr3_ip1,credit_for_shared_rtr3_ip2, 
+					credit_for_shared_rtr3_ip3,credit_for_shared_rtr3_ip4};
+   assign credit_for_shared_out_rtr3 = {credit_for_shared_rtr3_op0,credit_for_shared_rtr3_op1,credit_for_shared_rtr3_op2,
+					credit_for_shared_rtr3_op3,credit_for_shared_rtr3_op4};
+   assign memory_bank_grant_in_rtr3 = {memory_bank_grant_rtr3_ip0,memory_bank_grant_rtr3_ip1,memory_bank_grant_rtr3_ip2,
+					memory_bank_grant_rtr3_ip3,memory_bank_grant_rtr3_ip4};
+   assign memory_bank_grant_out_rtr3 = {memory_bank_grant_rtr3_op0,memory_bank_grant_rtr3_op1,memory_bank_grant_rtr3_op2,
+					memory_bank_grant_rtr3_op3,memory_bank_grant_rtr3_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -808,12 +1313,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b0001),
-      .channel_in_ip({channel_router_3_ip_0, channel_router_3_ip_1, channel_router_3_ip_2, channel_router_3_ip_3, channel_router_3_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_3_ip_0, flow_ctrl_router_3_ip_1, flow_ctrl_router_3_ip_2, flow_ctrl_router_3_ip_3, flow_ctrl_router_3_ip_4 }),
-      .channel_out_op({ channel_router_3_op_0, channel_router_3_op_1, channel_router_3_op_2, channel_router_3_op_3, channel_router_3_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_3_op_0, flow_ctrl_router_3_op_1, flow_ctrl_router_3_op_2, flow_ctrl_router_3_op_3, flow_ctrl_router_3_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr3),
+      .shared_vc_out(shared_vc_out_rtr3),
+      .credit_for_shared_in(credit_for_shared_in_rtr3),
+      .credit_for_shared_out(credit_for_shared_out_rtr3),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr3),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr3),
+      .channel_in_ip({channel_router_3_ip_0, channel_router_3_ip_1, channel_router_3_ip_2, 
+			channel_router_3_ip_3, channel_router_3_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_3_ip_0, flow_ctrl_router_3_ip_1, flow_ctrl_router_3_ip_2, 
+			flow_ctrl_router_3_ip_3, flow_ctrl_router_3_ip_4 }),
+      .channel_out_op({ channel_router_3_op_0, channel_router_3_op_1, channel_router_3_op_2, 
+			channel_router_3_op_3, channel_router_3_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_3_op_0, flow_ctrl_router_3_op_1, flow_ctrl_router_3_op_2, 
+			flow_ctrl_router_3_op_3, flow_ctrl_router_3_op_4 }),
       .error(rtr_error[3]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr4;
+   wire [0:num_ports-1] shared_vc_out_rtr4;
+   wire [0:num_ports-1] credit_for_shared_in_rtr4;
+   wire [0:num_ports-1] credit_for_shared_out_rtr4;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr4;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr4;
+
+   assign shared_vc_in_rtr4 = {shared_vc_rtr4_ip0,shared_vc_rtr4_ip1,shared_vc_rtr4_ip2,shared_vc_rtr4_ip3,shared_vc_rtr4_ip4};
+   assign shared_vc_out_rtr4 = {shared_vc_rtr4_op0,shared_vc_rtr4_op1,shared_vc_rtr4_op2,shared_vc_rtr4_op3,shared_vc_rtr4_op4};
+   assign credit_for_shared_in_rtr4 = {credit_for_shared_rtr4_ip0,credit_for_shared_rtr4_ip1,credit_for_shared_rtr4_ip2, 
+					credit_for_shared_rtr4_ip3,credit_for_shared_rtr4_ip4};
+   assign credit_for_shared_out_rtr4 = {credit_for_shared_rtr4_op0,credit_for_shared_rtr4_op1,credit_for_shared_rtr4_op2,
+					credit_for_shared_rtr4_op3,credit_for_shared_rtr4_op4};
+   assign memory_bank_grant_in_rtr4 = {memory_bank_grant_rtr4_ip0,memory_bank_grant_rtr4_ip1,memory_bank_grant_rtr4_ip2,
+					memory_bank_grant_rtr4_ip3,memory_bank_grant_rtr4_ip4};
+   assign memory_bank_grant_out_rtr4 = {memory_bank_grant_rtr4_op0,memory_bank_grant_rtr4_op1,memory_bank_grant_rtr4_op2,
+					memory_bank_grant_rtr4_op3,memory_bank_grant_rtr4_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -858,12 +1390,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b0101),
-      .channel_in_ip({channel_router_4_ip_0, channel_router_4_ip_1, channel_router_4_ip_2, channel_router_4_ip_3, channel_router_4_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_4_ip_0, flow_ctrl_router_4_ip_1, flow_ctrl_router_4_ip_2, flow_ctrl_router_4_ip_3, flow_ctrl_router_4_ip_4 }),
-      .channel_out_op({ channel_router_4_op_0, channel_router_4_op_1, channel_router_4_op_2, channel_router_4_op_3, channel_router_4_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_4_op_0, flow_ctrl_router_4_op_1, flow_ctrl_router_4_op_2, flow_ctrl_router_4_op_3, flow_ctrl_router_4_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr4),
+      .shared_vc_out(shared_vc_out_rtr4),
+      .credit_for_shared_in(credit_for_shared_in_rtr4),
+      .credit_for_shared_out(credit_for_shared_out_rtr4),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr4),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr4),
+      .channel_in_ip({channel_router_4_ip_0, channel_router_4_ip_1, channel_router_4_ip_2, 
+			channel_router_4_ip_3, channel_router_4_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_4_ip_0, flow_ctrl_router_4_ip_1, flow_ctrl_router_4_ip_2, 
+			flow_ctrl_router_4_ip_3, flow_ctrl_router_4_ip_4 }),
+      .channel_out_op({ channel_router_4_op_0, channel_router_4_op_1, channel_router_4_op_2, 
+			channel_router_4_op_3, channel_router_4_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_4_op_0, flow_ctrl_router_4_op_1, flow_ctrl_router_4_op_2, 
+			flow_ctrl_router_4_op_3, flow_ctrl_router_4_op_4 }),
       .error(rtr_error[4]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr5;
+   wire [0:num_ports-1] shared_vc_out_rtr5;
+   wire [0:num_ports-1] credit_for_shared_in_rtr5;
+   wire [0:num_ports-1] credit_for_shared_out_rtr5;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr5;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr5;
+
+   assign shared_vc_in_rtr5 = {shared_vc_rtr5_ip0,shared_vc_rtr5_ip1,shared_vc_rtr5_ip2,shared_vc_rtr5_ip3,shared_vc_rtr5_ip4};
+   assign shared_vc_out_rtr5 = {shared_vc_rtr5_op0,shared_vc_rtr5_op1,shared_vc_rtr5_op2,shared_vc_rtr5_op3,shared_vc_rtr5_op4};
+   assign credit_for_shared_in_rtr5 = {credit_for_shared_rtr5_ip0,credit_for_shared_rtr5_ip1,credit_for_shared_rtr5_ip2, 
+					credit_for_shared_rtr5_ip3,credit_for_shared_rtr5_ip4};
+   assign credit_for_shared_out_rtr5 = {credit_for_shared_rtr5_op0,credit_for_shared_rtr5_op1,credit_for_shared_rtr5_op2,
+					credit_for_shared_rtr5_op3,credit_for_shared_rtr5_op4};
+   assign memory_bank_grant_in_rtr5 = {memory_bank_grant_rtr5_ip0,memory_bank_grant_rtr5_ip1,memory_bank_grant_rtr5_ip2,
+					memory_bank_grant_rtr5_ip3,memory_bank_grant_rtr5_ip4};
+   assign memory_bank_grant_out_rtr5 = {memory_bank_grant_rtr5_op0,memory_bank_grant_rtr5_op1,memory_bank_grant_rtr5_op2,
+					memory_bank_grant_rtr5_op3,memory_bank_grant_rtr5_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -908,12 +1467,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b1001),
-      .channel_in_ip({channel_router_5_ip_0, channel_router_5_ip_1, channel_router_5_ip_2, channel_router_5_ip_3, channel_router_5_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_5_ip_0, flow_ctrl_router_5_ip_1, flow_ctrl_router_5_ip_2, flow_ctrl_router_5_ip_3, flow_ctrl_router_5_ip_4 }),
-      .channel_out_op({ channel_router_5_op_0, channel_router_5_op_1, channel_router_5_op_2, channel_router_5_op_3, channel_router_5_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_5_op_0, flow_ctrl_router_5_op_1, flow_ctrl_router_5_op_2, flow_ctrl_router_5_op_3, flow_ctrl_router_5_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr5),
+      .shared_vc_out(shared_vc_out_rtr5),
+      .credit_for_shared_in(credit_for_shared_in_rtr5),
+      .credit_for_shared_out(credit_for_shared_out_rtr5),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr5),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr5),
+      .channel_in_ip({channel_router_5_ip_0, channel_router_5_ip_1, channel_router_5_ip_2, 
+			channel_router_5_ip_3, channel_router_5_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_5_ip_0, flow_ctrl_router_5_ip_1, flow_ctrl_router_5_ip_2, 
+			flow_ctrl_router_5_ip_3, flow_ctrl_router_5_ip_4 }),
+      .channel_out_op({ channel_router_5_op_0, channel_router_5_op_1, channel_router_5_op_2, 
+			channel_router_5_op_3, channel_router_5_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_5_op_0, flow_ctrl_router_5_op_1, flow_ctrl_router_5_op_2, 
+			flow_ctrl_router_5_op_3, flow_ctrl_router_5_op_4 }),
       .error(rtr_error[5]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr6;
+   wire [0:num_ports-1] shared_vc_out_rtr6;
+   wire [0:num_ports-1] credit_for_shared_in_rtr6;
+   wire [0:num_ports-1] credit_for_shared_out_rtr6;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr6;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr6;
+
+   assign shared_vc_in_rtr6 = {shared_vc_rtr6_ip0,shared_vc_rtr6_ip1,shared_vc_rtr6_ip2,shared_vc_rtr6_ip3,shared_vc_rtr6_ip4};
+   assign shared_vc_out_rtr6 = {shared_vc_rtr6_op0,shared_vc_rtr6_op1,shared_vc_rtr6_op2,shared_vc_rtr6_op3,shared_vc_rtr6_op4};
+   assign credit_for_shared_in_rtr6 = {credit_for_shared_rtr6_ip0,credit_for_shared_rtr6_ip1,credit_for_shared_rtr6_ip2, 
+					credit_for_shared_rtr6_ip3,credit_for_shared_rtr6_ip4};
+   assign credit_for_shared_out_rtr6 = {credit_for_shared_rtr6_op0,credit_for_shared_rtr6_op1,credit_for_shared_rtr6_op2,
+					credit_for_shared_rtr6_op3,credit_for_shared_rtr6_op4};
+   assign memory_bank_grant_in_rtr6 = {memory_bank_grant_rtr6_ip0,memory_bank_grant_rtr6_ip1,memory_bank_grant_rtr6_ip2,
+					memory_bank_grant_rtr6_ip3,memory_bank_grant_rtr6_ip4};
+   assign memory_bank_grant_out_rtr6 = {memory_bank_grant_rtr6_op0,memory_bank_grant_rtr6_op1,memory_bank_grant_rtr6_op2,
+					memory_bank_grant_rtr6_op3,memory_bank_grant_rtr6_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -958,12 +1544,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b0010),
-      .channel_in_ip({channel_router_6_ip_0, channel_router_6_ip_1, channel_router_6_ip_2, channel_router_6_ip_3, channel_router_6_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_6_ip_0, flow_ctrl_router_6_ip_1, flow_ctrl_router_6_ip_2, flow_ctrl_router_6_ip_3, flow_ctrl_router_6_ip_4 }),
-      .channel_out_op({ channel_router_6_op_0, channel_router_6_op_1, channel_router_6_op_2, channel_router_6_op_3, channel_router_6_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_6_op_0, flow_ctrl_router_6_op_1, flow_ctrl_router_6_op_2, flow_ctrl_router_6_op_3, flow_ctrl_router_6_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr6),
+      .shared_vc_out(shared_vc_out_rtr6),
+      .credit_for_shared_in(credit_for_shared_in_rtr6),
+      .credit_for_shared_out(credit_for_shared_out_rtr6),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr6),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr6),
+      .channel_in_ip({channel_router_6_ip_0, channel_router_6_ip_1, channel_router_6_ip_2, 
+			channel_router_6_ip_3, channel_router_6_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_6_ip_0, flow_ctrl_router_6_ip_1, flow_ctrl_router_6_ip_2, 
+			flow_ctrl_router_6_ip_3, flow_ctrl_router_6_ip_4 }),
+      .channel_out_op({ channel_router_6_op_0, channel_router_6_op_1, channel_router_6_op_2, 
+			channel_router_6_op_3, channel_router_6_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_6_op_0, flow_ctrl_router_6_op_1, flow_ctrl_router_6_op_2, 
+			flow_ctrl_router_6_op_3, flow_ctrl_router_6_op_4 }),
       .error(rtr_error[6]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr7;
+   wire [0:num_ports-1] shared_vc_out_rtr7;
+   wire [0:num_ports-1] credit_for_shared_in_rtr7;
+   wire [0:num_ports-1] credit_for_shared_out_rtr7;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr7;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr7;
+
+   assign shared_vc_in_rtr7 = {shared_vc_rtr7_ip0,shared_vc_rtr7_ip1,shared_vc_rtr7_ip2,shared_vc_rtr7_ip3,shared_vc_rtr7_ip4};
+   assign shared_vc_out_rtr7 = {shared_vc_rtr7_op0,shared_vc_rtr7_op1,shared_vc_rtr7_op2,shared_vc_rtr7_op3,shared_vc_rtr7_op4};
+   assign credit_for_shared_in_rtr7 = {credit_for_shared_rtr7_ip0,credit_for_shared_rtr7_ip1,credit_for_shared_rtr7_ip2, 
+					credit_for_shared_rtr7_ip3,credit_for_shared_rtr7_ip4};
+   assign credit_for_shared_out_rtr7 = {credit_for_shared_rtr7_op0,credit_for_shared_rtr7_op1,credit_for_shared_rtr7_op2,
+					credit_for_shared_rtr7_op3,credit_for_shared_rtr7_op4};
+   assign memory_bank_grant_in_rtr7 = {memory_bank_grant_rtr7_ip0,memory_bank_grant_rtr7_ip1,memory_bank_grant_rtr7_ip2,
+					memory_bank_grant_rtr7_ip3,memory_bank_grant_rtr7_ip4};
+   assign memory_bank_grant_out_rtr7 = {memory_bank_grant_rtr7_op0,memory_bank_grant_rtr7_op1,memory_bank_grant_rtr7_op2,
+					memory_bank_grant_rtr7_op3,memory_bank_grant_rtr7_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -1008,12 +1621,39 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b0110),
-      .channel_in_ip({channel_router_7_ip_0, channel_router_7_ip_1, channel_router_7_ip_2, channel_router_7_ip_3, channel_router_7_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_7_ip_0, flow_ctrl_router_7_ip_1, flow_ctrl_router_7_ip_2, flow_ctrl_router_7_ip_3, flow_ctrl_router_7_ip_4 }),
-      .channel_out_op({ channel_router_7_op_0, channel_router_7_op_1, channel_router_7_op_2, channel_router_7_op_3, channel_router_7_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_7_op_0, flow_ctrl_router_7_op_1, flow_ctrl_router_7_op_2, flow_ctrl_router_7_op_3, flow_ctrl_router_7_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr7),
+      .shared_vc_out(shared_vc_out_rtr7),
+      .credit_for_shared_in(credit_for_shared_in_rtr7),
+      .credit_for_shared_out(credit_for_shared_out_rtr7),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr7),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr7),
+      .channel_in_ip({channel_router_7_ip_0, channel_router_7_ip_1, channel_router_7_ip_2, 
+			channel_router_7_ip_3, channel_router_7_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_7_ip_0, flow_ctrl_router_7_ip_1, flow_ctrl_router_7_ip_2, 
+			flow_ctrl_router_7_ip_3, flow_ctrl_router_7_ip_4 }),
+      .channel_out_op({ channel_router_7_op_0, channel_router_7_op_1, channel_router_7_op_2, 
+			channel_router_7_op_3, channel_router_7_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_7_op_0, flow_ctrl_router_7_op_1, flow_ctrl_router_7_op_2, 
+			flow_ctrl_router_7_op_3, flow_ctrl_router_7_op_4 }),
       .error(rtr_error[7]));
 		
+   wire [0:num_ports-1] shared_vc_in_rtr8;
+   wire [0:num_ports-1] shared_vc_out_rtr8;
+   wire [0:num_ports-1] credit_for_shared_in_rtr8;
+   wire [0:num_ports-1] credit_for_shared_out_rtr8;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_in_rtr8;
+   wire [0:num_ports*num_ports-1] memory_bank_grant_out_rtr8;
+
+   assign shared_vc_in_rtr8 = {shared_vc_rtr8_ip0,shared_vc_rtr8_ip1,shared_vc_rtr8_ip2,shared_vc_rtr8_ip3,shared_vc_rtr8_ip4};
+   assign shared_vc_out_rtr8 = {shared_vc_rtr8_op0,shared_vc_rtr8_op1,shared_vc_rtr8_op2,shared_vc_rtr8_op3,shared_vc_rtr8_op4};
+   assign credit_for_shared_in_rtr8 = {credit_for_shared_rtr8_ip0,credit_for_shared_rtr8_ip1,credit_for_shared_rtr8_ip2, 
+					credit_for_shared_rtr8_ip3,credit_for_shared_rtr8_ip4};
+   assign credit_for_shared_out_rtr8 = {credit_for_shared_rtr8_op0,credit_for_shared_rtr8_op1,credit_for_shared_rtr8_op2,
+					credit_for_shared_rtr8_op3,credit_for_shared_rtr8_op4};
+   assign memory_bank_grant_in_rtr8 = {memory_bank_grant_rtr8_ip0,memory_bank_grant_rtr8_ip1,memory_bank_grant_rtr8_ip2,
+					memory_bank_grant_rtr8_ip3,memory_bank_grant_rtr8_ip4};
+   assign memory_bank_grant_out_rtr8 = {memory_bank_grant_rtr8_op0,memory_bank_grant_rtr8_op1,memory_bank_grant_rtr8_op2,
+					memory_bank_grant_rtr8_op3,memory_bank_grant_rtr8_op4};
    router_wrap
      #(.topology(topology),
        .buffer_size(buffer_size),
@@ -1058,10 +1698,20 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b1010),
-      .channel_in_ip({channel_router_8_ip_0, channel_router_8_ip_1, channel_router_8_ip_2, channel_router_8_ip_3, channel_router_8_ip_4}),
-      .flow_ctrl_out_ip({ flow_ctrl_router_8_ip_0, flow_ctrl_router_8_ip_1, flow_ctrl_router_8_ip_2, flow_ctrl_router_8_ip_3, flow_ctrl_router_8_ip_4 }),
-      .channel_out_op({ channel_router_8_op_0, channel_router_8_op_1, channel_router_8_op_2, channel_router_8_op_3, channel_router_8_op_4 }),
-      .flow_ctrl_in_op({ flow_ctrl_router_8_op_0, flow_ctrl_router_8_op_1, flow_ctrl_router_8_op_2, flow_ctrl_router_8_op_3, flow_ctrl_router_8_op_4 }),
+      .shared_vc_in(shared_vc_in_rtr8),
+      .shared_vc_out(shared_vc_out_rtr8),
+      .credit_for_shared_in(credit_for_shared_in_rtr8),
+      .credit_for_shared_out(credit_for_shared_out_rtr8),
+      .memory_bank_grant_in(memory_bank_grant_in_rtr8),
+      .memory_bank_grant_out(memory_bank_grant_out_rtr8),
+      .channel_in_ip({channel_router_8_ip_0, channel_router_8_ip_1, channel_router_8_ip_2, 
+			channel_router_8_ip_3, channel_router_8_ip_4}),
+      .flow_ctrl_out_ip({ flow_ctrl_router_8_ip_0, flow_ctrl_router_8_ip_1, flow_ctrl_router_8_ip_2, 
+			flow_ctrl_router_8_ip_3, flow_ctrl_router_8_ip_4 }),
+      .channel_out_op({ channel_router_8_op_0, channel_router_8_op_1, channel_router_8_op_2, 
+			channel_router_8_op_3, channel_router_8_op_4 }),
+      .flow_ctrl_in_op({ flow_ctrl_router_8_op_0, flow_ctrl_router_8_op_1, flow_ctrl_router_8_op_2, 
+			flow_ctrl_router_8_op_3, flow_ctrl_router_8_op_4 }),
       .error(rtr_error[8]));
    
 	
@@ -1342,6 +1992,7 @@ module testbench
 	     #(.initial_seed(initial_seed + num_routers + op),
 	       .consume_rate(consume_rate),
 	       .buffer_size(buffer_size),
+	       .num_ports(num_ports),
 	       .num_vcs(num_vcs),
 	       .packet_format(packet_format),
 	       .flow_ctrl_type(flow_ctrl_type),
@@ -1358,6 +2009,9 @@ module testbench
 	     (.clk(clk),
 	      .reset(reset),
 	      .channel(channel_dly),
+	      .shared_vc(1'b0),
+	      .memory_bank_grant(),
+	      .credit_for_shared(),
 	      .flow_ctrl(flow_ctrl),
 	      .error(fs_error));
 	   

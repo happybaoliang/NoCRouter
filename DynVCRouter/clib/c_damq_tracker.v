@@ -28,19 +28,15 @@
 //==============================================================================
 // buffer state tracker for dynamically allocated multi-queue
 //==============================================================================
-
-module c_damq_tracker
-  (clk, reset, active, push_valid, push_sel_qu, pop_valid, pop_sel_qu, 
+module c_damq_tracker (clk, reset, active, push_valid, push_sel_qu, pop_valid, pop_sel_qu, 
    almost_empty_qu, empty_qu, almost_full_qu, full_qu, two_free_qu, errors_qu);
 
 `include "c_functions.v"
 `include "c_constants.v"
 
-
    //---------------------------------------------------------------------------
    // parameters
    //---------------------------------------------------------------------------
-
    // number of queues
    parameter num_queues = 4;
    
@@ -61,11 +57,9 @@ module c_damq_tracker
    
    parameter reset_type = `RESET_TYPE_ASYNC;
    
-   
    //---------------------------------------------------------------------------
    // derived parameters
    //---------------------------------------------------------------------------
-   
    // number of shared credits
    localparam num_shared_slots = enable_reservations ? (num_slots - num_queues) : num_slots;
    
@@ -76,7 +70,6 @@ module c_damq_tracker
    //---------------------------------------------------------------------------
    // interface
    //---------------------------------------------------------------------------
-   
    input clk;
    input reset;
    
@@ -115,15 +108,12 @@ module c_damq_tracker
    //---------------------------------------------------------------------------
    // implementation
    //---------------------------------------------------------------------------
-
    wire 		     push_shared;
    wire 		     pop_shared;
    
    generate
-      
       if(enable_reservations)
 	begin
-	   
 	   wire push_empty;
 	   c_select_1ofn
 	     #(.num_ports(num_queues),
@@ -151,14 +141,12 @@ module c_damq_tracker
 	     assign pop_shared = pop_valid & ~pop_almost_empty & (~push_valid | (push_empty & ~same_queue));
 	   else
 	     assign pop_shared = pop_valid & ~pop_almost_empty & (~push_valid | push_empty);
-	   
 	end
       else
 	begin
 	   assign push_shared = push_valid & ~pop_valid;
 	   assign pop_shared = pop_valid & ~push_valid;
 	end
-      
    endgenerate
    
    wire 		     shared_almost_full;
@@ -184,9 +172,7 @@ module c_damq_tracker
       .errors(shared_errors));
    
    genvar 		     queue;
-   
    generate
-      
       for(queue = 0; queue < num_queues; queue = queue + 1)
 	begin:queues
 	   
@@ -250,9 +236,6 @@ module c_damq_tracker
 	   assign full_qu[queue] = full;
 	   assign two_free_qu[queue] = two_free;
 	   assign errors_qu[queue*2:queue*2+1] = errors;
-	   
 	end
-      
    endgenerate
-   
 endmodule
