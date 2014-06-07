@@ -57,8 +57,7 @@ module vcr_ivc_ctrl
    parameter num_vcs_per_class = 1;
    
    // number of VCs available for each message class
-   localparam num_vcs_per_message_class
-     = num_resource_classes * num_vcs_per_class;
+   localparam num_vcs_per_message_class = num_resource_classes * num_vcs_per_class;
    
    // number of VCs
    localparam num_vcs = num_packet_classes * num_vcs_per_class;
@@ -88,8 +87,7 @@ module vcr_ivc_ctrl
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width required to select an individual port
    localparam port_idx_width = clogb(num_ports);
@@ -106,8 +104,7 @@ module vcr_ivc_ctrl
    parameter min_payload_length = 1;
    
    // number of bits required to represent all possible payload sizes
-   localparam payload_length_width
-     = clogb(max_payload_length-min_payload_length+1);
+   localparam payload_length_width = clogb(max_payload_length-min_payload_length+1);
    
    // width of counter for remaining flits
    localparam flit_ctr_width = clogb(max_payload_length);
@@ -400,8 +397,8 @@ module vcr_ivc_ctrl
   
 // 'hdr_active' signals keeps on valid throughout the tranmission of entire packet. 
    wire 		       hdr_active;
-// 
    wire 		       hdr_capture;
+
    generate
       if(atomic_vc_allocation)
 	begin
