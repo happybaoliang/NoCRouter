@@ -446,7 +446,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports-1]			    	     shared_fb_pop_valid;
    wire [0:num_vcs*num_ports-1] 	     	     shared_fb_pop_sel_ivc;
    wire [0:num_ports*flit_data_width-1]     	     shared_fb_pop_data;
-   
+   wire [0:num_ports*flit_data_width-1] 	     shared_flit_data;
+
    wire [0:num_vcs*2-1]		    		     shared_fb_errors_ivc;
    wire [0:num_ports-1]				     shared_fb_full;
    wire [0:num_vcs-1] 				     shared_fb_empty_ivc;
@@ -466,6 +467,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_vcs-1] 		                     shared_flit_valid_ivc;
    wire [0:num_vcs*num_vcs-1] 	                     shared_vc_sel_ivc_ovc;
    wire [0:num_ports*flit_data_width-1] 	     shared_xbr_data_in_ip;
+   wire [0:num_vcs*3-1]				     shared_ivcc_errors_ivc;
    wire [0:num_vcs-1] 		                     shared_free_nonspec_ivc;
    wire [0:num_vcs-1]				     shared_next_lar_info_ivc;
    wire [0:num_ports*num_vcs_per_bank-1] 	     shared_almost_full_op_ovc;
@@ -632,13 +634,60 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
   	      .d(lar_info_s),
   	      .q(lar_info_q));
   	   
-  	   wire 			      flit_head_prev;
-  	   
-  	   wire [0:flit_data_width-1] shared_flit_data;
-  	   assign shared_flit_data[0:lar_info_width-1] = flit_head_prev ? lar_info_q : shared_fb_pop_data[0:lar_info_width-1];
-  	   assign shared_flit_data[lar_info_width:flit_data_width-1] = shared_fb_pop_data[lar_info_width:flit_data_width-1];
+  	   wire 			flit_sent;// TODO: how to assignment
+	   wire				flit_head_prev;
+   	   wire 		        flit_sent_prev;
+   	   wire 		        flit_valid_active;
+           assign flit_valid_active = alloc_active | flit_sent_prev;
+   		
+   	   wire 		        flit_valid_s, flit_valid_q;
+   	   assign flit_valid_s = flit_sent;
 
+   	   c_dff
+   	    #(.width(1),
+   	      .reset_type(reset_type))
+   	   flit_validq
+   	     (.clk(clk),
+   	      .reset(reset),
+   	      .active(flit_valid_active),
+   	      .d(flit_valid_s),
+   	      .q(flit_valid_q));
+   		
+   	   assign flit_sent_prev = flit_valid_q;
+   		
+   	   c_select_1ofn
+   	    #(.num_ports(num_vcs),
+   	      .width(1))
+   	   flit_head_sel
+   	     (.select(sw_sel_ivc),
+   	      .data_in(shared_flit_head_ivc),
+   	      .data_out(flit_head));
+   		
+   	   wire flit_head_s, flit_head_q;
+   	   assign flit_head_s = flit_head;
 
+   	   c_dff
+   	    #(.width(1),
+   	      .reset_type(reset_type))
+   	   flit_headq
+   	     (.clk(clk),
+   	      .reset(1'b0),
+   	      .active(alloc_active),
+   	      .d(flit_head_s),
+   	      .q(flit_head_q));
+   
+   	   assign flit_head_prev = flit_head_q;
+
+	   wire [0:num_ports*flit_data_width-1] shared_fb_sel_pop_data
+
+  	   assign shared_flit_data[fb*flit_data_width:fb*flit_data_width+lar_info_width-1] 
+			= flit_head_prev 
+			? lar_info_q 
+			: shared_fb_pop_data[fb*flit_data_width:fb*flit_data_width+lar_info_width-1];
+  	   assign shared_flit_data[fb*flit_data_width+lar_info_width:(fb+1)*flit_data_width-1]
+		        = shared_fb_pop_data[fb*flit_data_width+lar_info_width:(fb+1)*flit_data_width-1];
+
+/*
 	   // generate the shared ivc control singals. 
 	   genvar ivc_ctrl;
 	   for (ivc_ctrl=fb*num_vcs_per_bank;ivc_ctrl<(fb+1)*num_vcs_per_bank;ivc_ctrl=ivc_ctrl+1)
@@ -752,8 +801,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		assign shared_allocated_ivc[ivc_ctrl] = allocated;
 		assign shared_free_nonspec_ivc[ivc_ctrl] = free_nonspec;
 		assign shared_free_spec_ivc[ivc_ctrl] = free_spec;
-		//assign shared_ivcc_errors_ivc[ivc_ctrl*3:(ivc_ctrl+1)*3-1] = ivcc_errors; // TODO: error handling ignored.
-	   end
+		assign shared_ivcc_errors_ivc[ivc_ctrl*3:(ivc_ctrl+1)*3-1] = ivcc_errors; // TODO: error handling ignored.
+	   end*/
 	end
    endgenerate 
   
