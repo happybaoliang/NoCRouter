@@ -3,11 +3,11 @@
 	<head>
 		<title>VCS dump file for DVE debugging</title>
 		<vcsVersion>D-2009.12</vcsVersion>
-		<dateCreated>Sat Jun  7 23:41:16 2014</dateCreated>
+		<dateCreated>Tue Jun 10 10:36:27 2014</dateCreated>
 	</head>
 	<body>
 		<!-- VCS compile options -->
-		<vcsCompileOptions text="/usr/synopsys/D-2009.12/linux/bin/vcs1 -Mcc=gcc -Mcplusplus=g++ -Masflags= -Mcfl= -pipe -O -I/usr/synopsys/D-2009.12/include  -Mldflags=-melf_i386  -Mout=simv -Mamsrun= -Mvcsaceobjs= -Mcmodrun= -Mobjects= /usr/synopsys/D-2009.12/linux/lib/libvirsim.a /usr/synopsys/D-2009.12/linux/lib/librterrorinf.so /usr/synopsys/D-2009.12/linux/lib/libsnpsmalloc.so  -Msaverestoreobj=/usr/synopsys/D-2009.12/linux/lib/vcs_save_restore_new.o -Mcrtn= -Mcsrc= -Mupdate -Msyslibs=/usr/synopsys/D-2009.12/linux/lib/ctype-stubs_32.a -ldl -lm  -o simv +lint=all,noVCDE +v2k +libext+.v -timescale=1ns/1ns -Xcbug=0x1 +cli+4 +vcsd +itf+/usr/synopsys/D-2009.12/linux/lib/vcsd.tab +vpi -debug=3 +memcbk +vpi -gen_obj -y ./ -y ./clib -y /usr/synopsys/dw/sim_ver -y . testbench.v "/>
+		<vcsCompileOptions text="/usr/synopsys/D-2009.12/linux/bin/vcs1 -Mcc=gcc -Mcplusplus=g++ -Masflags= -Mcfl= -pipe -O -I/usr/synopsys/D-2009.12/include  -Mldflags=-melf_i386  -Mout=simv -Mamsrun= -Mvcsaceobjs= -Mcmodrun= -Mobjects= /usr/synopsys/D-2009.12/linux/lib/libvirsim.a /usr/synopsys/D-2009.12/linux/lib/librterrorinf.so /usr/synopsys/D-2009.12/linux/lib/libsnpsmalloc.so  -Msaverestoreobj=/usr/synopsys/D-2009.12/linux/lib/vcs_save_restore_new.o -Mcrtn= -Mcsrc= -Mupdate -Msyslibs=/usr/synopsys/D-2009.12/linux/lib/ctype-stubs_32.a -ldl -lm  -o simv +lint=all,noVCDE +v2k +libext+.v -timescale=1ns/1ns -Xcbug=0x1 -Xnotice +cli+4 +vcsd +itf+/usr/synopsys/D-2009.12/linux/lib/vcsd.tab +vpi -debug=3 +memcbk +vpi -gen_obj -y ./ -y ./clib -y /usr/synopsys/dw/sim_ver -y . testbench.v "/>
 		<!-- File list for the whole design -->
 		<fileList>
 			<file fid="81" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_diag_op.v" />
@@ -20,25 +20,25 @@
 			<file fid="65" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_crossbar.v" />
 			<file fid="11" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_shift_reg.v" />
 			<file fid="35" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_op_ctrl_mac.v" />
-			<file fid="55" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_route_filter.v" />
+			<file fid="56" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_route_filter.v" />
 			<file fid="80" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_wf_alloc_sdpa.v" />
-			<file fid="53" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_flags_mux.v" />
+			<file fid="54" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_flags_mux.v" />
 			<file fid="63" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_vc_alloc_wf.v" />
 			<file fid="7" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/packet_source.v" />
-			<file fid="49" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_rr_arbiter.v" />
+			<file fid="50" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_rr_arbiter.v" />
 			<file fid="5" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/parameters.v" />
-			<file fid="45" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_matrix_arbiter.v" />
-			<file fid="56" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_ivc_ctrl.v" />
+			<file fid="46" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_matrix_arbiter.v" />
+			<file fid="38" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_ivc_ctrl.v" />
 			<file fid="24" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_decode.v" />
 			<file fid="12" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_channel_input.v" />
 			<file fid="36" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_alloc_mac.v" />
 			<file fid="29" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_mat_mult.v" />
-			<file fid="54" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_flit_type_check.v" />
+			<file fid="55" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_flit_type_check.v" />
 			<file fid="1" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/c_functions.v" />
 			<file fid="31" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_select_1ofn.v" />
 			<file fid="18" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_next_hop_addr.v" />
 			<file fid="30" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_multi_hot_det.v" />
-			<file fid="47" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_regfile.v" />
+			<file fid="48" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_regfile.v" />
 			<file fid="78" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_wf_alloc_rep.v" />
 			<file fid="19" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_routing_logic.v" />
 			<file fid="0" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/testbench.v" />
@@ -47,7 +47,7 @@
 			<file fid="17" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_flow_ctrl_output.v" />
 			<file fid="71" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_reduce_bits.v" />
 			<file fid="82" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_rotate.v" />
-			<file fid="51" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_samq_tracker.v" />
+			<file fid="52" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_samq_tracker.v" />
 			<file fid="67" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_gate_bits.v" />
 			<file fid="76" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_wf_alloc_loop.v" />
 			<file fid="27" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_fifo.v" />
@@ -56,31 +56,31 @@
 			<file fid="77" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_wf_alloc_mux.v" />
 			<file fid="2" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/c_constants.v" />
 			<file fid="22" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_arbiter.v" />
-			<file fid="52" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_select_mofn.v" />
+			<file fid="53" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_select_mofn.v" />
 			<file fid="8" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/router_checker.v" />
 			<file fid="6" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/flit_sink.v" />
 			<file fid="21" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_top.v" />
-			<file fid="46" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_prefix_arbiter.v" />
+			<file fid="47" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_prefix_arbiter.v" />
 			<file fid="15" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_flit_buffer.v" />
-			<file fid="41" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_decr.v" />
+			<file fid="42" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_decr.v" />
 			<file fid="3" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_constants.v" />
 			<file fid="79" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_wf_alloc_rot.v" />
 			<file fid="68" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_one_hot_filter.v" />
 			<file fid="37" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_ip_ctrl_mac.v" />
 			<file fid="16" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_flow_ctrl_input.v" />
 			<file fid="59" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_sw_alloc_sep_of.v" />
-			<file fid="43" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_incr.v" />
-			<file fid="42" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_fifo_ctrl.v" />
+			<file fid="44" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_incr.v" />
+			<file fid="43" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_fifo_ctrl.v" />
 			<file fid="62" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_vc_alloc_sep_of.v" />
-			<file fid="44" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_lod.v" />
+			<file fid="45" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_lod.v" />
 			<file fid="57" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_ovc_ctrl.v" />
 			<file fid="20" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_top.v" />
-			<file fid="48" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_reverse.v" />
-			<file fid="50" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_samq_ctrl.v" />
+			<file fid="49" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_reverse.v" />
+			<file fid="51" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_samq_ctrl.v" />
 			<file fid="58" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_sw_alloc_sep_if.v" />
 			<file fid="14" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_fc_state.v" />
-			<file fid="39" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_damq_ctrl.v" />
-			<file fid="38" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_op_ctrl_mac.v" />
+			<file fid="40" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_damq_ctrl.v" />
+			<file fid="39" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_op_ctrl_mac.v" />
 			<file fid="4" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_constants.v" />
 			<file fid="70" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_prefix_arbiter_base.v" />
 			<file fid="61" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/vcr_vc_alloc_sep_if.v" />
@@ -88,7 +88,7 @@
 			<file fid="33" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_crossbar_mac.v" />
 			<file fid="34" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_ip_ctrl_mac.v" />
 			<file fid="64" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_align.v" />
-			<file fid="40" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_damq_tracker.v" />
+			<file fid="41" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_damq_tracker.v" />
 			<file fid="28" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_interleave.v" />
 			<file fid="13" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/rtr_channel_output.v" />
 			<file fid="66" path="/home/happy/Dropbox/NoCRouter/DynVCRouter/clib/c_fifo_tracker.v" />
@@ -111,11 +111,11 @@
 			<incfile fid="35" lineno="37" includeID="1" />
 			<incfile fid="35" lineno="38" includeID="2" />
 			<incfile fid="35" lineno="39" includeID="3" />
-			<incfile fid="55" lineno="35" includeID="2" />
-			<incfile fid="55" lineno="36" includeID="3" />
+			<incfile fid="56" lineno="35" includeID="2" />
+			<incfile fid="56" lineno="36" includeID="3" />
 			<incfile fid="80" lineno="37" includeID="2" />
-			<incfile fid="53" lineno="35" includeID="1" />
-			<incfile fid="53" lineno="36" includeID="2" />
+			<incfile fid="54" lineno="35" includeID="1" />
+			<incfile fid="54" lineno="36" includeID="2" />
 			<incfile fid="63" lineno="37" includeID="1" />
 			<incfile fid="63" lineno="38" includeID="2" />
 			<incfile fid="63" lineno="39" includeID="3" />
@@ -124,13 +124,13 @@
 			<incfile fid="7" lineno="9" includeID="2" />
 			<incfile fid="7" lineno="10" includeID="3" />
 			<incfile fid="7" lineno="11" includeID="4" />
-			<incfile fid="49" lineno="35" includeID="2" />
-			<incfile fid="49" lineno="36" includeID="1" />
-			<incfile fid="45" lineno="35" includeID="2" />
-			<incfile fid="56" lineno="39" includeID="1" />
-			<incfile fid="56" lineno="40" includeID="2" />
-			<incfile fid="56" lineno="41" includeID="3" />
-			<incfile fid="56" lineno="42" includeID="4" />
+			<incfile fid="50" lineno="35" includeID="2" />
+			<incfile fid="50" lineno="36" includeID="1" />
+			<incfile fid="46" lineno="35" includeID="2" />
+			<incfile fid="38" lineno="39" includeID="1" />
+			<incfile fid="38" lineno="40" includeID="2" />
+			<incfile fid="38" lineno="41" includeID="3" />
+			<incfile fid="38" lineno="42" includeID="4" />
 			<incfile fid="24" lineno="37" includeID="1" />
 			<incfile fid="12" lineno="37" includeID="1" />
 			<incfile fid="12" lineno="38" includeID="2" />
@@ -139,14 +139,14 @@
 			<incfile fid="36" lineno="41" includeID="2" />
 			<incfile fid="36" lineno="42" includeID="4" />
 			<incfile fid="29" lineno="35" includeID="2" />
-			<incfile fid="54" lineno="35" includeID="2" />
+			<incfile fid="55" lineno="35" includeID="2" />
 			<incfile fid="31" lineno="37" includeID="2" />
 			<incfile fid="18" lineno="34" includeID="1" />
 			<incfile fid="18" lineno="35" includeID="2" />
 			<incfile fid="30" lineno="35" includeID="2" />
 			<incfile fid="30" lineno="36" includeID="1" />
-			<incfile fid="47" lineno="36" includeID="1" />
-			<incfile fid="47" lineno="37" includeID="2" />
+			<incfile fid="48" lineno="36" includeID="1" />
+			<incfile fid="48" lineno="37" includeID="2" />
 			<incfile fid="78" lineno="36" includeID="1" />
 			<incfile fid="78" lineno="37" includeID="2" />
 			<incfile fid="19" lineno="34" includeID="1" />
@@ -164,8 +164,8 @@
 			<incfile fid="71" lineno="35" includeID="2" />
 			<incfile fid="82" lineno="35" includeID="1" />
 			<incfile fid="82" lineno="36" includeID="2" />
-			<incfile fid="51" lineno="36" includeID="1" />
-			<incfile fid="51" lineno="37" includeID="2" />
+			<incfile fid="52" lineno="36" includeID="1" />
+			<incfile fid="52" lineno="37" includeID="2" />
 			<incfile fid="67" lineno="35" includeID="2" />
 			<incfile fid="76" lineno="37" includeID="2" />
 			<incfile fid="27" lineno="36" includeID="1" />
@@ -176,7 +176,7 @@
 			<incfile fid="77" lineno="37" includeID="2" />
 			<incfile fid="22" lineno="7" includeID="1" />
 			<incfile fid="22" lineno="8" includeID="2" />
-			<incfile fid="52" lineno="35" includeID="2" />
+			<incfile fid="53" lineno="35" includeID="2" />
 			<incfile fid="8" lineno="35" includeID="1" />
 			<incfile fid="8" lineno="36" includeID="2" />
 			<incfile fid="8" lineno="37" includeID="3" />
@@ -188,32 +188,32 @@
 			<incfile fid="21" lineno="38" includeID="2" />
 			<incfile fid="21" lineno="39" includeID="3" />
 			<incfile fid="21" lineno="40" includeID="4" />
-			<incfile fid="46" lineno="35" includeID="2" />
-			<incfile fid="46" lineno="36" includeID="1" />
+			<incfile fid="47" lineno="35" includeID="2" />
+			<incfile fid="47" lineno="36" includeID="1" />
 			<incfile fid="15" lineno="37" includeID="1" />
 			<incfile fid="15" lineno="38" includeID="2" />
-			<incfile fid="41" lineno="35" includeID="1" />
+			<incfile fid="42" lineno="35" includeID="1" />
 			<incfile fid="79" lineno="36" includeID="1" />
 			<incfile fid="79" lineno="37" includeID="2" />
 			<incfile fid="68" lineno="35" includeID="1" />
-			<incfile fid="37" lineno="40" includeID="1" />
-			<incfile fid="37" lineno="41" includeID="2" />
-			<incfile fid="37" lineno="42" includeID="3" />
-			<incfile fid="37" lineno="43" includeID="4" />
+			<incfile fid="37" lineno="39" includeID="1" />
+			<incfile fid="37" lineno="40" includeID="2" />
+			<incfile fid="37" lineno="41" includeID="3" />
+			<incfile fid="37" lineno="42" includeID="4" />
 			<incfile fid="16" lineno="35" includeID="1" />
 			<incfile fid="16" lineno="36" includeID="2" />
 			<incfile fid="16" lineno="37" includeID="3" />
 			<incfile fid="59" lineno="36" includeID="1" />
 			<incfile fid="59" lineno="37" includeID="2" />
 			<incfile fid="59" lineno="38" includeID="4" />
-			<incfile fid="43" lineno="35" includeID="1" />
-			<incfile fid="42" lineno="36" includeID="1" />
-			<incfile fid="42" lineno="37" includeID="2" />
+			<incfile fid="44" lineno="35" includeID="1" />
+			<incfile fid="43" lineno="36" includeID="1" />
+			<incfile fid="43" lineno="37" includeID="2" />
 			<incfile fid="62" lineno="37" includeID="1" />
 			<incfile fid="62" lineno="38" includeID="2" />
 			<incfile fid="62" lineno="39" includeID="3" />
 			<incfile fid="62" lineno="40" includeID="4" />
-			<incfile fid="44" lineno="35" includeID="1" />
+			<incfile fid="45" lineno="35" includeID="1" />
 			<incfile fid="57" lineno="37" includeID="1" />
 			<incfile fid="57" lineno="38" includeID="2" />
 			<incfile fid="57" lineno="39" includeID="3" />
@@ -221,20 +221,20 @@
 			<incfile fid="20" lineno="36" includeID="1" />
 			<incfile fid="20" lineno="37" includeID="2" />
 			<incfile fid="20" lineno="38" includeID="3" />
-			<incfile fid="50" lineno="37" includeID="1" />
-			<incfile fid="50" lineno="38" includeID="2" />
+			<incfile fid="51" lineno="37" includeID="1" />
+			<incfile fid="51" lineno="38" includeID="2" />
 			<incfile fid="58" lineno="36" includeID="1" />
 			<incfile fid="58" lineno="37" includeID="2" />
 			<incfile fid="58" lineno="38" includeID="4" />
 			<incfile fid="14" lineno="37" includeID="1" />
 			<incfile fid="14" lineno="38" includeID="2" />
 			<incfile fid="14" lineno="39" includeID="3" />
-			<incfile fid="39" lineno="37" includeID="1" />
-			<incfile fid="39" lineno="38" includeID="2" />
-			<incfile fid="38" lineno="38" includeID="1" />
-			<incfile fid="38" lineno="39" includeID="2" />
-			<incfile fid="38" lineno="40" includeID="3" />
-			<incfile fid="38" lineno="41" includeID="4" />
+			<incfile fid="40" lineno="37" includeID="1" />
+			<incfile fid="40" lineno="38" includeID="2" />
+			<incfile fid="39" lineno="38" includeID="1" />
+			<incfile fid="39" lineno="39" includeID="2" />
+			<incfile fid="39" lineno="40" includeID="3" />
+			<incfile fid="39" lineno="41" includeID="4" />
 			<incfile fid="61" lineno="10" includeID="1" />
 			<incfile fid="61" lineno="11" includeID="2" />
 			<incfile fid="61" lineno="12" includeID="3" />
@@ -248,8 +248,8 @@
 			<incfile fid="34" lineno="40" includeID="1" />
 			<incfile fid="34" lineno="41" includeID="2" />
 			<incfile fid="34" lineno="42" includeID="3" />
-			<incfile fid="40" lineno="34" includeID="1" />
-			<incfile fid="40" lineno="35" includeID="2" />
+			<incfile fid="41" lineno="34" includeID="1" />
+			<incfile fid="41" lineno="35" includeID="2" />
 			<incfile fid="13" lineno="36" includeID="1" />
 			<incfile fid="13" lineno="37" includeID="2" />
 			<incfile fid="13" lineno="38" includeID="3" />
@@ -264,8 +264,8 @@
 		</inactiveCodesList>
 		<!-- Compile options UUM based -->
 		<langKeywords>
-			<v95Files fid="29 49 65 71 73" />
-			<v2kFiles fid="0-28 30-48 50-64 66-70 72 74-82" />
+			<v95Files fid="29 50 65 71" />
+			<v2kFiles fid="0-28 30-49 51-64 66-70 72-82" />
 		</langKeywords>
 		<!--  Case insensitive file list -->
 		<caseInsensitiveFiles fid="" />
@@ -359,18 +359,18 @@
 			<macro name="ELIG_MASK_FULL" module="ovcs" sourceID="35" lineno="325" defID="3" defLine="142" value="3" />
 			<macro name="ELIG_MASK_USED" module="ovcs" sourceID="35" lineno="328" defID="3" defLine="145" value="4" />
 			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="35" lineno="346" defID="2" defLine="73" value="2" />
-			<macro name="CONNECTIVITY_LINE" module="rtr_route_filter" sourceID="55" lineno="67" defID="3" defLine="54" value="2" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="rtr_route_filter" sourceID="55" lineno="70" defID="3" defLine="86" value="2" />
-			<macro name="DIM_ORDER_ASCENDING" module="rtr_route_filter" sourceID="55" lineno="73" defID="3" defLine="96" value="2" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="ops" sourceID="55" lineno="133" defID="3" defLine="86" value="2" />
-			<macro name="CONNECTIVITY_LINE" module="" sourceID="55" lineno="144" defID="3" defLine="54" value="2" />
-			<macro name="CONNECTIVITY_RING" module="" sourceID="55" lineno="145" defID="3" defLine="57" value="3" />
-			<macro name="CONNECTIVITY_FULL" module="" sourceID="55" lineno="151" defID="3" defLine="60" value="4" />
-			<macro name="DIM_ORDER_ASCENDING" module="" sourceID="55" lineno="161" defID="3" defLine="96" value="2" />
-			<macro name="DIM_ORDER_BY_CLASS" module="" sourceID="55" lineno="162" defID="3" defLine="102" value="4" />
-			<macro name="DIM_ORDER_DESCENDING" module="" sourceID="55" lineno="166" defID="3" defLine="99" value="3" />
-			<macro name="DIM_ORDER_BY_CLASS" module="" sourceID="55" lineno="167" defID="3" defLine="102" value="4" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="orcs" sourceID="55" lineno="218" defID="3" defLine="86" value="2" />
+			<macro name="CONNECTIVITY_LINE" module="rtr_route_filter" sourceID="56" lineno="67" defID="3" defLine="54" value="2" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="rtr_route_filter" sourceID="56" lineno="70" defID="3" defLine="86" value="2" />
+			<macro name="DIM_ORDER_ASCENDING" module="rtr_route_filter" sourceID="56" lineno="73" defID="3" defLine="96" value="2" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="ops" sourceID="56" lineno="133" defID="3" defLine="86" value="2" />
+			<macro name="CONNECTIVITY_LINE" module="" sourceID="56" lineno="144" defID="3" defLine="54" value="2" />
+			<macro name="CONNECTIVITY_RING" module="" sourceID="56" lineno="145" defID="3" defLine="57" value="3" />
+			<macro name="CONNECTIVITY_FULL" module="" sourceID="56" lineno="151" defID="3" defLine="60" value="4" />
+			<macro name="DIM_ORDER_ASCENDING" module="" sourceID="56" lineno="161" defID="3" defLine="96" value="2" />
+			<macro name="DIM_ORDER_BY_CLASS" module="" sourceID="56" lineno="162" defID="3" defLine="102" value="4" />
+			<macro name="DIM_ORDER_DESCENDING" module="" sourceID="56" lineno="166" defID="3" defLine="99" value="3" />
+			<macro name="DIM_ORDER_BY_CLASS" module="" sourceID="56" lineno="167" defID="3" defLine="102" value="4" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="orcs" sourceID="56" lineno="218" defID="3" defLine="86" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="c_wf_alloc_sdpa" sourceID="80" lineno="49" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="" sourceID="80" lineno="105" defID="2" defLine="162" value="4" />
 			<macro name="BINARY_OP_OR" module="" sourceID="80" lineno="156" defID="2" defLine="162" value="4" />
@@ -430,9 +430,9 @@
 			<macro name="DIM_ORDER_ASCENDING" module="" sourceID="7" lineno="819" defID="4" defLine="95" value="2" />
 			<macro name="DIM_ORDER_DESCENDING" module="" sourceID="7" lineno="821" defID="4" defLine="98" value="3" />
 			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="7" lineno="962" defID="4" defLine="118" value="4" />
-			<macro name="RESET_TYPE_ASYNC" module="c_rr_arbiter" sourceID="49" lineno="50" defID="2" defLine="38" value="2" />
-			<macro name="BINARY_OP_OR" module="" sourceID="49" lineno="171" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="" sourceID="49" lineno="189" defID="2" defLine="160" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_rr_arbiter" sourceID="50" lineno="50" defID="2" defLine="38" value="2" />
+			<macro name="BINARY_OP_OR" module="" sourceID="50" lineno="171" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="" sourceID="50" lineno="189" defID="2" defLine="160" value="2" />
 			<macro name="TOPOLOGY_MESH" module="testbench" sourceID="5" lineno="33" defID="4" defLine="37" value="2" />
 			<macro name="PACKET_FORMAT_HEAD_TAIL" module="testbench" sourceID="5" lineno="57" defID="4" defLine="111" value="2" />
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="testbench" sourceID="5" lineno="60" defID="4" defLine="128" value="2" />
@@ -467,29 +467,29 @@
 			<macro name="SW_ALLOC_SPEC_TYPE_REQ" module="router_wrap" sourceID="5" lineno="158" defID="4" defLine="206" value="3" />
 			<macro name="CROSSBAR_TYPE_TRISTATE" module="router_wrap" sourceID="5" lineno="161" defID="2" defLine="91" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="router_wrap" sourceID="5" lineno="163" defID="2" defLine="38" value="2" />
-			<macro name="RESET_TYPE_ASYNC" module="c_matrix_arbiter" sourceID="45" lineno="43" defID="2" defLine="38" value="2" />
-			<macro name="BINARY_OP_OR" module="" sourceID="45" lineno="142" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="" sourceID="45" lineno="160" defID="2" defLine="160" value="2" />
-			<macro name="CONNECTIVITY_LINE" module="vcr_ivc_ctrl" sourceID="56" lineno="78" defID="4" defLine="53" value="2" />
-			<macro name="CONNECTIVITY_LINE" module="vcr_ivc_ctrl" sourceID="56" lineno="82" defID="4" defLine="53" value="2" />
-			<macro name="CONNECTIVITY_RING" module="vcr_ivc_ctrl" sourceID="56" lineno="83" defID="4" defLine="56" value="3" />
-			<macro name="CONNECTIVITY_FULL" module="vcr_ivc_ctrl" sourceID="56" lineno="85" defID="4" defLine="59" value="4" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ivc_ctrl" sourceID="56" lineno="96" defID="4" defLine="118" value="4" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ivc_ctrl" sourceID="56" lineno="126" defID="4" defLine="111" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ivc_ctrl" sourceID="56" lineno="128" defID="4" defLine="115" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ivc_ctrl" sourceID="56" lineno="130" defID="4" defLine="118" value="4" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ivc_ctrl" sourceID="56" lineno="142" defID="4" defLine="85" value="2" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ivc_ctrl" sourceID="56" lineno="146" defID="4" defLine="85" value="2" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ivc_ctrl" sourceID="56" lineno="155" defID="4" defLine="111" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ivc_ctrl" sourceID="56" lineno="157" defID="4" defLine="115" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ivc_ctrl" sourceID="56" lineno="159" defID="4" defLine="118" value="4" />
-			<macro name="DIM_ORDER_ASCENDING" module="vcr_ivc_ctrl" sourceID="56" lineno="164" defID="4" defLine="95" value="2" />
-			<macro name="ELIG_MASK_NONE" module="vcr_ivc_ctrl" sourceID="56" lineno="167" defID="4" defLine="138" value="2" />
-			<macro name="ELIG_MASK_USED" module="vcr_ivc_ctrl" sourceID="56" lineno="170" defID="4" defLine="144" value="4" />
-			<macro name="FB_MGMT_TYPE_STATIC" module="vcr_ivc_ctrl" sourceID="56" lineno="176" defID="4" defLine="154" value="2" />
-			<macro name="RESET_TYPE_ASYNC" module="vcr_ivc_ctrl" sourceID="56" lineno="193" defID="2" defLine="38" value="2" />
-			<macro name="FB_MGMT_TYPE_STATIC" module="" sourceID="56" lineno="668" defID="4" defLine="154" value="2" />
-			<macro name="ELIG_MASK_NONE" module="" sourceID="56" lineno="729" defID="4" defLine="138" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_matrix_arbiter" sourceID="46" lineno="43" defID="2" defLine="38" value="2" />
+			<macro name="BINARY_OP_OR" module="" sourceID="46" lineno="142" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="" sourceID="46" lineno="160" defID="2" defLine="160" value="2" />
+			<macro name="CONNECTIVITY_LINE" module="vcr_ivc_ctrl" sourceID="38" lineno="78" defID="4" defLine="53" value="2" />
+			<macro name="CONNECTIVITY_LINE" module="vcr_ivc_ctrl" sourceID="38" lineno="82" defID="4" defLine="53" value="2" />
+			<macro name="CONNECTIVITY_RING" module="vcr_ivc_ctrl" sourceID="38" lineno="83" defID="4" defLine="56" value="3" />
+			<macro name="CONNECTIVITY_FULL" module="vcr_ivc_ctrl" sourceID="38" lineno="85" defID="4" defLine="59" value="4" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ivc_ctrl" sourceID="38" lineno="96" defID="4" defLine="118" value="4" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ivc_ctrl" sourceID="38" lineno="126" defID="4" defLine="111" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ivc_ctrl" sourceID="38" lineno="128" defID="4" defLine="115" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ivc_ctrl" sourceID="38" lineno="130" defID="4" defLine="118" value="4" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ivc_ctrl" sourceID="38" lineno="142" defID="4" defLine="85" value="2" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ivc_ctrl" sourceID="38" lineno="146" defID="4" defLine="85" value="2" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ivc_ctrl" sourceID="38" lineno="155" defID="4" defLine="111" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ivc_ctrl" sourceID="38" lineno="157" defID="4" defLine="115" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ivc_ctrl" sourceID="38" lineno="159" defID="4" defLine="118" value="4" />
+			<macro name="DIM_ORDER_ASCENDING" module="vcr_ivc_ctrl" sourceID="38" lineno="164" defID="4" defLine="95" value="2" />
+			<macro name="ELIG_MASK_NONE" module="vcr_ivc_ctrl" sourceID="38" lineno="167" defID="4" defLine="138" value="2" />
+			<macro name="ELIG_MASK_USED" module="vcr_ivc_ctrl" sourceID="38" lineno="170" defID="4" defLine="144" value="4" />
+			<macro name="FB_MGMT_TYPE_STATIC" module="vcr_ivc_ctrl" sourceID="38" lineno="176" defID="4" defLine="154" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="vcr_ivc_ctrl" sourceID="38" lineno="193" defID="2" defLine="38" value="2" />
+			<macro name="FB_MGMT_TYPE_STATIC" module="" sourceID="38" lineno="668" defID="4" defLine="154" value="2" />
+			<macro name="ELIG_MASK_NONE" module="" sourceID="38" lineno="729" defID="4" defLine="138" value="2" />
 			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_input" sourceID="12" lineno="50" defID="3" defLine="119" value="4" />
 			<macro name="RESET_TYPE_ASYNC" module="rtr_channel_input" sourceID="12" lineno="69" defID="2" defLine="38" value="2" />
 			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_input" sourceID="12" lineno="87" defID="3" defLine="112" value="2" />
@@ -524,7 +524,7 @@
 			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="356" defID="4" defLine="192" value="4" />
 			<macro name="BINARY_OP_AND" module="c_mat_mult" sourceID="29" lineno="43" defID="2" defLine="160" value="2" />
 			<macro name="BINARY_OP_XOR" module="c_mat_mult" sourceID="29" lineno="46" defID="2" defLine="164" value="1" />
-			<macro name="RESET_TYPE_ASYNC" module="rtr_flit_type_check" sourceID="54" lineno="41" defID="2" defLine="38" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="rtr_flit_type_check" sourceID="55" lineno="41" defID="2" defLine="38" value="2" />
 			<macro name="CONNECTIVITY_LINE" module="rtr_next_hop_addr" sourceID="18" lineno="55" defID="3" defLine="54" value="2" />
 			<macro name="ROUTING_TYPE_PHASED_DOR" module="rtr_next_hop_addr" sourceID="18" lineno="58" defID="3" defLine="86" value="2" />
 			<macro name="ROUTING_TYPE_PHASED_DOR" module="rtr_next_hop_addr" sourceID="18" lineno="79" defID="3" defLine="86" value="2" />
@@ -537,12 +537,12 @@
 			<macro name="CONNECTIVITY_LINE" module="" sourceID="18" lineno="184" defID="3" defLine="54" value="2" />
 			<macro name="CONNECTIVITY_RING" module="" sourceID="18" lineno="209" defID="3" defLine="57" value="3" />
 			<macro name="CONNECTIVITY_FULL" module="dims" sourceID="18" lineno="238" defID="3" defLine="60" value="4" />
-			<macro name="REGFILE_TYPE_FF_2D" module="c_regfile" sourceID="47" lineno="52" defID="2" defLine="107" value="2" />
-			<macro name="REGFILE_TYPE_FF_2D" module="" sourceID="47" lineno="84" defID="2" defLine="107" value="2" />
-			<macro name="REGFILE_TYPE_FF_1D_MUX" module="" sourceID="47" lineno="132" defID="2" defLine="110" value="3" />
-			<macro name="REGFILE_TYPE_FF_1D_SEL" module="" sourceID="47" lineno="132" defID="2" defLine="113" value="4" />
-			<macro name="REGFILE_TYPE_FF_1D_SEL" module="read_ports_1d" sourceID="47" lineno="218" defID="2" defLine="113" value="4" />
-			<macro name="REGFILE_TYPE_FF_1D_MUX" module="read_ports_1d" sourceID="47" lineno="238" defID="2" defLine="110" value="3" />
+			<macro name="REGFILE_TYPE_FF_2D" module="c_regfile" sourceID="48" lineno="52" defID="2" defLine="107" value="2" />
+			<macro name="REGFILE_TYPE_FF_2D" module="" sourceID="48" lineno="84" defID="2" defLine="107" value="2" />
+			<macro name="REGFILE_TYPE_FF_1D_MUX" module="" sourceID="48" lineno="132" defID="2" defLine="110" value="3" />
+			<macro name="REGFILE_TYPE_FF_1D_SEL" module="" sourceID="48" lineno="132" defID="2" defLine="113" value="4" />
+			<macro name="REGFILE_TYPE_FF_1D_SEL" module="read_ports_1d" sourceID="48" lineno="218" defID="2" defLine="113" value="4" />
+			<macro name="REGFILE_TYPE_FF_1D_MUX" module="read_ports_1d" sourceID="48" lineno="238" defID="2" defLine="110" value="3" />
 			<macro name="RESET_TYPE_ASYNC" module="c_wf_alloc_rep" sourceID="78" lineno="52" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="" sourceID="78" lineno="104" defID="2" defLine="162" value="4" />
 			<macro name="BINARY_OP_OR" module="" sourceID="78" lineno="169" defID="2" defLine="162" value="4" />
@@ -594,7 +594,7 @@
 			<macro name="ROTATE_DIR_LEFT" module="c_rotate" sourceID="82" lineno="42" defID="2" defLine="122" value="2" />
 			<macro name="ROTATE_DIR_LEFT" module="" sourceID="82" lineno="63" defID="2" defLine="122" value="2" />
 			<macro name="ROTATE_DIR_RIGHT" module="" sourceID="82" lineno="69" defID="2" defLine="123" value="3" />
-			<macro name="RESET_TYPE_ASYNC" module="c_samq_tracker" sourceID="51" lineno="59" defID="2" defLine="38" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_samq_tracker" sourceID="52" lineno="59" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_AND" module="c_gate_bits" sourceID="67" lineno="44" defID="2" defLine="160" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="c_wf_alloc_loop" sourceID="76" lineno="52" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="" sourceID="76" lineno="107" defID="2" defLine="162" value="4" />
@@ -636,8 +636,8 @@
 			<macro name="ARBITER_TYPE_PREFIX_BINARY" module="" sourceID="22" lineno="75" defID="2" defLine="57" value="4" />
 			<macro name="ARBITER_TYPE_PREFIX_ONE_HOT" module="" sourceID="22" lineno="75" defID="2" defLine="60" value="5" />
 			<macro name="ARBITER_TYPE_MATRIX" module="" sourceID="22" lineno="91" defID="2" defLine="63" value="1" />
-			<macro name="BINARY_OP_AND" module="c_select_mofn" sourceID="52" lineno="44" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="c_select_mofn" sourceID="52" lineno="47" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="c_select_mofn" sourceID="53" lineno="44" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="c_select_mofn" sourceID="53" lineno="47" defID="2" defLine="162" value="4" />
 			<macro name="CONNECTIVITY_LINE" module="router_checker" sourceID="8" lineno="86" defID="4" defLine="53" value="2" />
 			<macro name="CONNECTIVITY_LINE" module="router_checker" sourceID="8" lineno="90" defID="4" defLine="53" value="2" />
 			<macro name="CONNECTIVITY_RING" module="router_checker" sourceID="8" lineno="91" defID="4" defLine="56" value="3" />
@@ -704,12 +704,15 @@
 			<macro name="SW_ALLOC_SPEC_TYPE_REQ" module="vcr_top" sourceID="21" lineno="228" defID="4" defLine="206" value="3" />
 			<macro name="CROSSBAR_TYPE_MUX" module="vcr_top" sourceID="21" lineno="231" defID="2" defLine="94" value="3" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_top" sourceID="21" lineno="233" defID="2" defLine="38" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ips" sourceID="21" lineno="364" defID="4" defLine="203" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ops" sourceID="21" lineno="943" defID="4" defLine="203" value="2" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="21" lineno="978" defID="2" defLine="73" value="2" />
-			<macro name="RESET_TYPE_ASYNC" module="c_prefix_arbiter" sourceID="46" lineno="50" defID="2" defLine="38" value="2" />
-			<macro name="BINARY_OP_OR" module="" sourceID="46" lineno="161" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="" sourceID="46" lineno="179" defID="2" defLine="160" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ips" sourceID="21" lineno="372" defID="4" defLine="203" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="fbs" sourceID="21" lineno="566" defID="4" defLine="203" value="2" />
+			<macro name="ELIG_MASK_NONE" module="" sourceID="21" lineno="569" defID="4" defLine="138" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ivc_ctrls" sourceID="21" lineno="847" defID="4" defLine="203" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ops" sourceID="21" lineno="1037" defID="4" defLine="203" value="2" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="21" lineno="1072" defID="2" defLine="73" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_prefix_arbiter" sourceID="47" lineno="50" defID="2" defLine="38" value="2" />
+			<macro name="BINARY_OP_OR" module="" sourceID="47" lineno="161" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="" sourceID="47" lineno="179" defID="2" defLine="160" value="2" />
 			<macro name="REGFILE_TYPE_FF_2D" module="rtr_flit_buffer" sourceID="15" lineno="57" defID="2" defLine="107" value="2" />
 			<macro name="FB_MGMT_TYPE_STATIC" module="rtr_flit_buffer" sourceID="15" lineno="67" defID="3" defLine="155" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="rtr_flit_buffer" sourceID="15" lineno="78" defID="2" defLine="38" value="2" />
@@ -726,30 +729,30 @@
 			<macro name="ROTATE_DIR_LEFT" module="rows" sourceID="79" lineno="270" defID="2" defLine="122" value="2" />
 			<macro name="ROTATE_DIR_RIGHT" module="rows" sourceID="79" lineno="296" defID="2" defLine="123" value="3" />
 			<macro name="ROTATE_DIR_LEFT" module="rows" sourceID="79" lineno="305" defID="2" defLine="122" value="2" />
-			<macro name="CONNECTIVITY_LINE" module="vcr_ip_ctrl_mac" sourceID="37" lineno="91" defID="4" defLine="53" value="2" />
-			<macro name="CONNECTIVITY_LINE" module="vcr_ip_ctrl_mac" sourceID="37" lineno="95" defID="4" defLine="53" value="2" />
-			<macro name="CONNECTIVITY_RING" module="vcr_ip_ctrl_mac" sourceID="37" lineno="96" defID="4" defLine="56" value="3" />
-			<macro name="CONNECTIVITY_FULL" module="vcr_ip_ctrl_mac" sourceID="37" lineno="98" defID="4" defLine="59" value="4" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ip_ctrl_mac" sourceID="37" lineno="109" defID="4" defLine="118" value="4" />
-			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_ip_ctrl_mac" sourceID="37" lineno="112" defID="4" defLine="128" value="2" />
-			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_ip_ctrl_mac" sourceID="37" lineno="115" defID="4" defLine="128" value="2" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ip_ctrl_mac" sourceID="37" lineno="136" defID="4" defLine="111" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ip_ctrl_mac" sourceID="37" lineno="138" defID="4" defLine="115" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ip_ctrl_mac" sourceID="37" lineno="140" defID="4" defLine="118" value="4" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ip_ctrl_mac" sourceID="37" lineno="159" defID="4" defLine="85" value="2" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ip_ctrl_mac" sourceID="37" lineno="163" defID="4" defLine="85" value="2" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ip_ctrl_mac" sourceID="37" lineno="172" defID="4" defLine="111" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ip_ctrl_mac" sourceID="37" lineno="174" defID="4" defLine="115" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ip_ctrl_mac" sourceID="37" lineno="176" defID="4" defLine="118" value="4" />
-			<macro name="DIM_ORDER_ASCENDING" module="vcr_ip_ctrl_mac" sourceID="37" lineno="181" defID="4" defLine="95" value="2" />
-			<macro name="REGFILE_TYPE_FF_2D" module="vcr_ip_ctrl_mac" sourceID="37" lineno="184" defID="2" defLine="107" value="2" />
-			<macro name="FB_MGMT_TYPE_STATIC" module="vcr_ip_ctrl_mac" sourceID="37" lineno="187" defID="4" defLine="154" value="2" />
-			<macro name="ELIG_MASK_NONE" module="vcr_ip_ctrl_mac" sourceID="37" lineno="203" defID="4" defLine="138" value="2" />
-			<macro name="ELIG_MASK_USED" module="vcr_ip_ctrl_mac" sourceID="37" lineno="206" defID="4" defLine="144" value="4" />
-			<macro name="ERROR_CAPTURE_MODE_NO_HOLD" module="vcr_ip_ctrl_mac" sourceID="37" lineno="209" defID="2" defLine="75" value="3" />
-			<macro name="RESET_TYPE_ASYNC" module="vcr_ip_ctrl_mac" sourceID="37" lineno="214" defID="2" defLine="38" value="2" />
-			<macro name="ELIG_MASK_NONE" module="" sourceID="37" lineno="371" defID="4" defLine="138" value="2" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="37" lineno="691" defID="2" defLine="73" value="2" />
+			<macro name="CONNECTIVITY_LINE" module="vcr_ip_ctrl_mac" sourceID="37" lineno="90" defID="4" defLine="53" value="2" />
+			<macro name="CONNECTIVITY_LINE" module="vcr_ip_ctrl_mac" sourceID="37" lineno="94" defID="4" defLine="53" value="2" />
+			<macro name="CONNECTIVITY_RING" module="vcr_ip_ctrl_mac" sourceID="37" lineno="95" defID="4" defLine="56" value="3" />
+			<macro name="CONNECTIVITY_FULL" module="vcr_ip_ctrl_mac" sourceID="37" lineno="97" defID="4" defLine="59" value="4" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ip_ctrl_mac" sourceID="37" lineno="108" defID="4" defLine="118" value="4" />
+			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_ip_ctrl_mac" sourceID="37" lineno="111" defID="4" defLine="128" value="2" />
+			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_ip_ctrl_mac" sourceID="37" lineno="114" defID="4" defLine="128" value="2" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ip_ctrl_mac" sourceID="37" lineno="135" defID="4" defLine="111" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ip_ctrl_mac" sourceID="37" lineno="137" defID="4" defLine="115" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ip_ctrl_mac" sourceID="37" lineno="139" defID="4" defLine="118" value="4" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ip_ctrl_mac" sourceID="37" lineno="158" defID="4" defLine="85" value="2" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="vcr_ip_ctrl_mac" sourceID="37" lineno="162" defID="4" defLine="85" value="2" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_ip_ctrl_mac" sourceID="37" lineno="171" defID="4" defLine="111" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_ip_ctrl_mac" sourceID="37" lineno="173" defID="4" defLine="115" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_ip_ctrl_mac" sourceID="37" lineno="175" defID="4" defLine="118" value="4" />
+			<macro name="DIM_ORDER_ASCENDING" module="vcr_ip_ctrl_mac" sourceID="37" lineno="180" defID="4" defLine="95" value="2" />
+			<macro name="REGFILE_TYPE_FF_2D" module="vcr_ip_ctrl_mac" sourceID="37" lineno="183" defID="2" defLine="107" value="2" />
+			<macro name="FB_MGMT_TYPE_STATIC" module="vcr_ip_ctrl_mac" sourceID="37" lineno="186" defID="4" defLine="154" value="2" />
+			<macro name="ELIG_MASK_NONE" module="vcr_ip_ctrl_mac" sourceID="37" lineno="202" defID="4" defLine="138" value="2" />
+			<macro name="ELIG_MASK_USED" module="vcr_ip_ctrl_mac" sourceID="37" lineno="205" defID="4" defLine="144" value="4" />
+			<macro name="ERROR_CAPTURE_MODE_NO_HOLD" module="vcr_ip_ctrl_mac" sourceID="37" lineno="208" defID="2" defLine="75" value="3" />
+			<macro name="RESET_TYPE_ASYNC" module="vcr_ip_ctrl_mac" sourceID="37" lineno="213" defID="2" defLine="38" value="2" />
+			<macro name="ELIG_MASK_NONE" module="" sourceID="37" lineno="369" defID="4" defLine="138" value="2" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="37" lineno="689" defID="2" defLine="73" value="2" />
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="rtr_flow_ctrl_input" sourceID="16" lineno="48" defID="3" defLine="129" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="rtr_flow_ctrl_input" sourceID="16" lineno="50" defID="2" defLine="38" value="2" />
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="rtr_flow_ctrl_input" sourceID="16" lineno="62" defID="3" defLine="129" value="2" />
@@ -777,7 +780,7 @@
 			<macro name="SW_ALLOC_SPEC_TYPE_PRIO" module="ops" sourceID="59" lineno="571" defID="4" defLine="212" value="5" />
 			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ops" sourceID="59" lineno="612" defID="4" defLine="203" value="2" />
 			<macro name="SW_ALLOC_SPEC_TYPE_PRIO" module="" sourceID="59" lineno="637" defID="4" defLine="212" value="5" />
-			<macro name="RESET_TYPE_ASYNC" module="c_fifo_ctrl" sourceID="42" lineno="63" defID="2" defLine="38" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_fifo_ctrl" sourceID="43" lineno="63" defID="2" defLine="38" value="2" />
 			<macro name="ARBITER_TYPE_ROUND_ROBIN_BINARY" module="vcr_vc_alloc_sep_of" sourceID="62" lineno="61" defID="2" defLine="51" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_vc_alloc_sep_of" sourceID="62" lineno="63" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_AND" module="ops" sourceID="62" lineno="214" defID="2" defLine="160" value="2" />
@@ -812,7 +815,7 @@
 			<macro name="PACKET_FORMAT_TAIL_ONLY" module="rtr_top" sourceID="20" lineno="211" defID="3" defLine="116" value="3" />
 			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_top" sourceID="20" lineno="213" defID="3" defLine="119" value="4" />
 			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="20" lineno="595" defID="2" defLine="73" value="2" />
-			<macro name="RESET_TYPE_ASYNC" module="c_samq_ctrl" sourceID="50" lineno="60" defID="2" defLine="38" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_samq_ctrl" sourceID="51" lineno="60" defID="2" defLine="38" value="2" />
 			<macro name="ARBITER_TYPE_ROUND_ROBIN_BINARY" module="vcr_sw_alloc_sep_if" sourceID="58" lineno="47" defID="2" defLine="51" value="2" />
 			<macro name="SW_ALLOC_SPEC_TYPE_REQ" module="vcr_sw_alloc_sep_if" sourceID="58" lineno="50" defID="4" defLine="206" value="3" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_sw_alloc_sep_if" sourceID="58" lineno="52" defID="2" defLine="38" value="2" />
@@ -838,19 +841,19 @@
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="" sourceID="14" lineno="143" defID="3" defLine="129" value="2" />
 			<macro name="FB_MGMT_TYPE_STATIC" module="" sourceID="14" lineno="164" defID="3" defLine="155" value="2" />
 			<macro name="FB_MGMT_TYPE_DYNAMIC" module="" sourceID="14" lineno="194" defID="3" defLine="158" value="3" />
-			<macro name="RESET_TYPE_ASYNC" module="c_damq_ctrl" sourceID="39" lineno="60" defID="2" defLine="38" value="2" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_op_ctrl_mac" sourceID="38" lineno="68" defID="4" defLine="118" value="4" />
-			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_op_ctrl_mac" sourceID="38" lineno="71" defID="4" defLine="128" value="2" />
-			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_op_ctrl_mac" sourceID="38" lineno="79" defID="4" defLine="128" value="2" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_op_ctrl_mac" sourceID="38" lineno="90" defID="4" defLine="111" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_op_ctrl_mac" sourceID="38" lineno="92" defID="4" defLine="115" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_op_ctrl_mac" sourceID="38" lineno="94" defID="4" defLine="118" value="4" />
-			<macro name="ERROR_CAPTURE_MODE_NO_HOLD" module="vcr_op_ctrl_mac" sourceID="38" lineno="106" defID="2" defLine="75" value="3" />
-			<macro name="FB_MGMT_TYPE_STATIC" module="vcr_op_ctrl_mac" sourceID="38" lineno="109" defID="4" defLine="154" value="2" />
-			<macro name="ELIG_MASK_NONE" module="vcr_op_ctrl_mac" sourceID="38" lineno="118" defID="4" defLine="138" value="2" />
-			<macro name="ELIG_MASK_USED" module="vcr_op_ctrl_mac" sourceID="38" lineno="122" defID="4" defLine="144" value="4" />
-			<macro name="RESET_TYPE_ASYNC" module="vcr_op_ctrl_mac" sourceID="38" lineno="127" defID="2" defLine="38" value="2" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="38" lineno="432" defID="2" defLine="73" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_damq_ctrl" sourceID="40" lineno="60" defID="2" defLine="38" value="2" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_op_ctrl_mac" sourceID="39" lineno="68" defID="4" defLine="118" value="4" />
+			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_op_ctrl_mac" sourceID="39" lineno="71" defID="4" defLine="128" value="2" />
+			<macro name="FLOW_CTRL_TYPE_CREDIT" module="vcr_op_ctrl_mac" sourceID="39" lineno="79" defID="4" defLine="128" value="2" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="vcr_op_ctrl_mac" sourceID="39" lineno="90" defID="4" defLine="111" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="vcr_op_ctrl_mac" sourceID="39" lineno="92" defID="4" defLine="115" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="vcr_op_ctrl_mac" sourceID="39" lineno="94" defID="4" defLine="118" value="4" />
+			<macro name="ERROR_CAPTURE_MODE_NO_HOLD" module="vcr_op_ctrl_mac" sourceID="39" lineno="106" defID="2" defLine="75" value="3" />
+			<macro name="FB_MGMT_TYPE_STATIC" module="vcr_op_ctrl_mac" sourceID="39" lineno="109" defID="4" defLine="154" value="2" />
+			<macro name="ELIG_MASK_NONE" module="vcr_op_ctrl_mac" sourceID="39" lineno="118" defID="4" defLine="138" value="2" />
+			<macro name="ELIG_MASK_USED" module="vcr_op_ctrl_mac" sourceID="39" lineno="122" defID="4" defLine="144" value="4" />
+			<macro name="RESET_TYPE_ASYNC" module="vcr_op_ctrl_mac" sourceID="39" lineno="127" defID="2" defLine="38" value="2" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="39" lineno="432" defID="2" defLine="73" value="2" />
 			<macro name="ARBITER_TYPE_ROUND_ROBIN_BINARY" module="vcr_vc_alloc_sep_if" sourceID="61" lineno="34" defID="2" defLine="51" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_vc_alloc_sep_if" sourceID="61" lineno="36" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="icvcs" sourceID="61" lineno="204" defID="2" defLine="162" value="4" />
@@ -896,7 +899,7 @@
 			<macro name="ELIG_MASK_USED" module="rtr_ip_ctrl_mac" sourceID="34" lineno="227" defID="3" defLine="145" value="4" />
 			<macro name="BINARY_OP_OR" module="glu" sourceID="34" lineno="440" defID="2" defLine="162" value="4" />
 			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="34" lineno="1290" defID="2" defLine="73" value="2" />
-			<macro name="RESET_TYPE_ASYNC" module="c_damq_tracker" sourceID="40" lineno="58" defID="2" defLine="38" value="2" />
+			<macro name="RESET_TYPE_ASYNC" module="c_damq_tracker" sourceID="41" lineno="58" defID="2" defLine="38" value="2" />
 			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_output" sourceID="13" lineno="49" defID="3" defLine="119" value="4" />
 			<macro name="RESET_TYPE_ASYNC" module="rtr_channel_output" sourceID="13" lineno="57" defID="2" defLine="38" value="2" />
 			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_output" sourceID="13" lineno="72" defID="3" defLine="112" value="2" />

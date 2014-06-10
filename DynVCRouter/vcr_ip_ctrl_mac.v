@@ -32,10 +32,9 @@
 module vcr_ip_ctrl_mac (clk, reset, router_address, channel_in, route_ivc_op, 
 route_ivc_orc, allocated_ivc, flit_valid_ivc, flit_head_ivc, flit_tail_ivc, 
 free_nonspec_ivc, vc_gnt_ivc, vc_sel_ivc_ovc, sw_gnt, sw_sel_ivc, sw_gnt_op, 
-almost_full_op_ovc, full_op_ovc, flit_data, flow_ctrl_out, shared_fb_active, 
-shared_fb_push_valid, shared_fb_push_head, shared_fb_push_head_ivc,
-shared_fb_push_tail, shared_fb_push_tail_ivc, shared_fb_push_sel_ivc, 
-shared_fb_push_data, error);
+almost_full_op_ovc, full_op_ovc, flit_data, flow_ctrl_out, shared_fb_push_valid, 
+shared_fb_push_head, shared_fb_push_head_ivc, shared_fb_push_tail, shared_fb_push_tail_ivc, 
+shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -217,6 +216,8 @@ shared_fb_push_data, error);
   
    input reset;
    
+   input			 shared_vc_in;
+
    // current router's address
    input [0:router_addr_width-1] router_address;
    
@@ -280,9 +281,6 @@ shared_fb_push_data, error);
    output [0:flow_ctrl_width-1] 	     flow_ctrl_out;
    wire [0:flow_ctrl_width-1] 		     flow_ctrl_out;
   
-   output 				     shared_fb_active;
-   wire 				     shared_fb_active;
-
    output				     shared_fb_push_valid;
    wire					     shared_fb_push_valid;
 
@@ -345,13 +343,13 @@ shared_fb_push_data, error);
       .flit_data_out(flit_data_in),
       .flit_sel_out_ivc(flit_sel_in_ivc));
 
-   assign shared_fb_push_tail = flit_tail_in;
-   assign shared_fb_push_head = flit_head_in;
-   assign shared_fb_push_data = flit_data_in;
-   assign shared_fb_push_valid = flit_valid_in;
-   assign shared_fb_push_sel_ivc = flit_sel_in_ivc;
-   assign shared_fb_push_head_ivc = flit_head_in_ivc;
-   assign shared_fb_push_tail_ivc = flit_tail_in_ivc;
+   assign shared_fb_push_tail = shared_vc_in ? flit_tail_in : 1'bx;
+   assign shared_fb_push_head = shared_vc_in ? flit_head_in : 1'bx;
+   assign shared_fb_push_valid = shared_vc_in ? flit_valid_in : 1'bx;
+   assign shared_fb_push_sel_ivc = shared_vc_in ? flit_sel_in_ivc : {num_vcs{1'bx}};
+   assign shared_fb_push_data = shared_vc_in ? flit_data_in : {flit_data_width{1'bx}};
+   assign shared_fb_push_head_ivc = shared_vc_in ? flit_head_in_ivc : {num_vcs{1'bx}};
+   assign shared_fb_push_tail_ivc = shared_vc_in ? flit_tail_in_ivc : {num_vcs{1'bx}};
  
    wire [0:header_info_width-1] 	     header_info_in;
    assign header_info_in = flit_data_in[0:header_info_width-1];

@@ -239,18 +239,18 @@ typedef struct predd {
 #ifdef __cplusplus
 extern "C" {
 #endif
-void  rmaPropagate4(UB  * pcode, scalar  val);
-void  rmaPropagate7(UB  * pcode, scalar  val);
-void  rmaPropagate7f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate7r(UB  * pcode);
+void  rmaPropagate11(UB  * pcode, scalar  val);
+void  rmaPropagate11f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate11r(UB  * pcode);
+void  rmaPropagate11t0(UB  * pcode, UB  val);
+void  rmaPropagate12(UB  * pcode, scalar  val);
+void  rmaPropagate12f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate12r(UB  * pcode);
+void  rmaPropagate12t0(UB  * pcode, UB  val);
+void  rmaPropagate13(UB  * pcode, scalar  val);
+void  rmaPropagate13f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate13r(UB  * pcode);
 void  rmaPropagate14(UB  * pcode, scalar  val);
-void  rmaPropagate14f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate14r(UB  * pcode);
-void  rmaPropagate14t0(UB  * pcode, UB  val);
-void  rmaPropagate15(UB  * pcode, scalar  val);
-void  rmaPropagate15f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate15r(UB  * pcode);
-void  rmaPropagate15t0(UB  * pcode, UB  val);
 void  rmaPropagate16(UB  * pcode, scalar  val);
 void  rmaPropagate16f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate16r(UB  * pcode);
@@ -312,34 +312,41 @@ void  rmaPropagate68(UB  * pcode, scalar  val);
 void  rmaPropagate68f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate68r(UB  * pcode);
 void  rmaPropagate68t0(UB  * pcode, UB  val);
-void  rmaPropagate81(UB  * pcode, scalar  val);
-void  rmaPropagate81f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate81r(UB  * pcode);
-void  rmaPropagate82(UB  * pcode, scalar  val);
-void  rmaPropagate82f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate82r(UB  * pcode);
-void  rmaPropagate107(UB  * pcode, scalar  val);
-void  rmaPropagate107f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate107r(UB  * pcode);
-void  rmaPropagate108(UB  * pcode, scalar  val);
-void  rmaPropagate108f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate108r(UB  * pcode);
-void  rmaPropagate110(UB  * pcode, scalar  val);
-void  rmaPropagate110f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate110r(UB  * pcode);
+void  rmaPropagate80(UB  * pcode, scalar  val);
+void  rmaPropagate80f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate80r(UB  * pcode);
+void  rmaPropagate88(UB  * pcode, scalar  val);
+void  rmaPropagate88f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate88r(UB  * pcode);
+void  rmaPropagate89(UB  * pcode, scalar  val);
+void  rmaPropagate89f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate89r(UB  * pcode);
+void  rmaPropagate93(UB  * pcode, scalar  val);
+void  rmaPropagate109(UB  * pcode, scalar  val);
+void  rmaPropagate109f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate109r(UB  * pcode);
+void  rmaPropagate112(UB  * pcode, scalar  val);
+void  rmaPropagate112f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate112r(UB  * pcode);
 void  rmaPropagate113(UB  * pcode, scalar  val);
 void  rmaPropagate113f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate113r(UB  * pcode);
+void  rmaPropagate114(UB  * pcode, scalar  val);
+void  rmaPropagate114f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate114r(UB  * pcode);
 void  rmaPropagate116(UB  * pcode, scalar  val);
 void  rmaPropagate116f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate116r(UB  * pcode);
-void  rmaPropagate117(UB  * pcode, scalar  val);
-void  rmaPropagate117f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate117r(UB  * pcode);
-void  rmaPropagate118(UB  * pcode, scalar  val);
-void  rmaPropagate118f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate118r(UB  * pcode);
-void  rmaPropagate118t0(UB  * pcode, UB  val);
+void  rmaPropagate121(UB  * pcode, scalar  val);
+void  rmaPropagate121f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate121r(UB  * pcode);
+void  rmaPropagate122(UB  * pcode, scalar  val);
+void  rmaPropagate122f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate122r(UB  * pcode);
+void  rmaPropagate123(UB  * pcode, scalar  val);
+void  rmaPropagate123f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate123r(UB  * pcode);
+void  rmaPropagate123t0(UB  * pcode, UB  val);
 void  schedNewEvent(struct dummyq_struct * pQ, EBLK  * peblk, U  delay);
 #ifdef __cplusplus
 }
@@ -369,18 +376,18 @@ void  schedNewEvent(struct dummyq_struct * pQ, EBLK  * peblk, U  delay)
     }
 }
 FP rmaFunctionArray[] = {
-	(FP) rmaPropagate4,
-	(FP) rmaPropagate7,
-	(FP) rmaPropagate7f,
-	(FP) rmaPropagate7r,
+	(FP) rmaPropagate11,
+	(FP) rmaPropagate11f,
+	(FP) rmaPropagate11r,
+	(FP) rmaPropagate11t0,
+	(FP) rmaPropagate12,
+	(FP) rmaPropagate12f,
+	(FP) rmaPropagate12r,
+	(FP) rmaPropagate12t0,
+	(FP) rmaPropagate13,
+	(FP) rmaPropagate13f,
+	(FP) rmaPropagate13r,
 	(FP) rmaPropagate14,
-	(FP) rmaPropagate14f,
-	(FP) rmaPropagate14r,
-	(FP) rmaPropagate14t0,
-	(FP) rmaPropagate15,
-	(FP) rmaPropagate15f,
-	(FP) rmaPropagate15r,
-	(FP) rmaPropagate15t0,
 	(FP) rmaPropagate16,
 	(FP) rmaPropagate16f,
 	(FP) rmaPropagate16r,
@@ -442,34 +449,41 @@ FP rmaFunctionArray[] = {
 	(FP) rmaPropagate68f,
 	(FP) rmaPropagate68r,
 	(FP) rmaPropagate68t0,
-	(FP) rmaPropagate81,
-	(FP) rmaPropagate81f,
-	(FP) rmaPropagate81r,
-	(FP) rmaPropagate82,
-	(FP) rmaPropagate82f,
-	(FP) rmaPropagate82r,
-	(FP) rmaPropagate107,
-	(FP) rmaPropagate107f,
-	(FP) rmaPropagate107r,
-	(FP) rmaPropagate108,
-	(FP) rmaPropagate108f,
-	(FP) rmaPropagate108r,
-	(FP) rmaPropagate110,
-	(FP) rmaPropagate110f,
-	(FP) rmaPropagate110r,
+	(FP) rmaPropagate80,
+	(FP) rmaPropagate80f,
+	(FP) rmaPropagate80r,
+	(FP) rmaPropagate88,
+	(FP) rmaPropagate88f,
+	(FP) rmaPropagate88r,
+	(FP) rmaPropagate89,
+	(FP) rmaPropagate89f,
+	(FP) rmaPropagate89r,
+	(FP) rmaPropagate93,
+	(FP) rmaPropagate109,
+	(FP) rmaPropagate109f,
+	(FP) rmaPropagate109r,
+	(FP) rmaPropagate112,
+	(FP) rmaPropagate112f,
+	(FP) rmaPropagate112r,
 	(FP) rmaPropagate113,
 	(FP) rmaPropagate113f,
 	(FP) rmaPropagate113r,
+	(FP) rmaPropagate114,
+	(FP) rmaPropagate114f,
+	(FP) rmaPropagate114r,
 	(FP) rmaPropagate116,
 	(FP) rmaPropagate116f,
 	(FP) rmaPropagate116r,
-	(FP) rmaPropagate117,
-	(FP) rmaPropagate117f,
-	(FP) rmaPropagate117r,
-	(FP) rmaPropagate118,
-	(FP) rmaPropagate118f,
-	(FP) rmaPropagate118r,
-	(FP) rmaPropagate118t0
+	(FP) rmaPropagate121,
+	(FP) rmaPropagate121f,
+	(FP) rmaPropagate121r,
+	(FP) rmaPropagate122,
+	(FP) rmaPropagate122f,
+	(FP) rmaPropagate122r,
+	(FP) rmaPropagate123,
+	(FP) rmaPropagate123f,
+	(FP) rmaPropagate123r,
+	(FP) rmaPropagate123t0
 };
 
 #ifdef __cplusplus

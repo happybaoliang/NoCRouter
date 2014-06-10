@@ -37,7 +37,7 @@ SRC_DIR = ./
 CLIB_DIR = ./clib
 DW_DIR = $(SYNOPSYS)/dw/sim_ver
 
-VCS_FLAGS = +lint=all,noVCDE +v2k +libext+.v -timescale=1ns/1ns -Mupdate -debug
+VCS_FLAGS = +lint=all,noVCDE +v2k +libext+.v -timescale=1ns/1ns -Mupdate -debug -notice
 
 # DUMP_CTRL may be overidden by script calling this
 DUMP_CTRL=
