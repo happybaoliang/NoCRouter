@@ -118,8 +118,7 @@ module vcr_op_ctrl_mac
    parameter elig_mask = `ELIG_MASK_NONE;
    
    // generate almost_empty signal early on in clock cycle
-   localparam fast_almost_empty
-     = flow_ctrl_bypass && (elig_mask == `ELIG_MASK_USED);
+   localparam fast_almost_empty = flow_ctrl_bypass && (elig_mask == `ELIG_MASK_USED);
    
    // enable speculative switch allocation
    parameter sw_alloc_spec = 1;
