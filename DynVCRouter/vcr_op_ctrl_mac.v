@@ -29,11 +29,10 @@
 // output port controller (tracks state of buffers in downstream router)
 //==============================================================================
 
-module vcr_op_ctrl_mac
-  (clk, reset, flow_ctrl_in, vc_active, vc_gnt_ovc, vc_sel_ovc_ip, 
-   vc_sel_ovc_ivc, sw_active, sw_gnt, sw_sel_ip, sw_sel_ivc, flit_head, 
-   flit_tail, flit_data, channel_out, almost_full_ovc, full_ovc, elig_ovc, 
-   error);
+module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, vc_gnt_ovc, vc_sel_ovc_ip, 
+	vc_sel_ovc_ivc, sw_active, sw_gnt, sw_sel_ip, sw_sel_ivc, shared_vc_sel, flit_head, 
+	shared_flit_head, flit_tail, shared_flit_tail, flit_data, shared_flit_data, channel_out, 
+	almost_full_ovc, shared_flit_valid, shared_flit_sent, full_ovc, elig_ovc, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -129,73 +128,84 @@ module vcr_op_ctrl_mac
    input reset;
    
    // incoming flow control signals
-   input [0:flow_ctrl_width-1] flow_ctrl_in;
+   input [0:flow_ctrl_width-1]      flow_ctrl_in;
    
    // VC allocation activity indicator
-   input 		       vc_active;
+   input 		                    vc_active;
    
    // output VC was granted to an input VC
-   input [0:num_vcs-1] 	       vc_gnt_ovc;
+   input [0:num_vcs-1] 	            vc_gnt_ovc;
    
    // input port that each output VC was granted to
-   input [0:num_vcs*num_ports-1] vc_sel_ovc_ip;
+   input [0:num_vcs*num_ports-1]    vc_sel_ovc_ip;
    
    // input VC that each output VC was granted to
-   input [0:num_vcs*num_vcs-1] 	 vc_sel_ovc_ivc;
+   input [0:num_vcs*num_vcs-1] 	    vc_sel_ovc_ivc;
    
    // switch allocation activity indicator
-   input 			 sw_active;
+   input 			                sw_active;
    
    // was this output granted to an input port?
-   input 			 sw_gnt;
+   input 			                sw_gnt;
    
    // which input port was this output granted to?
-   input [0:num_ports-1] 	 sw_sel_ip;
+   input [0:num_ports-1] 	        sw_sel_ip;
    
    // which input VC was the grant for?
-   input [0:num_vcs-1] 		 sw_sel_ivc;
+   input [0:num_vcs-1] 		        sw_sel_ivc;
    
+   input                            shared_vc_sel;
+
    // incoming flit is a head flit
-   input 			 flit_head;
+   input 			                flit_head;
    
+   input                            shared_flit_head;
+
    // incoming flit is a tail flit
-   input 			 flit_tail;
+   input 			                flit_tail;
    
+   input                            shared_flit_tail;
+
    // incoming flit data
-   input [0:flit_data_width-1] 	 flit_data;
+   input [0:flit_data_width-1] 	    flit_data;
    
+   input [0:flit_data_width-1]      shared_flit_data;
+
+   input							shared_flit_valid;
+
+   input							shared_flit_sent;
+
    // outgoing flit control signals
-   output [0:channel_width-1] 	 channel_out;
-   wire [0:channel_width-1] 	 channel_out;
+   output [0:channel_width-1] 	    channel_out;
+   wire [0:channel_width-1] 	    channel_out;
    
    // which output VC have only a single credit left?
-   output [0:num_vcs-1] 	 almost_full_ovc;
-   wire [0:num_vcs-1] 		 almost_full_ovc;
+   output [0:num_vcs-1] 	        almost_full_ovc;
+   wire [0:num_vcs-1] 		        almost_full_ovc;
    
    // which output VC have no credit left?
-   output [0:num_vcs-1] 	 full_ovc;
-   wire [0:num_vcs-1] 		 full_ovc;
+   output [0:num_vcs-1] 	        full_ovc;
+   wire [0:num_vcs-1] 		        full_ovc;
    
    // output VC is eligible for allocation (i.e., not currently allocated)
-   output [0:num_vcs-1] 	 elig_ovc;
-   wire [0:num_vcs-1] 		 elig_ovc;
+   output [0:num_vcs-1] 	        elig_ovc;
+   wire [0:num_vcs-1] 		        elig_ovc;
    
    // internal error condition detected
-   output 			 error;
-   wire 			 error;
-   
+   output 			                error;
+   wire 			                error;
+
    
    //---------------------------------------------------------------------------
    // input staging
    //---------------------------------------------------------------------------
+   wire    fc_active;
    
-   wire 			 fc_active;
-   
-   wire 			 flow_ctrl_active;
+   wire    flow_ctrl_active;
    assign flow_ctrl_active = fc_active;
    
-   wire 			 fc_event_valid;
-   wire [0:num_vcs-1] 		 fc_event_sel_ovc;
+   wire    fc_event_valid;
+   wire [0:num_vcs-1]   fc_event_sel_ovc;
    rtr_flow_ctrl_input
      #(.num_vcs(num_vcs),
        .flow_ctrl_type(flow_ctrl_type),
@@ -212,10 +222,9 @@ module vcr_op_ctrl_mac
    //---------------------------------------------------------------------------
    // output VC control logic
    //---------------------------------------------------------------------------
+   wire	 gnt_active;
    
-   wire 			 gnt_active;
-   
-   wire 			 flit_valid_s, flit_valid_q;
+   wire	 flit_valid_s, flit_valid_q;
    assign flit_valid_s = sw_gnt;
    c_dff
      #(.width(1),
@@ -229,7 +238,7 @@ module vcr_op_ctrl_mac
    
    assign gnt_active = sw_active | flit_valid_q;
    
-   wire 			 flit_head_s, flit_head_q;
+   wire	 flit_head_s, flit_head_q;
    assign flit_head_s = sw_gnt ? flit_head : flit_head_q;
    c_dff
      #(.width(1),
@@ -241,7 +250,7 @@ module vcr_op_ctrl_mac
       .d(flit_head_s),
       .q(flit_head_q));
    
-   wire 			 flit_tail_s, flit_tail_q;
+   wire	 flit_tail_s, flit_tail_q;
    assign flit_tail_s = sw_gnt ? flit_tail : flit_tail_q;
    c_dff
      #(.width(1),
@@ -253,25 +262,22 @@ module vcr_op_ctrl_mac
       .d(flit_tail_s),
       .q(flit_tail_q));
    
-   wire [0:num_vcs-1] 		 flit_sel_ovc;
-   
-   wire 			 flit_sent;
+   wire [0:num_vcs-1]   flit_sel_ovc;
+   wire 			    flit_sent;
    
    generate
-      
       if(sw_alloc_spec)
 	assign flit_sent = flit_valid_q & (|flit_sel_ovc);
       else
-	assign flit_sent = flit_valid_q;
-            
+	assign flit_sent = flit_valid_q; 
    endgenerate
    
    wire 			 fcs_active;
    assign fcs_active = flit_valid_q | fc_event_valid;
    
-   wire [0:num_vcs-1] 		 empty_ovc;
-   wire [0:num_vcs-1] 		 full_prev_ovc;
-   wire [0:num_vcs*2-1] 	 fcs_errors_ovc;
+   wire [0:num_vcs-1] 	 empty_ovc;
+   wire [0:num_vcs-1] 	 full_prev_ovc;
+   wire [0:num_vcs*2-1]	 fcs_errors_ovc;
    rtr_fc_state
      #(.num_vcs(num_vcs),
        .buffer_size(buffer_size),
@@ -298,13 +304,10 @@ module vcr_op_ctrl_mac
       .full_prev_ovc(full_prev_ovc),
       .errors_ovc(fcs_errors_ovc));
    
-   genvar 			 ovc;
-   
+   genvar ovc;
    generate
-      
       for(ovc = 0; ovc < num_vcs; ovc = ovc + 1)
-	begin:ovcs
-	   
+	  begin:ovcs 
 	   wire vc_gnt;
 	   assign vc_gnt = vc_gnt_ovc[ovc];
 	   
@@ -313,9 +316,6 @@ module vcr_op_ctrl_mac
 	   
 	   wire [0:num_vcs-1] 	vc_sel_ivc;
 	   assign vc_sel_ivc = vc_sel_ovc_ivc[ovc*num_vcs:(ovc+1)*num_vcs-1];
-	   
-	   wire 		fc_event_sel;
-	   assign fc_event_sel = fc_event_sel_ovc[ovc];
 	   
 	   wire 		empty;
 	   assign empty = empty_ovc[ovc];
@@ -355,40 +355,47 @@ module vcr_op_ctrl_mac
 	   
 	   assign flit_sel_ovc[ovc] = flit_sel;
 	   assign elig_ovc[ovc] = elig;
-	   
-	end
-      
+	 end
    endgenerate
    
-   wire 			error_unmatched;
+   wire	error_unmatched;
    
    generate
-      
-      if(sw_alloc_spec)
-	assign error_unmatched = 1'b0;
-      else
-	assign error_unmatched = flit_valid_q & ~|flit_sel_ovc;
-      
+    if(sw_alloc_spec)
+	    assign error_unmatched = 1'b0;
+    else
+	    assign error_unmatched = flit_valid_q & ~|flit_sel_ovc;
    endgenerate
    
-   wire 			flit_multisel;
+   wire	flit_multisel;
    c_multi_hot_det
      #(.width(num_vcs))
    flit_multisel_mhd
      (.data(flit_sel_ovc),
       .multi_hot(flit_multisel));
    
-   wire 			error_multimatch;
+   wire	error_multimatch;
    assign error_multimatch = flit_valid_q & flit_multisel;
    
-   
+  
    //---------------------------------------------------------------------------
    // output staging
    //---------------------------------------------------------------------------
-   
-   wire 			cho_active;
-   assign cho_active = flit_valid_q;
-   
+   wire	cho_active;
+   assign cho_active = flit_valid_q | shared_flit_valid;
+ 
+   wire flit_head_o;
+   assign flit_head_o = shared_vc_sel ? shared_flit_head : flit_head_q;
+
+   wire flit_tail_o;
+   assign flit_tail_o = shared_vc_sel ? shared_flit_tail : flit_tail_q;
+
+   wire flit_sent_o;
+   assign flit_sent_o = shared_vc_sel ? shared_flit_sent : flit_sent;
+
+   wire [0:flit_data_width-1] flit_data_o;
+   assign flit_data_o = shared_vc_sel ? shared_flit_data : flit_data;
+
    rtr_channel_output
      #(.num_vcs(num_vcs),
        .packet_format(packet_format),
@@ -399,10 +406,10 @@ module vcr_op_ctrl_mac
      (.clk(clk),
       .reset(reset),
       .active(cho_active),
-      .flit_valid_in(flit_sent),
-      .flit_head_in(flit_head_q),
-      .flit_tail_in(flit_tail_q),
-      .flit_data_in(flit_data),
+      .flit_valid_in(flit_sent_o),
+      .flit_head_in(flit_head_o),
+      .flit_tail_in(flit_tail_o),
+      .flit_data_in(flit_data_o),
       .flit_sel_in_ovc(flit_sel_ovc),
       .channel_out(channel_out));
    
@@ -410,31 +417,21 @@ module vcr_op_ctrl_mac
    //---------------------------------------------------------------------------
    // error checking
    //---------------------------------------------------------------------------
-   
    // synopsys translate_off
-   
    always @(posedge clk)
-     begin
-	
+   begin
 	if(error_unmatched)
 	  $display("ERROR: Unmatched flit in module %m.");
-	
 	if(error_multimatch)
 	  $display("ERROR: Multiply matched flit in module %m.");
-	
-     end
+   end
    
    // synopsys translate_on
-   
    generate
-      
-      if(error_capture_mode != `ERROR_CAPTURE_MODE_NONE)
-	begin
-	   
+    if(error_capture_mode != `ERROR_CAPTURE_MODE_NONE)
+	begin   
 	   wire [0:2+num_vcs*2-1] errors_s, errors_q;
-	   assign errors_s = {error_unmatched, 
-			      error_multimatch, 
-			      fcs_errors_ovc};
+	   assign errors_s = {error_unmatched, error_multimatch, fcs_errors_ovc};
 	   c_err_rpt
 	     #(.num_errors(2+num_vcs*2),
 	       .capture_mode(error_capture_mode),
@@ -445,13 +442,10 @@ module vcr_op_ctrl_mac
 	      .active(1'b1),
 	      .errors_in(errors_s),
 	      .errors_out(errors_q));
-	   
 	   assign error = |errors_q;
-	   
 	end
-      else
-	assign error = 1'bx;
-      
+    else
+	    assign error = 1'bx;
    endgenerate
    
 endmodule

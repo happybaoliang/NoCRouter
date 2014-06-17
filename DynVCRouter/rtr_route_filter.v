@@ -128,10 +128,10 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
    
    generate
       for(op = 0; op < num_ports; op = op + 1)
-	begin:ops
-	   case(routing_type)
+	  begin:ops
+	    case(routing_type)
 	     `ROUTING_TYPE_PHASED_DOR:
-	       begin
+	      begin
 		  // handle network ports
 		  if(op < (num_ports - num_nodes_per_router))
 		    begin
@@ -141,36 +141,32 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
 			  // however, when they reach the last intermediate
 			  // node, they have reached their destination, and 
 			  // thus cannot turn back
-			  (((connectivity == `CONNECTIVITY_LINE) || 
-			    (connectivity == `CONNECTIVITY_RING)) &&
-			   (op == port_id) && (resource_class == (num_resource_classes - 1))) || 
+			  (
+              ((connectivity == `CONNECTIVITY_LINE) || (connectivity == `CONNECTIVITY_RING)) &&
+			   (op == port_id) && 
+               (resource_class == (num_resource_classes - 1))
+              ) || 
 			  // likewise, for full connectivity, packets only ever
 			  // take two successive steps in the same dimension
 			  // when an intermediate node is reached; once again,
 			  // this cannot happen in the last resource class
-			  ((connectivity == `CONNECTIVITY_FULL) &&
-			   ((op / num_neighbors_per_dim) == 
-			    (port_id / num_neighbors_per_dim)) &&
-			   (resource_class == (num_resource_classes - 1))) ||
+			  (
+               (connectivity == `CONNECTIVITY_FULL) &&
+			   ((op / num_neighbors_per_dim) == (port_id / num_neighbors_per_dim)) &&
+			   (resource_class == (num_resource_classes - 1))
+              ) ||
 			  // more generally, once a dimension has been visited,
 			  // ports associated with that dimension will not be
 			  // requested again until after an intermediate node 
 			  // is reached; again, this cannot happen in the last
 			  // resource class; also, this only applies for 
 			  // network (i.e., not injection/ejection) ports
-			  (((((dim_order == `DIM_ORDER_ASCENDING) || 
-			      ((dim_order == `DIM_ORDER_BY_CLASS) && 
-			       ((message_class % 2) == 0))) && 
-			     ((op / num_neighbors_per_dim) < 
-			      (port_id / num_neighbors_per_dim))) || 
-			    (((dim_order == `DIM_ORDER_DESCENDING) || 
-			      (dim_order == `DIM_ORDER_BY_CLASS) && 
-			      ((message_class % 2) == 1)) && 
-			     ((op / num_neighbors_per_dim) > 
-			      (port_id / num_neighbors_per_dim)))) && 
-			   (resource_class == (num_resource_classes - 1)) && 
-			   (port_id < (num_ports - num_nodes_per_router))))
-			 
+			  (((((dim_order == `DIM_ORDER_ASCENDING) || ((dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 0))) && 
+			     ((op / num_neighbors_per_dim) < (port_id / num_neighbors_per_dim))) || 
+			    (((dim_order == `DIM_ORDER_DESCENDING) || (dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 1)) && 
+			     ((op / num_neighbors_per_dim) > (port_id / num_neighbors_per_dim)))) && 
+			   (resource_class == (num_resource_classes - 1)) && (port_id < (num_ports - num_nodes_per_router)))
+               )
 			 begin
 			    assign route_out_op[op] = 1'b0;
 			    assign error_op[op] = route_in_op[op];
@@ -201,57 +197,57 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
 	end
    endgenerate
    
-   wire [0:num_resource_classes-1] error_orc;
+    wire [0:num_resource_classes-1] error_orc;
    
-   generate
-      if(num_resource_classes == 1)
-	begin
-	   assign route_out_orc = 1'b1;
-	   assign error_orc = ~route_out_orc;
-	end
-      else if(num_resource_classes > 1)
-	begin
-	   genvar orc;
-	   for(orc = 0; orc < num_resource_classes; orc = orc + 1)
-	     begin:orcs
-		case(routing_type)
-		  `ROUTING_TYPE_PHASED_DOR:
-		    begin
-		       // at each hop, packets can either stay in the same resource class or advance to the next one
-		       if((orc == resource_class) || (orc == (resource_class + 1)))
-			 begin
-			    assign route_out_orc[orc] = route_in_orc[orc];
-			    assign error_orc[orc] = 1'b0;
-			 end
-		       else
-			 begin
-			    assign route_out_orc[orc] = 1'b0;
-			    assign error_orc[orc] = route_in_orc[orc];
-			 end
-		    end
-		endcase
-	     end
-	end
-   endgenerate
+    generate
+        if(num_resource_classes == 1)
+	    begin
+	        assign route_out_orc = 1'b1;
+	        assign error_orc = ~route_out_orc;
+	    end
+        else if(num_resource_classes > 1)
+	    begin
+	        genvar orc;
+	        for(orc = 0; orc < num_resource_classes; orc = orc + 1)
+	        begin:orcs
+		        case(routing_type)
+		        `ROUTING_TYPE_PHASED_DOR:
+		        begin
+		            // at each hop, packets can either stay in the same resource class or advance to the next one
+		            if((orc == resource_class) || (orc == (resource_class + 1)))
+			        begin
+			            assign route_out_orc[orc] = route_in_orc[orc];
+			            assign error_orc[orc] = 1'b0;
+			        end
+		            else
+			        begin
+			            assign route_out_orc[orc] = 1'b0;
+			            assign error_orc[orc] = route_in_orc[orc];
+			        end
+		        end
+		        endcase
+	        end
+	    end
+    endgenerate
    
-   wire error_invalid_port;
-   assign error_invalid_port = route_valid & ((|error_op) | (~|route_in_op));
+    wire error_invalid_port;
+    assign error_invalid_port = route_valid & ((|error_op) | (~|route_in_op));
    
-   wire error_invalid_class;
-   assign error_invalid_class = route_valid & ((|error_orc) | (~|route_in_orc));
+    wire error_invalid_class;
+    assign error_invalid_class = route_valid & ((|error_orc) | (~|route_in_orc));
    
-   // synopsys translate_off
-   always @(posedge clk)
-     begin
-	if(error_invalid_port)
+    // synopsys translate_off
+    always @(posedge clk)
+    begin
+    if(error_invalid_port)
 	  $display({"ERROR: Received flit's destination port violates ", "constraints in module %m."});
 	if(error_invalid_class)
 	  $display({"ERROR: Received flit's destination class violates ", "constraints in module %m."});
-     end
+    end
    
-   // synopsys translate_on
+    // synopsys translate_on
    
-   assign errors[0] = error_invalid_port;
-   assign errors[1] = error_invalid_class;
+    assign errors[0] = error_invalid_port;
+    assign errors[1] = error_invalid_class;
    
 endmodule

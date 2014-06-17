@@ -29,10 +29,9 @@
 // output port controller (tracks state of buffers in downstream router)
 //==============================================================================
 
-module vcr_ovc_ctrl
-  (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_active, sw_gnt, 
-   sw_sel_ip, sw_sel_ivc, flit_valid, flit_tail, flit_sel, elig, full, 
-   full_prev, empty);
+module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, 
+		sw_active, sw_gnt, sw_sel_ip, sw_sel_ivc, flit_valid, flit_tail, 
+		flit_sel, elig, full, full_prev, empty);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -69,10 +68,10 @@ module vcr_ovc_ctrl
    input [0:num_vcs-1] 	 vc_sel_ivc;
    
    // activity indicator for switch allocation
-   input 		 sw_active;
+   input 		 		 sw_active;
    
    // switch allocator grant
-   input 		 sw_gnt;
+   input 		 		 sw_gnt;
    
    // which input port does the incoming flit come from?
    input [0:num_ports-1] sw_sel_ip;
@@ -81,27 +80,27 @@ module vcr_ovc_ctrl
    input [0:num_vcs-1] 	 sw_sel_ivc;
    
    // incoming flit is valid
-   input 		 flit_valid;
+   input 		 		 flit_valid;
    
    // incoming flit is a tail flit
-   input 		 flit_tail;
+   input 		 		 flit_tail;
    
    // output VC is the owner of the incoming flit
-   output 		 flit_sel;
-   wire 		 flit_sel;
+   output 		 		 flit_sel;
+   wire 		 		 flit_sel;
    
    // output VC is eligible for allocation (i.e., not currently allocated)
-   output 		 elig;
-   wire 		 elig;
+   output 		 		 elig;
+   wire 		 		 elig;
    
    // VC has no credits left
-   input 		 full;
+   input 		 		 full;
    
    // ignoring the current flit, VC has no credits left
-   input 		 full_prev;
+   input 		 		 full_prev;
    
    // VC is empty
-   input 		 empty;
+   input 		 		 empty;
    
    
    //---------------------------------------------------------------------------

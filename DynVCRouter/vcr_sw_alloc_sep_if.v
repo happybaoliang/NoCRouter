@@ -29,9 +29,8 @@
 // switch allocator variant usign separable input-first allocation
 //==============================================================================
 
-module vcr_sw_alloc_sep_if
-  (clk, reset, active_ip, active_op, route_ip_ivc_op, req_nonspec_ip_ivc, 
-   req_spec_ip_ivc, gnt_ip, sel_ip_ivc, gnt_op, sel_op_ip, sel_op_ivc);
+module vcr_sw_alloc_sep_if (clk, reset, active_ip, active_op, route_ip_ivc_op, 
+req_nonspec_ip_ivc, req_spec_ip_ivc, gnt_ip, sel_ip_ivc, gnt_op, sel_op_ip, sel_op_ivc);
    
 `include "c_functions.v"
 `include "c_constants.v"
