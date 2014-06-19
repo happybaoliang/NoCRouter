@@ -83,72 +83,72 @@ module vcr_alloc_mac
    input reset;
    
    // destination port selects
-   input [0:num_ports*num_vcs*num_ports-1] route_ip_ivc_op;
+   input [0:num_ports*num_vcs*num_ports-1] 				route_ip_ivc_op;
    
    // select next resource class
-   input [0:num_ports*num_vcs*num_resource_classes-1] route_ip_ivc_orc;
+   input [0:num_ports*num_vcs*num_resource_classes-1] 	route_ip_ivc_orc;
    
    // VC has output VC allocated to it
-   input [0:num_ports*num_vcs-1] 		      allocated_ip_ivc;
+   input [0:num_ports*num_vcs-1] 		      			allocated_ip_ivc;
    
    // VC has flit available
-   input [0:num_ports*num_vcs-1] 		      flit_valid_ip_ivc;
+   input [0:num_ports*num_vcs-1] 		      			flit_valid_ip_ivc;
    
    // flit is head flit
-   input [0:num_ports*num_vcs-1] 		      flit_head_ip_ivc;
+   input [0:num_ports*num_vcs-1] 		      			flit_head_ip_ivc;
    
    // flit is tail flit
-   input [0:num_ports*num_vcs-1] 		      flit_tail_ip_ivc;
+   input [0:num_ports*num_vcs-1] 		      			flit_tail_ip_ivc;
    
    // output VC is eligible for allocation (i.e., not currently allocated)
-   input [0:num_ports*num_vcs-1] 		      elig_op_ovc;
+   input [0:num_ports*num_vcs-1] 		      			elig_op_ovc;
    
    // credit availability if output VC has been allocated
-   input [0:num_ports*num_vcs-1] 		      free_nonspec_ip_ivc;
+   input [0:num_ports*num_vcs-1] 		      			free_nonspec_ip_ivc;
    
    // VC allocation activity (to output controller)
-   output [0:num_ports-1] 			      vc_active_op;
-   wire [0:num_ports-1] 			      vc_active_op;
+   output [0:num_ports-1] 			          			vc_active_op;
+   wire [0:num_ports-1] 			          			vc_active_op;
    
    // VC allocation successful (to input controller)
-   output [0:num_ports*num_vcs-1] 		      vc_gnt_ip_ivc;
-   wire [0:num_ports*num_vcs-1] 		      vc_gnt_ip_ivc;
+   output [0:num_ports*num_vcs-1] 		      			vc_gnt_ip_ivc;
+   wire [0:num_ports*num_vcs-1] 		      			vc_gnt_ip_ivc;
    
    // granted output VC (to input controller)
-   output [0:num_ports*num_vcs*num_vcs-1] 	      vc_sel_ip_ivc_ovc;
-   wire [0:num_ports*num_vcs*num_vcs-1] 	      vc_sel_ip_ivc_ovc;
+   output [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_ip_ivc_ovc;
+   wire [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_ip_ivc_ovc;
    
    // output VC was granted (to output controller)
-   output [0:num_ports*num_vcs-1] 		      vc_gnt_op_ovc;
-   wire [0:num_ports*num_vcs-1] 		      vc_gnt_op_ovc;
+   output [0:num_ports*num_vcs-1] 		      			vc_gnt_op_ovc;
+   wire [0:num_ports*num_vcs-1] 		      			vc_gnt_op_ovc;
    
    // input port that each output VC was granted to (to output controller)
-   output [0:num_ports*num_vcs*num_ports-1] 	      vc_sel_op_ovc_ip;
-   wire [0:num_ports*num_vcs*num_ports-1] 	      vc_sel_op_ovc_ip;
+   output [0:num_ports*num_vcs*num_ports-1]   			vc_sel_op_ovc_ip;
+   wire [0:num_ports*num_vcs*num_ports-1] 	  			vc_sel_op_ovc_ip;
    
    // input VC that each output VC was granted to (to output controller)
-   output [0:num_ports*num_vcs*num_vcs-1] 	      vc_sel_op_ovc_ivc;
-   wire [0:num_ports*num_vcs*num_vcs-1] 	      vc_sel_op_ovc_ivc;
+   output [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_op_ovc_ivc;
+   wire [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_op_ovc_ivc;
    
    // switch allocation activity (to output controller)
-   output [0:num_ports-1] 			      sw_active_op;
-   wire [0:num_ports-1] 			      sw_active_op;
+   output [0:num_ports-1] 			      	  			sw_active_op;
+   wire [0:num_ports-1] 			      	  			sw_active_op;
    
    // port grants (to input controller)
-   output [0:num_ports-1] 			      sw_gnt_ip;
-   wire [0:num_ports-1] 			      sw_gnt_ip;
+   output [0:num_ports-1] 			      	  			sw_gnt_ip;
+   wire [0:num_ports-1] 			          			sw_gnt_ip;
    
    // indicate which VC at a given port is granted (to input controller)
    output [0:num_ports*num_vcs-1] 		      sw_sel_ip_ivc;
    wire [0:num_ports*num_vcs-1] 		      sw_sel_ip_ivc;
    
    // output port grants
-   output [0:num_ports-1] 			      sw_gnt_op;
-   wire [0:num_ports-1] 			      sw_gnt_op;
+   output [0:num_ports-1] 			      				sw_gnt_op;
+   wire [0:num_ports-1] 			      				sw_gnt_op;
    
    // selected output ports for grants
-   output [0:num_ports*num_ports-1] 		      sw_sel_op_ip;
-   wire [0:num_ports*num_ports-1] 		      sw_sel_op_ip;
+   output [0:num_ports*num_ports-1] 	  				sw_sel_op_ip;
+   wire [0:num_ports*num_ports-1] 		  				sw_sel_op_ip;
    
    // selected output VCs for grants
    output [0:num_ports*num_vcs-1] 		      sw_sel_op_ivc;
@@ -159,12 +159,12 @@ module vcr_alloc_mac
    wire [0:num_ports-1] 			      flit_head_op;
    
    // which grants are for tail flits
-   output [0:num_ports-1] 			      flit_tail_op;
-   wire [0:num_ports-1] 			      flit_tail_op;
+   output [0:num_ports-1] 			      				flit_tail_op;
+   wire [0:num_ports-1] 			     	 			flit_tail_op;
    
    // crossbar control signals
-   output [0:num_ports*num_ports-1] 		      xbr_ctrl_op_ip;
-   wire [0:num_ports*num_ports-1] 		      xbr_ctrl_op_ip;
+   output [0:num_ports*num_ports-1] 	  				xbr_ctrl_op_ip;
+   wire [0:num_ports*num_ports-1] 		  				xbr_ctrl_op_ip;
    
    wire [0:num_ports*num_vcs-1] 		      vc_req_ip_ivc;
    assign vc_req_ip_ivc = flit_valid_ip_ivc & ~allocated_ip_ivc;
@@ -191,7 +191,6 @@ module vcr_alloc_mac
       
       if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_IF)
 	begin
-	   
 	   vcr_vc_alloc_sep_if
 	     #(.num_message_classes(num_message_classes),
 	       .num_resource_classes(num_resource_classes),
@@ -213,11 +212,10 @@ module vcr_alloc_mac
 	      .gnt_op_ovc(vc_gnt_op_ovc),
 	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
 	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
-	   
+		
 	end
-      else if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_OF)
+    else if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_OF)
 	begin
-	   
 	   vcr_vc_alloc_sep_of
 	     #(.num_message_classes(num_message_classes),
 	       .num_resource_classes(num_resource_classes),
@@ -239,11 +237,9 @@ module vcr_alloc_mac
 	      .gnt_op_ovc(vc_gnt_op_ovc),
 	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
 	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
-	   
 	end
-      else if((vc_allocator_type >= `VC_ALLOC_TYPE_WF_BASE) && (vc_allocator_type <= `VC_ALLOC_TYPE_WF_LIMIT))
+    else if((vc_allocator_type >= `VC_ALLOC_TYPE_WF_BASE) && (vc_allocator_type <= `VC_ALLOC_TYPE_WF_LIMIT))
 	begin
-	   
 	   wire vc_active;
 	   assign vc_active = |vc_active_ip;
 	   
@@ -267,9 +263,7 @@ module vcr_alloc_mac
 	      .gnt_op_ovc(vc_gnt_op_ovc),
 	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
 	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
-	   
 	end
-      
    endgenerate
    
    wire [0:num_ports*num_vcs-1] sw_req_nonspec_ip_ivc;
@@ -297,11 +291,9 @@ module vcr_alloc_mac
       .data_out(sw_active_op));
    
    generate
-      
-      if(sw_allocator_type == `SW_ALLOC_TYPE_SEP_IF)
+    if(sw_allocator_type == `SW_ALLOC_TYPE_SEP_IF)
 	begin
-	   
-	   vcr_sw_alloc_sep_if
+	    vcr_sw_alloc_sep_if
 	     #(.num_vcs(num_vcs),
 	       .num_ports(num_ports),
 	       .arbiter_type(sw_arbiter_type),
@@ -320,11 +312,9 @@ module vcr_alloc_mac
 	      .gnt_op(sw_gnt_op),
 	      .sel_op_ip(sw_sel_op_ip),
 	      .sel_op_ivc(sw_sel_op_ivc));
-	   
 	end
-      else if(sw_allocator_type == `SW_ALLOC_TYPE_SEP_OF)
+    else if(sw_allocator_type == `SW_ALLOC_TYPE_SEP_OF)
 	begin
-	   
 	   vcr_sw_alloc_sep_of
 	     #(.num_vcs(num_vcs),
 	       .num_ports(num_ports),
@@ -344,12 +334,9 @@ module vcr_alloc_mac
 	      .gnt_op(sw_gnt_op),
 	      .sel_op_ip(sw_sel_op_ip),
 	      .sel_op_ivc(sw_sel_op_ivc));
-	   
 	end
-      else if((sw_allocator_type >= `SW_ALLOC_TYPE_WF_BASE) &&
-	      (sw_allocator_type <= `SW_ALLOC_TYPE_WF_LIMIT))
+    else if((sw_allocator_type >= `SW_ALLOC_TYPE_WF_BASE) && (sw_allocator_type <= `SW_ALLOC_TYPE_WF_LIMIT))
 	begin
-	   
 	   vcr_sw_alloc_wf
 	     #(.num_vcs(num_vcs),
 	       .num_ports(num_ports),
@@ -369,21 +356,16 @@ module vcr_alloc_mac
 	      .gnt_op(sw_gnt_op),
 	      .sel_op_ip(sw_sel_op_ip),
 	      .sel_op_ivc(sw_sel_op_ivc));
-	   
 	end
-      
    endgenerate
    
    wire [0:num_ports-1] flit_head_ip;
    wire [0:num_ports-1] flit_tail_ip;
    
    genvar ip;
-   
    generate
-      
-      for(ip = 0; ip < num_ports; ip = ip + 1)
+    for(ip = 0; ip < num_ports; ip = ip + 1)
 	begin:ips
-	   
 	   wire [0:num_vcs-1] sw_sel_ivc;
 	   assign sw_sel_ivc = sw_sel_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1];
 	   
@@ -416,16 +398,13 @@ module vcr_alloc_mac
 	   assign flit_tail_ip[ip] = flit_tail;
 	   
 	end
-      
    endgenerate
-   
+  
+  // generate the 'flit_head_op' and 'flit_tail_op' singals, and the crossbar control singals.
    genvar op;
-   
    generate
-      
-      for(op = 0; op < num_ports; op = op + 1)
+    for(op = 0; op < num_ports; op = op + 1)
 	begin:ops
-	   
 	   wire [0:num_ports-1] sw_sel_ip;
 	   assign sw_sel_ip = sw_sel_op_ip[op*num_ports:(op+1)*num_ports-1];
 	   
@@ -474,9 +453,7 @@ module vcr_alloc_mac
 	   assign xbr_ctrl_ip = xbr_ctrl_ip_q;
 	   
 	   assign xbr_ctrl_op_ip[op*num_ports:(op+1)*num_ports-1] = xbr_ctrl_ip;
-	   
 	end
-      
    endgenerate
    
 endmodule

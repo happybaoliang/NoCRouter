@@ -60,10 +60,10 @@ module testbench
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 3000;
+   parameter warmup_time = 300;
    
    // measurement interval in cycles
-   parameter measure_time = 3000;
+   parameter measure_time = 300;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -974,10 +974,10 @@ module testbench
 		   .reset(reset),
 		   .router_address(router_address),
 		   .channel(channel),
-		   .memory_bank_grant(5'b0),
-		   .shared_vc(),
+		   .memory_bank_grant(5'b0),// TODO: which signals
+		   .shared_vc(),// TODO: which signals
 		   .flit_valid(flit_valid),
-		   .credit_for_shared(1'b0),
+		   .credit_for_shared(1'b0),// TODO: which signals
 		   .flow_ctrl(flow_ctrl_dly),
 		   .run(run),
 		   .error(ps_error));
@@ -2009,9 +2009,9 @@ module testbench
 	     (.clk(clk),
 	      .reset(reset),
 	      .channel(channel_dly),
-	      .shared_vc(1'b0),
-	      .memory_bank_grant(),
-	      .credit_for_shared(),
+	      .shared_vc(1'b0),// TODO: which signals
+	      .memory_bank_grant(),// TODO: which signals
+	      .credit_for_shared(),// TODO: which signals
 	      .flow_ctrl(flow_ctrl),
 	      .error(fs_error));
 	   
@@ -2224,10 +2224,10 @@ module testbench
       run = 1'b0;
       
       while((in_flits > out_flits) || (in_flits > in_creds))
-	begin
+	  begin
 	   cycles = cycles + 1;
 	   #(Tclk);
-	end
+	  end
       
       #(Tclk*10);
       

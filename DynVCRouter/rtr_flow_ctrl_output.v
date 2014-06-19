@@ -48,6 +48,7 @@ module rtr_flow_ctrl_output (clk, reset, active, fc_event_valid_in, fc_event_sel
    
    parameter reset_type = `RESET_TYPE_ASYNC;
    
+   
    //---------------------------------------------------------------------------
    // derived parameters
    //---------------------------------------------------------------------------
@@ -62,6 +63,7 @@ module rtr_flow_ctrl_output (clk, reset, active, fc_event_valid_in, fc_event_sel
    //---------------------------------------------------------------------------
    // interface
    //---------------------------------------------------------------------------
+   
    input clk;
    input reset;
    input active;
@@ -80,10 +82,14 @@ module rtr_flow_ctrl_output (clk, reset, active, fc_event_valid_in, fc_event_sel
    //---------------------------------------------------------------------------
    // implementation
    //---------------------------------------------------------------------------
+   
    generate
+      
       case(flow_ctrl_type)
+	
 	`FLOW_CTRL_TYPE_CREDIT:
 	  begin
+	     
 	     wire cred_valid;
 	     assign cred_valid = fc_event_valid_in;
 	     
@@ -96,6 +102,7 @@ module rtr_flow_ctrl_output (clk, reset, active, fc_event_valid_in, fc_event_sel
 	     // that it will end up being free-running. If we could change 
 	     // things such that credits are transmitted using edge-based 
 	     // signaling (i.e., transitions), this could be avoided.
+	     
 	     wire cred_active;
 	     assign cred_active = active | cred_valid_q;
 	     
@@ -115,6 +122,7 @@ module rtr_flow_ctrl_output (clk, reset, active, fc_event_valid_in, fc_event_sel
 	     
 	     if(num_vcs > 1)
 	       begin
+		  
 		  wire [0:vc_idx_width-1] cred_vc;
 		  c_encode
 		    #(.num_ports(num_vcs))
@@ -135,8 +143,12 @@ module rtr_flow_ctrl_output (clk, reset, active, fc_event_valid_in, fc_event_sel
 		     .q(cred_vc_q));
 		  
 		  assign flow_ctrl_out[1:1+vc_idx_width-1] = cred_vc_q;
+		  
 	       end
+	     
 	  end
+	
       endcase
+      
    endgenerate
 endmodule

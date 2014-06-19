@@ -226,9 +226,11 @@ module rtr_ip_ctrl_mac
    // VC allocation is atomic
    localparam atomic_vc_allocation = (elig_mask == `ELIG_MASK_USED);
    
+   
    //---------------------------------------------------------------------------
    // interface
    //---------------------------------------------------------------------------
+   
    input clk;
    input reset;
    
@@ -314,6 +316,7 @@ module rtr_ip_ctrl_mac
    //---------------------------------------------------------------------------
    // channel input staging
    //---------------------------------------------------------------------------
+   
    wire 				     fb_full;
    
    wire 				     chi_active;
@@ -364,6 +367,7 @@ module rtr_ip_ctrl_mac
    //---------------------------------------------------------------------------
    // global lookahead routing information decoder
    //---------------------------------------------------------------------------
+   
    wire [0:num_ports-1] 		     gld_route_op;
    wire [0:num_resource_classes-1] 	     gld_route_orc;
    

@@ -43,7 +43,7 @@ testbench.v
 48
 XMODIFIERS=@im=ibus
 XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
-XDG_SESSION_COOKIE=c9a5acc8af439457c380ca4f0000000b-1402213756.558471-955894253
+XDG_SESSION_COOKIE=99629a949c38a877f3bec75000000009-1403031799.948025-1664014167
 XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
 XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/
 XDG_CURRENT_DESKTOP=Unity
@@ -61,16 +61,16 @@ VCS_AMD_PURE32=1
 UNAME=/bin/uname
 UBUNTU_MENUPROXY=libappmenu.so
 TOOL_HOME=/usr/synopsys/D-2009.12/linux
-TCL_LIBRARY=:/usr/local/NS2/tcl8.5.10/library
-SYSTEMC_HOME=/usr/local/systemc-2.2/
+TCL_LIBRARY=:/usr/local/NS2/tcl8.5.10/library:/usr/share/tcltk/tcl8.5
+SYSTEMC_HOME=/usr/local/systemc-2.3
 SYNOPSYS=/usr/synopsys
-SSH_AUTH_SOCK=/tmp/keyring-RZFUrM/ssh
-SSH_AGENT_PID=2003
-SNPSLMD_LICENSE_FILE=27000@happy-ThinkPad-R400:/usr/synopsys/D-2009.12/flexlm//license.dat
-SESSION_MANAGER=local/happy-ThinkPad-R400:@/tmp/.ICE-unix/1962,unix/happy-ThinkPad-R400:/tmp/.ICE-unix/1962
+SSH_AUTH_SOCK=/tmp/keyring-X3xvQe/ssh
+SSH_AGENT_PID=1942
+SNPSLMD_LICENSE_FILE=27000@happy-ThinkPad-R400:/usr/synopsys/synopsys.dat:/usr/synopsys/D-2009.12/flexlm//license.dat
+SESSION_MANAGER=local/happy-ThinkPad-R400:@/tmp/.ICE-unix/1901,unix/happy-ThinkPad-R400:/tmp/.ICE-unix/1901
 SCRNAME=vcs
 SCRIPT_NAME=vcs
-QT_IM_MODULE=ibus
+QT_IM_MODULE=xim
 OVA_UUM=0
 MFLAGS=
 MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path
@@ -79,14 +79,14 @@ MAKEFLAGS=
 LESSOPEN=| /usr/bin/lesspipe %s
 LESSCLOSE=/usr/bin/lesspipe %s %s
 GTK_IM_MODULE=ibus
-GPG_AGENT_INFO=/tmp/keyring-RZFUrM/gpg:0:1
-GNOME_KEYRING_PID=1951
-GNOME_KEYRING_CONTROL=/tmp/keyring-RZFUrM
+GPG_AGENT_INFO=/tmp/keyring-X3xvQe/gpg:0:1
+GNOME_KEYRING_PID=1890
+GNOME_KEYRING_CONTROL=/tmp/keyring-X3xvQe
 GNOME_DESKTOP_SESSION_ID=this-is-deprecated
 GDMSESSION=ubuntu
 DESKTOP_SESSION=ubuntu
 DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path
-DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-ndnFAubie7,guid=70fe85f3e588498afaa6b82500000034
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-qlzGSFD5X1,guid=8b102d09eef4cbe0868527ec00000029
 COMPIZ_CONFIG_PROFILE=ubuntu
 COLORTERM=gnome-terminal
 0
@@ -197,8 +197,8 @@ COLORTERM=gnome-terminal
 1402216392 c_constants.v
 1402216392 c_functions.v
 1402216392 c_functions.v
-1401200852 ../../src/vcr_vc_alloc_sep_if.v
-1401200852 ../../src/vcr_vc_alloc_sep_if.v
+1403032218 ../../src/vcr_vc_alloc_sep_if.v
+1403032218 ../../src/vcr_vc_alloc_sep_if.v
 1402216393 vcr_constants.v
 1402216393 vcr_constants.v
 1402216392 c_constants.v
@@ -381,8 +381,8 @@ COLORTERM=gnome-terminal
 1402216392 c_constants.v
 1402216392 c_functions.v
 1402216392 c_functions.v
-1401023230 ../../src/vcr_alloc_mac.v
-1401023230 ../../src/vcr_alloc_mac.v
+1402880069 ../../src/vcr_alloc_mac.v
+1402880069 ../../src/vcr_alloc_mac.v
 1402216393 rtr_constants.v
 1402216393 rtr_constants.v
 1402216392 c_constants.v
@@ -473,8 +473,8 @@ COLORTERM=gnome-terminal
 1402216392 c_constants.v
 1402216392 c_functions.v
 1402216392 c_functions.v
-1401023230 ../../src/vcr_top.v
-1401023230 ../../src/vcr_top.v
+1403032145 ../../src/vcr_top.v
+1403032145 ../../src/vcr_top.v
 1402216393 rtr_constants.v
 1402216393 rtr_constants.v
 1402216392 c_constants.v
@@ -599,8 +599,8 @@ COLORTERM=gnome-terminal
 1402216392 c_constants.v
 1402216392 c_functions.v
 1402216392 c_functions.v
-1401292565 testbench.v
-1401292565 testbench.v
+1403032946 testbench.v
+1403032946 testbench.v
 1258175616 /usr/synopsys/D-2009.12/linux/lib/vcsd.tab
-1402234269 simv.daidir
-1402234270 csrc
+1403032975 simv.daidir
+1403032975 csrc

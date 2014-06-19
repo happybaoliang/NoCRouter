@@ -34,7 +34,7 @@ route_ivc_orc, allocated_ivc, flit_valid_ivc, flit_head_ivc, flit_tail_ivc,
 free_nonspec_ivc, vc_gnt_ivc, vc_sel_ivc_ovc, sw_gnt, sw_sel_ivc, sw_gnt_op, 
 almost_full_op_ovc, full_op_ovc, flit_data, flow_ctrl_out, shared_fb_push_valid, 
 shared_fb_push_head, shared_fb_push_head_ivc, shared_fb_push_tail, shared_fb_push_tail_ivc, 
-shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, error);
+shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -213,114 +213,116 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, error);
    parameter reset_type = `RESET_TYPE_ASYNC;
       
    input clk;
-  
    input reset;
    
-   input			 shared_vc_in;
+   input			 							shared_vc_in;
 
    // current router's address
-   input [0:router_addr_width-1] router_address;
+   input [0:router_addr_width-1] 				router_address;
    
    // incoming channel
-   input [0:channel_width-1] 	 channel_in;
+   input [0:channel_width-1] 	 				channel_in;
    
    // destination port
-   output [0:num_vcs*num_ports-1] route_ivc_op;
-   wire [0:num_vcs*num_ports-1]   route_ivc_op;
+   output [0:num_vcs*num_ports-1] 				route_ivc_op;
+   wire [0:num_vcs*num_ports-1]   				route_ivc_op;
    
    // select next resource class
-   output [0:num_vcs*num_resource_classes-1] route_ivc_orc;
-   wire [0:num_vcs*num_resource_classes-1]   route_ivc_orc;
+   output [0:num_vcs*num_resource_classes-1] 	route_ivc_orc;
+   wire [0:num_vcs*num_resource_classes-1]   	route_ivc_orc;
    
    // VC has an output VC allocated to it
-   output [0:num_vcs-1] 		     allocated_ivc;
-   wire [0:num_vcs-1] 			     allocated_ivc;
+   output [0:num_vcs-1] 		     			allocated_ivc;
+   wire [0:num_vcs-1] 			     			allocated_ivc;
    
    // VC has a flit available
-   output [0:num_vcs-1] 		     flit_valid_ivc;
-   wire [0:num_vcs-1] 			     flit_valid_ivc;
+   output [0:num_vcs-1] 		     			flit_valid_ivc;
+   wire [0:num_vcs-1] 			     			flit_valid_ivc;
    
    // flit is head flit
-   output [0:num_vcs-1] 		     flit_head_ivc;
-   wire [0:num_vcs-1] 			     flit_head_ivc;
+   output [0:num_vcs-1] 		     			flit_head_ivc;
+   wire [0:num_vcs-1] 			     			flit_head_ivc;
    
    // flit is tail flit
-   output [0:num_vcs-1] 		     flit_tail_ivc;
-   wire [0:num_vcs-1] 			     flit_tail_ivc;
+   output [0:num_vcs-1] 		     			flit_tail_ivc;
+   wire [0:num_vcs-1] 			     			flit_tail_ivc;
    
    // credit availability if output VC has been allocated
-   output [0:num_vcs-1] 		     free_nonspec_ivc;
-   wire [0:num_vcs-1] 			     free_nonspec_ivc;
+   output [0:num_vcs-1] 		     			free_nonspec_ivc;
+   wire [0:num_vcs-1] 			     			free_nonspec_ivc;
    
    // VC allocation successful
-   input [0:num_vcs-1] 			     vc_gnt_ivc;
+   input [0:num_vcs-1] 			     			vc_gnt_ivc;
    
    // granted output VC
-   input [0:num_vcs*num_vcs-1] 		     vc_sel_ivc_ovc;
+   input [0:num_vcs*num_vcs-1] 		     		vc_sel_ivc_ovc;
    
    // switch grant
-   input 				     sw_gnt;
+   input 				     					sw_gnt;
    
+   input										shared_full;
+
    // select VC for switch grant
-   input [0:num_vcs-1] 			     sw_sel_ivc;
+   input [0:num_vcs-1] 			     			sw_sel_ivc;
 
    // switch grant for output ports
-   input [0:num_ports-1] 		     sw_gnt_op;
+   input [0:num_ports-1] 		     			sw_gnt_op;
    
    // which output VC have only a single credit left?
-   input [0:num_ports*num_vcs-1] 	     almost_full_op_ovc;
+   input [0:num_ports*num_vcs-1] 	     		almost_full_op_ovc;
    
    // which output VC have no credit left?
-   input [0:num_ports*num_vcs-1] 	     full_op_ovc;
+   input [0:num_ports*num_vcs-1] 	     		full_op_ovc;
    
    // outgoing flit data
-   output [0:flit_data_width-1] 	     flit_data;
-   wire [0:flit_data_width-1] 		     flit_data;
+   output [0:flit_data_width-1] 	     		flit_data;
+   wire [0:flit_data_width-1] 		     		flit_data;
 
    // outgoing flow control signals
-   output [0:flow_ctrl_width-1] 	     flow_ctrl_out;
-   wire [0:flow_ctrl_width-1] 		     flow_ctrl_out;
+   output [0:flow_ctrl_width-1] 	     		flow_ctrl_out;
+   wire [0:flow_ctrl_width-1] 		     		flow_ctrl_out;
   
-   output				     shared_fb_push_valid;
-   wire					     shared_fb_push_valid;
+   output				     					shared_fb_push_valid;
+   wire					     					shared_fb_push_valid;
 
-   output				     shared_fb_push_head;
-   wire					     shared_fb_push_head;
+   output				     					shared_fb_push_head;
+   wire					     					shared_fb_push_head;
 
-   output [0:num_vcs-1]			     shared_fb_push_head_ivc;
-   wire [0:num_vcs-1]			     shared_fb_push_head_ivc;
+   output [0:num_vcs-1]			     			shared_fb_push_head_ivc;
+   wire [0:num_vcs-1]			     			shared_fb_push_head_ivc;
 
-   output [0:num_vcs-1]			     shared_fb_push_tail_ivc;
-   wire [0:num_vcs-1]			     shared_fb_push_tail_ivc;
+   output [0:num_vcs-1]			     			shared_fb_push_tail_ivc;
+   wire [0:num_vcs-1]			     			shared_fb_push_tail_ivc;
 
-   output				     shared_fb_push_tail;
-   wire					     shared_fb_push_tail;
+   output				     					shared_fb_push_tail;
+   wire					     					shared_fb_push_tail;
 
-   output [0:num_vcs-1]			     shared_fb_push_sel_ivc;
-   wire [0:num_vcs-1]			     shared_fb_push_sel_ivc;
+   output [0:num_vcs-1]			     			shared_fb_push_sel_ivc;
+   wire [0:num_vcs-1]			     			shared_fb_push_sel_ivc;
    
-   output [0:flit_data_width-1]		     shared_fb_push_data;
-   wire [0:flit_data_width-1]		     shared_fb_push_data;
+   output [0:flit_data_width-1]		     		shared_fb_push_data;
+   wire [0:flit_data_width-1]		     		shared_fb_push_data;
 
    // internal error condition detected
-   output 				     error;
-   wire 				     error;
+   output 				     					error;
+   wire 				     					error;
    
    //---------------------------------------------------------------------------
    // input stage
    //---------------------------------------------------------------------------
-   wire 				     fb_full;
+   wire     fb_full;
    
-   wire 				     input_stage_active;
-   assign input_stage_active = ~fb_full;
-  
-   wire 				     flit_valid_in;
-   wire 				     flit_head_in;
-   wire [0:num_vcs-1] 			     flit_head_in_ivc;
-   wire 				     flit_tail_in;
-   wire [0:num_vcs-1] 			     flit_tail_in_ivc;
-   wire [0:flit_data_width-1] 		     flit_data_in;
-   wire [0:num_vcs-1] 			     flit_sel_in_ivc;
+   wire     input_stage_active; 
+   assign input_stage_active = (~fb_full) && (~shared_full);
+
+
+   wire 				     		flit_valid_o;
+   wire 				     		flit_head_o;
+   wire [0:num_vcs-1] 			    flit_head_o_ivc;
+   wire 				     		flit_tail_o;
+   wire [0:num_vcs-1] 			    flit_tail_o_ivc;
+   wire [0:flit_data_width-1] 		flit_data_o;
+   wire [0:num_vcs-1] 			    flit_sel_o_ivc;
    rtr_channel_input
      #(.num_vcs(num_vcs),
        .packet_format(packet_format),
@@ -335,25 +337,44 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, error);
       .reset(reset),
       .active(input_stage_active),
       .channel_in(channel_in),
-      .flit_valid_out(flit_valid_in),
-      .flit_head_out(flit_head_in),
-      .flit_head_out_ivc(flit_head_in_ivc),
-      .flit_tail_out(flit_tail_in),
-      .flit_tail_out_ivc(flit_tail_in_ivc),
-      .flit_data_out(flit_data_in),
-      .flit_sel_out_ivc(flit_sel_in_ivc));
+      .flit_valid_out(flit_valid_o),
+      .flit_head_out(flit_head_o),
+      .flit_head_out_ivc(flit_head_o_ivc),
+      .flit_tail_out(flit_tail_o),
+      .flit_tail_out_ivc(flit_tail_o_ivc),
+      .flit_data_out(flit_data_o),
+      .flit_sel_out_ivc(flit_sel_o_ivc));
 
-   assign shared_fb_push_tail = shared_vc_in ? flit_tail_in : 1'bx;
-   assign shared_fb_push_head = shared_vc_in ? flit_head_in : 1'bx;
-   assign shared_fb_push_valid = shared_vc_in ? flit_valid_in : 1'bx;
-   assign shared_fb_push_sel_ivc = shared_vc_in ? flit_sel_in_ivc : {num_vcs{1'bx}};
-   assign shared_fb_push_data = shared_vc_in ? flit_data_in : {flit_data_width{1'bx}};
-   assign shared_fb_push_head_ivc = shared_vc_in ? flit_head_in_ivc : {num_vcs{1'bx}};
-   assign shared_fb_push_tail_ivc = shared_vc_in ? flit_tail_in_ivc : {num_vcs{1'bx}};
+   assign shared_fb_push_tail = shared_vc_in ? flit_tail_o : 1'b0;
+   assign shared_fb_push_head = shared_vc_in ? flit_head_o : 1'b0;
+   assign shared_fb_push_valid = shared_vc_in ? flit_valid_o : 1'b0;
+   assign shared_fb_push_sel_ivc = shared_vc_in ? flit_sel_o_ivc : {num_vcs{1'b0}};
+   assign shared_fb_push_data = shared_vc_in ? flit_data_o : {flit_data_width{1'b0}};
+   assign shared_fb_push_head_ivc = shared_vc_in ? flit_head_o_ivc : {num_vcs{1'b0}};
+   assign shared_fb_push_tail_ivc = shared_vc_in ? flit_tail_o_ivc : {num_vcs{1'b0}};
  
+
+   wire 				     		flit_valid_in;
+   wire 				     		flit_head_in;
+   wire [0:num_vcs-1] 			    flit_head_in_ivc;
+   wire 				     		flit_tail_in;
+   wire [0:num_vcs-1] 			    flit_tail_in_ivc;
+   wire [0:flit_data_width-1] 		flit_data_in;
+   wire [0:num_vcs-1] 			    flit_sel_in_ivc;
+
+   assign flit_valid_in = shared_vc_in ? 1'b0 : flit_valid_o;
+   assign flit_head_in = shared_vc_in ? 1'b0 : flit_head_o;
+   assign flit_tail_in = shared_vc_in ? 1'b0 : flit_tail_o;
+   assign flit_data_in = shared_vc_in ? {flit_data_width{1'b0}} : flit_data_o;
+   assign flit_head_in_ivc = shared_vc_in ? {num_vcs{1'b0}} : flit_head_o_ivc;
+   assign flit_tail_in_ivc = shared_vc_in ? {num_vcs{1'b0}} : flit_tail_o_ivc;
+   assign flit_sel_in_ivc = shared_vc_in ? {num_vcs{1'b0}} : flit_sel_o_ivc;
+
+
    wire [0:header_info_width-1] 	     header_info_in;
    assign header_info_in = flit_data_in[0:header_info_width-1];
-   
+  
+
    //---------------------------------------------------------------------------
    // switch allocation
    //---------------------------------------------------------------------------
@@ -390,14 +411,14 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, error);
    //---------------------------------------------------------------------------
    // input vc controllers
    //---------------------------------------------------------------------------
+   wire [0:num_vcs-1] 		    	fb_empty_ivc;
    wire [0:num_vcs-1] 	      	    fb_pop_tail_ivc;
-   wire [0:header_info_width-1]     fb_pop_next_header_info;
-   wire [0:num_vcs-1] 		    fb_almost_empty_ivc;
-   wire [0:num_vcs-1] 		    fb_empty_ivc;
+   wire [0:num_vcs*3-1] 	     	ivcc_errors_ivc;
    wire [0:num_vcs*lar_info_width-1] next_lar_info_ivc;
-   wire [0:num_vcs*3-1] 	     ivcc_errors_ivc;
+   wire [0:num_vcs-1] 		    	fb_almost_empty_ivc;
+   wire [0:header_info_width-1]     fb_pop_next_header_info;
    
-   genvar 			     ivc;
+   genvar    ivc;
    generate
       for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
 	begin:ivcs	   
@@ -673,7 +694,7 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, error);
      #(.num_vcs(num_vcs),
        .flow_ctrl_type(flow_ctrl_type),
        .reset_type(reset_type))
-   fco_private
+   fco
      (.clk(clk),
       .reset(reset),
       .active(alloc_active),

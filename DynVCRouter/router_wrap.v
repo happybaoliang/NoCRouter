@@ -230,7 +230,7 @@ module router_wrap
 		 .crossbar_type(crossbar_type),
 		 .reset_type(reset_type))
 	     vcr
-	       (.clk(clk),
+	    (.clk(clk),
 		.reset(reset),
 		.router_address(router_address),
 		.channel_in_ip(channel_in_ip),

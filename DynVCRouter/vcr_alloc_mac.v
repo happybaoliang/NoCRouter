@@ -29,16 +29,14 @@
 // VC and switch allocators for VC router
 //==============================================================================
 
-module vcr_alloc_mac
-  (clk, reset, route_ip_ivc_op, shared_route_ip_ivc_op, route_ip_ivc_orc, 
-   shared_route_ip_ivc_orc, allocated_ip_ivc, shared_allocated_ip_ivc,
-   flit_valid_ip_ivc, shared_flit_valid_ip_ivc, flit_head_ip_ivc, 
-   shared_flit_head_ip_ivc, flit_tail_ip_ivc, shared_flit_tail_ip_ivc, elig_op_ovc, 
-   shared_elig_op_ovc, shared_free_nonspec_ip_ivc, free_nonspec_ip_ivc, vc_active_op, 
-   shared_vc_active_op, vc_gnt_ip_ivc, shared_vc_gnt_ip_ivc, shared_vc_gnt_op_ovc, 
-   vc_sel_ip_ivc_ovc, vc_gnt_op_ovc, vc_sel_op_ovc_ip, vc_sel_op_ovc_ivc, sw_active_op, 
-   shared_sw_active_op, sw_gnt_ip, sw_sel_ip_ivc, sw_gnt_op, sw_sel_op_ip, sw_sel_op_ivc, 
-   shared_sw_ip_ivc_sel, flit_head_op, shared_flit_head_op, flit_tail_op, 
+module vcr_alloc_mac (clk, reset, route_ip_ivc_op, shared_route_ip_ivc_op, route_ip_ivc_orc, 
+   shared_route_ip_ivc_orc, allocated_ip_ivc, shared_allocated_ip_ivc, flit_valid_ip_ivc, 
+   shared_flit_valid_ip_ivc, flit_head_ip_ivc, shared_flit_head_ip_ivc, flit_tail_ip_ivc, 
+   shared_flit_tail_ip_ivc, elig_op_ovc, shared_elig_op_ovc, shared_free_nonspec_ip_ivc, 
+   free_nonspec_ip_ivc, vc_active_op, shared_vc_active_op, vc_gnt_ip_ivc, shared_vc_gnt_ip_ivc, 
+   shared_vc_gnt_op_ovc, vc_sel_ip_ivc_ovc, vc_gnt_op_ovc, vc_sel_op_ovc_ip, vc_sel_op_ovc_ivc, 
+   sw_active_op, shared_sw_active_op, sw_gnt_ip, sw_sel_ip_ivc, sw_gnt_op, sw_sel_op_ip, 
+   sw_sel_op_ivc, shared_sw_ip_ivc_sel, flit_head_op, shared_flit_head_op, flit_tail_op, 
    shared_flit_tail_op, xbr_ctrl_op_ip);
    
 `include "c_functions.v"
@@ -224,8 +222,8 @@ module vcr_alloc_mac
    wire [0:num_ports*num_vcs-1]			  vc_req_ip_ivc_shared;
    assign vc_req_ip_ivc_shared = shared_flit_valid_ip_ivc & ~shared_allocated_ip_ivc;
   
-   wire [0:num_ports*num_vcs-1]			  vc_req_ip_ivc;
-   assign vc_req_ip_ivc = vc_req_ip_ivc_shared | vc_req_ip_ivc_private;
+   wire [0:num_ports*num_vcs-1]			  vc_req_ip_ivc_merged;
+   assign vc_req_ip_ivc_merged = vc_req_ip_ivc_shared | vc_req_ip_ivc_private;
 
    wire [0:num_ports-1]					  vc_active_ip_shared;
    c_reduce_bits
@@ -236,8 +234,8 @@ module vcr_alloc_mac
      (.data_in(vc_req_ip_ivc_shared),
       .data_out(vc_active_ip_shared));
 
-   wire [0:num_ports-1] 			      vc_active_ip;
-   assign vc_active_ip = vc_active_ip_private | vc_active_ip_shared;
+   wire [0:num_ports-1] 			      vc_active_ip_merged;
+   assign vc_active_ip_merged = vc_active_ip_private | vc_active_ip_shared;
 
    c_select_mofn
      #(.num_ports(num_ports*num_vcs),
@@ -258,63 +256,67 @@ module vcr_alloc_mac
    wire [0:num_ports-1]	vc_active_op_merged;
    assign vc_active_op_merged = vc_active_op | shared_vc_active_op;
 
+   
    wire [0:num_ports*num_vcs-1] elig_op_ovc_merged;
    assign elig_op_ovc_merged = elig_op_ovc | shared_elig_op_ovc;
 
+   
    wire [0:num_ports*num_vcs-1]	shared_vc_mask_op_ovc;
    assign shared_vc_mask_op_ovc = (elig_op_ovc ^ shared_elig_op_ovc) & shared_elig_op_ovc;
 
-   wire [0:num_ports*num_vcs-1]							shared_vc_mask_ip_ivc;
-   wire [0:num_vcs*num_ports-1]							shared_sw_mask_ip_ivc;
+   
+   wire [0:num_ports*num_vcs-1]							shared_vc_mask_ip_ivc; // TODO: mask is a switcher
+   wire [0:num_vcs*num_ports-1]							shared_sw_mask_ip_ivc; // TODO: mask is a switcher
+   
    wire [0:num_ports*num_vcs*num_ports-1] 				route_ip_ivc_op_merged;
    wire [0:num_ports*num_vcs*num_resource_classes-1]	route_ip_ivc_orc_merged;
    
    genvar sp, svc;
    generate
-   	for (sp=0; sp<num_ports; sp=sp+1)
+   for (sp=0; sp<num_ports; sp=sp+1)
    	begin:sps
-   		for (svc=0;svc<num_vcs;svc=svc+1)
-		begin:svcs
-			wire [0:num_ports-1]	share_op;
-			assign share_op = shared_route_ip_ivc_op[sp*num_vcs*num_ports+svc*num_ports:sp*num_vcs*num_ports+(svc+1)*num_ports-1];
+   	 for (svc=0;svc<num_vcs;svc=svc+1)
+	 begin:svcs
+		wire [0:num_ports-1]	share_op;
+		assign share_op = shared_route_ip_ivc_op[sp*num_vcs*num_ports+svc*num_ports:sp*num_vcs*num_ports+(svc+1)*num_ports-1];
 
-			wire [0:num_ports-1]	private_op;
-			assign private_op = route_ip_ivc_op[sp*num_vcs*num_ports+svc*num_ports:sp*num_vcs*num_ports+(svc+1)*num_ports-1];
+		wire [0:num_ports-1]	private_op;
+		assign private_op = route_ip_ivc_op[sp*num_vcs*num_ports+svc*num_ports:sp*num_vcs*num_ports+(svc+1)*num_ports-1];
 
-			assign shared_vc_mask_ip_ivc[sp*num_vcs+svc] = (^share_op) ? 1'b1 : 1'b0;
+		assign shared_vc_mask_ip_ivc[sp*num_vcs+svc] = (^share_op) ? 1'b1 : 1'b0;
 
-			assign route_ip_ivc_op_merged[sp*num_vcs*num_ports+svc*num_ports:sp*num_vcs*num_ports+(svc+1)*num_ports-1]
-					= (^share_op) ? share_op : private_op;
+		assign route_ip_ivc_op_merged[sp*num_vcs*num_ports+svc*num_ports:sp*num_vcs*num_ports+(svc+1)*num_ports-1]
+						= (^share_op) ? share_op : private_op;
 
-			wire [0:num_resource_classes-1]		share_orc;
-			assign share_orc = shared_route_ip_ivc_orc[sp*num_vcs*num_resource_classes+svc*num_resource_classes
-								:sp*num_vcs*num_resource_classes+(svc+1)*num_resource_classes-1];
+		wire [0:num_resource_classes-1]	share_orc;
+		assign share_orc = shared_route_ip_ivc_orc[sp*num_vcs*num_resource_classes+svc*num_resource_classes
+							:sp*num_vcs*num_resource_classes+(svc+1)*num_resource_classes-1];
 
-			wire [0:num_resource_classes-1]		private_orc;
-			assign private_orc = route_ip_ivc_orc[sp*num_vcs*num_resource_classes+svc*num_resource_classes
-								:sp*num_vcs*num_resource_classes+(svc+1)*num_resource_classes-1];
+		wire [0:num_resource_classes-1]	private_orc;
+		assign private_orc = route_ip_ivc_orc[sp*num_vcs*num_resource_classes+svc*num_resource_classes
+							:sp*num_vcs*num_resource_classes+(svc+1)*num_resource_classes-1];
 
-			assign route_ip_ivc_orc_merged[sp*num_vcs*num_resource_classes+svc*num_resource_classes
-								:sp*num_vcs*num_resource_classes+(svc+1)*num_resource_classes-1]
-					= (^share_op) ? share_orc : private_orc;
+		assign route_ip_ivc_orc_merged[sp*num_vcs*num_resource_classes+svc*num_resource_classes
+							:sp*num_vcs*num_resource_classes+(svc+1)*num_resource_classes-1]
+							= (^share_op) ? share_orc : private_orc;
 
-			assign shared_vc_gnt_ip_ivc[sp*num_vcs+svc] = shared_vc_mask_ip_ivc[sp*num_vcs+svc] ? 
-					vc_gnt_ip_ivc[sp*num_vcs+svc] : 1'b0;
+		assign shared_vc_gnt_ip_ivc[sp*num_vcs+svc] = shared_vc_mask_ip_ivc[sp*num_vcs+svc] ? 
+							vc_gnt_ip_ivc[sp*num_vcs+svc] : 1'b0;
 
-			assign shared_vc_gnt_op_ovc[sp*num_vcs+svc] = shared_vc_mask_op_ovc[sp*num_vcs+svc] ?
-					vc_gnt_op_ovc[sp*num_vcs+svc] : 1'b0;
+		assign shared_vc_gnt_op_ovc[sp*num_vcs+svc] = shared_vc_mask_op_ovc[sp*num_vcs+svc] ?
+							vc_gnt_op_ovc[sp*num_vcs+svc] : 1'b0;
 
-			assign shared_sw_mask_ip_ivc[sp*num_vcs+svc] = (^share_op) ? 1'b1 : 1'b0;
+		assign shared_sw_mask_ip_ivc[sp*num_vcs+svc] = (^share_op) ? 1'b1 : 1'b0;
 
-			assign shared_sw_ip_ivc_sel[sp*num_vcs+svc] = sw_sel_ip_ivc[sp*num_vcs+svc]
-								? shared_sw_mask_ip_ivc[sp*num_vcs+svc] : 1'b0;
-		end
-	   end
-	endgenerate
+		assign shared_sw_ip_ivc_sel[sp*num_vcs+svc] = shared_sw_mask_ip_ivc[sp*num_vcs+svc] ? 
+														sw_sel_ip_ivc[sp*num_vcs+svc] : 1'b0;
+	end
+  end
+endgenerate
 
 
    generate
-    if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_IF)
+      if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_IF)
 	begin
 	   vcr_vc_alloc_sep_if
 	     #(.num_message_classes(num_message_classes),
@@ -326,18 +328,17 @@ module vcr_alloc_mac
 	   vc_core_sep_if
 	     (.clk(clk),
 	      .reset(reset),
-	      .active_ip(vc_active_ip),
+	      .active_ip(vc_active_ip_merged),
 	      .active_op(vc_active_op_merged),
 	      .route_ip_ivc_op(route_ip_ivc_op_merged),
 	      .route_ip_ivc_orc(route_ip_ivc_orc_merged),
 	      .elig_op_ovc(elig_op_ovc_merged),
-	      .req_ip_ivc(vc_req_ip_ivc),
+	      .req_ip_ivc(vc_req_ip_ivc_merged),
 	      .gnt_ip_ivc(vc_gnt_ip_ivc),
 	      .sel_ip_ivc_ovc(vc_sel_ip_ivc_ovc),
 	      .gnt_op_ovc(vc_gnt_op_ovc),
 	      .sel_op_ovc_ip(vc_sel_op_ovc_ip),
 	      .sel_op_ovc_ivc(vc_sel_op_ovc_ivc));
-		
 	end
     else if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_OF)
 	begin
@@ -351,12 +352,12 @@ module vcr_alloc_mac
 	   vc_core_sep_of
 	     (.clk(clk),
 	      .reset(reset),
-	      .active_ip(vc_active_ip),
+	      .active_ip(vc_active_ip_merged),
 	      .active_op(vc_active_op),
 	      .route_ip_ivc_op(route_ip_ivc_op),
 	      .route_ip_ivc_orc(route_ip_ivc_orc),
 	      .elig_op_ovc(elig_op_ovc),
-	      .req_ip_ivc(vc_req_ip_ivc),
+	      .req_ip_ivc(vc_req_ip_ivc_merged),
 	      .gnt_ip_ivc(vc_gnt_ip_ivc),
 	      .sel_ip_ivc_ovc(vc_sel_ip_ivc_ovc),
 	      .gnt_op_ovc(vc_gnt_op_ovc),
@@ -366,7 +367,7 @@ module vcr_alloc_mac
     else if((vc_allocator_type >= `VC_ALLOC_TYPE_WF_BASE) && (vc_allocator_type <= `VC_ALLOC_TYPE_WF_LIMIT))
 	begin
 	   wire vc_active;
-	   assign vc_active = |vc_active_ip;
+	   assign vc_active = |vc_active_ip_merged;
 	   
 	   vcr_vc_alloc_wf
 	     #(.num_message_classes(num_message_classes),
@@ -382,7 +383,7 @@ module vcr_alloc_mac
 	      .route_ip_ivc_op(route_ip_ivc_op),
 	      .route_ip_ivc_orc(route_ip_ivc_orc),
 	      .elig_op_ovc(elig_op_ovc),
-	      .req_ip_ivc(vc_req_ip_ivc),
+	      .req_ip_ivc(vc_req_ip_ivc_merged),
 	      .gnt_ip_ivc(vc_gnt_ip_ivc),
 	      .sel_ip_ivc_ovc(vc_sel_ip_ivc_ovc),
 	      .gnt_op_ovc(vc_gnt_op_ovc),
@@ -397,8 +398,8 @@ module vcr_alloc_mac
    wire [0:num_ports*num_vcs-1] shared_sw_req_nonspec_ip_ivc;
    assign shared_sw_req_nonspec_ip_ivc = shared_allocated_ip_ivc & shared_flit_valid_ip_ivc & shared_free_nonspec_ip_ivc;
 
-   wire [0:num_ports*num_vcs-1] sw_req_nonspec_ip_ivc;
-   assign sw_req_nonspec_ip_ivc = private_sw_req_nonspec_ip_ivc | shared_sw_req_nonspec_ip_ivc;
+   wire [0:num_ports*num_vcs-1] sw_req_nonspec_ip_ivc_merged;
+   assign sw_req_nonspec_ip_ivc_merged = private_sw_req_nonspec_ip_ivc | shared_sw_req_nonspec_ip_ivc;
 
    wire [0:num_ports*num_vcs-1] private_sw_req_spec_ip_ivc;
    assign private_sw_req_spec_ip_ivc = ~allocated_ip_ivc & flit_valid_ip_ivc;
@@ -406,8 +407,8 @@ module vcr_alloc_mac
    wire [0:num_ports*num_vcs-1] shared_sw_req_spec_ip_ivc;
    assign shared_sw_req_spec_ip_ivc = ~shared_allocated_ip_ivc & shared_flit_valid_ip_ivc;
    
-   wire [0:num_ports*num_vcs-1] sw_req_spec_ip_ivc;
-   assign sw_req_spec_ip_ivc = private_sw_req_spec_ip_ivc | shared_sw_req_spec_ip_ivc;
+   wire [0:num_ports*num_vcs-1] sw_req_spec_ip_ivc_merged;
+   assign sw_req_spec_ip_ivc_merged = private_sw_req_spec_ip_ivc | shared_sw_req_spec_ip_ivc;
 
    wire [0:num_ports-1] 	private_sw_active_ip;
    c_reduce_bits
@@ -427,8 +428,8 @@ module vcr_alloc_mac
      (.data_in(shared_flit_valid_ip_ivc),
       .data_out(shared_sw_active_ip));
    
-   wire [0:num_ports-1]		sw_active_ip;
-   assign sw_active_ip = private_sw_active_ip | shared_sw_active_ip;
+   wire [0:num_ports-1]		sw_active_ip_merged;
+   assign sw_active_ip_merged = private_sw_active_ip | shared_sw_active_ip;
 
    c_select_mofn
      #(.num_ports(num_ports*num_vcs),
@@ -458,14 +459,14 @@ module vcr_alloc_mac
 	       .arbiter_type(sw_arbiter_type),
 	       .spec_type(spec_type),
 	       .reset_type(reset_type))
-	    sw_core_sep_if
+	   sw_core_sep_if
 	     (.clk(clk),
 	      .reset(reset),
-	      .active_ip(sw_active_ip),
+	      .active_ip(sw_active_ip_merged),
 	      .active_op(sw_active_op_merged),
 	      .route_ip_ivc_op(route_ip_ivc_op_merged),
-	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc),
-	      .req_spec_ip_ivc(sw_req_spec_ip_ivc),
+	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc_merged),
+	      .req_spec_ip_ivc(sw_req_spec_ip_ivc_merged),
 	      .sel_ip_ivc(sw_sel_ip_ivc),
 	      .gnt_ip(sw_gnt_ip),
 	      .gnt_op(sw_gnt_op),
@@ -483,11 +484,11 @@ module vcr_alloc_mac
 	   sw_core_sep_of
 	     (.clk(clk),
 	      .reset(reset),
-	      .active_ip(sw_active_ip),
-	      .active_op(sw_active_op),
-	      .route_ip_ivc_op(route_ip_ivc_op),
-	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc),
-	      .req_spec_ip_ivc(sw_req_spec_ip_ivc),
+	      .active_ip(sw_active_ip_merged),
+	      .active_op(sw_active_op_merged),
+	      .route_ip_ivc_op(route_ip_ivc_op_merged),
+	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc_merged),
+	      .req_spec_ip_ivc(sw_req_spec_ip_ivc_merged),
 	      .sel_ip_ivc(sw_sel_ip_ivc),
 	      .gnt_ip(sw_gnt_ip),
 	      .gnt_op(sw_gnt_op),
@@ -506,10 +507,10 @@ module vcr_alloc_mac
 	   sw_core_wf
 	     (.clk(clk),
 	      .reset(reset),
-	      .active_ip(sw_active_ip),
-	      .route_ip_ivc_op(route_ip_ivc_op),
-	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc),
-	      .req_spec_ip_ivc(sw_req_spec_ip_ivc),
+	      .active_ip(sw_active_ip_merged),
+	      .route_ip_ivc_op(route_ip_ivc_op_merged),
+	      .req_nonspec_ip_ivc(sw_req_nonspec_ip_ivc_merged),
+	      .req_spec_ip_ivc(sw_req_spec_ip_ivc_merged),
 	      .sel_ip_ivc(sw_sel_ip_ivc),
 	      .gnt_ip(sw_gnt_ip),
 	      .gnt_op(sw_gnt_op),
@@ -517,7 +518,8 @@ module vcr_alloc_mac
 	      .sel_op_ivc(sw_sel_op_ivc));
 	end
    endgenerate
-   
+
+
    wire [0:num_ports-1] flit_head_ip;
    wire [0:num_ports-1] flit_tail_ip;
   
@@ -573,12 +575,12 @@ module vcr_alloc_mac
 	     (.select(sw_sel_ivc),
 	      .data_in(flit_tail_ivc_private),
 	      .data_out(flit_tail_private));
-	  
+	   
 	   assign flit_tail_ip[ip] = flit_tail_private;
-
+	   
 	   wire [0:num_vcs-1] flit_tail_ivc_shared;
 	   assign flit_tail_ivc_shared = shared_flit_tail_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1];
-
+	   
 	   wire 	      flit_tail_shared;
 	   c_select_1ofn
 	     #(.num_ports(num_vcs),
@@ -587,7 +589,7 @@ module vcr_alloc_mac
 	     (.select(shared_sw_sel_ivc),
 	      .data_in(flit_tail_ivc_shared),
 	      .data_out(flit_tail_shared));
-
+	   
 	   assign shared_flit_tail_ip[ip] = flit_tail_shared;
 	end
    endgenerate

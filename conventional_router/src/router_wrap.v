@@ -51,8 +51,7 @@ module router_wrap
    localparam vc_idx_width = clogb(num_vcs);
    
    // total number of routers
-   localparam num_routers
-     = (num_nodes + num_nodes_per_router - 1) / num_nodes_per_router;
+   localparam num_routers = (num_nodes + num_nodes_per_router - 1) / num_nodes_per_router;
    
    // number of routers in each dimension
    localparam num_routers_per_dim = croot(num_routers, num_dimensions);
@@ -83,13 +82,10 @@ module router_wrap
        -1;
    
    // number of input and output ports on router
-   localparam num_ports
-     = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
+   localparam num_ports = num_dimensions * num_neighbors_per_dim + num_nodes_per_router;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // width of link management signals
    localparam link_ctrl_width = enable_link_pm ? 1 : 0;
@@ -105,8 +101,7 @@ module router_wrap
        -1;
    
    // width of channel
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    
    input clk;

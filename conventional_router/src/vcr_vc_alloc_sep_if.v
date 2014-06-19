@@ -2,10 +2,9 @@
 // VC allocator variant using separable input-first allocation
 //==============================================================================
 
-module vcr_vc_alloc_sep_if
-  (clk, reset, active_ip, active_op, route_ip_ivc_op, route_ip_ivc_orc, 
-   elig_op_ovc, req_ip_ivc, gnt_ip_ivc, sel_ip_ivc_ovc, gnt_op_ovc, 
-   sel_op_ovc_ip, sel_op_ovc_ivc);
+module vcr_vc_alloc_sep_if (clk, reset, active_ip, active_op, route_ip_ivc_op, 
+		route_ip_ivc_orc, elig_op_ovc, req_ip_ivc, gnt_ip_ivc, sel_ip_ivc_ovc, 
+		gnt_op_ovc, sel_op_ovc_ip, sel_op_ovc_ivc);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -61,29 +60,26 @@ module vcr_vc_alloc_sep_if
    wire [0:num_ports*num_vcs-1] 		      gnt_ip_ivc;
    
    // granted output VC (to input controller)
-   output [0:num_ports*num_vcs*num_vcs-1] 	      sel_ip_ivc_ovc;
-   wire [0:num_ports*num_vcs*num_vcs-1] 	      sel_ip_ivc_ovc;
+   output [0:num_ports*num_vcs*num_vcs-1] 	  sel_ip_ivc_ovc;
+   wire [0:num_ports*num_vcs*num_vcs-1] 	  sel_ip_ivc_ovc;
    
    // output VC was granted (to output controller)
    output [0:num_ports*num_vcs-1] 		      gnt_op_ovc;
    wire [0:num_ports*num_vcs-1] 		      gnt_op_ovc;
    
    // input port that each output VC was granted to
-   output [0:num_ports*num_vcs*num_ports-1] 	      sel_op_ovc_ip;
-   wire [0:num_ports*num_vcs*num_ports-1] 	      sel_op_ovc_ip;
+   output [0:num_ports*num_vcs*num_ports-1]   sel_op_ovc_ip;
+   wire [0:num_ports*num_vcs*num_ports-1]     sel_op_ovc_ip;
    
    // input VC that each output VC was granted to
-   output [0:num_ports*num_vcs*num_vcs-1] 	      sel_op_ovc_ivc;
-   wire [0:num_ports*num_vcs*num_vcs-1] 	      sel_op_ovc_ivc;
+   output [0:num_ports*num_vcs*num_vcs-1]     sel_op_ovc_ivc;
+   wire [0:num_ports*num_vcs*num_vcs-1]       sel_op_ovc_ivc;
    
    
    generate
-      
-      genvar 					      mc;
-      
+      genvar    mc;
       for(mc = 0; mc < num_message_classes; mc = mc + 1)
-	begin:mcs
-	   
+	  begin:mcs 
 	   //-------------------------------------------------------------------
 	   // global wires
 	   //-------------------------------------------------------------------
@@ -103,48 +99,36 @@ module vcr_vc_alloc_sep_if
 	   genvar ip;
 	   
 	   for(ip = 0; ip < num_ports; ip = ip + 1)
-	     begin:ips
+	   begin:ips
 		
 		wire [0:num_resource_classes*num_vcs_per_class-1] req_irc_icvc;
-		assign req_irc_icvc = req_ip_ivc[(ip*num_message_classes+mc)*
-						 num_resource_classes*
-						 num_vcs_per_class:
-						 (ip*num_message_classes+mc+1)*
-						 num_resource_classes*
-						 num_vcs_per_class-1];
+		assign req_irc_icvc = req_ip_ivc[(ip*num_message_classes+mc)*num_resource_classes*
+						 num_vcs_per_class:(ip*num_message_classes+mc+1)*num_resource_classes*num_vcs_per_class-1];
 		
-		wire 						  active;
+		wire  active;
 		assign active = active_ip[ip];
 		
-		genvar 						  irc;
-		
+		genvar  irc;
 		for(irc = 0; irc < num_resource_classes; irc = irc + 1)
 		  begin:ircs
 		     
 		     genvar icvc;
 		     
 		     for(icvc = 0; icvc < num_vcs_per_class; icvc = icvc + 1)
-		       begin:icvcs
-			  
+		     begin:icvcs 
 			  //----------------------------------------------------
 			  // input-side arbitration stage (select output VC)
 			  //----------------------------------------------------
 			  
 			  wire [0:num_ports-1] route_op;
-			  assign route_op
-			    = route_ip_ivc_op[(((ip*num_message_classes+mc)*
-						num_resource_classes+irc)*
-					       num_vcs_per_class+icvc)*
-					      num_ports:
-					      (((ip*num_message_classes+mc)*
-						num_resource_classes+irc)*
-					       num_vcs_per_class+icvc+1)*
-					      num_ports-1];
+			  assign route_op = route_ip_ivc_op[(((ip*num_message_classes+mc)*
+						num_resource_classes+irc)*num_vcs_per_class+icvc)*num_ports:
+					      (((ip*num_message_classes+mc)*num_resource_classes+irc)*num_vcs_per_class+icvc+1)*num_ports-1];
 			  
 			  wire [0:num_resource_classes-1] route_orc;
 			  
 			  if(irc == (num_resource_classes - 1))
-			    assign route_orc = 'b1;
+			    assign route_orc = {num_resource_classes{1'b1}};
 			  else
 			    assign route_orc
 			      = route_ip_ivc_orc[(((ip*num_message_classes+mc)*

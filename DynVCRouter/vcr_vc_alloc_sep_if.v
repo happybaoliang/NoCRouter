@@ -83,6 +83,7 @@ module vcr_vc_alloc_sep_if (clk, reset, active_ip, active_op, route_ip_ivc_op,
 	   //-------------------------------------------------------------------
 	   // global wires
 	   //-------------------------------------------------------------------
+	   
 	   wire [0:num_ports*num_resource_classes*num_vcs_per_class*
 		 num_ports*num_resource_classes*
 		 num_vcs_per_class-1] req_out_ip_irc_icvc_op_orc_ocvc;
@@ -90,10 +91,13 @@ module vcr_vc_alloc_sep_if (clk, reset, active_ip, active_op, route_ip_ivc_op,
 		 num_ports*num_resource_classes*
 		 num_vcs_per_class-1] gnt_out_ip_irc_icvc_op_orc_ocvc;
 	   
+	   
 	   //-------------------------------------------------------------------
 	   // input stage
 	   //-------------------------------------------------------------------
+	   
 	   genvar ip;
+	   
 	   for(ip = 0; ip < num_ports; ip = ip + 1)
 	   begin:ips
 		
@@ -107,12 +111,15 @@ module vcr_vc_alloc_sep_if (clk, reset, active_ip, active_op, route_ip_ivc_op,
 		genvar  irc;
 		for(irc = 0; irc < num_resource_classes; irc = irc + 1)
 		  begin:ircs
+		     
 		     genvar icvc;
+		     
 		     for(icvc = 0; icvc < num_vcs_per_class; icvc = icvc + 1)
 		     begin:icvcs 
 			  //----------------------------------------------------
 			  // input-side arbitration stage (select output VC)
 			  //----------------------------------------------------
+			  
 			  wire [0:num_ports-1] route_op;
 			  assign route_op = route_ip_ivc_op[(((ip*num_message_classes+mc)*
 						num_resource_classes+irc)*num_vcs_per_class+icvc)*num_ports:

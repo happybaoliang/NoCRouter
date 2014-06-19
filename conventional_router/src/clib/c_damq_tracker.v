@@ -28,9 +28,7 @@
 //==============================================================================
 // buffer state tracker for dynamically allocated multi-queue
 //==============================================================================
-
-module c_damq_tracker
-  (clk, reset, active, push_valid, push_sel_qu, pop_valid, pop_sel_qu, 
+module c_damq_tracker (clk, reset, active, push_valid, push_sel_qu, pop_valid, pop_sel_qu, 
    almost_empty_qu, empty_qu, almost_full_qu, full_qu, two_free_qu, errors_qu);
 
 `include "c_functions.v"

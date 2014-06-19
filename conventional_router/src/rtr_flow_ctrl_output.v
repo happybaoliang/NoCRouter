@@ -29,8 +29,7 @@
 // flow control interface (send side)
 //==============================================================================
 
-module rtr_flow_ctrl_output
-  (clk, reset, active, fc_event_valid_in, fc_event_sel_in_ivc, flow_ctrl_out);
+module rtr_flow_ctrl_output (clk, reset, active, fc_event_valid_in, fc_event_sel_in_ivc, flow_ctrl_out);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -53,14 +52,12 @@ module rtr_flow_ctrl_output
    //---------------------------------------------------------------------------
    // derived parameters
    //---------------------------------------------------------------------------
-   
+
    // width required to select individual VC
    localparam vc_idx_width = clogb(num_vcs);
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    
    //---------------------------------------------------------------------------
@@ -154,5 +151,4 @@ module rtr_flow_ctrl_output
       endcase
       
    endgenerate
-   
 endmodule

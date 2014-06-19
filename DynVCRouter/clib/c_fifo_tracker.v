@@ -29,7 +29,9 @@
 // module for tracking state of a FIFO
 //==============================================================================
 
-module c_fifo_tracker (clk, reset, active, push, pop, almost_empty, empty, almost_full, full, two_free, errors);
+module c_fifo_tracker
+  (clk, reset, active, push, pop, almost_empty, empty, almost_full, full, 
+   two_free, errors);
    
 `include "c_functions.v"
 `include "c_constants.v"

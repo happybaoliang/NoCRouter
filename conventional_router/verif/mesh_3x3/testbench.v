@@ -60,10 +60,10 @@ module testbench
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 3000;
+   parameter warmup_time = 100;
    
    // measurement interval in cycles
-   parameter measure_time = 3000;
+   parameter measure_time = 100;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
