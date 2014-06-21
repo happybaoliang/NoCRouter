@@ -44,7 +44,7 @@ testbench.v
 48
 XMODIFIERS=@im=ibus
 XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
-XDG_SESSION_COOKIE=c9a5acc8af439457c380ca4f0000000b-1402362163.882427-1907889907
+XDG_SESSION_COOKIE=99629a949c38a877f3bec75000000009-1403367889.900059-1112175566
 XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
 XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/
 XDG_CURRENT_DESKTOP=Unity
@@ -62,16 +62,16 @@ VCS_AMD_PURE32=1
 UNAME=/bin/uname
 UBUNTU_MENUPROXY=libappmenu.so
 TOOL_HOME=/usr/synopsys/D-2009.12/linux
-TCL_LIBRARY=:/usr/local/NS2/tcl8.5.10/library
-SYSTEMC_HOME=/usr/local/systemc-2.2/
+TCL_LIBRARY=:/usr/local/NS2/tcl8.5.10/library:/usr/share/tcltk/tcl8.5
+SYSTEMC_HOME=/usr/local/systemc-2.3
 SYNOPSYS=/usr/synopsys
-SSH_AUTH_SOCK=/tmp/keyring-BMRZ99/ssh
-SSH_AGENT_PID=2006
-SNPSLMD_LICENSE_FILE=27000@happy-ThinkPad-R400:/usr/synopsys/D-2009.12/flexlm//license.dat
-SESSION_MANAGER=local/happy-ThinkPad-R400:@/tmp/.ICE-unix/1965,unix/happy-ThinkPad-R400:/tmp/.ICE-unix/1965
+SSH_AUTH_SOCK=/tmp/keyring-0H65Id/ssh
+SSH_AGENT_PID=1977
+SNPSLMD_LICENSE_FILE=27000@happy-ThinkPad-R400:/usr/synopsys/synopsys.dat:/usr/synopsys/D-2009.12/flexlm//license.dat
+SESSION_MANAGER=local/happy-ThinkPad-R400:@/tmp/.ICE-unix/1936,unix/happy-ThinkPad-R400:/tmp/.ICE-unix/1936
 SCRNAME=vcs
 SCRIPT_NAME=vcs
-QT_IM_MODULE=ibus
+QT_IM_MODULE=xim
 OVA_UUM=0
 MFLAGS=
 MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path
@@ -80,14 +80,14 @@ MAKEFLAGS=
 LESSOPEN=| /usr/bin/lesspipe %s
 LESSCLOSE=/usr/bin/lesspipe %s %s
 GTK_IM_MODULE=ibus
-GPG_AGENT_INFO=/tmp/keyring-BMRZ99/gpg:0:1
-GNOME_KEYRING_PID=1954
-GNOME_KEYRING_CONTROL=/tmp/keyring-BMRZ99
+GPG_AGENT_INFO=/tmp/keyring-0H65Id/gpg:0:1
+GNOME_KEYRING_PID=1925
+GNOME_KEYRING_CONTROL=/tmp/keyring-0H65Id
 GNOME_DESKTOP_SESSION_ID=this-is-deprecated
 GDMSESSION=ubuntu
 DESKTOP_SESSION=ubuntu
 DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path
-DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-KaxuClmEMd,guid=c3f13c16da7ec5803b130a8d00000048
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-sBPQO9r1rR,guid=349b99416bd973a493dbca6f00000088
 COMPIZ_CONFIG_PROFILE=ubuntu
 COLORTERM=gnome-terminal
 0
@@ -162,8 +162,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401777468 ./clib/c_fifo_tracker.v
-1401777468 ./clib/c_fifo_tracker.v
+1403034624 ./clib/c_fifo_tracker.v
+1403034624 ./clib/c_fifo_tracker.v
 1401768191 c_constants.v
 1401768191 c_constants.v
 1401768191 ./clib/c_crossbar.v
@@ -198,8 +198,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401815404 ./vcr_vc_alloc_sep_if.v
-1401815404 ./vcr_vc_alloc_sep_if.v
+1403035018 ./vcr_vc_alloc_sep_if.v
+1403035018 ./vcr_vc_alloc_sep_if.v
 1401768191 vcr_constants.v
 1401768191 vcr_constants.v
 1401768191 c_constants.v
@@ -222,24 +222,14 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401768191 ./vcr_sw_alloc_sep_if.v
-1401768191 ./vcr_sw_alloc_sep_if.v
-1401768191 vcr_constants.v
-1401768191 vcr_constants.v
+1402928556 ./vcr_sw_alloc_sep_if.v
+1402928556 ./vcr_sw_alloc_sep_if.v
 1401768191 rtr_constants.v
 1401768191 rtr_constants.v
 1401768191 c_constants.v
 1401768191 c_constants.v
-1401768191 c_functions.v
-1401768191 c_functions.v
-1401768191 ./vcr_ovc_ctrl.v
-1401768191 ./vcr_ovc_ctrl.v
-1401768191 rtr_constants.v
-1401768191 rtr_constants.v
-1401768191 c_constants.v
-1401768191 c_constants.v
-1401768191 ./rtr_route_filter.v
-1401768191 ./rtr_route_filter.v
+1403034902 ./rtr_route_filter.v
+1403034902 ./rtr_route_filter.v
 1401768191 c_constants.v
 1401768191 c_constants.v
 1401768191 ./rtr_flit_type_check.v
@@ -312,8 +302,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401777015 ./clib/c_damq_tracker.v
-1401777015 ./clib/c_damq_tracker.v
+1403034608 ./clib/c_damq_tracker.v
+1403034608 ./clib/c_damq_tracker.v
 1401768191 c_constants.v
 1401768191 c_constants.v
 1401768191 c_functions.v
@@ -328,8 +318,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401768191 ./vcr_op_ctrl_mac.v
-1401768191 ./vcr_op_ctrl_mac.v
+1402948097 ./vcr_ovc_ctrl.v
+1402948097 ./vcr_ovc_ctrl.v
 1401768191 vcr_constants.v
 1401768191 vcr_constants.v
 1401768191 rtr_constants.v
@@ -338,8 +328,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1402032384 ./vcr_ivc_ctrl.v
-1402032384 ./vcr_ivc_ctrl.v
+1403107942 ./vcr_op_ctrl_mac.v
+1403107942 ./vcr_op_ctrl_mac.v
 1401768191 vcr_constants.v
 1401768191 vcr_constants.v
 1401768191 rtr_constants.v
@@ -348,16 +338,26 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1402214528 ./vcr_ip_ctrl_mac.v
-1402214528 ./vcr_ip_ctrl_mac.v
+1402476181 ./vcr_ivc_ctrl.v
+1402476181 ./vcr_ivc_ctrl.v
+1401768191 vcr_constants.v
+1401768191 vcr_constants.v
+1401768191 rtr_constants.v
+1401768191 rtr_constants.v
+1401768191 c_constants.v
+1401768191 c_constants.v
+1401768191 c_functions.v
+1401768191 c_functions.v
+1403224561 ./vcr_ip_ctrl_mac.v
+1403224561 ./vcr_ip_ctrl_mac.v
 1401768191 vcr_constants.v
 1401768191 vcr_constants.v
 1401768191 c_constants.v
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401768191 ./vcr_alloc_mac.v
-1401768191 ./vcr_alloc_mac.v
+1403231044 ./vcr_alloc_mac.v
+1403231044 ./vcr_alloc_mac.v
 1401768191 rtr_constants.v
 1401768191 rtr_constants.v
 1401768191 c_constants.v
@@ -372,8 +372,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401899831 ./rtr_ip_ctrl_mac.v
-1401899831 ./rtr_ip_ctrl_mac.v
+1403034869 ./rtr_ip_ctrl_mac.v
+1403034869 ./rtr_ip_ctrl_mac.v
 1401768191 c_constants.v
 1401768191 c_constants.v
 1401768191 ./rtr_crossbar_mac.v
@@ -438,8 +438,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1402367785 ./vcr_top.v
-1402367785 ./vcr_top.v
+1403322119 ./vcr_top.v
+1403322119 ./vcr_top.v
 1401768191 rtr_constants.v
 1401768191 rtr_constants.v
 1401768191 c_constants.v
@@ -466,8 +466,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401979794 ./rtr_flow_ctrl_output.v
-1401979794 ./rtr_flow_ctrl_output.v
+1403034821 ./rtr_flow_ctrl_output.v
+1403034821 ./rtr_flow_ctrl_output.v
 1401768191 rtr_constants.v
 1401768191 rtr_constants.v
 1401768191 c_constants.v
@@ -524,8 +524,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401964518 ./router_wrap.v
-1401964518 ./router_wrap.v
+1403184822 ./router_wrap.v
+1403184822 ./router_wrap.v
 1401768191 vcr_constants.v
 1401768191 vcr_constants.v
 1401768191 rtr_constants.v
@@ -544,16 +544,16 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401814009 ./packet_source.v
-1401814009 ./packet_source.v
+1403368421 ./packet_source.v
+1403368421 ./packet_source.v
 1401768191 rtr_constants.v
 1401768191 rtr_constants.v
 1401768191 c_constants.v
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401815311 ./flit_sink.v
-1401815311 ./flit_sink.v
+1403294969 ./flit_sink.v
+1403294969 ./flit_sink.v
 1401964604 parameters.v
 1401964604 parameters.v
 1401768191 vcr_constants.v
@@ -564,8 +564,8 @@ COLORTERM=gnome-terminal
 1401768191 c_constants.v
 1401768191 c_functions.v
 1401768191 c_functions.v
-1401887630 testbench.v
-1401887630 testbench.v
+1403320793 testbench.v
+1403320793 testbench.v
 1258175616 /usr/synopsys/D-2009.12/linux/lib/vcsd.tab
-1402367803 simv.daidir
-1402367804 csrc
+1403368444 simv.daidir
+1403368448 csrc

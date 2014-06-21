@@ -34,10 +34,11 @@ module vcr_alloc_mac (clk, reset, route_ip_ivc_op, shared_route_ip_ivc_op, route
    shared_flit_valid_ip_ivc, flit_head_ip_ivc, shared_flit_head_ip_ivc, flit_tail_ip_ivc, 
    shared_flit_tail_ip_ivc, elig_op_ovc, shared_elig_op_ovc, shared_free_nonspec_ip_ivc, 
    free_nonspec_ip_ivc, vc_active_op, shared_vc_active_op, vc_gnt_ip_ivc, shared_vc_gnt_ip_ivc, 
-   shared_vc_gnt_op_ovc, vc_sel_ip_ivc_ovc, vc_gnt_op_ovc, vc_sel_op_ovc_ip, vc_sel_op_ovc_ivc, 
-   sw_active_op, shared_sw_active_op, sw_gnt_ip, sw_sel_ip_ivc, sw_gnt_op, sw_sel_op_ip, 
-   sw_sel_op_ivc, shared_sw_ip_ivc_sel, flit_head_op, shared_flit_head_op, flit_tail_op, 
-   shared_flit_tail_op, xbr_ctrl_op_ip);
+   shared_vc_gnt_op_ovc, vc_sel_ip_ivc_ovc, shared_vc_sel_ip_ivc_ovc, vc_gnt_op_ovc, 
+   vc_sel_op_ovc_ip, shared_vc_sel_op_ovc_ip, vc_sel_op_ovc_ivc, shared_vc_sel_op_ovc_ivc,
+   sw_active_op, shared_sw_active_op, sw_gnt_ip, shared_sw_gnt_ip, sw_sel_ip_ivc, sw_gnt_op, 
+   shared_sw_gnt_op, sw_sel_op_ip, shared_sw_sel_op_ip, sw_sel_op_ivc, shared_sw_sel_op_ivc,
+   shared_sw_sel_ip_ivc, flit_head_op, shared_flit_head_op, flit_tail_op, shared_flit_tail_op, xbr_ctrl_op_ip);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -142,6 +143,9 @@ module vcr_alloc_mac (clk, reset, route_ip_ivc_op, shared_route_ip_ivc_op, route
    output [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_ip_ivc_ovc;
    wire [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_ip_ivc_ovc;
    
+   output [0:num_ports*num_vcs*num_vcs-1]				shared_vc_sel_ip_ivc_ovc;
+   wire [0:num_ports*num_vcs*num_vcs-1]					shared_vc_sel_ip_ivc_ovc;// TODO: how to generate this signals
+   
    // output VC was granted (to output controller)
    output [0:num_ports*num_vcs-1] 		      			vc_gnt_op_ovc;
    wire [0:num_ports*num_vcs-1] 		      			vc_gnt_op_ovc;
@@ -153,10 +157,16 @@ module vcr_alloc_mac (clk, reset, route_ip_ivc_op, shared_route_ip_ivc_op, route
    output [0:num_ports*num_vcs*num_ports-1]   			vc_sel_op_ovc_ip;
    wire [0:num_ports*num_vcs*num_ports-1] 	  			vc_sel_op_ovc_ip;
    
+   output [0:num_ports*num_vcs*num_ports-1]				shared_vc_sel_op_ovc_ip;
+   wire [0:num_ports*num_vcs*num_ports-1]				shared_vc_sel_op_ovc_ip; // TODO: how to generate this signals
+
    // input VC that each output VC was granted to (to output controller)
    output [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_op_ovc_ivc;
    wire [0:num_ports*num_vcs*num_vcs-1] 	  			vc_sel_op_ovc_ivc;
    
+   output [0:num_ports*num_vcs*num_vcs-1]				shared_vc_sel_op_ovc_ivc;
+   wire [0:num_ports*num_vcs*num_vcs-1]					shared_vc_sel_op_ovc_ivc; // TODO: how to generate this signals
+
    // switch allocation activity (to output controller)
    output [0:num_ports-1] 			      	  			sw_active_op;
    wire [0:num_ports-1] 			      	  			sw_active_op;
@@ -167,26 +177,38 @@ module vcr_alloc_mac (clk, reset, route_ip_ivc_op, shared_route_ip_ivc_op, route
    // port grants (to input controller)
    output [0:num_ports-1] 			      	  			sw_gnt_ip;
    wire [0:num_ports-1] 			          			sw_gnt_ip;
-   
+  
+   output [0:num_ports-1]								shared_sw_gnt_ip;
+   wire [0:num_ports-1]									shared_sw_gnt_ip;// TODO: how to generate this signals
+
    // indicate which VC at a given port is granted (to input controller)
    output [0:num_ports*num_vcs-1] 		  				sw_sel_ip_ivc;
    wire [0:num_ports*num_vcs-1] 		  				sw_sel_ip_ivc;
 
-   output [0:num_ports*num_vcs-1]		  				shared_sw_ip_ivc_sel;
-   wire [0:num_ports*num_vcs-1]			  				shared_sw_ip_ivc_sel;
+   output [0:num_ports*num_vcs-1]		  				shared_sw_sel_ip_ivc;
+   wire [0:num_ports*num_vcs-1]			  				shared_sw_sel_ip_ivc;
 
    // output port grants
    output [0:num_ports-1] 			      				sw_gnt_op;
    wire [0:num_ports-1] 			      				sw_gnt_op;
    
+   output [0:num_ports-1]								shared_sw_gnt_op;
+   wire [0:num_ports-1]									shared_sw_gnt_op;// TODO: how to generate this signals
+
    // selected output ports for grants
    output [0:num_ports*num_ports-1] 	  				sw_sel_op_ip;
    wire [0:num_ports*num_ports-1] 		  				sw_sel_op_ip;
-   
+  
+   output [0:num_ports*num_ports-1]						shared_sw_sel_op_ip;// TODO: how to generate this signals
+   wire [0:num_ports*num_ports-1]						shared_sw_sel_op_ip;
+
    // selected output VCs for grants
    output [0:num_ports*num_vcs-1] 		  				sw_sel_op_ivc;
    wire [0:num_ports*num_vcs-1] 		  				sw_sel_op_ivc;
   
+   output [0:num_ports*num_vcs-1]						shared_sw_sel_op_ivc;// TODO: how to generate this signals
+   wire [0:num_ports*num_vcs-1]							shared_sw_sel_op_ivc;
+
    // which grants are for head flits
    output [0:num_ports-1] 			      				flit_head_op;
    wire [0:num_ports-1] 			      				flit_head_op;
@@ -308,7 +330,7 @@ module vcr_alloc_mac (clk, reset, route_ip_ivc_op, shared_route_ip_ivc_op, route
 
 		assign shared_sw_mask_ip_ivc[sp*num_vcs+svc] = (^share_op) ? 1'b1 : 1'b0;
 
-		assign shared_sw_ip_ivc_sel[sp*num_vcs+svc] = shared_sw_mask_ip_ivc[sp*num_vcs+svc] ? 
+		assign shared_sw_sel_ip_ivc[sp*num_vcs+svc] = shared_sw_mask_ip_ivc[sp*num_vcs+svc] ? 
 														sw_sel_ip_ivc[sp*num_vcs+svc] : 1'b0;
 	end
   end
@@ -548,7 +570,7 @@ endgenerate
 	   assign flit_head_ip[ip] = flit_head_private;
 
 	   wire [0:num_vcs-1] shared_sw_sel_ivc;
-	   assign shared_sw_sel_ivc = shared_sw_ip_ivc_sel[ip*num_vcs:(ip+1)*num_vcs-1];
+	   assign shared_sw_sel_ivc = shared_sw_sel_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1];
 
 	   wire [0:num_vcs-1] shared_flit_head_ivc;
 	   assign shared_flit_head_ivc = shared_flit_head_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1];

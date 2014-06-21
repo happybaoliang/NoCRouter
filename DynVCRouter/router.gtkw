@@ -1,0 +1,190 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sat Jun 21 03:27:57 2014
+[*]
+[dumpfile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.db"
+[dumpfile_mtime] "Sat Jun 21 03:21:19 2014"
+[dumpfile_size] 118702819
+[savefile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.gtkw"
+[timestart] 0
+[size] 1215 776
+[pos] -1 4
+*-3.997165 50 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.rtr_0.
+[treeopen] testbench.rtr_0.vcr.
+[treeopen] testbench.rtr_0.vcr.ips[0].ipc.
+[treeopen] testbench.rtr_0.vcr.ips[2].ipc.
+[treeopen] testbench.rtr_0.vcr.ips[3].ipc.
+[treeopen] testbench.rtr_0.vcr.ips[3].ipc.fb.
+[treeopen] testbench.rtr_0.vcr.ips[4].ipc.
+[treeopen] testbench.rtr_0.vcr.ops[0].opc.
+[treeopen] testbench.rtr_0.vcr.ops[3].
+[treeopen] testbench.rtr_0.vcr.ops[4].opc.
+[treeopen] testbench.rtr_1.vcr.
+[treeopen] testbench.rtr_3.vcr.
+[treeopen] testbench.rtr_3.vcr.ips[0].
+[treeopen] testbench.rtr_3.vcr.ips[1].
+[treeopen] testbench.rtr_3.vcr.ips[2].
+[treeopen] testbench.rtr_3.vcr.ips[3].
+[treeopen] testbench.rtr_3.vcr.ips[4].
+[treeopen] testbench.rtr_3.vcr.ops[0].
+[treeopen] testbench.rtr_3.vcr.ops[1].
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.cho.
+[treeopen] testbench.rtr_3.vcr.ops[3].opc.
+[treeopen] testbench.rtr_3.vcr.ops[4].
+[treeopen] testbench.rtr_3.vcr.xbr.xbr.
+[sst_width] 227
+[signals_width] 246
+[sst_expanded] 1
+[sst_vpaned_height] 364
+@200
+-RTR[3].IP[4]
+@c00022
+testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+@28
+(0)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(1)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(2)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(3)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(4)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(5)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(6)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(7)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(8)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(9)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(10)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(11)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(12)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(13)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(14)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(15)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(16)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(17)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(18)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(19)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(20)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(21)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(22)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(23)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(24)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(25)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(26)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(27)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(28)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(29)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(30)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(31)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(32)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(33)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(34)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(35)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(36)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(37)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(38)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(39)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(40)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(41)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(42)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(43)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(44)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(45)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(46)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(47)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(48)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(49)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(50)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(51)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(52)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(53)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(54)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(55)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(56)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(57)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(58)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(59)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(60)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(61)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(62)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(63)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(64)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(65)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(66)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(67)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(68)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(69)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(70)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+(71)testbench.rtr_3.vcr.ips[4].ipc.channel_in[0:71]
+@1401200
+-group_end
+@22
++{chi_flit_data_in} testbench.rtr_3.vcr.ips[4].ipc.chi.flit_data_in[0:63]
++{testbench.rtr_3.vcr.ips[4].ipc_flit_data_in} testbench.rtr_3.vcr.ips[4].ipc.flit_data_in[0:63]
+@28
++{testbench.rtr_3.vcr.ips[4].ipc_flit_valid_o} testbench.rtr_3.vcr.ips[4].ipc.flit_valid_o
++{testbench.rtr_3.vcr.ips[4].ipc_flit_head_o} testbench.rtr_3.vcr.ips[4].ipc.flit_head_o
++{testbench.rtr_3.vcr.ips[4].ipc_flit_tail_o} testbench.rtr_3.vcr.ips[4].ipc.flit_tail_o
++{testbench.rtr_3.vcr.ips[4].ipc_flit_sel_o_ivc[0:9]} testbench.rtr_3.vcr.ips[4].ipc.flit_sel_o_ivc[0:9]
+@800022
+testbench.rtr_3.vcr.xbr.data_in_ip[0:319]
++{RTR[3].xbr.xbr_data_in} #{RTR[3].xbr.data_in_ip[4]} (256)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (257)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (258)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (259)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (260)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (261)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (262)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (263)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (264)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (265)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (266)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (267)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (268)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (269)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (270)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (271)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (272)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (273)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (274)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (275)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (276)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (277)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (278)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (279)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (280)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (281)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (282)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (283)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (284)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (285)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (286)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (287)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (288)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (289)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (290)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (291)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (292)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (293)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (294)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (295)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (296)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (297)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (298)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (299)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (300)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (301)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (302)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (303)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (304)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (305)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (306)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (307)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (308)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (309)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (310)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (311)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (312)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (313)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (314)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (315)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (316)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (317)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (318)testbench.rtr_3.vcr.xbr.data_in_ip[0:319] (319)testbench.rtr_3.vcr.xbr.data_in_ip[0:319]
+@1001200
+-group_end
+-group_end
+@200
+-RTR[3].OP[2]
+@22
+testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
++{testbench.rtr_3.vcr.ops[2].opc_flit_data_out[0:63]} testbench.rtr_3.vcr.ops[2].opc.cho.flit_data_out[0:63]
+@800022
+testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6]
+@28
++{RTR[3].OP[2].opc_flit_valid_out} (0)testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6]
+@800022
++{RTR[3].OP[2].opc_flit_ovc_out} #{RTR[3].OP[2].flit_ovc_out} (1)testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6] (2)testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6] (3)testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6] (4)testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6]
+@1001200
+-group_end
+@28
++{RTR[3].OP[2].opc_flit_head_out} (5)testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6]
++{RTR[3].OP[2].opc_flit_tail_out} (6)testbench.rtr_3.vcr.ops[2].opc.cho.flit_ctrl_out[0:6]
+@1001200
+-group_end
+@200
+-RTR[0].IP[3]
+@23
+testbench.rtr_0.vcr.shared_vc_in[0:4]
+@22
+testbench.rtr_0.vcr.shared_vc_out[0:4]
+testbench.rtr_0.vcr.credit_for_shared_out[0:4]
+testbench.rtr_0.vcr.credit_for_shared_in[0:4]
+testbench.rtr_0.vcr.memory_bank_grant_in[0:24]
+testbench.rtr_0.vcr.memory_bank_grant_out[0:24]
+testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
++{testbench.rtr_0.vcr.ips[3].ipc_flit_data_in[0:63]} testbench.rtr_0.vcr.ips[3].ipc.chi.flit_data_out[0:63]
+@800022
+testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+#{RTR[0].xbr_data_in} (192)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (193)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (194)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (195)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (196)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (197)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (198)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (199)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (200)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (201)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (202)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (203)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (204)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (205)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (206)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (207)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (208)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (209)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (210)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (211)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (212)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (213)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (214)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (215)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (216)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (217)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (218)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (219)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (220)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (221)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (222)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (223)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (224)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (225)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (226)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (227)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (228)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (229)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (230)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (231)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (232)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (233)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (234)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (235)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (236)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (237)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (238)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (239)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (240)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (241)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (242)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (243)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (244)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (245)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (246)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (247)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (248)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (249)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (250)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (251)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (252)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (253)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (254)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (255)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+@1001200
+-group_end
+-group_end
+@200
+-RTR[0].OP[4]
+@22
+testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+testbench.rtr_0.vcr.ops[4].opc.cho.flit_data_out[0:63]
+@800022
+testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6]
+@28
++{testbench.rtr_0.vcr.ops[4].opc_flit_valid_out} (0)testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6]
+@800022
+#{testbench.rtr_0.vcr.ops[4].opc_flit_ovc_out} (1)testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6] (2)testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6] (3)testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6] (4)testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6]
+@1001200
+-group_end
+@28
++{testbench.rtr_0.vcr.ops[4].opc_flit_head_out} (5)testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6]
++{testbench.rtr_0.vcr.ops[4].opc_flit_tail_out} (6)testbench.rtr_0.vcr.ops[4].opc.cho.flit_ctrl_out[0:6]
+@1001200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0
