@@ -565,7 +565,6 @@ module vcr_ivc_ctrl
    //---------------------------------------------------------------------------
    // update lookahead routing information for next hop
    //---------------------------------------------------------------------------
-   
    wire [0:dest_info_width-1] 		       dest_info;
    assign dest_info = bypass_route_info ? dest_info_in : hdr_dest_info_q;
    
@@ -683,9 +682,10 @@ module vcr_ivc_ctrl
    assign next_free_ovc = ~full_ovc & ~(almost_full_ovc & {num_vcs{reduce}});
    
    wire [0:num_vcs_per_message_class-1]        next_free_orc_ocvc;
-   assign next_free_orc_ocvc = next_free_ovc[message_class*num_vcs_per_message_class:(message_class+1)*num_vcs_per_message_class-1];
+   assign next_free_orc_ocvc = next_free_ovc[message_class*num_vcs_per_message_class
+   								:(message_class+1)*num_vcs_per_message_class-1];
    
-   wire 				       free_nonspec_muxed;
+   wire free_nonspec_muxed;
    c_select_1ofn
      #(.num_ports(num_vcs_per_message_class),
        .width(1))
@@ -694,7 +694,7 @@ module vcr_ivc_ctrl
       .data_in(next_free_orc_ocvc),
       .data_out(free_nonspec_muxed));
    
-   wire 				       free_nonspec_s, free_nonspec_q;
+   wire free_nonspec_s, free_nonspec_q;
    assign free_nonspec_s = free_nonspec_muxed;
    c_dff
      #(.width(1),
@@ -709,7 +709,7 @@ module vcr_ivc_ctrl
    
    assign free_nonspec = free_nonspec_q;
    
-   wire [0:num_vcs-1] 			       free_spec_ovc;
+   wire [0:num_vcs-1] free_spec_ovc;
    assign free_spec_ovc = ~full_ovc;
    
    c_select_1ofn
@@ -720,7 +720,7 @@ module vcr_ivc_ctrl
       .data_in(free_spec_ovc),
       .data_out(free_spec));
    
-   wire 				       sw_gnt_sel;
+   wire sw_gnt_sel;
    assign sw_gnt_sel = sw_gnt & sw_sel;
    
    generate

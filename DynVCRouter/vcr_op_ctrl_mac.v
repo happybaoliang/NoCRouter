@@ -31,8 +31,8 @@
 
 module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, vc_gnt_ovc, vc_sel_ovc_ip, 
 	vc_sel_ovc_ivc, sw_active, sw_gnt, sw_sel_ip, sw_sel_ivc, shared_vc_sel, flit_head, 
-	shared_flit_head, flit_tail, shared_flit_tail, flit_data, shared_flit_data, channel_out, 
-	almost_full_ovc, shared_flit_valid, shared_flit_sent, full_ovc, elig_ovc, error);
+	shared_flit_head, flit_tail, shared_flit_tail, flit_data, channel_out, almost_full_ovc, 
+	shared_flit_valid, shared_flit_sent, full_ovc, elig_ovc, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -169,8 +169,6 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, vc_gnt_ovc, vc_sel_
    // incoming flit data
    input [0:flit_data_width-1] 	    flit_data;
    
-   input [0:flit_data_width-1]      shared_flit_data;
-
    input							shared_flit_valid;
 
    input							shared_flit_sent;
@@ -393,9 +391,6 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, vc_gnt_ovc, vc_sel_
    wire flit_sent_o;
    assign flit_sent_o = shared_vc_sel ? shared_flit_sent : flit_sent;
 
-   wire [0:flit_data_width-1] flit_data_o;
-   assign flit_data_o = shared_vc_sel ? shared_flit_data : flit_data;
-
    rtr_channel_output
      #(.num_vcs(num_vcs),
        .packet_format(packet_format),
@@ -409,7 +404,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, vc_gnt_ovc, vc_sel_
       .flit_valid_in(flit_sent_o),
       .flit_head_in(flit_head_o),
       .flit_tail_in(flit_tail_o),
-      .flit_data_in(flit_data_o),
+      .flit_data_in(flit_data),
       .flit_sel_in_ovc(flit_sel_ovc),
       .channel_out(channel_out));
    

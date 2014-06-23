@@ -984,7 +984,9 @@ reg [0:packet_count_reg_width-1] pkt_sent;
 	   always @(posedge clk, posedge reset)
 	     begin
 		if(reset | packet_sent)
-		  random_vc <= $dist_uniform(seed, 0, num_vcs-1);
+		  //random_vc <= $dist_uniform(seed, 0, num_vcs-1);
+		// TODO: modify this line
+			random_vc <= $dist_uniform(seed, 8,9);
 	     end
 	   c_decode
 	     #(.num_ports(num_vcs))
@@ -1006,7 +1008,7 @@ reg [0:packet_count_reg_width-1] pkt_sent;
    
    assign error = |fcs_errors_ovc;
 
-   assign shared_vc = 1'b0;
+   assign shared_vc = 1'b1;
 
 // Dump the generation time of each packet.
 // used for the end-to-end latency calculation.

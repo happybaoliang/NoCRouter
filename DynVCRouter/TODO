@@ -1,0 +1,8 @@
+1. credit_for_shared
+2. memory_bank_grant_out
+4. sw_req_spec_ip_ivc和sw_req_nonspec_ip_ivc有什么区别？
+5. 增加shared_vc_out寄存器
+6. route_op_orc好像有问题
+7. all the port mismatch
+8. shared_ivc_ctrl-> port_id
+9. shared_ivc_ctrl-> num_vcs, port width missmatch
