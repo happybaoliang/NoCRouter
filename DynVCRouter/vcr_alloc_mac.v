@@ -498,7 +498,7 @@ endgenerate
      #(.num_ports(num_ports*num_vcs),
        .width(num_ports))
    shared_sw_active_op_sel
-     (.select(flit_valid_ip_ivc),
+     (.select(shared_flit_valid_ip_ivc),
       .data_in(shared_route_ip_ivc_op),
       .data_out(shared_sw_active_op));
 
@@ -507,7 +507,6 @@ endgenerate
 
    wire [0:num_ports-1]									sw_gnt_ip_merged;
    wire [0:num_ports-1]									sw_gnt_op_merged;
-   wire [0:num_ports*num_ports-1]						sw_sel_op_ip_merged;
    wire [0:num_ports*num_vcs-1]							sw_sel_op_ivc_merged;
    wire [0:num_ports*num_vcs-1]							sw_sel_ip_ivc_merged;
    wire [0:num_ports*num_vcs*num_ports-1]				sw_route_ip_ivc_op_merged;

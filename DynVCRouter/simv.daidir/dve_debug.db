@@ -3,7 +3,7 @@
 	<head>
 		<title>VCS dump file for DVE debugging</title>
 		<vcsVersion>D-2009.12</vcsVersion>
-		<dateCreated>Tue Jun 24 02:45:07 2014</dateCreated>
+		<dateCreated>Tue Jun 24 03:21:33 2014</dateCreated>
 	</head>
 	<body>
 		<!-- VCS compile options -->
@@ -518,11 +518,11 @@
 			<macro name="VC_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="432" defID="4" defLine="174" value="4" />
 			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="472" defID="2" defLine="162" value="4" />
 			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="481" defID="2" defLine="162" value="4" />
-			<macro name="SW_ALLOC_TYPE_SEP_IF" module="" sourceID="36" lineno="576" defID="4" defLine="185" value="2" />
-			<macro name="SW_ALLOC_TYPE_SEP_OF" module="" sourceID="36" lineno="598" defID="4" defLine="188" value="3" />
-			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="620" defID="4" defLine="192" value="4" />
-			<macro name="SW_ALLOC_TYPE_WF_LIMIT" module="" sourceID="36" lineno="620" defID="4" defLine="193" value="6" />
-			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="625" defID="4" defLine="192" value="4" />
+			<macro name="SW_ALLOC_TYPE_SEP_IF" module="" sourceID="36" lineno="575" defID="4" defLine="185" value="2" />
+			<macro name="SW_ALLOC_TYPE_SEP_OF" module="" sourceID="36" lineno="597" defID="4" defLine="188" value="3" />
+			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="619" defID="4" defLine="192" value="4" />
+			<macro name="SW_ALLOC_TYPE_WF_LIMIT" module="" sourceID="36" lineno="619" defID="4" defLine="193" value="6" />
+			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="624" defID="4" defLine="192" value="4" />
 			<macro name="BINARY_OP_AND" module="c_mat_mult" sourceID="29" lineno="43" defID="2" defLine="160" value="2" />
 			<macro name="BINARY_OP_XOR" module="c_mat_mult" sourceID="29" lineno="46" defID="2" defLine="164" value="1" />
 			<macro name="RESET_TYPE_ASYNC" module="rtr_flit_type_check" sourceID="57" lineno="41" defID="2" defLine="38" value="2" />
