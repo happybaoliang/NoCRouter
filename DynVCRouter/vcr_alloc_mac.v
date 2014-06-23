@@ -566,7 +566,7 @@ endgenerate
 
 			assign sw_route_ip_ivc_op_merged[swp*num_vcs*num_ports+swvc*num_ports
 									:swp*num_vcs*num_ports+(swvc+1)*num_ports-1]
-						= (shared_sw_req_nonspec_ip_ivc[swp*num_vcs+swvc]) ? share_op : private_op;
+						= (shared_sw_req_spec_ip_ivc[swp*num_vcs+swvc]) ? share_op : private_op;
 		end
 	end
    endgenerate
