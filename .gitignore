@@ -1,9 +1,16 @@
 # directory
-router/work/
+conventional_router/verif/mesh_3x3/csrc/*
+conventional_router/verif/mesh_3x3/results/*
+conventional_router/verif/mesh_3x3/simv.daidir/*
+DynVCRouter/csrc/*
+DynVCRouter/simv.daidir/*
 
 # database file
 *.db
 *.vcd
+
+# synopsys
+*.key
 
 #modelsim
 *.mpf
@@ -11,6 +18,8 @@ router/work/
 
 #backup
 *.bak
+*.swp
+*~
 
 # Object files
 *.o

@@ -483,9 +483,6 @@ module vcr_top
 	   wire 			flit_tail;
 	   assign flit_tail = flit_tail_op[op];
 	   
-	   wire [0:num_ports-1] 	xbr_ctrl_ip;
-	   assign xbr_ctrl_ip = xbr_ctrl_op_ip[op*num_ports:(op+1)*num_ports-1];
-	   
 	   wire [0:num_vcs-1] 		almost_full_ovc;
 	   wire [0:num_vcs-1] 		full_ovc;
 	   wire [0:channel_width-1] channel_out;
