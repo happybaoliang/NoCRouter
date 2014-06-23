@@ -517,7 +517,7 @@ endgenerate
    	for (swp=0; swp<num_ports; swp=swp+1)
 	begin:swps
 		wire [0:num_vcs-1] shared_sw_req_sel;
-		assign shared_sw_req_sel = shared_sw_req_nonspec_ip_ivc[swp*num_vcs:(swp+1)*num_vcs-1];
+		assign shared_sw_req_sel = shared_sw_req_spec_ip_ivc[swp*num_vcs:(swp+1)*num_vcs-1];
 
 		wire [0:num_vcs-1] shared_sw_ivc_sel;
 		assign shared_sw_ivc_sel = sw_sel_ip_ivc_merged[swp*num_vcs:(swp+1)*num_vcs-1];
@@ -592,7 +592,7 @@ endgenerate
 	      .sel_ip_ivc(sw_sel_ip_ivc_merged),
 	      .gnt_ip(sw_gnt_ip_merged),
 	      .gnt_op(sw_gnt_op_merged),
-	      .sel_op_ip(sw_sel_op_ip_merged),
+	      .sel_op_ip(sw_sel_op_ip),
 	      .sel_op_ivc(sw_sel_op_ivc_merged));
 	end
     else if(sw_allocator_type == `SW_ALLOC_TYPE_SEP_OF)
