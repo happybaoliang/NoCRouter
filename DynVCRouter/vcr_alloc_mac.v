@@ -506,7 +506,6 @@ endgenerate
    assign sw_active_op_merged = sw_active_op | shared_sw_active_op;
 
    wire [0:num_ports-1]									sw_gnt_ip_merged;
-   wire [0:num_ports-1]									sw_gnt_op_merged;
    wire [0:num_ports*num_vcs-1]							sw_sel_op_ivc_merged;
    wire [0:num_ports*num_vcs-1]							sw_sel_ip_ivc_merged;
    wire [0:num_ports*num_vcs*num_ports-1]				sw_route_ip_ivc_op_merged;
@@ -515,8 +514,14 @@ endgenerate
    generate
    	for (swp=0; swp<num_ports; swp=swp+1)
 	begin:swps
+		wire [0:num_vcs-1] shared_sw_req_spec_sel;
+		assign shared_sw_req_spec_sel = shared_sw_req_spec_ip_ivc[swp*num_vcs:(swp+1)*num_vcs-1];
+		
+		wire [0:num_vcs-1] shared_sw_req_nonspec_sel;
+		assign shared_sw_req_nonspec_sel = shared_sw_req_nonspec_ip_ivc[swp*num_vcs:(swp+1)*num_vcs-1];
+
 		wire [0:num_vcs-1] shared_sw_req_sel;
-		assign shared_sw_req_sel = shared_sw_req_spec_ip_ivc[swp*num_vcs:(swp+1)*num_vcs-1];
+		assign shared_sw_req_sel = shared_sw_req_nonspec_sel | shared_sw_req_spec_sel;
 
 		wire [0:num_vcs-1] shared_sw_ivc_sel;
 		assign shared_sw_ivc_sel = sw_sel_ip_ivc_merged[swp*num_vcs:(swp+1)*num_vcs-1];
@@ -524,9 +529,9 @@ endgenerate
 		wire shared_sw_gnt_ip_sel;
 		assign shared_sw_gnt_ip_sel = | (shared_sw_req_sel & shared_sw_ivc_sel);
 
-		assign shared_sw_gnt_ip[swp] = shared_sw_gnt_ip_sel ? 1'b1 : 1'b0;
+		assign shared_sw_gnt_ip[swp] = shared_sw_gnt_ip_sel ? sw_gnt_ip_merged[swp] : 1'b0;
 
-		assign sw_gnt_ip[swp] = shared_sw_gnt_ip_sel ? 1'b0 : 1'b1;
+		assign sw_gnt_ip[swp] = shared_sw_gnt_ip_sel ? 1'b0 : sw_gnt_ip_merged[swp];
 
 		assign shared_sw_sel_ip_ivc[swp*num_vcs:(swp+1)*num_vcs-1]
 								= shared_sw_gnt_ip_sel 
@@ -564,9 +569,15 @@ endgenerate
 			assign private_op = route_ip_ivc_op[swp*num_vcs*num_ports+swvc*num_ports
 									:swp*num_vcs*num_ports+(swvc+1)*num_ports-1];
 
+			wire shared_sw_req_spec;
+			assign shared_sw_req_spec = shared_sw_req_spec_ip_ivc[swp*num_vcs+swvc];
+
+			wire shared_sw_req_nonspec;
+			assign shared_sw_req_nonspec = shared_sw_req_nonspec_ip_ivc[swp*num_vcs+swvc];
+
 			assign sw_route_ip_ivc_op_merged[swp*num_vcs*num_ports+swvc*num_ports
 									:swp*num_vcs*num_ports+(swvc+1)*num_ports-1]
-						= (shared_sw_req_spec_ip_ivc[swp*num_vcs+swvc]) ? share_op : private_op;
+						= (shared_sw_req_spec | shared_sw_req_nonspec) ? share_op : private_op;//TODO
 		end
 	end
    endgenerate
@@ -590,7 +601,7 @@ endgenerate
 	      .req_spec_ip_ivc(sw_req_spec_ip_ivc_merged),
 	      .sel_ip_ivc(sw_sel_ip_ivc_merged),
 	      .gnt_ip(sw_gnt_ip_merged),
-	      .gnt_op(sw_gnt_op_merged),
+	      .gnt_op(sw_gnt_op),
 	      .sel_op_ip(sw_sel_op_ip),
 	      .sel_op_ivc(sw_sel_op_ivc_merged));
 	end

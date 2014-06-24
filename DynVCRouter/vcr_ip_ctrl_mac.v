@@ -614,7 +614,7 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
       .data_in(next_lar_info_ivc),
       .data_out(next_lar_info));
    
-   wire 			      flit_head;
+   wire flit_head;
    
    wire [0:lar_info_width-1] 	      lar_info_s, lar_info_q;
    assign lar_info_s = flit_head ? next_lar_info : lar_info_q;
@@ -628,7 +628,7 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
       .d(lar_info_s),
       .q(lar_info_q));
    
-   wire 			      flit_head_prev;
+   wire flit_head_prev;
    
    assign flit_data[0:lar_info_width-1] = flit_head_prev ? lar_info_q : fb_pop_data[0:lar_info_width-1];
    assign flit_data[lar_info_width:flit_data_width-1] = fb_pop_data[lar_info_width:flit_data_width-1];
@@ -646,9 +646,9 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
    // the cost of some unnecessary activity. As synthesis will probably not 
    // create a clock gating domain for just these two registers, they currently 
    // will most likely end up being free-running, so this may be a reasonable tradeoff.
-   wire 			      flit_sent_prev;
+   wire flit_sent_prev;
    
-   wire 			      flit_valid_active;
+   wire flit_valid_active;
    assign flit_valid_active = alloc_active | flit_sent_prev;
    
    wire 			      flit_valid_s, flit_valid_q;

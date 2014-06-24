@@ -2142,7 +2142,7 @@ module testbench
 	   cycles = cycles + 1;
 	   #(Tclk);
 	  end
-  */    
+  */  
       #(Tclk*10);
       
       $display("simulation ended after %d cycles", cycles);
@@ -2151,12 +2151,6 @@ module testbench
       
       $finish;
       
-   end
-
-   initial
-   begin
-   	$dumpfile("router.db");
-	$dumpvars(0,rtr_0,rtr_1,rtr_2,rtr_3,rtr_4,rtr_5,rtr_6,rtr_7,rtr_8);
    end
 
 endmodule

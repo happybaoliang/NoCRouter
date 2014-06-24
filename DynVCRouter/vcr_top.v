@@ -472,16 +472,30 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	      (.data_in(shared_sw_sel_ivc),
 		   .data_out(shared_fb_sel));
 
+	   reg [0:num_ports-1]	shared_sel_fb;
+	   always @(posedge clk, posedge reset)
+	   if (reset)
+			shared_sel_fb <= {num_ports{1'b0}};
+	   else
+	   		shared_sel_fb <= shared_fb_sel;
+
 	   wire [0:flit_data_width-1] shared_data_sel;
 	   c_select_1ofn
 	     #(.num_ports(num_ports),
 		   .width(flit_data_width))
 	   shared_sel_data
-	      (.select(shared_fb_sel),
+	      (.select(shared_sel_fb),
 		   .data_in(shared_fb_flit_data),
 		   .data_out(shared_data_sel));
 
-	   assign xbr_data_in_ip[ip*flit_data_width:(ip+1)*flit_data_width-1] = (shared_sw_gnt_ip[ip]) ? shared_data_sel : flit_data;
+	   reg shared_sw_ip_sel;
+	   always @(posedge clk, posedge reset)
+	   if (reset)
+			shared_sw_ip_sel <= 1'b0;
+	   else
+	   		shared_sw_ip_sel <= shared_sw_gnt_ip[ip];
+
+	   assign xbr_data_in_ip[ip*flit_data_width:(ip+1)*flit_data_width-1] = shared_sw_ip_sel ? shared_data_sel : flit_data;
 	 end
    endgenerate
 
@@ -663,9 +677,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	      .data_in(vc_sel_ip_ivc_ovc),
 		  .data_out(shared_vc_sel_ivc_ovc));
 
-	   wire [0:num_vcs_per_bank-1]			shared_vc_sel_ovc;
-	   assign shared_vc_sel_ovc = shared_vc_sel_ivc_ovc[fb*num_vcs_per_bank:(fb+1)*num_vcs_per_bank-1];
-
 	   wire		shared_gnt_sw;
 	   c_select_1ofn
 	   	 #(.width(1),
@@ -708,10 +719,13 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   wire shared_pop_tail;
 	   assign shared_pop_tail = shared_fb_pop_tail_ivc[ivc_ctrl];
 
+	   wire [0:num_vcs-1]	shared_vc_sel_ovc;
+	   assign shared_vc_sel_ovc = shared_vc_sel_ivc_ovc[ivc_ctrl*num_vcs:(ivc_ctrl+1)*num_vcs-1];
+
   	   vcr_ivc_ctrl
   	       #(.num_message_classes(num_message_classes),
   	         .num_resource_classes(num_resource_classes),
-  	         .num_vcs_per_class(num_vcs_per_bank),
+  	         .num_vcs_per_class(num_vcs),
   	         .num_routers_per_dim(num_routers_per_dim),
   	         .num_dimensions(num_dimensions),
   	         .num_nodes_per_router(num_nodes_per_router),
@@ -741,11 +755,11 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
   	        .fb_pop_tail(shared_pop_tail),
   	        .fb_pop_next_header_info(shared_pop_next_header_info),
   	        .almost_full_op_ovc(shared_almost_full_op_ovc),
-  	        .full_op_ovc(shared_full_op_ovc),// TODO: port width missmatch
+  	        .full_op_ovc(shared_full_op_ovc),
   	        .route_op(shared_route_op),
   	        .route_orc(shared_route_orc),
   	        .vc_gnt(shared_vc_gnt),
-  	        .vc_sel_ovc(shared_vc_sel_ovc),
+  	        .vc_sel_ovc(shared_vc_sel_ovc),// TODO: 
   	        .sw_gnt(shared_sw_gnt),
   	        .sw_sel(shared_sw_sel),
   	        .sw_gnt_op(sw_gnt_op),
@@ -1038,7 +1052,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
        .crossbar_type(crossbar_type))
    xbr
      (.ctrl_in_op_ip(xbr_ctrl_op_ip),
-      .data_in_ip(xbr_data_in_ip),// TODO: how to generate this signals, this signals should consider the shared memory bank.
+      .data_in_ip(xbr_data_in_ip),
       .data_out_op(xbr_data_out_op));
    
 
@@ -1048,7 +1062,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    
    wire [0:num_ports-1] 		    opc_error_op;
 
-   assign shared_vc_out = 5'b0;// TODO: how to generate this signals
+   assign shared_vc_out = 5'b1;// TODO: how to generate this signals
 
    // flow control and output vc control module of shared memory bank
    wire [0:num_ports*num_vcs-1]						shared_full_ovc;
@@ -1107,7 +1121,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		assign shared_vc_sel_ovc_ivc = vc_sel_op_ovc_ivc[op*num_vcs*num_vcs:(op+1)*num_vcs*num_vcs-1];
 	   
 		wire shared_sw_active; 
-		assign shared_sw_active = sw_active_op[op];
+		assign shared_sw_active = shared_sw_active_op[op];
 
 		wire	shared_gnt_active;		
 		wire	shared_flit_valid_s, shared_flit_valid_q;
@@ -1370,5 +1384,11 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
     else
 		assign error = 1'bx;
    endgenerate
+
+   initial
+   begin
+   	$dumpfile("router.db");
+   	$dumpvars(0,vcr_top);
+   end
 
 endmodule
