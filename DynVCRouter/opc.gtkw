@@ -1,0 +1,156 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Wed Jun 25 14:42:32 2014
+[*]
+[dumpfile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.db"
+[dumpfile_mtime] "Wed Jun 25 14:35:10 2014"
+[dumpfile_size] 94622831
+[savefile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/opc.gtkw"
+[timestart] 11
+[size] 1215 776
+[pos] -1 -1
+*-3.000000 28 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.rtr_0.vcr.
+[treeopen] testbench.rtr_0.vcr.ips[3].
+[treeopen] testbench.rtr_3.
+[treeopen] testbench.rtr_3.vcr.
+[treeopen] testbench.rtr_3.vcr.ops[2].
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.ovcs[0].
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.ovcs[1].
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.ovcs[1].shared_ovcc.
+[sst_width] 223
+[signals_width] 446
+[sst_expanded] 1
+[sst_vpaned_height] 239
+@c00022
+testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@28
+(0)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(1)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(2)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(3)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(4)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(5)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(6)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(7)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(8)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(9)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(10)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(11)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(12)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(13)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(14)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(15)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(16)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(17)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(18)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(19)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(20)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(21)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(22)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(23)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(24)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(25)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(26)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(27)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(28)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(29)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(30)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(31)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(32)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(33)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(34)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(35)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(36)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(37)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(38)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(39)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(40)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(41)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(42)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(43)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(44)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(45)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(46)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(47)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(48)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(49)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(50)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(51)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(52)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(53)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(54)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(55)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(56)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(57)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(58)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(59)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(60)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(61)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(62)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(63)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(64)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(65)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(66)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(67)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(68)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(69)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(70)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(71)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@1401200
+-group_end
+@200
+-flit_sel无效是因为allocated_q, vc_match无效
+@28
+testbench.rtr_3.vcr.ops[2].opc.\ovcs[1].flit_sel
+testbench.rtr_3.vcr.ops[2].opc.\ovcs[1].full_prev
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.vc_gnt
+@200
+-allocated_q无效的根本原因是flit_tail无效
+@28
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.allocated_q
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.allocated
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.alloc_active
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.flit_valid
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.vc_active
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.flit_tail
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.flit_sel
+@200
+-match_q无效的原因是port_match和vc_match无效
+@28
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.match_q
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.sw_gnt
+@200
+-vc_match无效是因为allocated_ivc_s无效
+@28
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.vc_match
+@22
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.sw_sel_ivc[0:9]
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.allocated_ivc_s[0:9]
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.vc_sel_ivc[0:9]
+@200
+-port_match无效的原因是allocated_ip_s无效
+@28
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.port_match
+@22
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.sw_sel_ip[0:4]
+testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.allocated_ip_s[0:4]
+@28
+testbench.rtr_3.vcr.ops[2].opc.flit_head_q
+testbench.rtr_3.vcr.ops[2].opc.flit_tail_q
+testbench.rtr_3.vcr.ops[2].opc.sw_active
+testbench.rtr_3.vcr.ops[2].opc.sw_gnt
+testbench.rtr_3.vcr.ops[2].opc.flit_tail
+@200
+-flit_valid一切正常
+@28
+testbench.rtr_3.vcr.ops[2].opc.flit_valid_q
+@23
+testbench.rtr_3.vcr.ops[2].opc.flit_data[0:63]
+@28
+testbench.rtr_3.vcr.ops[2].opc.sw_gnt
+testbench.rtr_3.vcr.ops[2].opc.gnt_active
+[pattern_trace] 1
+[pattern_trace] 0

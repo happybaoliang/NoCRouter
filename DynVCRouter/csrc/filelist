@@ -29,10 +29,10 @@ VCS_OBJS =5NrI_d.o 5NrIB_d.o 8buD_1_d.o 1Tcz_1_d.o n5bc_1_d.o xb7V_1_d.o \
 	F3dg_1_d.o mOtw_1_d.o ra4F_1_d.o oiyY_1_d.o joBp_1_d.o \
 	DkzZ_1_d.o SwIg_1_d.o bFxH_1_d.o 8Aqg_1_d.o X1lz_1_d.o iuwB_1_d.o \
 	5A5M_1_d.o DXMT_1_d.o yMuD_1_d.o HWcT_1_d.o eNni_1_d.o \
-	RwsG_1_d.o h8BH_1_d.o lpxt_1_d.o llsN_1_d.o 3sLz_1_d.o \
-	yfEb_1_d.o RzaY_1_d.o 09J9_1_d.o K3C3_1_d.o PAki_1_d.o \
-	qd0Q_1_d.o ljf6_1_d.o 7hiZ_1_d.o 5jcE_1_d.o G7H9_1_d.o \
-	xAbY_1_d.o iLlM_1_d.o 8N4N_1_d.o JDAN_1_d.o pb99_1_d.o \
+	RwsG_1_d.o h8BH_1_d.o llsN_1_d.o 3sLz_1_d.o yfEb_1_d.o \
+	RzaY_1_d.o 09J9_1_d.o K3C3_1_d.o PAki_1_d.o qd0Q_1_d.o \
+	ljf6_1_d.o 7hiZ_1_d.o 5jcE_1_d.o G7H9_1_d.o xAbY_1_d.o \
+	lpxt_1_d.o iLlM_1_d.o 8N4N_1_d.o JDAN_1_d.o pb99_1_d.o \
 	kcQp_1_d.o H65O_1_d.o rmapats_mop.o rmapats.o SIM_l.o 
 VCS_INCR_OBJS=
 
