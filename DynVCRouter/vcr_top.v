@@ -257,8 +257,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports*flow_ctrl_width-1]     flow_ctrl_out_ip;
    
    output [0:num_ports-1]		            credit_for_shared_out;
-   wire [0:num_ports-1]			            credit_for_shared_out;// TODO:
-   assign credit_for_shared_out = 5'b0;
+   wire [0:num_ports-1]			            credit_for_shared_out;
 
    // outgoing channels
    output [0:num_ports*channel_width-1]     channel_out_op;
@@ -311,9 +310,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports*num_vcs-1]							sw_sel_ip_shared_ivc;
    wire [0:num_vcs*2-1]	     			    			shared_fb_errors_ivc;
    wire [0:num_vcs_per_bank*num_ports-1]    			shared_fb_pop_tail_ivc;
+   wire [0:num_ports*flow_ctrl_width-1]					shared_fb_flow_ctrl_out;
    wire [0:num_vcs-1]	     			    			shared_fb_almost_empty_ivc;
    wire [0:num_ports*header_info_width-1]   			shared_fb_pop_next_header_info;  
-
 
    // mapping 'memory_bank_grant' to 'memory_bank_grant_out'
    wire [0:num_ports*num_ports-1] memory_bank_grant; // TODO: how to generate this signal
@@ -457,7 +456,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign flit_head_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = flit_head_ivc;
 	   assign flit_tail_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = flit_tail_ivc;
 	   assign free_nonspec_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = free_nonspec_ivc;
-	   assign flow_ctrl_out_ip[ip*flow_ctrl_width:(ip+1)*flow_ctrl_width-1] = flow_ctrl_out;
 	   assign ipc_error_ip[ip] = ipc_error;
 	
 	   wire [0:num_vcs-1]	shared_sw_sel_ivc;	
@@ -488,6 +486,15 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		   .data_in(shared_fb_flit_data),
 		   .data_out(shared_data_sel));
 
+	   wire [0:flow_ctrl_width-1] shared_flow_ctrl_out;
+	   c_select_1ofn
+	     #(.num_ports(num_ports),
+		   .width(flow_ctrl_width))
+	   shared_flow_ctrl_o
+	      (.select(shared_sel_fb),
+		   .data_in(shared_fb_flow_ctrl_out),
+		   .data_out(shared_flow_ctrl_out));
+
 	   reg shared_sw_ip_sel;
 	   always @(posedge clk, posedge reset)
 	   if (reset)
@@ -495,7 +502,17 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   else
 	   		shared_sw_ip_sel <= shared_sw_gnt_ip[ip];
 
-	   assign xbr_data_in_ip[ip*flit_data_width:(ip+1)*flit_data_width-1] = shared_sw_ip_sel ? shared_data_sel : flit_data;
+	   assign credit_for_shared_out[ip] = 1'b1;
+	   
+	   assign flow_ctrl_out_ip[ip*flow_ctrl_width:(ip+1)*flow_ctrl_width-1] 
+	   				= shared_sw_ip_sel 
+					? shared_flow_ctrl_out
+					: flow_ctrl_out;
+	   
+	   assign xbr_data_in_ip[ip*flit_data_width:(ip+1)*flit_data_width-1] 
+	   				= shared_sw_ip_sel 
+					? shared_data_sel 
+					: flit_data;
 	 end
    endgenerate
 
@@ -628,7 +645,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	       .atomic_vc_allocation(atomic_vc_allocation),
 	       .enable_bypass(1),
 	       .reset_type(reset_type))
-	     flb(.clk(clk),
+	   flb(.clk(clk),
 			.reset(reset),
 			.push_active(shared_push_active),
 			.push_valid(shared_push_valid),
@@ -785,7 +802,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
  	     assign shared_allocated_ivc[ivc_ctrl] = shared_allocated;
  	     assign shared_free_nonspec_ivc[ivc_ctrl] = shared_free_nonspec;
  	     assign shared_free_spec_ivc[ivc_ctrl] = shared_free_spec;
- 	     assign shared_ivcc_errors_ivc[ivc_ctrl*3:(ivc_ctrl+1)*3-1] = shared_ivcc_errors; // TODO: error handling ignored.
+ 	     assign shared_ivcc_errors_ivc[ivc_ctrl*3:(ivc_ctrl+1)*3-1] = shared_ivcc_errors;
    	    end
 
 
@@ -887,6 +904,21 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    
 	   wire 	flit_head_prev;
    	   assign flit_head_prev = flit_head_q;
+
+       wire [0:flow_ctrl_width-1]	shared_flow_ctrl_out;
+	   rtr_flow_ctrl_output
+         #(.num_vcs(num_vcs),
+           .flow_ctrl_type(flow_ctrl_type),
+           .reset_type(reset_type))
+       shared_fco
+          (.clk(clk),
+           .reset(reset),
+           .active(shared_alloc_active),
+           .fc_event_valid_in(shared_flit_sent),
+           .fc_event_sel_in_ivc(shared_fb_sw_sel_ivc),
+           .flow_ctrl_out(shared_flow_ctrl_out));
+
+	   assign shared_fb_flow_ctrl_out[fb*flow_ctrl_width:(fb+1)*flow_ctrl_width-1] = shared_flow_ctrl_out;
 
   	   assign shared_fb_flit_data[fb*flit_data_width:fb*flit_data_width+lar_info_width-1] 
 			= flit_head_prev ? lar_info_q : shared_pop_data[0:lar_info_width-1];
@@ -1053,7 +1085,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    assign shared_vc_out = {num_ports{1'b0}};// TODO: how to generate this signals
 
    generate
-      genvar ovc_ctrl, op;
+      genvar ovc_ctrl, sb, op;
       for(op = 0; op < num_ports; op = op + 1)
 	  begin:ops
 	   //-------------------------------------------------------------------
@@ -1167,7 +1199,15 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = full_ovc;
 	   assign shared_full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = shared_full_ovc;
 	   assign elig_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = elig_ovc;
-	   assign elig_op_shared_ovc[op*num_vcs:(op+1)*num_vcs-1] = shared_elig_ovc;
+
+	   for (sb=0; sb<num_ports; sb=sb+1)
+	   begin:sbs
+	   	assign elig_op_shared_ovc[op*num_vcs+sb*num_vcs_per_bank:op*num_vcs+(sb+1)*num_vcs_per_bank-1] 
+	   						   = memory_bank_grant_in[op*num_ports+sb]
+							   ? shared_elig_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
+							   : {num_vcs_per_bank{1'b0}};
+	   end
+
 	   assign opc_error_op[op] = opc_error;
 	end
    endgenerate

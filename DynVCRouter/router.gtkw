@@ -1,10 +1,10 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Wed Jun 25 22:00:19 2014
+[*] Wed Jun 25 23:20:53 2014
 [*]
 [dumpfile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.db"
-[dumpfile_mtime] "Wed Jun 25 21:58:32 2014"
-[dumpfile_size] 94376385
+[dumpfile_mtime] "Wed Jun 25 23:19:17 2014"
+[dumpfile_size] 97227200
 [savefile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.gtkw"
 [timestart] 17
 [size] 1215 776
@@ -12,10 +12,10 @@
 *-3.000000 36 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
 [treeopen] testbench.rtr_0.
-[treeopen] testbench.rtr_0.vcr.
 [treeopen] testbench.rtr_0.vcr.ips[3].
 [treeopen] testbench.rtr_0.vcr.ops[4].
 [treeopen] testbench.rtr_0.vcr.ops[4].opc.
+[treeopen] testbench.rtr_3.
 [treeopen] testbench.rtr_3.vcr.
 [treeopen] testbench.rtr_3.vcr.ops[2].
 [treeopen] testbench.rtr_3.vcr.ops[2].opc.
@@ -314,6 +314,16 @@ testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 -group_end
 @28
 testbench.rtr_3.vcr.ops[2].opc.shared_vc
+@c00023
+testbench.rtr_3.vcr.\ops[2].flow_ctrl_in[0:4]
+@29
+(0)testbench.rtr_3.vcr.\ops[2].flow_ctrl_in[0:4]
+(1)testbench.rtr_3.vcr.\ops[2].flow_ctrl_in[0:4]
+(2)testbench.rtr_3.vcr.\ops[2].flow_ctrl_in[0:4]
+(3)testbench.rtr_3.vcr.\ops[2].flow_ctrl_in[0:4]
+(4)testbench.rtr_3.vcr.\ops[2].flow_ctrl_in[0:4]
+@1401201
+-group_end
 @200
 -RTR[0].OP[4]
 @1001200

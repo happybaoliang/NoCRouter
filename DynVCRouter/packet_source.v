@@ -425,45 +425,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
       .full_prev_ovc(full_prev_ovc),
       .errors_ovc(fcs_errors_ovc));
 
-/*
-    wire [0:num_vcs-1]			full_ovc_shared;
-    wire 				fc_active_shared;
-    wire [0:num_vcs-1]			empty_ovc_shared;
-    wire [0:num_vcs-1]			full_prev_ovc_shared;
-    wire [0:num_vcs-1]			fcs_errors_ovc_shared; 
-    wire [0:num_vcs-1]			almost_full_ovc_shared;
-
-    genvar shared;
-    generate  
-	for (shared=0;shared<num_vcs; shared=shared+1)
-	begin:share
- 	rtr_fc_state
-	#(.num_vcs(num_vcs_per_bank),
-	  .buffer_size(memory_bank_size),
-	  .flow_ctrl_type(flow_ctrl_type),
-	  .flow_ctrl_bypass(flow_ctrl_bypass),
-	  .mgmt_type(fb_mgmt_type),
-	  .disable_static_reservations(disable_static_reservations),
-	  .reset_type(reset_type))
-    	fcs_shared
-         (.clk(clk),
-	  .reset(reset),
-	  .active(1'b1),
-	  .flit_valid(flit_valid_q),
-	  .flit_head(flit_head_q),
-	  .flit_sel_ovc(flit_sel_ovc_q[shared*num_vcs_per_bank:(shared+1)*num_vcs_per_bank-1]),
-	  .fc_event_valid(fc_event_valid&credit_for_shared),
-	  .fc_event_sel_ovc(fc_event_sel_ovc[shared*num_vcs_per_bank:(shared+1)*num_vcs_per_bank-1]),
-	  .fc_active(fc_active_shared),
-	  .empty_ovc(empty_ovc_shared[shared*num_vcs_per_bank:(shared+1)*num_vcs_per_bank-1]),
-	  .almost_full_ovc(almost_full_ovc_shared[shared*num_vcs_per_bank:(shared+1)*num_vcs_per_bank-1]),
-	  .full_ovc(full_ovc_shared[shared*num_vcs_per_bank:(shared+1)*num_vcs_per_bank-1]),
-	  .full_prev_ovc(full_prev_ovc_shared[shared*num_vcs_per_bank:(shared+1)*num_vcs_per_bank-1]),
-	  .errors_ovc(fcs_errors_ovc_shared[shared*num_vcs_per_bank:(shared+1)*num_vcs_per_bank-1]));
-	end
-    endgenerate
-*/
-
 // this part of source code is used to generate the neccesaary full/empty indicator and eligibility information of each output VC. 
    wire [0:num_vcs-1] 			 elig_ovc;
    genvar 				 ovc;
@@ -504,44 +465,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 	end
    endgenerate
 
-/*
-   wire [0:num_vcs-1] 			 elig_ovc_shared;
-   genvar 				 ovc_shared;
-   generate
-      for(ovc_shared = 0; ovc_shared < num_vcs; ovc_shared = ovc_shared + 1)
-	begin:ovcs_shared
-	   wire allocated;
-	   wire allocated_s, allocated_q;
-	   assign allocated_s = allocated;
-	   c_dff
-	     #(.width(1),
-	       .reset_type(reset_type))
-	   allocatedq
-	     (.clk(clk),
-	      .reset(reset),
-	      .active(1'b1),
-	      .d(allocated_s),
-	      .q(allocated_q));
-	   wire flit_sent_shared;
-	   assign flit_sent_shared = flit_valid_q & flit_sel_ovc_q[ovc_shared] & memory_bank_grant[ovc_shared/num_vcs_per_bank];
-	   assign allocated = flit_sent_shared ? ~flit_tail_q : allocated_q;
-	   wire empty;
-	   assign empty_shared = empty_ovc_shared[ovc_shared];
-	   wire full;
-	   assign full_shared = full_ovc_shared[ovc_shared];
-	   wire elig;
-	   case(elig_mask)
-	     `ELIG_MASK_NONE:
-	       assign elig = ~allocated;
-	     `ELIG_MASK_FULL:
-	       assign elig = ~allocated & ~full_shared;
-	     `ELIG_MASK_USED:
-	       assign elig = ~allocated & empty_shared;
-	   endcase
-	   assign elig_ovc_shared[ovc_shared] = elig;
-	end
-   endgenerate
-*/
 
 // this part of source code utilize the mux module to select the corresponding full/eligible singals for the ovc.
 // 'sel_ovc' signal was generated at the end of this file by a decoder. This signal is used to generate the full/eligible signals.
@@ -554,16 +477,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
       .data_in(full_ovc),
       .data_out(full));
 
-/*  
-   wire		full_shared;
-   c_select_1ofn
-     #(.num_ports(num_vcs_per_bank),
-       .width(1))
-   full_sel_shared
-     (.select(sel_ovc),
-      .data_in(full_ovc_shared),
-      .data_out(full_shared));
-*/
  
    wire 	elig;
    c_select_1ofn
@@ -574,16 +487,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
       .data_in(elig_ovc),
       .data_out(elig));
 
-/*
-   wire		elig_shared;
-   c_select_1ofn
-     #(.num_ports(num_vcs_per_bank),
-       .width(1))
-   elig_sel_share
-     (.select(sel_ovc),
-      .data_in(elig_ovc_shared),
-      .data_out(elig_shared));  
-*/
 
 // if there are pending flits, and the injection router is not full, the corresponding OVC is not full, then we can
 // infer that the flit must be successfully transmitted. 

@@ -3,7 +3,7 @@
 	<head>
 		<title>VCS dump file for DVE debugging</title>
 		<vcsVersion>D-2009.12</vcsVersion>
-		<dateCreated>Thu Jun 26 06:25:04 2014</dateCreated>
+		<dateCreated>Thu Jun 26 08:41:06 2014</dateCreated>
 	</head>
 	<body>
 		<!-- VCS compile options -->
@@ -409,26 +409,26 @@
 			<macro name="FB_MGMT_TYPE_STATIC" module="packet_source" sourceID="7" lineno="182" defID="4" defLine="154" value="2" />
 			<macro name="ELIG_MASK_NONE" module="packet_source" sourceID="7" lineno="191" defID="4" defLine="138" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="packet_source" sourceID="7" lineno="205" defID="2" defLine="38" value="2" />
-			<macro name="ELIG_MASK_NONE" module="ovcs" sourceID="7" lineno="496" defID="4" defLine="138" value="2" />
-			<macro name="ELIG_MASK_FULL" module="ovcs" sourceID="7" lineno="498" defID="4" defLine="141" value="3" />
-			<macro name="ELIG_MASK_USED" module="ovcs" sourceID="7" lineno="500" defID="4" defLine="144" value="4" />
-			<macro name="BINARY_OP_AND" module="packet_source" sourceID="7" lineno="646" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="packet_source" sourceID="7" lineno="647" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="packet_source" sourceID="7" lineno="659" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="packet_source" sourceID="7" lineno="660" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="packet_source" sourceID="7" lineno="681" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="packet_source" sourceID="7" lineno="682" defID="2" defLine="162" value="4" />
-			<macro name="ROUTING_TYPE_PHASED_DOR" module="" sourceID="7" lineno="769" defID="4" defLine="85" value="2" />
-			<macro name="CONNECTIVITY_LINE" module="" sourceID="7" lineno="778" defID="4" defLine="53" value="2" />
-			<macro name="CONNECTIVITY_RING" module="" sourceID="7" lineno="778" defID="4" defLine="56" value="3" />
-			<macro name="CONNECTIVITY_LINE" module="" sourceID="7" lineno="781" defID="4" defLine="53" value="2" />
-			<macro name="DIM_ORDER_ASCENDING" module="" sourceID="7" lineno="790" defID="4" defLine="95" value="2" />
-			<macro name="DIM_ORDER_DESCENDING" module="" sourceID="7" lineno="795" defID="4" defLine="98" value="3" />
-			<macro name="DIM_ORDER_BY_CLASS" module="" sourceID="7" lineno="800" defID="4" defLine="101" value="4" />
-			<macro name="CONNECTIVITY_FULL" module="" sourceID="7" lineno="816" defID="4" defLine="59" value="4" />
-			<macro name="DIM_ORDER_ASCENDING" module="" sourceID="7" lineno="819" defID="4" defLine="95" value="2" />
-			<macro name="DIM_ORDER_DESCENDING" module="" sourceID="7" lineno="821" defID="4" defLine="98" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="7" lineno="966" defID="4" defLine="118" value="4" />
+			<macro name="ELIG_MASK_NONE" module="ovcs" sourceID="7" lineno="457" defID="4" defLine="138" value="2" />
+			<macro name="ELIG_MASK_FULL" module="ovcs" sourceID="7" lineno="459" defID="4" defLine="141" value="3" />
+			<macro name="ELIG_MASK_USED" module="ovcs" sourceID="7" lineno="461" defID="4" defLine="144" value="4" />
+			<macro name="BINARY_OP_AND" module="packet_source" sourceID="7" lineno="549" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="packet_source" sourceID="7" lineno="550" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="packet_source" sourceID="7" lineno="562" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="packet_source" sourceID="7" lineno="563" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="packet_source" sourceID="7" lineno="584" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="packet_source" sourceID="7" lineno="585" defID="2" defLine="162" value="4" />
+			<macro name="ROUTING_TYPE_PHASED_DOR" module="" sourceID="7" lineno="672" defID="4" defLine="85" value="2" />
+			<macro name="CONNECTIVITY_LINE" module="" sourceID="7" lineno="681" defID="4" defLine="53" value="2" />
+			<macro name="CONNECTIVITY_RING" module="" sourceID="7" lineno="681" defID="4" defLine="56" value="3" />
+			<macro name="CONNECTIVITY_LINE" module="" sourceID="7" lineno="684" defID="4" defLine="53" value="2" />
+			<macro name="DIM_ORDER_ASCENDING" module="" sourceID="7" lineno="693" defID="4" defLine="95" value="2" />
+			<macro name="DIM_ORDER_DESCENDING" module="" sourceID="7" lineno="698" defID="4" defLine="98" value="3" />
+			<macro name="DIM_ORDER_BY_CLASS" module="" sourceID="7" lineno="703" defID="4" defLine="101" value="4" />
+			<macro name="CONNECTIVITY_FULL" module="" sourceID="7" lineno="719" defID="4" defLine="59" value="4" />
+			<macro name="DIM_ORDER_ASCENDING" module="" sourceID="7" lineno="722" defID="4" defLine="95" value="2" />
+			<macro name="DIM_ORDER_DESCENDING" module="" sourceID="7" lineno="724" defID="4" defLine="98" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="7" lineno="869" defID="4" defLine="118" value="4" />
 			<macro name="RESET_TYPE_ASYNC" module="c_rr_arbiter" sourceID="51" lineno="50" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="" sourceID="51" lineno="171" defID="2" defLine="162" value="4" />
 			<macro name="BINARY_OP_AND" module="" sourceID="51" lineno="189" defID="2" defLine="160" value="2" />
@@ -708,13 +708,13 @@
 			<macro name="SW_ALLOC_SPEC_TYPE_REQ" module="vcr_top" sourceID="21" lineno="229" defID="4" defLine="206" value="3" />
 			<macro name="CROSSBAR_TYPE_MUX" module="vcr_top" sourceID="21" lineno="232" defID="2" defLine="94" value="3" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_top" sourceID="21" lineno="234" defID="2" defLine="38" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ips" sourceID="21" lineno="409" defID="4" defLine="203" value="2" />
-			<macro name="BINARY_OP_OR" module="ips" sourceID="21" lineno="468" defID="2" defLine="162" value="4" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ivc_ctrls" sourceID="21" lineno="739" defID="4" defLine="203" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="fbs" sourceID="21" lineno="801" defID="4" defLine="203" value="2" />
-			<macro name="ELIG_MASK_NONE" module="" sourceID="21" lineno="804" defID="4" defLine="138" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ops" sourceID="21" lineno="1134" defID="4" defLine="203" value="2" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="21" lineno="1179" defID="2" defLine="73" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ips" sourceID="21" lineno="408" defID="4" defLine="203" value="2" />
+			<macro name="BINARY_OP_OR" module="ips" sourceID="21" lineno="466" defID="2" defLine="162" value="4" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ivc_ctrls" sourceID="21" lineno="756" defID="4" defLine="203" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="fbs" sourceID="21" lineno="818" defID="4" defLine="203" value="2" />
+			<macro name="ELIG_MASK_NONE" module="" sourceID="21" lineno="821" defID="4" defLine="138" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ops" sourceID="21" lineno="1166" defID="4" defLine="203" value="2" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="21" lineno="1219" defID="2" defLine="73" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="c_prefix_arbiter" sourceID="47" lineno="50" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="" sourceID="47" lineno="161" defID="2" defLine="162" value="4" />
 			<macro name="BINARY_OP_AND" module="" sourceID="47" lineno="179" defID="2" defLine="160" value="2" />
