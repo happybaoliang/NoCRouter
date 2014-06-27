@@ -29,11 +29,11 @@
 // output port controller (tracks state of buffers in downstream router)
 //==============================================================================
 
-module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active,
-	vc_gnt_ovc, vc_sel_ovc_ip, vc_sel_ovc_ivc, sw_active, sw_gnt, sw_sel_ip, 
-	sw_sel_ivc, flit_head, flit_tail, flit_data, channel_out, shared_almost_full_ovc, 
-	almost_full_ovc, shared_full_ovc, full_ovc, elig_ovc, shared_vc, shared_elig_ovc, 
-	error, shared_vc_gnt_ovc, credit_for_shared);
+module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, vc_gnt_ovc, 
+	vc_sel_ovc_ip, vc_sel_shared_ovc_ip, vc_sel_ovc_ivc, vc_sel_shared_ovc_ivc, sw_active, 
+	sw_gnt, sw_sel_ip, sw_sel_ivc, flit_head, flit_tail, flit_data, channel_out, shared_vc,
+	shared_almost_full_ovc, almost_full_ovc, shared_full_ovc, full_ovc, elig_ovc, error, 
+	shared_elig_ovc, shared_vc_gnt_ovc, credit_for_shared);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -144,8 +144,14 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active,
    // input port that each output VC was granted to
    input [0:num_vcs*num_ports-1]    vc_sel_ovc_ip;
    
+   // input port that each output VC was granted to
+   input [0:num_vcs*num_ports-1]    vc_sel_shared_ovc_ip;
+   
    // input VC that each output VC was granted to
    input [0:num_vcs*num_vcs-1] 	    vc_sel_ovc_ivc;
+   
+   // input VC that each output VC was granted to
+   input [0:num_vcs*num_vcs-1] 	    vc_sel_shared_ovc_ivc;
    
    // switch allocation activity indicator
    input 			                sw_active;

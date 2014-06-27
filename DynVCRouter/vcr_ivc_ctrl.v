@@ -29,12 +29,11 @@
 // input VC controller
 //==============================================================================
 
-module vcr_ivc_ctrl
-  (clk, reset, router_address, flit_valid_in, flit_head_in, flit_tail_in, 
-   flit_sel_in, header_info_in, fb_pop_tail, fb_pop_next_header_info, 
-   almost_full_op_ovc, full_op_ovc, route_op, route_orc, vc_gnt, vc_sel_ovc, 
-   sw_gnt, sw_sel, sw_gnt_op, flit_valid, flit_head, flit_tail, next_lar_info, 
-   fb_almost_empty, fb_empty, allocated, free_nonspec, free_spec, errors);
+module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, flit_tail_in, 
+   flit_sel_in, header_info_in, fb_pop_tail, fb_pop_next_header_info, almost_full_op_ovc, 
+   full_op_ovc, route_op, route_orc, vc_gnt, vc_sel_ovc, sw_gnt, sw_sel, sw_gnt_op, flit_valid, 
+   flit_head, flit_tail, next_lar_info, fb_almost_empty, fb_empty, allocated, free_nonspec, 
+   shared_ovc_out, vc_sel_shared_ovc, free_spec, errors);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -196,39 +195,44 @@ module vcr_ivc_ctrl
    input reset;
    
    // current router's address
-   input [0:router_addr_width-1] router_address;
+   input [0:router_addr_width-1] 	router_address;
    
    // incoming flit valid
-   input 			 flit_valid_in;
+   input 			 				flit_valid_in;
    
    // incoming flit is head flit
-   input 			 flit_head_in;
+   input 			 				flit_head_in;
    
    // incoming flit is tail
-   input 			 flit_tail_in;
+   input 			 				flit_tail_in;
    
    // incoming flit is for current VC
-   input 			 flit_sel_in;
+   input 			 				flit_sel_in;
    
    // header info for incoming flit (NOTE: only valid if flit_head_in=1)
-   input [0:header_info_width-1] header_info_in;
+   input [0:header_info_width-1] 	header_info_in;
    
    // tail indicator for frontmost flit in buffer (if any)
-   input 			 fb_pop_tail;
+   input 			 				fb_pop_tail;
    
    // header info from next flit in buffer (NOTE: only valid if buffer contains at least two entries)
-   input [0:header_info_width-1] fb_pop_next_header_info;
+   input [0:header_info_width-1] 	fb_pop_next_header_info;
    
    // which output VC have only a single credit left?
-   input [0:num_ports*num_vcs-1]   almost_full_op_ovc;
+   input [0:num_ports*num_vcs-1]   	almost_full_op_ovc;
    
    // which output VC have no credit left?
-   input [0:num_ports*num_vcs-1]   full_op_ovc;
+   input [0:num_ports*num_vcs-1]   	full_op_ovc;
    
+   input							vc_sel_shared_ovc;
+
    // destination port (1-hot)
-   output [0:num_ports-1] 	   route_op;
-   wire [0:num_ports-1] 	   route_op;
-   
+   output [0:num_ports-1] 	   		route_op;
+   wire [0:num_ports-1] 	   		route_op;
+  
+   output							shared_ovc_out;
+   wire								shared_ovc_out;
+
    // select next resource class
    output [0:num_resource_classes-1] route_orc;
    wire [0:num_resource_classes-1]   route_orc;
@@ -237,54 +241,54 @@ module vcr_ivc_ctrl
    input 			     vc_gnt;
    
    // granted output VC
-   input [0:num_vcs-1] 		     vc_sel_ovc;
+   input [0:num_vcs-1] 		     	vc_sel_ovc;
    
    // switch allocator grants
-   input 			     sw_gnt;
+   input 			     			sw_gnt;
    
    // switch allocator grant is for this VC
-   input 			     sw_sel;
+   input 			     			sw_sel;
    
    // switch grant for output ports
-   input [0:num_ports-1] 	     sw_gnt_op;
+   input [0:num_ports-1] 	     	sw_gnt_op;
    
    // outgoing flit is available
-   output 			     flit_valid;
-   wire 			     flit_valid;
+   output 			     			flit_valid;
+   wire 			     			flit_valid;
    
    // outgoing flit is head flit
-   output 			     flit_head;
-   wire 			     flit_head;
+   output 			     			flit_head;
+   wire 			     			flit_head;
    
    // outgoing flit is tail flit
-   output 			     flit_tail;
-   wire 			     flit_tail;
+   output 			     			flit_tail;
+   wire 			     			flit_tail;
    
    // updated lookahead routing info (NOTE: only valid if the current flit is a head flit)
-   output [0:lar_info_width-1] 	     next_lar_info;
-   wire [0:lar_info_width-1] 	     next_lar_info;
+   output [0:lar_info_width-1] 	    next_lar_info;
+   wire [0:lar_info_width-1] 	    next_lar_info;
    
    // flit buffer has a single valid entry left
-   input 			     fb_almost_empty;
+   input 			     			fb_almost_empty;
    
    // flit buffer does not have any valid entries
-   input 			     fb_empty;
+   input 			     			fb_empty;
    
    // has an output VC been assigned to this input VC?
-   output 			     allocated;
-   wire 			     allocated;
+   output 			     			allocated;
+   wire 			     			allocated;
    
    // credit availability if VC has been assigned
-   output 			     free_nonspec;
-   wire 			     free_nonspec;
+   output 			     			free_nonspec;
+   wire 			     			free_nonspec;
    
    // credit availability if no VC has been assigned yet
-   output 			     free_spec;
-   wire 			     free_spec;
+   output 			     			free_spec;
+   wire 			     			free_spec;
    
    // internal error condition detected
-   output [0:2] 		     errors;
-   wire [0:2] 			     errors;
+   output [0:2] 		     		errors;
+   wire [0:2] 			     		errors;
    
    
    //---------------------------------------------------------------------------
@@ -307,16 +311,21 @@ module vcr_ivc_ctrl
    wire 			     flit_valid_sel_head_in;
    assign flit_valid_sel_head_in = flit_valid_sel_in & flit_head_in;
    
+   wire					 shared_ovc_s, shared_ovc_q;
    wire 			     vc_allocated_s, vc_allocated_q;
    generate
     if(atomic_vc_allocation)
 	begin
+	   assign shared_ovc_s = (shared_ovc_q & ~ flit_valid_sel_head_in) | (vc_gnt & vc_sel_shared_ovc);
 	   assign vc_allocated_s = (vc_allocated_q & ~flit_valid_sel_head_in) | vc_gnt;
 	   assign allocated = vc_allocated_q & ~flit_valid_sel_head_in;
+	   assign shared_ovc_out = shared_ovc_q;
 	end
     else
 	begin
+	   assign shared_ovc_s = (shared_ovc_q | (vc_gnt & vc_sel_shared_ovc)) & ~flit_sent_tail;
 	   assign vc_allocated_s = (vc_allocated_q | vc_gnt) & ~flit_sent_tail;
+	   assign shared_ovc_out = shared_ovc_q;
 	   assign allocated = vc_allocated_q;
 	end
    endgenerate
@@ -329,6 +338,16 @@ module vcr_ivc_ctrl
       .active(pop_active),
       .d(vc_allocated_s),
       .q(vc_allocated_q));
+
+   c_dff
+     #(.width(1),
+	   .reset_type(reset_type))
+   shared_ovcq
+      (.clk(clk),
+	   .reset(reset),
+	   .active(pop_active),
+	   .d(shared_ovc_s),
+	   .q(shared_ovc_q));
    
    wire [0:num_vcs_per_message_class-1] vc_allocated_next_orc_ocvc;
    

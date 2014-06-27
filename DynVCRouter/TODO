@@ -1,6 +1,9 @@
-1. credit_for_shared
+1. stall at 150ns
 2. memory_bank_grant_out
+3. 为了解决对于共享输出端vc的指示问题的解决办法：
+是否选择共享输出vc的信息应该记录在vcr_ivc_ctrl.v模块中，在该模块中增加一个锁存器其更新的时机与vc_sel_ovc相同，更新它所用的信号即为vc_sel_ip_shared_ivc_shared_ovc(面向共享输入vc)和vc_sel_ivc_shared_ovc(面向私有vc)。当sw_gnt时，该指示信号用于驱动对应输出端口的shared_vc_out并输入opc模块中。
+
 6. route_op_orc好像有问题
 8. shared_ivc_ctrl-> port_id
 9. shared_ivc_ctrl-> num_vcs, port width missmatch
-10. query the paper status.
+

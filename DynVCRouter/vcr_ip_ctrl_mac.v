@@ -31,10 +31,11 @@
 
 module vcr_ip_ctrl_mac (clk, reset, router_address, channel_in, route_ivc_op, 
 route_ivc_orc, allocated_ivc, flit_valid_ivc, flit_head_ivc, flit_tail_ivc, 
-free_nonspec_ivc, vc_gnt_ivc, vc_sel_ivc_ovc, sw_gnt, sw_sel_ivc, sw_gnt_op, 
-almost_full_op_ovc, full_op_ovc, flit_data, flow_ctrl_out, shared_fb_push_valid, 
-shared_fb_push_head, shared_fb_push_head_ivc, shared_fb_push_tail, shared_fb_push_tail_ivc, 
-shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
+free_nonspec_ivc, vc_gnt_ivc, vc_sel_ivc_ovc, vc_sel_ivc_shared_ovc, sw_gnt, 
+sw_sel_ivc, sw_gnt_op, shared_ovc_ivc, almost_full_op_ovc, full_op_ovc, flit_data, 
+flow_ctrl_out, shared_fb_push_valid, shared_fb_push_head, shared_fb_push_head_ivc, 
+shared_fb_push_tail, shared_fb_push_tail_ivc, shared_fb_push_sel_ivc, shared_full,
+shared_fb_push_data, shared_vc_in, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -257,6 +258,8 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
    // granted output VC
    input [0:num_vcs*num_vcs-1] 		     		vc_sel_ivc_ovc;
    
+   input [0:num_vcs-1]							vc_sel_ivc_shared_ovc;
+
    // switch grant
    input 				     					sw_gnt;
    
@@ -281,7 +284,10 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
    // outgoing flow control signals
    output [0:flow_ctrl_width-1] 	     		flow_ctrl_out;
    wire [0:flow_ctrl_width-1] 		     		flow_ctrl_out;
-  
+ 
+   output [0:num_vcs-1]							shared_ovc_ivc;
+   wire [0:num_vcs-1]							shared_ovc_ivc;
+
    output				     					shared_fb_push_valid;
    wire					     					shared_fb_push_valid;
 
@@ -425,6 +431,15 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
 	   //-------------------------------------------------------------------
 	   // connect inputs
 	   //-------------------------------------------------------------------
+	   wire vc_gnt;
+	   assign vc_gnt = vc_gnt_ivc[ivc];
+	   
+	   wire 	      sw_sel;
+	   assign sw_sel = sw_sel_ivc[ivc];
+	   
+	   wire 	      fb_pop_tail;
+	   assign fb_pop_tail = fb_pop_tail_ivc[ivc];
+	   
 	   wire flit_sel_in;
 	   assign flit_sel_in = flit_sel_in_ivc[ivc];
 	   
@@ -433,21 +448,15 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
 	   
 	   wire flit_tail_in;
 	   assign flit_tail_in = flit_tail_in_ivc[ivc];
-	   
-	   wire vc_gnt;
-	   assign vc_gnt = vc_gnt_ivc[ivc];
+	  
+	   wire shared_ovc_in;
+	   assign shared_ovc_in = vc_sel_ivc_shared_ovc[ivc];
+
+	   wire 	      fb_almost_empty;
+	   assign fb_almost_empty = fb_almost_empty_ivc[ivc];
 	   
 	   wire [0:num_vcs-1] vc_sel_ovc;
 	   assign vc_sel_ovc = vc_sel_ivc_ovc[ivc*num_vcs:(ivc+1)*num_vcs-1];
-	   
-	   wire 	      sw_sel;
-	   assign sw_sel = sw_sel_ivc[ivc];
-	   
-	   wire 	      fb_pop_tail;
-	   assign fb_pop_tail = fb_pop_tail_ivc[ivc];
-	   
-	   wire 	      fb_almost_empty;
-	   assign fb_almost_empty = fb_almost_empty_ivc[ivc];
 	   
 	   //-------------------------------------------------------------------
 	   // input VC controller
@@ -455,16 +464,17 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
 	   wire 			    fb_empty;
 	   assign fb_empty = fb_empty_ivc[ivc];
 	   
-	   wire [0:num_ports-1] 	    route_op;
+	   wire [0:num_ports-1] 	    	route_op;
 	   wire [0:num_resource_classes-1]  route_orc;
-	   wire 			    flit_valid;
-	   wire 			    flit_head;
-	   wire 			    flit_tail;
+	   wire 			    			allocated;
+	   wire 			    			flit_head;
+	   wire 			    			flit_tail;
+	   wire 			    			free_spec;
+	   wire 			    			flit_valid;
+	   wire								shared_ovc;
+	   wire [0:2] 						ivcc_errors;
+	   wire 			    			free_nonspec;
 	   wire [0:lar_info_width-1] 	    next_lar_info;
-	   wire 			    allocated;
-	   wire 			    free_nonspec;
-	   wire 			    free_spec;
-	   wire [0:2] 			    ivcc_errors;
 
 	   vcr_ivc_ctrl
 	     #(.num_message_classes(num_message_classes),
@@ -506,7 +516,9 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
 	      .vc_sel_ovc(vc_sel_ovc),
 	      .sw_gnt(sw_gnt),
 	      .sw_sel(sw_sel),
-	      .sw_gnt_op(sw_gnt_op),
+		  .vc_sel_shared_ovc(shared_ovc_in),
+	      .shared_ovc_out(shared_ovc),
+		  .sw_gnt_op(sw_gnt_op),
 	      .flit_valid(flit_valid),
 	      .flit_head(flit_head),
 	      .flit_tail(flit_tail),
@@ -521,16 +533,17 @@ shared_fb_push_sel_ivc, shared_fb_push_data, shared_vc_in, shared_full, error);
 	   //-------------------------------------------------------------------
 	   // connect outputs
 	   //-------------------------------------------------------------------
-	   assign route_ivc_op[ivc*num_ports:(ivc+1)*num_ports-1] = route_op;
-	   assign route_ivc_orc[ivc*num_resource_classes:(ivc+1)*num_resource_classes-1] = route_orc;
-	   assign flit_valid_ivc[ivc] = flit_valid;
 	   assign flit_head_ivc[ivc] = flit_head;
 	   assign flit_tail_ivc[ivc] = flit_tail;
-	   assign next_lar_info_ivc[ivc*lar_info_width:(ivc+1)*lar_info_width-1] = next_lar_info;
 	   assign allocated_ivc[ivc] = allocated;
-	   assign free_nonspec_ivc[ivc] = free_nonspec;
 	   assign free_spec_ivc[ivc] = free_spec;
+	   assign shared_ovc_ivc[ivc] = shared_ovc;
+	   assign flit_valid_ivc[ivc] = flit_valid;
+	   assign free_nonspec_ivc[ivc] = free_nonspec;
 	   assign ivcc_errors_ivc[ivc*3:(ivc+1)*3-1] = ivcc_errors;
+	   assign route_ivc_op[ivc*num_ports:(ivc+1)*num_ports-1] = route_op;
+	   assign next_lar_info_ivc[ivc*lar_info_width:(ivc+1)*lar_info_width-1] = next_lar_info;
+	   assign route_ivc_orc[ivc*num_resource_classes:(ivc+1)*num_resource_classes-1] = route_orc;
 	end
    endgenerate
    

@@ -60,10 +60,10 @@ module testbench
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 300;
+   parameter warmup_time = 40;
    
    // measurement interval in cycles
-   parameter measure_time = 300;
+   parameter measure_time = 40;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -2136,13 +2136,13 @@ module testbench
       $display("cooling down...");
       
       run = 1'b0;
-/*      
+      
       while((in_flits > out_flits) || (in_flits > in_creds))
 	  begin
 	   cycles = cycles + 1;
 	   #(Tclk);
 	  end
-  */  
+    
       #(Tclk*10);
       
       $display("simulation ended after %d cycles", cycles);
