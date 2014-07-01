@@ -1,30 +1,45 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Thu Jun 26 02:08:34 2014
+[*] Tue Jul  1 19:08:14 2014
 [*]
 [dumpfile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.db"
-[dumpfile_mtime] "Thu Jun 26 02:04:28 2014"
-[dumpfile_size] 158896641
-[optimize_vcd]
+[dumpfile_mtime] "Tue Jul  1 19:07:25 2014"
+[dumpfile_size] 176380973
 [savefile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.gtkw"
-[timestart] 139
+[timestart] 103
 [size] 1215 776
 [pos] -1 -1
-*-4.000000 156 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-5.000000 206 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
 [treeopen] testbench.rtr_0.
-[treeopen] testbench.rtr_3.
+[treeopen] testbench.rtr_0.vcr.
+[treeopen] testbench.rtr_0.vcr.fbs[3].
+[treeopen] testbench.rtr_0.vcr.ips[3].
+[treeopen] testbench.rtr_0.vcr.ips[3].ipc.
+[treeopen] testbench.rtr_0.vcr.ips[3].ipc.ivcs[1].
+[treeopen] testbench.rtr_0.vcr.ips[3].ipc.ivcs[6].
+[treeopen] testbench.rtr_0.vcr.xbr.xbr.
 [treeopen] testbench.rtr_3.vcr.
+[treeopen] testbench.rtr_3.vcr.fbs[4].ivc_ctrls[8].
+[treeopen] testbench.rtr_3.vcr.fbs[4].ivc_ctrls[9].
+[treeopen] testbench.rtr_3.vcr.fbs[4].ivc_ctrls[9].ivcc.
+[treeopen] testbench.rtr_3.vcr.ips[4].
 [treeopen] testbench.rtr_3.vcr.ops[2].opc.
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.ovcs[1].ovcc.
+[treeopen] testbench.rtr_3.vcr.ops[2].opc.shared_fcs.
 [sst_width] 223
-[signals_width] 286
+[signals_width] 294
 [sst_expanded] 1
-[sst_vpaned_height] 239
+[sst_vpaned_height] 403
 @28
 testbench.rtr_3.vcr.ops[2].opc.cho.clk
 testbench.rtr_3.vcr.ops[2].opc.cho.reset
+@22
+testbench.rtr_3.vcr.credit_for_shared_out[0:4]
 @200
 -RTR[3].FB[4]
+@28
+testbench.rtr_3.vcr.ips[4].ipc.shared_vc_in
 @22
 testbench.rtr_3.vcr.fbs[4].flb.push_data[0:63]
 @28
@@ -33,8 +48,21 @@ testbench.rtr_3.vcr.fbs[4].flb.push_head
 testbench.rtr_3.vcr.fbs[4].flb.push_sel_ivc[0:1]
 testbench.rtr_3.vcr.fbs[4].flb.push_tail
 testbench.rtr_3.vcr.fbs[4].flb.push_valid
+@c00028
 testbench.rtr_3.vcr.fbs[4].flb.almost_empty_ivc[0:1]
+@28
+(0)testbench.rtr_3.vcr.fbs[4].flb.almost_empty_ivc[0:1]
+(1)testbench.rtr_3.vcr.fbs[4].flb.almost_empty_ivc[0:1]
+@1401200
+-group_end
+@c00028
 testbench.rtr_3.vcr.fbs[4].flb.empty_ivc[0:1]
+@28
+(0)testbench.rtr_3.vcr.fbs[4].flb.empty_ivc[0:1]
+(1)testbench.rtr_3.vcr.fbs[4].flb.empty_ivc[0:1]
+@1401200
+-group_end
+@28
 testbench.rtr_3.vcr.fbs[4].flb.full
 testbench.rtr_3.vcr.fbs[4].flb.pop_active
 @22
@@ -43,7 +71,14 @@ testbench.rtr_3.vcr.fbs[4].flb.pop_next_addr_ivc[0:7]
 testbench.rtr_3.vcr.fbs[4].flb.pop_next_header_info[0:6]
 @28
 testbench.rtr_3.vcr.fbs[4].flb.pop_sel_ivc[0:1]
+@c00028
 testbench.rtr_3.vcr.fbs[4].flb.pop_tail_ivc[0:1]
+@28
+(0)testbench.rtr_3.vcr.fbs[4].flb.pop_tail_ivc[0:1]
+(1)testbench.rtr_3.vcr.fbs[4].flb.pop_tail_ivc[0:1]
+@1401200
+-group_end
+@28
 testbench.rtr_3.vcr.fbs[4].flb.pop_valid
 @200
 -RTR[3].XBR
@@ -203,9 +238,9 @@ testbench.rtr_3.vcr.ops[2].opc.vc_active
 @22
 testbench.rtr_3.vcr.ops[2].opc.vc_gnt_ovc[0:9]
 testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ip[0:49]
-@c00023
+@c00022
 testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
-@29
+@28
 (0)testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
 (1)testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
 (2)testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
@@ -306,11 +341,11 @@ testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
 (97)testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
 (98)testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
 (99)testbench.rtr_3.vcr.ops[2].opc.vc_sel_ovc_ivc[0:99]
-@1401201
+@1401200
 -group_end
 @28
 testbench.rtr_3.vcr.ops[2].opc.sw_active
-testbench.rtr_3.vcr.ops[2].opc.sw_gnt
++{testbench.rtr_3.vcr.ops[2].opc.sw_gnt} testbench.rtr_3.vcr.ops[2].opc.sw_gnt
 @22
 testbench.rtr_3.vcr.ops[2].opc.sw_sel_ip[0:4]
 testbench.rtr_3.vcr.ops[2].opc.sw_sel_ivc[0:9]
@@ -321,7 +356,7 @@ testbench.rtr_3.vcr.ops[2].opc.flit_data[0:63]
 @28
 testbench.rtr_3.vcr.ops[2].opc.flit_tail
 testbench.rtr_3.vcr.ops[2].opc.credit_for_shared
-@800022
+@c00022
 testbench.rtr_3.vcr.ops[2].opc.shared_elig_ovc[0:9]
 @28
 (0)testbench.rtr_3.vcr.ops[2].opc.shared_elig_ovc[0:9]
@@ -334,19 +369,24 @@ testbench.rtr_3.vcr.ops[2].opc.shared_elig_ovc[0:9]
 (7)testbench.rtr_3.vcr.ops[2].opc.shared_elig_ovc[0:9]
 (8)testbench.rtr_3.vcr.ops[2].opc.shared_elig_ovc[0:9]
 (9)testbench.rtr_3.vcr.ops[2].opc.shared_elig_ovc[0:9]
-@1001200
+@1401200
 -group_end
 @22
 testbench.rtr_3.vcr.ops[2].opc.elig_ovc[0:9]
 @200
 -RTR[3].OP[2].cho
+@28
+testbench.rtr_3.vcr.ops[2].opc.flit_sent
+testbench.rtr_3.vcr.ops[2].opc.shared_vc_q
+testbench.rtr_3.vcr.ops[2].opc.shared_vc_s
+testbench.rtr_3.vcr.ops[2].opc.shared_vc_out
 @800022
 testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 @28
 +{testbench.rtr_3.vcr.ops[2].opc.link_active} (0)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 +{testbench.rtr_3.vcr.ops[2].opc.flit_valid} (1)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 @c00022
-#{testbench.rtr_3.vcr.ops[2].opc.flit_sel_vc} (2)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71] (3)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71] (4)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71] (5)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
++{testbench.rtr_3.vcr.ops[2].opc.vc_out} #{testbench.rtr_3.vcr.ops[2].opc.shared_vc_out} (2)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71] (3)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71] (4)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71] (5)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 @28
 (2)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 (3)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
@@ -426,13 +466,310 @@ testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 (71)testbench.rtr_3.vcr.ops[2].opc.channel_out[0:71]
 @1401200
 -group_end
+@1001200
+-group_end
+@200
+-RTR[3].shared_fc_input[2]
 @28
-testbench.rtr_3.vcr.ops[2].opc.shared_vc
+testbench.rtr_3.vcr.ops[2].opc.shared_fcs.flit_valid
+testbench.rtr_3.vcr.ops[2].opc.shared_fcs.flit_head
+testbench.rtr_3.vcr.ops[2].opc.shared_fcs.flit_tail
+testbench.rtr_3.vcr.ops[2].opc.shared_fcs_active
+@800022
+testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4]
+@28
++{testbench.rtr_3.vcr.ops[2].opc.shared_fc_valid} (0)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4]
+@c00022
+#{testbench.rtr_3.vcr.ops[2].opc.shared_fc_sel_ovc} (1)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4] (2)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4] (3)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4] (4)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4]
+@28
+(1)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4]
+(2)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4]
+(3)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4]
+(4)testbench.rtr_3.vcr.ops[2].opc.shared_flow_ctrl_in[0:4]
+@1401200
+-group_end
+@1001200
+-group_end
+@28
+testbench.rtr_3.vcr.ops[2].opc.shared_fc_event_valid
+@22
+testbench.rtr_3.vcr.ops[2].opc.shared_fc_event_sel_ovc[0:9]
+@200
+-RTR[0].IP[3]
+@800022
+testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@28
++{testbench.rtr_0.vcr.ips[3].ipc.link_active} (0)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
++{testbench.rtr_0.vcr.ips[3].ipc.flit_valid} (1)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@c00022
+#{testbench.rtr_0.vcr.ips[3].ipc.vc_out} (2)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (3)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (4)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (5)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@28
++{testbench.rtr_0.vcr.ips[3].ipc.channel_in[2]} (2)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(3)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(4)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(5)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@1401200
+-group_end
+@28
+testbench.rtr_0.vcr.ips[3].ipc.shared_vc_in
++{testbench.rtr_0.vcr.ips[3].ipc.flit_head} (6)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
++{testbench.rtr_0.vcr.ips[3].ipc.flit_tail} (7)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@c00022
+#{testbench.rtr_0.vcr.ips[3].ipc.flit_data} (8)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (9)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (10)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (11)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (12)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (13)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (14)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (15)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (16)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (17)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (18)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (19)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (20)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (21)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (22)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (23)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (24)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (25)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (26)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (27)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (28)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (29)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (30)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (31)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (32)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (33)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (34)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (35)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (36)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (37)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (38)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (39)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (40)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (41)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (42)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (43)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (44)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (45)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (46)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (47)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (48)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (49)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (50)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (51)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (52)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (53)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (54)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (55)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (56)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (57)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (58)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (59)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (60)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (61)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (62)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (63)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (64)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (65)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (66)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (67)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (68)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (69)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (70)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71] (71)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+@28
+(8)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(9)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(10)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(11)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(12)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(13)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(14)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(15)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(16)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(17)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(18)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(19)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(20)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(21)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(22)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(23)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(24)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(25)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(26)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(27)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(28)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(29)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(30)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(31)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(32)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(33)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(34)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(35)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(36)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(37)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(38)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(39)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(40)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(41)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(42)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(43)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(44)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(45)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(46)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(47)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(48)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(49)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(50)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(51)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(52)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(53)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(54)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(55)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(56)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(57)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(58)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(59)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(60)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(61)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(62)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(63)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(64)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(65)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(66)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(67)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(68)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(69)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(70)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
+(71)testbench.rtr_0.vcr.ips[3].ipc.channel_in[0:71]
 @1401200
 -group_end
 @200
--RTR[0].OP[4]
+-RTR[0].shared_fb
+@29
+testbench.rtr_0.vcr.ips[3].ipc.flit_valid_o
 @28
-testbench.rtr_3.vcr.ops[2].opc.flit_valid_q
+testbench.rtr_0.vcr.ips[3].ipc.shared_vc_in
+testbench.rtr_0.vcr.fbs[3].flb.push_active
+testbench.rtr_0.vcr.fbs[3].flb.push_valid
+testbench.rtr_0.vcr.fbs[3].flb.push_head
+testbench.rtr_0.vcr.fbs[3].flb.push_tail
+@22
+testbench.rtr_0.vcr.fbs[3].flb.push_data[0:63]
+@28
+testbench.rtr_0.vcr.fbs[3].flb.push_sel_ivc[0:1]
+@1001200
+-group_end
+@200
+-RTR[0].shared_fcs_output[3]
+@22
+testbench.rtr_0.vcr.credit_for_shared_out[0:4]
+@800022
+testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24]
+@28
++{testbench.rtr_0.vcr.flow_ctrl_out_valid} (15)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24]
+@c00022
++{testbench.rtr_0.vcr.flow_ctrl_out_vc} #{testbench.rtr_0.vcr.flow_ctrl_out_ip[16:19]} (16)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24] (17)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24] (18)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24] (19)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24]
+@28
+(16)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24]
+(17)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24]
+(18)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24]
+(19)testbench.rtr_0.vcr.flow_ctrl_out_ip[0:24]
+@1401200
+-group_end
+@1001200
+-group_end
+@200
+-RTR[0].XBR
+@800022
+testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+@c00022
+#{testbench.rtr_0.vcr.xbr.data_in_ip[192:255]} (192)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (193)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (194)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (195)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (196)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (197)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (198)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (199)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (200)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (201)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (202)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (203)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (204)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (205)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (206)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (207)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (208)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (209)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (210)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (211)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (212)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (213)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (214)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (215)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (216)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (217)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (218)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (219)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (220)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (221)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (222)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (223)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (224)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (225)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (226)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (227)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (228)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (229)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (230)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (231)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (232)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (233)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (234)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (235)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (236)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (237)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (238)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (239)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (240)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (241)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (242)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (243)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (244)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (245)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (246)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (247)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (248)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (249)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (250)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (251)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (252)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (253)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (254)testbench.rtr_0.vcr.xbr.data_in_ip[0:319] (255)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+@28
+(192)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(193)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(194)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(195)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(196)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(197)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(198)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(199)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(200)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(201)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(202)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(203)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(204)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(205)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(206)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(207)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(208)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(209)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(210)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(211)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(212)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(213)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(214)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(215)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(216)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(217)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(218)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(219)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(220)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(221)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(222)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(223)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(224)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(225)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(226)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(227)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(228)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(229)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(230)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(231)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(232)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(233)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(234)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(235)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(236)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(237)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(238)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(239)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(240)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(241)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(242)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(243)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(244)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(245)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(246)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(247)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(248)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(249)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(250)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(251)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(252)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(253)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(254)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+(255)testbench.rtr_0.vcr.xbr.data_in_ip[0:319]
+@1401200
+-group_end
+@1001200
+-group_end
+@200
+-RTR[0].OP[4]
+@800022
+testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+@28
++{testbench.rtr_0.vcr.ops[4].opc.link_active} (0)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
++{testbench.rtr_0.vcr.ops[4].opc.flit_valid} (1)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+@c00022
+#{testbench.rtr_0.vcr.ops[4].opc.flit_data} (8)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (9)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (10)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (11)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (12)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (13)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (14)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (15)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (16)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (17)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (18)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (19)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (20)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (21)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (22)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (23)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (24)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (25)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (26)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (27)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (28)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (29)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (30)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (31)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (32)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (33)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (34)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (35)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (36)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (37)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (38)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (39)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (40)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (41)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (42)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (43)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (44)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (45)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (46)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (47)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (48)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (49)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (50)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (51)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (52)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (53)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (54)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (55)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (56)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (57)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (58)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (59)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (60)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (61)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (62)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (63)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (64)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (65)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (66)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (67)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (68)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (69)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (70)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71] (71)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+@28
+(8)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(9)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(10)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(11)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(12)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(13)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(14)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(15)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(16)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(17)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(18)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(19)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(20)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(21)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(22)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(23)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(24)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(25)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(26)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(27)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(28)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(29)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(30)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(31)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(32)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(33)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(34)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(35)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(36)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(37)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(38)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(39)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(40)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(41)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(42)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(43)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(44)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(45)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(46)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(47)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(48)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(49)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(50)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(51)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(52)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(53)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(54)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(55)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(56)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(57)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(58)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(59)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(60)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(61)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(62)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(63)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(64)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(65)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(66)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(67)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(68)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(69)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(70)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+(71)testbench.rtr_0.vcr.ops[4].opc.channel_out[0:71]
+@1401200
+-group_end
+@1001200
+-group_end
 [pattern_trace] 1
 [pattern_trace] 0

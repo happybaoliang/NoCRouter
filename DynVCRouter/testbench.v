@@ -60,10 +60,10 @@ module testbench
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 40;
+   parameter warmup_time = 10000;
    
    // measurement interval in cycles
-   parameter measure_time = 40;
+   parameter measure_time = 10000;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -936,7 +936,31 @@ module testbench
 		   .active(1'b1),
 		   .data_in(flow_ctrl_out),
 		   .data_out(flow_ctrl_dly));
-		
+	
+		wire credit_shared_in;
+		c_shift_reg
+		  #(.width(1),
+			.depth(num_channel_stages),
+			.reset_type(reset_type))
+		credit_for_shared_dly_sr
+		   (.clk(clk),
+			.reset(reset),
+			.active(1'b1),
+			.data_in(shared_credit_from_rtr[ip]),
+			.data_out(credit_shared_in));
+
+		wire vc_shared;
+		c_shift_reg
+		  #(.width(1),
+			.depth(num_channel_stages),
+			.reset_type(reset_type))
+		vc_shared_dly_sr
+		   (.clk(clk),
+			.reset(reset),
+			.active(1'b1),
+			.data_in(vc_shared),
+			.data_out(shared_vc_from_ps[ip]));
+
 		wire [0:channel_width-1]   channel;
 		wire 			   flit_valid;
 		wire [0:router_addr_width-1] 		router_address;
@@ -991,9 +1015,9 @@ module testbench
 		   .router_address(router_address),
 		   .channel(channel),
 		   .memory_bank_grant(memory_bank_grant_from_rtr[ip*num_ports:(ip+1)*num_ports-1]),
-		   .shared_vc(shared_vc_from_ps[ip]),
+		   .shared_vc(vc_shared),
 		   .flit_valid(flit_valid),
-		   .credit_for_shared(shared_credit_from_rtr[ip]),
+		   .credit_for_shared(credit_shared_in),
 		   .flow_ctrl(flow_ctrl_dly),
 		   .run(run),
 		   .error(ps_error));
@@ -1901,7 +1925,30 @@ module testbench
 	   wire [0:flow_ctrl_width-1] flow_ctrl;
 	   
 	   wire 		      fs_error;
+
+	   wire vc_shared;
+	   c_shift_reg
+	     #(.width(1),
+	       .depth(num_channel_stages),
+	       .reset_type(reset_type))
+	   vc_shared_dly_sr
+	     (.clk(clk),
+	      .reset(reset),
+	      .active(1'b1),
+	      .data_in(shared_vc_to_fs[op]),
+	      .data_out(vc_shared));
 	   
+	   wire credit_to_rtr;
+	   c_shift_reg
+	     #(.width(1),
+	       .depth(num_channel_stages),
+	       .reset_type(reset_type))
+	   credit_dly_sr
+	     (.clk(clk),
+	      .reset(reset),
+	      .active(1'b1),
+	      .data_in(credit_to_rtr),
+	      .data_out(shared_credit_to_rtr[op]));
 	   flit_sink
 	     #(.initial_seed(initial_seed + num_routers + op),
 	       .consume_rate(consume_rate),
@@ -1923,9 +1970,9 @@ module testbench
 	     (.clk(clk),
 	      .reset(reset),
 	      .channel(channel_dly),
-	      .shared_vc(shared_vc_to_fs[op]),
+	      .shared_vc(vc_shared),
 	      .memory_bank_grant(memory_bank_grant_to_rtr[op*num_ports:(op+1)*num_ports-1]),
-	      .credit_for_shared(shared_credit_to_rtr[op]),
+	      .credit_for_shared(credit_to_rtr),
 	      .flow_ctrl(flow_ctrl),
 	      .error(fs_error));
 	   
@@ -2142,7 +2189,7 @@ module testbench
 	   cycles = cycles + 1;
 	   #(Tclk);
 	  end
-    
+
       #(Tclk*10);
       
       $display("simulation ended after %d cycles", cycles);

@@ -3,7 +3,7 @@
 	<head>
 		<title>VCS dump file for DVE debugging</title>
 		<vcsVersion>D-2009.12</vcsVersion>
-		<dateCreated>Sat Jun 28 03:34:15 2014</dateCreated>
+		<dateCreated>Wed Jul  2 03:30:11 2014</dateCreated>
 	</head>
 	<body>
 		<!-- VCS compile options -->
@@ -131,9 +131,9 @@
 			<incfile fid="38" lineno="40" includeID="3" />
 			<incfile fid="38" lineno="41" includeID="4" />
 			<incfile fid="24" lineno="37" includeID="1" />
-			<incfile fid="12" lineno="37" includeID="1" />
-			<incfile fid="12" lineno="38" includeID="2" />
-			<incfile fid="12" lineno="39" includeID="3" />
+			<incfile fid="12" lineno="36" includeID="1" />
+			<incfile fid="12" lineno="37" includeID="2" />
+			<incfile fid="12" lineno="38" includeID="3" />
 			<incfile fid="36" lineno="44" includeID="1" />
 			<incfile fid="36" lineno="45" includeID="2" />
 			<incfile fid="36" lineno="46" includeID="4" />
@@ -175,7 +175,7 @@
 			<incfile fid="76" lineno="37" includeID="2" />
 			<incfile fid="22" lineno="7" includeID="1" />
 			<incfile fid="22" lineno="8" includeID="2" />
-			<incfile fid="54" lineno="35" includeID="2" />
+			<incfile fid="54" lineno="34" includeID="2" />
 			<incfile fid="8" lineno="35" includeID="1" />
 			<incfile fid="8" lineno="36" includeID="2" />
 			<incfile fid="8" lineno="37" includeID="3" />
@@ -249,9 +249,9 @@
 			<incfile fid="34" lineno="42" includeID="3" />
 			<incfile fid="41" lineno="34" includeID="1" />
 			<incfile fid="41" lineno="35" includeID="2" />
-			<incfile fid="13" lineno="36" includeID="1" />
-			<incfile fid="13" lineno="37" includeID="2" />
-			<incfile fid="13" lineno="38" includeID="3" />
+			<incfile fid="13" lineno="35" includeID="1" />
+			<incfile fid="13" lineno="36" includeID="2" />
+			<incfile fid="13" lineno="37" includeID="3" />
 			<incfile fid="67" lineno="36" includeID="1" />
 			<incfile fid="67" lineno="37" includeID="2" />
 		</includeFileList>
@@ -263,8 +263,8 @@
 		</inactiveCodesList>
 		<!-- Compile options UUM based -->
 		<langKeywords>
-			<v95Files fid="29 51 66 72" />
-			<v2kFiles fid="0-28 30-50 52-65 67-71 73-81" />
+			<v95Files fid="29 51 66" />
+			<v2kFiles fid="0-28 30-50 52-65 67-81" />
 		</langKeywords>
 		<!--  Case insensitive file list -->
 		<caseInsensitiveFiles fid="" />
@@ -489,20 +489,20 @@
 			<macro name="RESET_TYPE_ASYNC" module="vcr_ivc_ctrl" sourceID="38" lineno="192" defID="2" defLine="38" value="2" />
 			<macro name="FB_MGMT_TYPE_STATIC" module="" sourceID="38" lineno="686" defID="4" defLine="154" value="2" />
 			<macro name="ELIG_MASK_NONE" module="" sourceID="38" lineno="748" defID="4" defLine="138" value="2" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_input" sourceID="12" lineno="50" defID="3" defLine="119" value="4" />
-			<macro name="RESET_TYPE_ASYNC" module="rtr_channel_input" sourceID="12" lineno="69" defID="2" defLine="38" value="2" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_input" sourceID="12" lineno="87" defID="3" defLine="112" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="rtr_channel_input" sourceID="12" lineno="89" defID="3" defLine="116" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_input" sourceID="12" lineno="91" defID="3" defLine="119" value="4" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_input" sourceID="12" lineno="100" defID="3" defLine="112" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="rtr_channel_input" sourceID="12" lineno="102" defID="3" defLine="116" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_input" sourceID="12" lineno="104" defID="3" defLine="119" value="4" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="12" lineno="207" defID="3" defLine="112" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="12" lineno="208" defID="3" defLine="116" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="12" lineno="209" defID="3" defLine="119" value="4" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="12" lineno="264" defID="3" defLine="112" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="12" lineno="274" defID="3" defLine="116" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="12" lineno="315" defID="3" defLine="119" value="4" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_input" sourceID="12" lineno="49" defID="3" defLine="119" value="4" />
+			<macro name="RESET_TYPE_ASYNC" module="rtr_channel_input" sourceID="12" lineno="68" defID="2" defLine="38" value="2" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_input" sourceID="12" lineno="86" defID="3" defLine="112" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="rtr_channel_input" sourceID="12" lineno="88" defID="3" defLine="116" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_input" sourceID="12" lineno="90" defID="3" defLine="119" value="4" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_input" sourceID="12" lineno="99" defID="3" defLine="112" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="rtr_channel_input" sourceID="12" lineno="101" defID="3" defLine="116" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_input" sourceID="12" lineno="103" defID="3" defLine="119" value="4" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="12" lineno="219" defID="3" defLine="112" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="12" lineno="220" defID="3" defLine="116" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="12" lineno="221" defID="3" defLine="119" value="4" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="12" lineno="270" defID="3" defLine="112" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="12" lineno="277" defID="3" defLine="116" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="12" lineno="313" defID="3" defLine="119" value="4" />
 			<macro name="SW_ALLOC_TYPE_SEP_IF" module="vcr_alloc_mac" sourceID="36" lineno="70" defID="4" defLine="185" value="2" />
 			<macro name="ARBITER_TYPE_ROUND_ROBIN_BINARY" module="vcr_alloc_mac" sourceID="36" lineno="73" defID="2" defLine="51" value="2" />
 			<macro name="VC_ALLOC_TYPE_SEP_IF" module="vcr_alloc_mac" sourceID="36" lineno="76" defID="4" defLine="167" value="2" />
@@ -510,21 +510,20 @@
 			<macro name="SW_ALLOC_SPEC_TYPE_REQ" module="vcr_alloc_mac" sourceID="36" lineno="82" defID="4" defLine="206" value="3" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_alloc_mac" sourceID="36" lineno="84" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="253" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="262" defID="2" defLine="162" value="4" />
-			<macro name="VC_ALLOC_TYPE_SEP_IF" module="" sourceID="36" lineno="324" defID="4" defLine="167" value="2" />
-			<macro name="VC_ALLOC_TYPE_SEP_OF" module="" sourceID="36" lineno="348" defID="4" defLine="170" value="3" />
-			<macro name="VC_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="372" defID="4" defLine="174" value="4" />
-			<macro name="VC_ALLOC_TYPE_WF_LIMIT" module="" sourceID="36" lineno="372" defID="4" defLine="175" value="6" />
-			<macro name="VC_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="382" defID="4" defLine="174" value="4" />
-			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="481" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="489" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="518" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="527" defID="2" defLine="162" value="4" />
-			<macro name="SW_ALLOC_TYPE_SEP_IF" module="" sourceID="36" lineno="606" defID="4" defLine="185" value="2" />
-			<macro name="SW_ALLOC_TYPE_SEP_OF" module="" sourceID="36" lineno="628" defID="4" defLine="188" value="3" />
-			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="650" defID="4" defLine="192" value="4" />
-			<macro name="SW_ALLOC_TYPE_WF_LIMIT" module="" sourceID="36" lineno="650" defID="4" defLine="193" value="6" />
-			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="655" defID="4" defLine="192" value="4" />
+			<macro name="VC_ALLOC_TYPE_SEP_IF" module="" sourceID="36" lineno="313" defID="4" defLine="167" value="2" />
+			<macro name="VC_ALLOC_TYPE_SEP_OF" module="" sourceID="36" lineno="337" defID="4" defLine="170" value="3" />
+			<macro name="VC_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="361" defID="4" defLine="174" value="4" />
+			<macro name="VC_ALLOC_TYPE_WF_LIMIT" module="" sourceID="36" lineno="361" defID="4" defLine="175" value="6" />
+			<macro name="VC_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="371" defID="4" defLine="174" value="4" />
+			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="492" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="500" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="530" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_OR" module="vcr_alloc_mac" sourceID="36" lineno="539" defID="2" defLine="162" value="4" />
+			<macro name="SW_ALLOC_TYPE_SEP_IF" module="" sourceID="36" lineno="615" defID="4" defLine="185" value="2" />
+			<macro name="SW_ALLOC_TYPE_SEP_OF" module="" sourceID="36" lineno="637" defID="4" defLine="188" value="3" />
+			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="659" defID="4" defLine="192" value="4" />
+			<macro name="SW_ALLOC_TYPE_WF_LIMIT" module="" sourceID="36" lineno="659" defID="4" defLine="193" value="6" />
+			<macro name="SW_ALLOC_TYPE_WF_BASE" module="" sourceID="36" lineno="664" defID="4" defLine="192" value="4" />
 			<macro name="BINARY_OP_AND" module="c_mat_mult" sourceID="29" lineno="43" defID="2" defLine="160" value="2" />
 			<macro name="BINARY_OP_XOR" module="c_mat_mult" sourceID="29" lineno="46" defID="2" defLine="164" value="1" />
 			<macro name="RESET_TYPE_ASYNC" module="rtr_flit_type_check" sourceID="56" lineno="41" defID="2" defLine="38" value="2" />
@@ -639,8 +638,8 @@
 			<macro name="ARBITER_TYPE_PREFIX_BINARY" module="" sourceID="22" lineno="75" defID="2" defLine="57" value="4" />
 			<macro name="ARBITER_TYPE_PREFIX_ONE_HOT" module="" sourceID="22" lineno="75" defID="2" defLine="60" value="5" />
 			<macro name="ARBITER_TYPE_MATRIX" module="" sourceID="22" lineno="91" defID="2" defLine="63" value="1" />
-			<macro name="BINARY_OP_AND" module="c_select_mofn" sourceID="54" lineno="44" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="c_select_mofn" sourceID="54" lineno="47" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="c_select_mofn" sourceID="54" lineno="43" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="c_select_mofn" sourceID="54" lineno="46" defID="2" defLine="162" value="4" />
 			<macro name="CONNECTIVITY_LINE" module="router_checker" sourceID="8" lineno="86" defID="4" defLine="53" value="2" />
 			<macro name="CONNECTIVITY_LINE" module="router_checker" sourceID="8" lineno="90" defID="4" defLine="53" value="2" />
 			<macro name="CONNECTIVITY_RING" module="router_checker" sourceID="8" lineno="91" defID="4" defLine="56" value="3" />
@@ -657,18 +656,18 @@
 			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="router_checker" sourceID="8" lineno="169" defID="4" defLine="118" value="4" />
 			<macro name="DIM_ORDER_ASCENDING" module="router_checker" sourceID="8" lineno="174" defID="4" defLine="95" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="router_checker" sourceID="8" lineno="176" defID="2" defLine="38" value="2" />
-			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="265" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="266" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="277" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="278" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="297" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="298" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="354" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="355" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="366" defID="2" defLine="160" value="2" />
-			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="367" defID="2" defLine="162" value="4" />
-			<macro name="BINARY_OP_OR" module="router_checker" sourceID="8" lineno="681" defID="2" defLine="162" value="4" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="8" lineno="863" defID="2" defLine="73" value="2" />
+			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="267" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="268" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="279" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="280" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="299" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="300" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="356" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="357" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_AND" module="ips" sourceID="8" lineno="368" defID="2" defLine="160" value="2" />
+			<macro name="BINARY_OP_OR" module="ips" sourceID="8" lineno="369" defID="2" defLine="162" value="4" />
+			<macro name="BINARY_OP_OR" module="router_checker" sourceID="8" lineno="683" defID="2" defLine="162" value="4" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="8" lineno="867" defID="2" defLine="73" value="2" />
 			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="flit_sink" sourceID="6" lineno="61" defID="3" defLine="119" value="4" />
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="flit_sink" sourceID="6" lineno="64" defID="3" defLine="129" value="2" />
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="flit_sink" sourceID="6" lineno="67" defID="3" defLine="129" value="2" />
@@ -678,7 +677,7 @@
 			<macro name="REGFILE_TYPE_FF_2D" module="flit_sink" sourceID="6" lineno="110" defID="2" defLine="107" value="2" />
 			<macro name="FB_MGMT_TYPE_STATIC" module="flit_sink" sourceID="6" lineno="113" defID="3" defLine="155" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="flit_sink" sourceID="6" lineno="118" defID="2" defLine="38" value="2" />
-			<macro name="ARBITER_TYPE_MATRIX" module="flit_sink" sourceID="6" lineno="200" defID="2" defLine="63" value="1" />
+			<macro name="ARBITER_TYPE_MATRIX" module="flit_sink" sourceID="6" lineno="204" defID="2" defLine="63" value="1" />
 			<macro name="CONNECTIVITY_LINE" module="vcr_top" sourceID="21" lineno="84" defID="4" defLine="53" value="2" />
 			<macro name="CONNECTIVITY_LINE" module="vcr_top" sourceID="21" lineno="88" defID="4" defLine="53" value="2" />
 			<macro name="CONNECTIVITY_RING" module="vcr_top" sourceID="21" lineno="89" defID="4" defLine="56" value="3" />
@@ -708,13 +707,13 @@
 			<macro name="SW_ALLOC_SPEC_TYPE_REQ" module="vcr_top" sourceID="21" lineno="229" defID="4" defLine="206" value="3" />
 			<macro name="CROSSBAR_TYPE_MUX" module="vcr_top" sourceID="21" lineno="232" defID="2" defLine="94" value="3" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_top" sourceID="21" lineno="234" defID="2" defLine="38" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ips" sourceID="21" lineno="416" defID="4" defLine="203" value="2" />
-			<macro name="BINARY_OP_OR" module="ips" sourceID="21" lineno="477" defID="2" defLine="162" value="4" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ivc_ctrls" sourceID="21" lineno="783" defID="4" defLine="203" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="fbs" sourceID="21" lineno="848" defID="4" defLine="203" value="2" />
-			<macro name="ELIG_MASK_NONE" module="" sourceID="21" lineno="851" defID="4" defLine="138" value="2" />
-			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ops" sourceID="21" lineno="1211" defID="4" defLine="203" value="2" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="21" lineno="1266" defID="2" defLine="73" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ips" sourceID="21" lineno="414" defID="4" defLine="203" value="2" />
+			<macro name="BINARY_OP_OR" module="ips" sourceID="21" lineno="475" defID="2" defLine="162" value="4" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ivc_ctrls" sourceID="21" lineno="776" defID="4" defLine="203" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="fbs" sourceID="21" lineno="841" defID="4" defLine="203" value="2" />
+			<macro name="ELIG_MASK_NONE" module="" sourceID="21" lineno="844" defID="4" defLine="138" value="2" />
+			<macro name="SW_ALLOC_SPEC_TYPE_NONE" module="ops" sourceID="21" lineno="1206" defID="4" defLine="203" value="2" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="21" lineno="1270" defID="2" defLine="73" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="c_prefix_arbiter" sourceID="47" lineno="50" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="" sourceID="47" lineno="161" defID="2" defLine="162" value="4" />
 			<macro name="BINARY_OP_AND" module="" sourceID="47" lineno="179" defID="2" defLine="160" value="2" />
@@ -756,8 +755,8 @@
 			<macro name="ELIG_MASK_USED" module="vcr_ip_ctrl_mac" sourceID="37" lineno="206" defID="4" defLine="144" value="4" />
 			<macro name="ERROR_CAPTURE_MODE_NO_HOLD" module="vcr_ip_ctrl_mac" sourceID="37" lineno="209" defID="2" defLine="75" value="3" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_ip_ctrl_mac" sourceID="37" lineno="214" defID="2" defLine="38" value="2" />
-			<macro name="ELIG_MASK_NONE" module="" sourceID="37" lineno="396" defID="4" defLine="138" value="2" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="37" lineno="723" defID="2" defLine="73" value="2" />
+			<macro name="ELIG_MASK_NONE" module="" sourceID="37" lineno="401" defID="4" defLine="138" value="2" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="37" lineno="728" defID="2" defLine="73" value="2" />
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="rtr_flow_ctrl_input" sourceID="16" lineno="48" defID="3" defLine="129" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="rtr_flow_ctrl_input" sourceID="16" lineno="50" defID="2" defLine="38" value="2" />
 			<macro name="FLOW_CTRL_TYPE_CREDIT" module="rtr_flow_ctrl_input" sourceID="16" lineno="62" defID="3" defLine="129" value="2" />
@@ -858,7 +857,7 @@
 			<macro name="ELIG_MASK_NONE" module="vcr_op_ctrl_mac" sourceID="39" lineno="118" defID="4" defLine="138" value="2" />
 			<macro name="ELIG_MASK_USED" module="vcr_op_ctrl_mac" sourceID="39" lineno="121" defID="4" defLine="144" value="4" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_op_ctrl_mac" sourceID="39" lineno="126" defID="2" defLine="38" value="2" />
-			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="39" lineno="557" defID="2" defLine="73" value="2" />
+			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="39" lineno="586" defID="2" defLine="73" value="2" />
 			<macro name="ARBITER_TYPE_ROUND_ROBIN_BINARY" module="vcr_vc_alloc_sep_if" sourceID="62" lineno="33" defID="2" defLine="51" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="vcr_vc_alloc_sep_if" sourceID="62" lineno="35" defID="2" defLine="38" value="2" />
 			<macro name="BINARY_OP_OR" module="icvcs" sourceID="62" lineno="188" defID="2" defLine="162" value="4" />
@@ -905,17 +904,17 @@
 			<macro name="BINARY_OP_OR" module="glu" sourceID="34" lineno="444" defID="2" defLine="162" value="4" />
 			<macro name="ERROR_CAPTURE_MODE_NONE" module="" sourceID="34" lineno="1294" defID="2" defLine="73" value="2" />
 			<macro name="RESET_TYPE_ASYNC" module="c_damq_tracker" sourceID="41" lineno="60" defID="2" defLine="38" value="2" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_output" sourceID="13" lineno="49" defID="3" defLine="119" value="4" />
-			<macro name="RESET_TYPE_ASYNC" module="rtr_channel_output" sourceID="13" lineno="57" defID="2" defLine="38" value="2" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_output" sourceID="13" lineno="72" defID="3" defLine="112" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="rtr_channel_output" sourceID="13" lineno="74" defID="3" defLine="116" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_output" sourceID="13" lineno="76" defID="3" defLine="119" value="4" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="13" lineno="144" defID="3" defLine="112" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="13" lineno="145" defID="3" defLine="116" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="13" lineno="146" defID="3" defLine="119" value="4" />
-			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="13" lineno="204" defID="3" defLine="112" value="2" />
-			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="13" lineno="209" defID="3" defLine="116" value="3" />
-			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="13" lineno="213" defID="3" defLine="119" value="4" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_output" sourceID="13" lineno="48" defID="3" defLine="119" value="4" />
+			<macro name="RESET_TYPE_ASYNC" module="rtr_channel_output" sourceID="13" lineno="56" defID="2" defLine="38" value="2" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="rtr_channel_output" sourceID="13" lineno="71" defID="3" defLine="112" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="rtr_channel_output" sourceID="13" lineno="73" defID="3" defLine="116" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="rtr_channel_output" sourceID="13" lineno="75" defID="3" defLine="119" value="4" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="13" lineno="143" defID="3" defLine="112" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="13" lineno="144" defID="3" defLine="116" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="13" lineno="145" defID="3" defLine="119" value="4" />
+			<macro name="PACKET_FORMAT_HEAD_TAIL" module="" sourceID="13" lineno="203" defID="3" defLine="112" value="2" />
+			<macro name="PACKET_FORMAT_TAIL_ONLY" module="" sourceID="13" lineno="208" defID="3" defLine="116" value="3" />
+			<macro name="PACKET_FORMAT_EXPLICIT_LENGTH" module="" sourceID="13" lineno="212" defID="3" defLine="119" value="4" />
 			<macro name="RESET_TYPE_ASYNC" module="c_fifo_tracker" sourceID="67" lineno="51" defID="2" defLine="38" value="2" />
 		</macroDefinitionList>
 		<!-- Macro value list for the whole design --> 

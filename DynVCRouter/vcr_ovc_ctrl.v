@@ -29,9 +29,9 @@
 // output port controller (tracks state of buffers in downstream router)
 //==============================================================================
 
-module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, 
-		sw_active, sw_gnt, sw_sel_ip, sw_sel_ivc, flit_valid, flit_tail, 
-		flit_sel, elig, full, full_prev, empty);
+module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_active, 
+		sw_gnt, sw_sel_ip, sw_sel_ivc, flit_valid, flit_tail, flit_sel, elig, full, 
+		full_prev, empty);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -176,7 +176,7 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc,
       
    endgenerate
    
-   wire 		      match_s, match_q;
+   wire	match_s, match_q;
    assign match_s = sw_gnt ? (port_match & vc_match) : match_q;
    c_dff
      #(.width(1),

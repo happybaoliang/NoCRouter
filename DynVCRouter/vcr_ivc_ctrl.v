@@ -319,14 +319,14 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
 	   assign shared_ovc_s = (shared_ovc_q & ~ flit_valid_sel_head_in) | (vc_gnt & vc_sel_shared_ovc);
 	   assign vc_allocated_s = (vc_allocated_q & ~flit_valid_sel_head_in) | vc_gnt;
 	   assign allocated = vc_allocated_q & ~flit_valid_sel_head_in;
-	   assign shared_ovc_out = shared_ovc_q;
+	   assign shared_ovc_out = shared_ovc_s;
 	end
     else
 	begin
 	   assign shared_ovc_s = (shared_ovc_q | (vc_gnt & vc_sel_shared_ovc)) & ~flit_sent_tail;
 	   assign vc_allocated_s = (vc_allocated_q | vc_gnt) & ~flit_sent_tail;
 	   assign shared_ovc_out = shared_ovc_q;
-	   assign allocated = vc_allocated_q;
+	   assign allocated = vc_allocated_s;
 	end
    endgenerate
    c_dff
@@ -414,7 +414,7 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    wire [0:route_info_width-1] route_info_in;
    assign route_info_in = header_info_in[0:route_info_width-1];
   
-// 'hdr_active' signals keeps on valid throughout the tranmission of entire packet. 
+   // 'hdr_active' signals keeps on valid throughout the tranmission of entire packet. 
    wire       hdr_active;
    wire       hdr_capture;
 
@@ -683,9 +683,9 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    wire 				       reduce;
    
    generate
-      if(fb_mgmt_type == `FB_MGMT_TYPE_STATIC)
-	assign reduce = flit_sent;
-      else
+    if(fb_mgmt_type == `FB_MGMT_TYPE_STATIC)
+		assign reduce = flit_sent;
+    else
 	begin
 	   c_select_1ofn
 	     #(.num_ports(num_ports),
