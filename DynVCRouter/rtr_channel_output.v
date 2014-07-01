@@ -29,9 +29,8 @@
 // channel interface (send side)
 //==============================================================================
 
-module rtr_channel_output
-  (clk, reset, active, flit_valid_in, flit_head_in, flit_tail_in, flit_data_in, 
-   flit_sel_in_ovc, channel_out);
+module rtr_channel_output(clk, reset, active, flit_valid_in, flit_head_in, flit_tail_in, 
+		flit_data_in, flit_sel_in_ovc, channel_out);
    
 `include "c_functions.v"
 `include "c_constants.v"

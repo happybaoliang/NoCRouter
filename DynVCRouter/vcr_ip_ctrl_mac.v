@@ -329,6 +329,9 @@ shared_fb_push_data, shared_vc_in, error);
    wire [0:num_vcs-1] 			    flit_tail_o_ivc;
    wire [0:flit_data_width-1] 		flit_data_o;
    wire [0:num_vcs-1] 			    flit_sel_o_ivc;
+
+   wire								shared_vc_out;
+
    rtr_channel_input
      #(.num_vcs(num_vcs),
        .packet_format(packet_format),
@@ -343,7 +346,9 @@ shared_fb_push_data, shared_vc_in, error);
       .reset(reset),
       .active(input_stage_active),
       .channel_in(channel_in),
-      .flit_valid_out(flit_valid_o),
+      .shared_vc_in(shared_vc_in),
+	  .shared_vc_out(shared_vc_out),
+	  .flit_valid_out(flit_valid_o),
       .flit_head_out(flit_head_o),
       .flit_head_out_ivc(flit_head_o_ivc),
       .flit_tail_out(flit_tail_o),
@@ -351,13 +356,13 @@ shared_fb_push_data, shared_vc_in, error);
       .flit_data_out(flit_data_o),
       .flit_sel_out_ivc(flit_sel_o_ivc));
 
-   assign shared_fb_push_tail = shared_vc_in ? flit_tail_o : 1'b0;
-   assign shared_fb_push_head = shared_vc_in ? flit_head_o : 1'b0;
-   assign shared_fb_push_valid = shared_vc_in ? flit_valid_o : 1'b0;
-   assign shared_fb_push_sel_ivc = shared_vc_in ? flit_sel_o_ivc : {num_vcs{1'b0}};
-   assign shared_fb_push_data = shared_vc_in ? flit_data_o : {flit_data_width{1'b0}};
-   assign shared_fb_push_head_ivc = shared_vc_in ? flit_head_o_ivc : {num_vcs{1'b0}};
-   assign shared_fb_push_tail_ivc = shared_vc_in ? flit_tail_o_ivc : {num_vcs{1'b0}};
+   assign shared_fb_push_tail = shared_vc_out ? flit_tail_o : 1'b0;
+   assign shared_fb_push_head = shared_vc_out ? flit_head_o : 1'b0;
+   assign shared_fb_push_valid = shared_vc_out ? flit_valid_o : 1'b0;
+   assign shared_fb_push_sel_ivc = shared_vc_out ? flit_sel_o_ivc : {num_vcs{1'b0}};
+   assign shared_fb_push_data = shared_vc_out ? flit_data_o : {flit_data_width{1'b0}};
+   assign shared_fb_push_head_ivc = shared_vc_out ? flit_head_o_ivc : {num_vcs{1'b0}};
+   assign shared_fb_push_tail_ivc = shared_vc_out ? flit_tail_o_ivc : {num_vcs{1'b0}};
  
 
    wire 				     		flit_valid_in;
@@ -368,13 +373,13 @@ shared_fb_push_data, shared_vc_in, error);
    wire [0:flit_data_width-1] 		flit_data_in;
    wire [0:num_vcs-1] 			    flit_sel_in_ivc;
 
-   assign flit_valid_in = shared_vc_in ? 1'b0 : flit_valid_o;
-   assign flit_head_in = shared_vc_in ? 1'b0 : flit_head_o;
-   assign flit_tail_in = shared_vc_in ? 1'b0 : flit_tail_o;
-   assign flit_data_in = shared_vc_in ? {flit_data_width{1'b0}} : flit_data_o;
-   assign flit_head_in_ivc = shared_vc_in ? {num_vcs{1'b0}} : flit_head_o_ivc;
-   assign flit_tail_in_ivc = shared_vc_in ? {num_vcs{1'b0}} : flit_tail_o_ivc;
-   assign flit_sel_in_ivc = shared_vc_in ? {num_vcs{1'b0}} : flit_sel_o_ivc;
+   assign flit_valid_in = shared_vc_out ? 1'b0 : flit_valid_o;
+   assign flit_head_in = shared_vc_out ? 1'b0 : flit_head_o;
+   assign flit_tail_in = shared_vc_out ? 1'b0 : flit_tail_o;
+   assign flit_data_in = shared_vc_out ? {flit_data_width{1'b0}} : flit_data_o;
+   assign flit_head_in_ivc = shared_vc_out ? {num_vcs{1'b0}} : flit_head_o_ivc;
+   assign flit_tail_in_ivc = shared_vc_out ? {num_vcs{1'b0}} : flit_tail_o_ivc;
+   assign flit_sel_in_ivc = shared_vc_out ? {num_vcs{1'b0}} : flit_sel_o_ivc;
 
 
    wire [0:header_info_width-1] 	     header_info_in;
@@ -385,11 +390,11 @@ shared_fb_push_data, shared_vc_in, error);
    // switch allocation
    //---------------------------------------------------------------------------
    // generate the 'flit_sent' signal.
-   wire [0:num_vcs-1] 			     free_spec_ivc;
    wire 				     flit_sent;
+   wire [0:num_vcs-1] 	     free_spec_ivc;
    
    generate
-      if(sw_alloc_spec)
+    if(sw_alloc_spec)
 	begin
 	   wire [0:num_vcs-1] spec_mask_ivc;
 	   
@@ -409,8 +414,8 @@ shared_fb_push_data, shared_vc_in, error);
 	   
 	   assign flit_sent = sw_gnt & spec_mask;
 	end
-      else
-	assign flit_sent = sw_gnt;
+    else
+		assign flit_sent = sw_gnt;
    endgenerate
    
    
@@ -518,7 +523,7 @@ shared_fb_push_data, shared_vc_in, error);
 	      .sw_sel(sw_sel),
 		  .vc_sel_shared_ovc(shared_ovc_in),
 	      .shared_ovc_out(shared_ovc),
-		  .sw_gnt_op(sw_gnt_op),
+		  .sw_gnt_op(sw_gnt_op),// TODO: 当ovc和shared_ovc都almost_full的时候，这个所得的free_nonspec信号有一些问题
 	      .flit_valid(flit_valid),
 	      .flit_head(flit_head),
 	      .flit_tail(flit_tail),

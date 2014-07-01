@@ -365,8 +365,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   
 	   wire [0:num_vcs*num_vcs-1] vc_sel_ivc_ovc;
 	   assign vc_sel_ivc_ovc = vc_sel_ip_ivc_ovc[ip*num_vcs*num_vcs:(ip+1)*num_vcs*num_vcs-1];
-	   
-
 
 	   wire 				                    ipc_error;
 	   wire [0:flit_data_width-1] 		        flit_data;
@@ -434,7 +432,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		  .vc_sel_ivc_shared_ovc(vc_sel_ivc_shared_ovc),
 	      .sw_gnt(sw_gnt),
 	      .sw_sel_ivc(sw_sel_ivc),
-	      .sw_gnt_op(sw_gnt_op),// it doesnot matter for dyanmical resource allocation
+	      .sw_gnt_op(sw_gnt_op),
 	      .almost_full_op_ovc(almost_full_op_ovc),
 	      .full_op_ovc(full_op_ovc),
 	      .flit_data(flit_data),
@@ -513,7 +511,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   else
 	   		shared_sw_ip_sel <= shared_sw_gnt_ip[ip];
 
-	   assign credit_for_shared_out[ip] = 1'b1;
+	   assign credit_for_shared_out[ip] = shared_sw_ip_sel ? 1'b1 : 1'b0;
 	   
 	   assign flow_ctrl_out_ip[ip*flow_ctrl_width:(ip+1)*flow_ctrl_width-1] 
 	   				= shared_sw_ip_sel 
@@ -528,7 +526,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    endgenerate
 
    wire [0:num_vcs-1]						shared_ovc_ivc;
-   wire [0:num_ports*num_vcs-1]     	    shared_full_op_ovc; 
    wire [0:num_vcs*num_ports-1] 	     	shared_route_ivc_op;
    wire [0:num_ports*num_vcs-1]				vc_gnt_op_shared_ovc;
    wire [0:num_vcs*num_resource_classes-1]  shared_route_ivc_orc;
@@ -543,7 +540,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports*num_vcs*num_ports-1]   vc_sel_op_shared_ovc_ip;
    wire [0:num_vcs*lar_info_width-1]	    shared_next_lar_info_ivc;
    wire [0:num_ports*num_vcs*num_vcs-1]		vc_sel_op_ovc_shared_ivc;
-   wire [0:num_ports*num_vcs-1] 	     	shared_almost_full_op_ovc; 
 
    wire [0:num_ports*num_vcs*num_vcs-1]		vc_sel_ip_shared_ivc_ovc;
    wire [0:num_ports*num_vcs-1]				vc_sel_ip_shared_ivc_shared_ovc;
@@ -716,17 +712,14 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	      .data_in(vc_sel_ip_shared_ivc_shared_ovc),
 		  .data_out(vc_sel_shared_ivc_shared_ovc));
 
-	   wire	shared_gnt_sw;
+	   wire	shared_sw_gnt;
 	   c_select_1ofn
 	   	 #(.width(1),
 		   .num_ports(num_ports))
 	   shared_sw_gnt_sel
 	      (.select(memory_bank_grant_sel),
 		   .data_in(shared_sw_gnt_ip),
-		   .data_out(shared_gnt_sw));
-
-	   wire	shared_sw_gnt;
-	   assign shared_sw_gnt = shared_gnt_sw & (|shared_pop_sel_ivc);
+		   .data_out(shared_sw_gnt));
 
     // generate the shared ivc control singals. 
    	genvar ivc_ctrl;
@@ -797,8 +790,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
   	        .header_info_in(shared_header_info_in),
   	        .fb_pop_tail(shared_pop_tail),
   	        .fb_pop_next_header_info(shared_pop_next_header_info),
-  	        .almost_full_op_ovc(shared_almost_full_op_ovc),
-  	        .full_op_ovc(shared_full_op_ovc),
+  	        .almost_full_op_ovc(almost_full_op_ovc),
+  	        .full_op_ovc(full_op_ovc),
   	        .route_op(shared_route_op),
   	        .route_orc(shared_route_orc),
   	        .vc_gnt(shared_vc_gnt),
@@ -1037,6 +1030,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports*num_ports-1] 		    xbr_ctrl_op_ip; // used for the cxb to ctrl switch.
    wire [0:num_ports*num_vcs*num_ports-1] 	vc_sel_op_ovc_ip;  // used for the 'vcr_output_ctrl_mac'.
    wire [0:num_ports*num_vcs*num_vcs-1] 	vc_sel_op_ovc_ivc; // used for the 'vcr_output_ctrl_mac'.
+   wire [0:num_ports-1]						shared_vc_from_alo;
    wire [0:num_ports-1] 			        shared_vc_active_op; // used for the 'vcr_output_ctrl_mac'.
    wire [0:num_ports*num_vcs*num_vcs-1]		vc_sel_op_shared_ovc_ivc;
 
@@ -1093,9 +1087,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
       .shared_sw_gnt_ip(shared_sw_gnt_ip),
 	  .sw_sel_ip_ivc(sw_sel_ip_ivc),
       .sw_sel_ip_shared_ivc(sw_sel_ip_shared_ivc),
-      .shared_vc_out_op(shared_vc_out),
+      .shared_vc_out_op(shared_vc_from_alo),
 	  .sw_gnt_op(sw_gnt_op),
-      .sw_sel_op_ip(sw_sel_op_ip),
+	  .sw_sel_op_ip(sw_sel_op_ip),
 	  .sw_sel_op_ivc(sw_sel_op_ivc),
 	  .flit_head_op(flit_head_op),
 	  .flit_tail_op(flit_tail_op),
@@ -1143,7 +1137,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign flit_tail = flit_tail_op[op];
 	   
 	   wire	shared_vc;
-	   assign shared_vc = shared_vc_out[op];
+	   assign shared_vc = shared_vc_from_alo[op];
 
 	   wire vc_active;
 	   assign vc_active = vc_active_op[op];
@@ -1172,7 +1166,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   wire [0:flow_ctrl_width-1] flow_ctrl_in;
 	   assign flow_ctrl_in = flow_ctrl_in_op[op*flow_ctrl_width:(op+1)*flow_ctrl_width-1];
 
-	   wire [0:num_vcs*num_vcs-1] vc_sel_ovc_ivc;// TODO: 是否有必要区分是否是共享ivc?
+	   wire [0:num_vcs*num_vcs-1] vc_sel_ovc_ivc;
+	   // TODO: 是否有必要区分是否是共享ivc?目测不需要，如果两个ovc分给了同一个ip的ivc和sivc，那么vc_gnt_ovc
 	   assign vc_sel_ovc_ivc = vc_sel_op_ovc_ivc[op*num_vcs*num_vcs:(op+1)*num_vcs*num_vcs-1];
 
 	   wire [0:num_vcs*num_ports-1] vc_sel_ovc_ip;
@@ -1186,10 +1181,10 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 
 	   wire [0:num_vcs-1] 		full_ovc;
 	   wire [0:num_vcs-1] 		elig_ovc;
-	   wire [0:num_vcs-1] 		shared_full_ovc;
-	   wire [0:num_vcs-1] 		shared_elig_ovc;
 	   wire 			        opc_error;
 	   wire [0:channel_width-1] channel_out;
+	   wire [0:num_vcs-1] 		shared_full_ovc;
+	   wire [0:num_vcs-1] 		shared_elig_ovc;
 	   wire [0:num_vcs-1] 		almost_full_ovc;
 	   wire [0:num_vcs-1] 		shared_almost_full_ovc;
 
@@ -1218,13 +1213,14 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	      .vc_active(vc_active),
 	      .shared_vc_active(shared_vc_active),
 		  .vc_gnt_ovc(vc_gnt_ovc),
-	      .shared_vc_gnt_ovc(shared_vc_gnt_ovc),
+	      .vc_gnt_shared_ovc(shared_vc_gnt_ovc),
 		  .vc_sel_ovc_ip(vc_sel_ovc_ip),
 	      .vc_sel_shared_ovc_ip(vc_sel_shared_ovc_ip),
 		  .vc_sel_ovc_ivc(vc_sel_ovc_ivc),
 		  .vc_sel_shared_ovc_ivc(vc_sel_shared_ovc_ivc),
-	      .shared_vc(shared_vc),
-	      .sw_active(sw_active),
+	      .shared_vc_in(shared_vc),
+	      .shared_vc_out(shared_vc_out[op]),
+		  .sw_active(sw_active),
 		  .sw_gnt(sw_gnt),
 	      .sw_sel_ip(sw_sel_ip),
 	      .sw_sel_ivc(sw_sel_ivc),
@@ -1241,10 +1237,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	      .error(opc_error));
 	   
 	   assign channel_out_op[op*channel_width:(op+1)*channel_width-1] = channel_out;
-	   assign almost_full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = almost_full_ovc;
-	   assign shared_almost_full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = shared_almost_full_ovc;
-	   assign full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = full_ovc;
-	   assign shared_full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = shared_full_ovc;
 	   assign elig_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = elig_ovc;
 
 	   for (sb=0; sb<num_ports; sb=sb+1)
@@ -1253,6 +1245,18 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   						   = memory_bank_grant_in[op*num_ports+sb]
 							   ? shared_elig_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
 							   : {num_vcs_per_bank{1'b0}};
+
+		assign almost_full_op_ovc[op*num_vcs+sb*num_vcs_per_bank:op*num_vcs+(sb+1)*num_vcs_per_bank-1]
+								= memory_bank_grant_in[op*num_ports+sb]
+								? shared_almost_full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
+									& almost_full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
+								: almost_full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1];
+
+		assign full_op_ovc[op*num_vcs+sb*num_vcs_per_bank:op*num_vcs+(sb+1)*num_vcs_per_bank-1]
+								= memory_bank_grant_in[op*num_ports+sb]
+								? shared_full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
+									& full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
+								: full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1];
 	   end
 
 	   assign opc_error_op[op] = opc_error;

@@ -31,9 +31,9 @@
 
 module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, vc_gnt_ovc, 
 	vc_sel_ovc_ip, vc_sel_shared_ovc_ip, vc_sel_ovc_ivc, vc_sel_shared_ovc_ivc, sw_active, 
-	sw_gnt, sw_sel_ip, sw_sel_ivc, flit_head, flit_tail, flit_data, channel_out, shared_vc,
+	sw_gnt, sw_sel_ip, sw_sel_ivc, flit_head, flit_tail, flit_data, channel_out, shared_vc_in,
 	shared_almost_full_ovc, almost_full_ovc, shared_full_ovc, full_ovc, elig_ovc, error, 
-	shared_elig_ovc, shared_vc_gnt_ovc, credit_for_shared);
+	shared_elig_ovc, vc_gnt_shared_ovc, shared_vc_out, credit_for_shared);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -139,7 +139,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    // output VC was granted to an input VC
    input [0:num_vcs-1] 	            vc_gnt_ovc;
   
-   input [0:num_vcs-1]				shared_vc_gnt_ovc;
+   input [0:num_vcs-1]				vc_gnt_shared_ovc;
 
    // input port that each output VC was granted to
    input [0:num_vcs*num_ports-1]    vc_sel_ovc_ip;
@@ -167,7 +167,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
  
    input							credit_for_shared;
 
-   input							shared_vc;
+   input							shared_vc_in;
 
    // incoming flit is a head flit
    input 			                flit_head;
@@ -177,6 +177,9 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 
    // incoming flit data
    input [0:flit_data_width-1] 	    flit_data;
+
+   output							shared_vc_out;
+   wire								shared_vc_out;
 
    // outgoing flit control signals
    output [0:channel_width-1] 	    channel_out;
@@ -221,11 +224,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    // input staging
    //---------------------------------------------------------------------------
    wire    fc_active;
-   wire	shared_fc_active;
-   
    wire    flow_ctrl_active;
    assign flow_ctrl_active = fc_active;
    
+   wire	shared_fc_active;
    wire	shared_flow_ctrl_active;
    assign 	shared_flow_ctrl_active = shared_fc_active;
    
@@ -275,7 +277,20 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
       .q(flit_valid_q));
    
    assign gnt_active = sw_active | flit_valid_q;
-   
+  
+   wire shared_vc_s, shared_vc_q;
+   wire shared_active = sw_active | shared_vc_q;
+   assign shared_vc_s = sw_gnt ? shared_vc_in : shared_vc_q;
+   c_dff
+     #(.width(1),
+	   .reset_type(reset_type))
+   shared_vcq
+      (.clk(clk),
+	   .reset(reset),
+	   .active(shared_active),
+	   .d(shared_vc_s),
+	   .q(shared_vc_q));
+
    wire	 flit_head_s, flit_head_q;
    assign flit_head_s = sw_gnt ? flit_head : flit_head_q;
    c_dff
@@ -300,37 +315,27 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
       .d(flit_tail_s),
       .q(flit_tail_q));
    
+   wire 	        	flit_sent;
    wire [0:num_vcs-1]   flit_sel_ovc;
-   wire 	        flit_sent;
+   wire [0:num_vcs-1] 	shared_flit_sel_ovc;
    
    generate
       if(sw_alloc_spec)
-	assign flit_sent = ~shared_vc & flit_valid_q & (|flit_sel_ovc);
+	assign flit_sent = flit_valid_q & (|(flit_sel_ovc|shared_flit_sel_ovc));
       else
-	assign flit_sent = ~shared_vc & flit_valid_q; 
+	assign flit_sent = flit_valid_q; 
    endgenerate
    
-   
-   wire [0:num_vcs-1] shared_flit_sel_ovc;
-   wire shared_flit_sent;
-   
-   generate
-	if (sw_alloc_spec)
-		assign shared_flit_sent = shared_vc & flit_valid_q & (|shared_flit_sel_ovc);
-	else
-		assign shared_flit_sent = shared_vc & flit_valid_q;
-   endgenerate
-
-
    wire  fcs_active;
-   assign fcs_active = ~shared_vc & (flit_valid_q | fc_event_valid);
+   assign fcs_active = flit_valid_q | fc_event_valid;
    
-   wire	shared_fcs_active;
-   assign shared_fcs_active = shared_vc & (flit_valid_q | shared_fc_event_valid);
-
    wire [0:num_vcs-1] 	 empty_ovc;
    wire [0:num_vcs-1] 	 full_prev_ovc;
    wire [0:num_vcs*2-1]	 fcs_errors_ovc;
+
+   wire					 fc_flit_valid;
+   assign fc_flit_valid = ~shared_vc_q & flit_sent;
+
    rtr_fc_state
      #(.num_vcs(num_vcs),
        .buffer_size(buffer_size),
@@ -344,7 +349,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
      (.clk(clk),
       .reset(reset),
       .active(fcs_active),
-      .flit_valid(flit_sent),
+      .flit_valid(fc_flit_valid),
       .flit_head(flit_head_q),
       .flit_tail(flit_tail_q),
       .flit_sel_ovc(flit_sel_ovc),
@@ -360,6 +365,13 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    	wire [0:num_vcs-1]		shared_empty_ovc;
    	wire [0:num_vcs-1]		shared_full_prev_ovc;
 	wire [0:num_vcs*2-1]	shared_fcs_errors_ovc;
+
+	wire					shared_fcs_flit_valid;
+	assign shared_fcs_flit_valid = shared_vc_q & flit_sent;
+
+    wire	shared_fcs_active;
+    assign shared_fcs_active = (shared_vc_q & flit_valid_q) | shared_fc_event_valid;
+
 	rtr_fc_state
 	  #(.num_vcs(num_vcs),
 	    .buffer_size(buffer_size),
@@ -373,7 +385,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
        (.clk(clk),
         .reset(reset),
         .active(shared_fcs_active),
-        .flit_valid(shared_flit_sent),
+        .flit_valid(shared_fcs_flit_valid),
         .flit_head(flit_head_q),
         .flit_tail(flit_tail_q),
         .flit_sel_ovc(shared_flit_sel_ovc),
@@ -440,8 +452,14 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	   assign elig_ovc[ovc] = elig;
 
 	   wire			shared_vc_gnt;
-	   assign shared_vc_gnt = shared_vc_gnt_ovc[ovc];
+	   assign shared_vc_gnt = vc_gnt_shared_ovc[ovc];
 
+	   wire [0:num_ports-1] shared_vc_sel_ip;
+	   assign shared_vc_sel_ip = vc_sel_shared_ovc_ip[ovc*num_ports:(ovc+1)*num_ports-1];
+	   
+	   wire [0:num_vcs-1] 	shared_vc_sel_ivc;
+	   assign shared_vc_sel_ivc = vc_sel_shared_ovc_ivc[ovc*num_vcs:(ovc+1)*num_vcs-1];
+	   
 	   wire 		shared_empty;
 	   assign shared_empty = shared_empty_ovc[ovc];
 	   
@@ -464,8 +482,8 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	      .reset(reset),
 	      .vc_active(shared_vc_active),
 	      .vc_gnt(shared_vc_gnt),
-	      .vc_sel_ip(vc_sel_ip),
-	      .vc_sel_ivc(vc_sel_ivc),
+	      .vc_sel_ip(shared_vc_sel_ip),
+	      .vc_sel_ivc(shared_vc_sel_ivc),
 	      .sw_active(sw_active),
 	      .sw_gnt(sw_gnt),
 	      .sw_sel_ip(sw_sel_ip),
@@ -489,7 +507,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
     if(sw_alloc_spec)
 	    assign error_unmatched = 1'b0;
     else
-	    assign error_unmatched = (((~shared_vc) & (~|flit_sel_ovc))|(shared_vc & (~|shared_flit_sel_ovc))) & flit_valid_q;
+	    assign error_unmatched = (((~shared_vc_q) & (~|flit_sel_ovc))|(shared_vc_q & (~|shared_flit_sel_ovc))) & flit_valid_q;
    endgenerate
    
    wire	flit_multisel;
@@ -507,7 +525,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
       .multi_hot(shared_flit_multisel));
    
    wire	error_multimatch;
-   assign error_multimatch = flit_valid_q & (flit_multisel | shared_flit_multisel);
+   assign error_multimatch = flit_valid_q & (flit_multisel | shared_flit_multisel | (|(flit_sel_ovc & shared_flit_sel_ovc)));
    
   
    //---------------------------------------------------------------------------
@@ -516,11 +534,8 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    wire	cho_active;
    assign cho_active = flit_valid_q;
 
-   wire flit_sent_o;
-   assign flit_sent_o = shared_vc ? shared_flit_sent : flit_sent;
-
    wire [0:num_vcs-1] flit_sel_ovc_o;
-   assign flit_sel_ovc_o = shared_vc ? shared_flit_sel_ovc : flit_sel_ovc;
+   assign flit_sel_ovc_o = shared_flit_sel_ovc | flit_sel_ovc;
 
    rtr_channel_output
      #(.num_vcs(num_vcs),
@@ -532,14 +547,28 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
      (.clk(clk),
       .reset(reset),
       .active(cho_active),
-      .flit_valid_in(flit_sent_o),
+	  .flit_valid_in(flit_sent),
       .flit_head_in(flit_head_q),
       .flit_tail_in(flit_tail_q),
       .flit_data_in(flit_data),
       .flit_sel_in_ovc(flit_sel_ovc_o),
       .channel_out(channel_out));
    
-   
+	     
+	   wire shared_vc_out_s, shared_vc_out_q;
+	   assign shared_vc_out_s = shared_vc_q;
+	   c_dff
+	   #(.width(1),
+		 .reset_type(reset_type))
+	   shared_vc_dq
+	    (.clk(clk),
+		 .reset(reset),
+		 .active(cho_active),
+		 .d(shared_vc_out_s),
+		 .q(shared_vc_out_q));
+
+   assign shared_vc_out = shared_vc_out_q;
+
    //---------------------------------------------------------------------------
    // error checking
    //---------------------------------------------------------------------------

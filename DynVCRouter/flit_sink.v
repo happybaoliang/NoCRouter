@@ -146,6 +146,8 @@ module flit_sink (clk, reset, channel, memory_bank_grant, shared_vc, flow_ctrl, 
    wire [0:flit_data_width-1] 	flit_data;
    wire [0:num_vcs-1] 		flit_sel_ivc;
 
+   wire				shared_vc_out;
+
    rtr_channel_input
      #(.num_vcs(num_vcs),
        .packet_format(packet_format),
@@ -160,7 +162,9 @@ module flit_sink (clk, reset, channel, memory_bank_grant, shared_vc, flow_ctrl, 
       .reset(reset),
       .active(1'b1),
       .channel_in(channel),
-      .flit_valid_out(flit_valid),
+      .shared_vc_in(shared_vc),
+	  .shared_vc_out(shared_vc_out),
+	  .flit_valid_out(flit_valid),
       .flit_head_out(flit_head),
       .flit_head_out_ivc(flit_head_ivc),
       .flit_tail_out(flit_tail),
