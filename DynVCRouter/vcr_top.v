@@ -539,7 +539,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_vcs-1] 		             	shared_free_nonspec_ivc;
    wire [0:num_ports*num_vcs*num_ports-1]   vc_sel_op_shared_ovc_ip;
    wire [0:num_vcs*lar_info_width-1]	    shared_next_lar_info_ivc;
-   wire [0:num_ports*num_vcs*num_vcs-1]		vc_sel_op_ovc_shared_ivc;
+   wire [0:num_ports*num_vcs-1]				vc_sel_op_ovc_shared_ivc;
 
    wire [0:num_ports*num_vcs*num_vcs-1]		vc_sel_ip_shared_ivc_ovc;
    wire [0:num_ports*num_vcs-1]				vc_sel_ip_shared_ivc_shared_ovc;
@@ -1032,7 +1032,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports*num_vcs*num_vcs-1] 	vc_sel_op_ovc_ivc; // used for the 'vcr_output_ctrl_mac'.
    wire [0:num_ports-1]						shared_vc_from_alo;
    wire [0:num_ports-1] 			        shared_vc_active_op; // used for the 'vcr_output_ctrl_mac'.
+   wire [0:num_ports-1]						sw_sel_op_shared_ivc;
    wire [0:num_ports*num_vcs*num_vcs-1]		vc_sel_op_shared_ovc_ivc;
+   wire [0:num_ports*num_vcs-1]				vc_sel_op_shared_ovc_shared_ivc;
 
    vcr_alloc_mac
      #(.num_message_classes(num_message_classes),
@@ -1079,9 +1081,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
       .vc_sel_op_ovc_ip(vc_sel_op_ovc_ip),
       .vc_sel_op_shared_ovc_ip(vc_sel_op_shared_ovc_ip),
 	  .vc_sel_op_ovc_ivc(vc_sel_op_ovc_ivc),
-      .vc_sel_op_ovc_shared_ivc(),
+      .vc_sel_op_ovc_shared_ivc(vc_sel_op_ovc_shared_ivc),
 	  .vc_sel_op_shared_ovc_ivc(vc_sel_op_shared_ovc_ivc),
-	  .vc_sel_op_shared_ovc_shared_ivc(),
+	  .vc_sel_op_shared_ovc_shared_ivc(vc_sel_op_shared_ovc_shared_ivc),
 	  .sw_active_op(sw_active_op),
       .sw_gnt_ip(sw_gnt_ip),
       .shared_sw_gnt_ip(shared_sw_gnt_ip),
@@ -1091,6 +1093,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	  .sw_gnt_op(sw_gnt_op),
 	  .sw_sel_op_ip(sw_sel_op_ip),
 	  .sw_sel_op_ivc(sw_sel_op_ivc),
+	  .sw_sel_op_shared_ivc(sw_sel_op_shared_ivc),
 	  .flit_head_op(flit_head_op),
 	  .flit_tail_op(flit_tail_op),
 	  .xbr_ctrl_op_ip(xbr_ctrl_op_ip));
@@ -1153,6 +1156,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	  
 	   wire [0:num_vcs-1] sw_sel_ivc;
 	   assign sw_sel_ivc = sw_sel_op_ivc[op*num_vcs:(op+1)*num_vcs-1];
+		
+	   wire	sw_sel_shared_ivc;
+	   assign sw_sel_shared_ivc = sw_sel_op_shared_ivc[op];
 
 	   wire [0:num_ports-1]	sw_sel_ip;
 	   assign sw_sel_ip = sw_sel_op_ip[op*num_ports:(op+1)*num_ports-1];
@@ -1167,8 +1173,10 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign flow_ctrl_in = flow_ctrl_in_op[op*flow_ctrl_width:(op+1)*flow_ctrl_width-1];
 
 	   wire [0:num_vcs*num_vcs-1] vc_sel_ovc_ivc;
-	   // TODO: 是否有必要区分是否是共享ivc?目测不需要，如果两个ovc分给了同一个ip的ivc和sivc，那么vc_gnt_ovc
 	   assign vc_sel_ovc_ivc = vc_sel_op_ovc_ivc[op*num_vcs*num_vcs:(op+1)*num_vcs*num_vcs-1];
+
+	   wire [0:num_vcs-1]	vc_sel_ovc_shared_ivc;
+	   assign vc_sel_ovc_shared_ivc = vc_sel_op_ovc_shared_ivc[op*num_vcs:(op+1)*num_vcs-1];
 
 	   wire [0:num_vcs*num_ports-1] vc_sel_ovc_ip;
 	   assign vc_sel_ovc_ip = vc_sel_op_ovc_ip[op*num_vcs*num_ports:(op+1)*num_vcs*num_ports-1];
@@ -1176,6 +1184,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   wire [0:num_vcs*num_vcs-1] vc_sel_shared_ovc_ivc;
 	   assign vc_sel_shared_ovc_ivc = vc_sel_op_shared_ovc_ivc[op*num_vcs*num_vcs:(op+1)*num_vcs*num_vcs-1];
 	   
+	   wire [0:num_vcs-1]	vc_sel_shared_ovc_shared_ivc;
+	   assign vc_sel_shared_ovc_shared_ivc = vc_sel_op_shared_ovc_shared_ivc[op*num_vcs:(op+1)*num_vcs-1];
+
 	   wire [0:num_vcs*num_ports-1] vc_sel_shared_ovc_ip;
 	   assign vc_sel_shared_ovc_ip = vc_sel_op_shared_ovc_ip[op*num_vcs*num_ports:(op+1)*num_vcs*num_ports-1];
 
@@ -1217,14 +1228,17 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		  .vc_sel_ovc_ip(vc_sel_ovc_ip),
 	      .vc_sel_shared_ovc_ip(vc_sel_shared_ovc_ip),
 		  .vc_sel_ovc_ivc(vc_sel_ovc_ivc),
+		  .vc_sel_ovc_shared_ivc(vc_sel_ovc_shared_ivc),
 		  .vc_sel_shared_ovc_ivc(vc_sel_shared_ovc_ivc),
-	      .shared_vc_in(shared_vc),
+	      .vc_sel_shared_ovc_shared_ivc(vc_sel_shared_ovc_shared_ivc),
+		  .shared_vc_in(shared_vc),
 	      .shared_vc_out(shared_vc_out[op]),
 		  .sw_active(sw_active),
 		  .sw_gnt(sw_gnt),
 	      .sw_sel_ip(sw_sel_ip),
 	      .sw_sel_ivc(sw_sel_ivc),
-	      .flit_head(flit_head),
+	      .sw_sel_shared_ivc(sw_sel_shared_ivc),
+		  .flit_head(flit_head),
 	      .flit_tail(flit_tail),
 	      .flit_data(flit_data),
 	      .channel_out(channel_out),

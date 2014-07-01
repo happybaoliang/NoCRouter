@@ -33,7 +33,8 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	vc_sel_ovc_ip, vc_sel_shared_ovc_ip, vc_sel_ovc_ivc, vc_sel_shared_ovc_ivc, sw_active, 
 	sw_gnt, sw_sel_ip, sw_sel_ivc, flit_head, flit_tail, flit_data, channel_out, shared_vc_in,
 	shared_almost_full_ovc, almost_full_ovc, shared_full_ovc, full_ovc, elig_ovc, error, 
-	shared_elig_ovc, vc_gnt_shared_ovc, shared_vc_out, credit_for_shared);
+	shared_elig_ovc, vc_gnt_shared_ovc, shared_vc_out, credit_for_shared, vc_sel_ovc_shared_ivc,
+	vc_sel_shared_ovc_shared_ivc, sw_sel_shared_ivc);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -149,10 +150,14 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    
    // input VC that each output VC was granted to
    input [0:num_vcs*num_vcs-1] 	    vc_sel_ovc_ivc;
-   
+  
+   input [0:num_vcs-1]				vc_sel_ovc_shared_ivc;
+
    // input VC that each output VC was granted to
    input [0:num_vcs*num_vcs-1] 	    vc_sel_shared_ovc_ivc;
    
+   input [0:num_vcs-1]				vc_sel_shared_ovc_shared_ivc;
+
    // switch allocation activity indicator
    input 			                sw_active;
    
@@ -164,7 +169,9 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    
    // which input VC was the grant for?
    input [0:num_vcs-1] 		        sw_sel_ivc;
- 
+
+   input							sw_sel_shared_ivc;
+
    input							credit_for_shared;
 
    input							shared_vc_in;
@@ -411,7 +418,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	   
 	   wire [0:num_vcs-1] 	vc_sel_ivc;
 	   assign vc_sel_ivc = vc_sel_ovc_ivc[ovc*num_vcs:(ovc+1)*num_vcs-1];
-	   
+	  
+	   wire			vc_sel_shared_ivc;
+	   assign vc_sel_shared_ivc = vc_sel_ovc_shared_ivc[ovc];
+
 	   wire 		empty;
 	   assign empty = empty_ovc[ovc];
 	   
@@ -436,11 +446,13 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	      .vc_gnt(vc_gnt),
 	      .vc_sel_ip(vc_sel_ip),
 	      .vc_sel_ivc(vc_sel_ivc),
-	      .sw_active(sw_active),
+	      .vc_sel_shared_ivc(vc_sel_shared_ivc),
+		  .sw_active(sw_active),
 	      .sw_gnt(sw_gnt),
 	      .sw_sel_ip(sw_sel_ip),
 	      .sw_sel_ivc(sw_sel_ivc),
-	      .flit_valid(flit_valid_q),
+	      .sw_sel_shared_ivc(sw_sel_shared_ivc),
+		  .flit_valid(flit_valid_q),
 	      .flit_tail(flit_tail_q),
 	      .flit_sel(flit_sel),
 	      .elig(elig),
@@ -460,6 +472,9 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	   wire [0:num_vcs-1] 	shared_vc_sel_ivc;
 	   assign shared_vc_sel_ivc = vc_sel_shared_ovc_ivc[ovc*num_vcs:(ovc+1)*num_vcs-1];
 	   
+	   wire			shared_vc_sel_shared_ivc;
+	   assign shared_vc_sel_shared_ivc = vc_sel_shared_ovc_shared_ivc[ovc];
+
 	   wire 		shared_empty;
 	   assign shared_empty = shared_empty_ovc[ovc];
 	   
@@ -484,11 +499,13 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	      .vc_gnt(shared_vc_gnt),
 	      .vc_sel_ip(shared_vc_sel_ip),
 	      .vc_sel_ivc(shared_vc_sel_ivc),
-	      .sw_active(sw_active),
+	      .vc_sel_shared_ivc(shared_vc_sel_shared_ivc),
+		  .sw_active(sw_active),
 	      .sw_gnt(sw_gnt),
 	      .sw_sel_ip(sw_sel_ip),
 	      .sw_sel_ivc(sw_sel_ivc),
-	      .flit_valid(flit_valid_q),
+	      .sw_sel_shared_ivc(sw_sel_shared_ivc),
+		  .flit_valid(flit_valid_q),
 	      .flit_tail(flit_tail_q),
 	      .flit_sel(shared_flit_sel),
 	      .elig(shared_elig),

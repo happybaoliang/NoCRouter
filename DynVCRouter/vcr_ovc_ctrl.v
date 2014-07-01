@@ -31,7 +31,7 @@
 
 module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_active, 
 		sw_gnt, sw_sel_ip, sw_sel_ivc, flit_valid, flit_tail, flit_sel, elig, full, 
-		full_prev, empty);
+		vc_sel_shared_ivc, sw_sel_shared_ivc, full_prev, empty);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -67,6 +67,8 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
    // input VC that the output VC was granted to
    input [0:num_vcs-1] 	 vc_sel_ivc;
    
+   input				 vc_sel_shared_ivc;
+
    // activity indicator for switch allocation
    input 		 		 sw_active;
    
@@ -78,7 +80,9 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
    
    // which input VC does the incoming flit belong to?
    input [0:num_vcs-1] 	 sw_sel_ivc;
-   
+
+   input				 sw_sel_shared_ivc;
+
    // incoming flit is valid
    input 		 		 flit_valid;
    
@@ -144,17 +148,15 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
    wire 		 vc_match;
    
    generate
+   	if(sw_alloc_spec)
+		assign port_match = |(sw_sel_ip & allocated_ip_s);
+    else
+		assign port_match = |(sw_sel_ip & allocated_ip_q);
       
-      if(sw_alloc_spec)
-	assign port_match = |(sw_sel_ip & allocated_ip_s);
-      else
-	assign port_match = |(sw_sel_ip & allocated_ip_q);
-      
-      if(num_vcs == 1)
-	assign vc_match = 1'b1;
-      else if(num_vcs > 1)
-	begin
-	   
+    if(num_vcs == 1)
+		assign vc_match = 1'b1;
+    else if(num_vcs > 1)
+	begin   
 	   wire [0:num_vcs-1] allocated_ivc_s, allocated_ivc_q;
 	   assign allocated_ivc_s = allocated ? allocated_ivc_q : vc_sel_ivc;
 	   c_dff
@@ -167,13 +169,23 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
 	      .d(allocated_ivc_s),
 	      .q(allocated_ivc_q));
 	   
+	   wire allocated_shared_ivc_s, allocated_shared_ivc_q;
+	   assign allocated_shared_ivc_s = allocated ? allocated_shared_ivc_q : vc_sel_shared_ivc;
+	   c_dff
+	     #(.width(1),
+		   .reset_type(reset_type))
+	   allocated_shared_ivcq
+	      (.clk(clk),
+		   .reset(1'b0),
+		   .active(vc_active),
+		   .d(allocated_shared_ivc_s),
+		   .q(allocated_shared_ivc_q));
+
 	   if(sw_alloc_spec)
-	     assign vc_match = |(sw_sel_ivc & allocated_ivc_s);
+	     assign vc_match = (|(sw_sel_ivc & allocated_ivc_s)) & (allocated_shared_ivc_s == sw_sel_shared_ivc);
 	   else
-	     assign vc_match = |(sw_sel_ivc & allocated_ivc_q);
-	   
+	     assign vc_match = (|(sw_sel_ivc & allocated_ivc_q)) & (allocated_shared_ivc_q == sw_sel_shared_ivc);
 	end
-      
    endgenerate
    
    wire	match_s, match_q;
@@ -189,10 +201,10 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
       .q(match_q));
    
    generate
-      if(sw_alloc_spec && (elig_mask == `ELIG_MASK_NONE))
-	assign flit_sel = allocated_q & match_q & ~full_prev;
-      else
-	assign flit_sel = allocated_q & match_q;
+   	if(sw_alloc_spec && (elig_mask == `ELIG_MASK_NONE))
+		assign flit_sel = allocated_q & match_q & ~full_prev;
+    else
+		assign flit_sel = allocated_q & match_q;
    endgenerate
    
    
