@@ -29,8 +29,7 @@
 // generic multi-hot select gate
 //==============================================================================
 
-module c_select_mofn
-  (select, data_in, data_out);
+module c_select_mofn(select, data_in, data_out);
    
 `include "c_constants.v"
    
@@ -57,9 +56,8 @@ module c_select_mofn
    wire [0:width-1] data_out;
    
    generate
-      
-      genvar 	    i;
-      for(i = 0; i < width; i = i + 1)
+   genvar 	    i;
+   for(i = 0; i < width; i = i + 1)
 	begin:width_loop
 	   
 	   wire [0:num_ports-1] port_bits;

@@ -1,9 +1,9 @@
 # directory
-conventional_router/verif/mesh_3x3/csrc/*
-conventional_router/verif/mesh_3x3/results/*
-conventional_router/verif/mesh_3x3/simv.daidir/*
-DynVCRouter/csrc/*
-DynVCRouter/simv.daidir/*
+conventional_router/verif/mesh_3x3/csrc/
+conventional_router/verif/mesh_3x3/results/
+conventional_router/verif/mesh_3x3/simv.daidir/
+DynVCRouter/csrc/
+DynVCRouter/simv.daidir/
 
 # database file
 *.db

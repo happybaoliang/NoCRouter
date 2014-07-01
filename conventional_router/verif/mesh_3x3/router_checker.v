@@ -752,10 +752,7 @@ module router_checker
 	   assign x_error
 	     = (flit_valid_out === 1'bx) ||
 	       ((flit_valid_out === 1'b1) &&
-		((flit_head_out === 1'bx) ||
-		 (flit_tail_out === 1'bx) ||
-		 (^flit_data_out === 1'bx) ||
-		 (^flit_sel_out_ovc === 1'bx)));
+		((flit_head_out === 1'bx) || (flit_tail_out === 1'bx) || (^flit_data_out === 1'bx) || (^flit_sel_out_ovc === 1'bx)));
 
 	   assign x_error_op[op] = x_error;
 
