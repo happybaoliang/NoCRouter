@@ -1636,8 +1636,8 @@ module testbench
    
 	
 	//9 router checkers. One for each router in the 3X3 mesh
-   wire [0:num_routers-1] 	      fs_error_op;
    wire [0:num_routers-1]	      rchk_error;
+   wire [0:num_routers-1] 	      fs_error_op;
    
    genvar   op;
    generate
