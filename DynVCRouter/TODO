@@ -1,7 +1,5 @@
-1. stall at 150ns
 2. memory_bank_grant_out
-3. shared_vc_out的生成方法可能是错的
 6. route_op_orc好像有问题
 8. shared_ivc_ctrl-> port_id
-9. shared_ivc_ctrl-> num_vcs, port width missmatch
+9. shared_ivc_ctrl-> num_vcs
 

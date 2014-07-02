@@ -517,7 +517,7 @@ endgenerate
 	end
    endgenerate
 
-// These two reduce operator is identical to the c_select_mofn operator on vc_active_op_merged. 
+
    c_reduce_bits
      #(.width(num_vcs),
 	   .op(`BINARY_OP_OR),
@@ -553,52 +553,26 @@ endgenerate
    wire [0:num_ports*num_vcs-1] sw_req_spec_ip_ivc_merged;
    assign sw_req_spec_ip_ivc_merged = private_sw_req_spec_ip_ivc | shared_sw_req_spec_ip_ivc;
 
-   // TODO: try to merge this to reduce operator for sw_active_ip
-   wire [0:num_ports-1] 	private_sw_active_ip;
+   wire [0:num_ports-1] 	sw_active_ip_merged;
    c_reduce_bits
      #(.num_ports(num_ports),
        .width(num_vcs),
        .op(`BINARY_OP_OR))
    sw_active_ip_rb
-     (.data_in(flit_valid_ip_ivc),
-      .data_out(private_sw_active_ip));
-   
-   wire [0:num_ports-1] 	shared_sw_active_ip;
-   c_reduce_bits
-     #(.num_ports(num_ports),
-       .width(num_vcs),
-       .op(`BINARY_OP_OR))
-   shared_sw_active_ip_rb
-     (.data_in(flit_valid_ip_shared_ivc),
-      .data_out(shared_sw_active_ip));
-   
-   wire [0:num_ports-1]		sw_active_ip_merged;
-   assign sw_active_ip_merged = private_sw_active_ip | shared_sw_active_ip;
-
-   wire [0:num_ports-1]	private_sw_active_op;
-   c_select_mofn
-     #(.num_ports(num_ports*num_vcs),
-       .width(num_ports))
-   sw_active_op_sel
-     (.select(flit_valid_ip_ivc),
-      .data_in(route_ip_ivc_op),
-      .data_out(private_sw_active_op));
-
-   wire [0:num_ports-1]	shared_sw_active_op;
-   c_select_mofn
-     #(.num_ports(num_ports*num_vcs),
-       .width(num_ports))
-   shared_sw_active_op_sel
-     (.select(flit_valid_ip_shared_ivc),
-      .data_in(route_ip_shared_ivc_op),
-      .data_out(shared_sw_active_op));
-
-   assign sw_active_op = private_sw_active_op | shared_sw_active_op;//TODO: this signals should be merged
-
+     (.data_in(flit_valid_ip_ivc|flit_valid_ip_shared_ivc),
+      .data_out(sw_active_ip_merged));
 
    wire [0:num_ports-1]									sw_gnt_ip_merged;
    wire [0:num_ports*num_vcs-1]							sw_sel_ip_ivc_merged;
    wire [0:num_ports*num_vcs*num_ports-1]				sw_route_ip_ivc_op_merged;
+
+   c_select_mofn
+     #(.num_ports(num_ports*num_vcs),
+       .width(num_ports))
+   sw_active_op_sel
+     (.select(flit_valid_ip_ivc|flit_valid_ip_shared_ivc),
+      .data_in(sw_route_ip_ivc_op_merged),
+      .data_out(sw_active_op));
 
    genvar swp, swvc;
    generate
@@ -656,7 +630,6 @@ endgenerate
 			.data_out(sw_sel_shared_ivc));
 
 		assign sw_sel_op_shared_ivc[swop] = | sw_sel_shared_ivc;
-		// TODO: whether sw_sel_ip_shared_ivc[ip*num_vcs+:num_vcs] matches sw_sel_op_ivc[op*num_vcs+:num_vcs]?
 	end
    endgenerate
 

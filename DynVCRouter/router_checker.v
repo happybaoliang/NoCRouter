@@ -789,8 +789,7 @@ module router_checker
 		if(no_match_error)
 		  begin
 		     $display("================================");
-		     $display({"ERROR: Unmatched flit at checker: ",
-			       "%m, op=%d, cyc=%d"}, op, $time);
+		     $display({"ERROR: Unmatched flit at checker: ", "%m, op=%d, cyc=%d"}, op, $time);
 		     $display("================================");
 		     $display("head=%b, tail=%b, vcs=%b, data=%x",
 			      flit_head_out,
