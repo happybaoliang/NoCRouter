@@ -33,7 +33,7 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    flit_sel_in, header_info_in, fb_pop_tail, fb_pop_next_header_info, almost_full_op_ovc, 
    full_op_ovc, route_op, route_orc, vc_gnt, vc_sel_ovc, sw_gnt, sw_sel, sw_gnt_op, flit_valid, 
    flit_head, flit_tail, next_lar_info, fb_almost_empty, fb_empty, allocated, free_nonspec, 
-   shared_ovc_out, vc_sel_shared_ovc, free_spec, errors);
+   shared_ovc_out, vc_sel_shared_ovc, free_spec, errors, port_sel);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -186,14 +186,17 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    // resource class to which this VC belongs
    localparam resource_class = (vc_id / num_vcs_per_class) % num_resource_classes;
    
-   // ID of current input port
-   parameter port_id = 0;
-   
    parameter reset_type = `RESET_TYPE_ASYNC;
-   
+  
+   parameter shared_ivc = 0;
+
+   parameter port_id = 0;
+
    input clk;
    input reset;
-   
+  
+   input [0:num_ports-1]			port_sel;
+
    // current router's address
    input [0:router_addr_width-1] 	router_address;
    
@@ -563,17 +566,26 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
        .connectivity(connectivity),
        .routing_type(routing_type),
        .dim_order(dim_order),
-       .port_id(port_id),
+       .shared_filter(shared_ivc),
+	   .port_id(port_id),
        .vc_id(vc_id))
    rf
      (.clk(clk),
-      .route_valid(flit_valid),
+	  .port_sel(port_sel),
+	  .route_valid(flit_valid),
       .route_in_op(route_unmasked_op),
       .route_in_orc(route_unmasked_orc),
       .route_out_op(route_op),
       .route_out_orc(route_orc),
       .errors(rf_errors));
    
+	always @(posedge clk, posedge reset)
+		if (route_op!=route_unmasked_op)
+		begin
+			$display("filter asserted.");
+			$stop;
+		end
+
    wire 				       error_invalid_port;
    assign error_invalid_port = rf_errors[0];
    

@@ -468,7 +468,8 @@ shared_fb_push_data, shared_vc_in, error);
 	   //-------------------------------------------------------------------
 	   wire 			    fb_empty;
 	   assign fb_empty = fb_empty_ivc[ivc];
-	   
+	  
+
 	   wire [0:num_ports-1] 	    	route_op;
 	   wire [0:num_resource_classes-1]  route_orc;
 	   wire 			    			allocated;
@@ -500,12 +501,14 @@ shared_fb_push_data, shared_vc_in, error);
 	       .fb_mgmt_type(fb_mgmt_type),
 	       .explicit_pipeline_register(explicit_pipeline_register),
 	       .vc_id(ivc),
+		   .shared_ivc(0),
 	       .port_id(port_id),
 	       .reset_type(reset_type))
 	   ivcc
 	     (.clk(clk),
 	      .reset(reset),
-	      .router_address(router_address),
+		  .port_sel(5'b0),
+		  .router_address(router_address),
 	      .flit_valid_in(flit_valid_in),
 	      .flit_head_in(flit_head_in),
 	      .flit_tail_in(flit_tail_in),

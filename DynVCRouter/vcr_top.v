@@ -318,8 +318,13 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 
    // mapping 'memory_bank_grant' to 'memory_bank_grant_out'
    wire [0:num_ports*num_ports-1] memory_bank_grant; // TODO: how to generate this signal
-   assign memory_bank_grant = 25'b1000001000001000001000001;
-   
+   //assign memory_bank_grant = 25'b10000_01000_00100_00010_00001;
+   assign memory_bank_grant = 25'b00010_00010_00010_00010_00001;//pass
+   //assign memory_bank_grant = 25'b00010_00010_00010_00010_00010;
+   //assign memory_bank_grant = 25'b01000_01000_01000_01000_01000;
+   //assign memory_bank_grant = 25'b00100_00100_00100_00100_00100;
+   //assign memory_bank_grant = 25'b00010_00010_00010_00010_00010;
+
    genvar gnt1,gnt2;
    generate
    	wire [0:num_ports*num_ports-1] memory_bank_grant_out_sel;
@@ -602,8 +607,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		.num_ports(num_ports))
 	   push_data_sel
 	       (.select(memory_bank_grant_sel),
-		.data_in(shared_fb_push_data),
-		.data_out(shared_push_data));
+			.data_in(shared_fb_push_data),
+			.data_out(shared_push_data));
 
 	   wire [0:num_vcs-1]	shared_ivc_push;
 	   c_select_1ofn
@@ -617,11 +622,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   wire [0:num_vcs_per_bank-1]	shared_push_ivc;
 	   assign shared_push_ivc = shared_ivc_push[fb*num_vcs_per_bank:(fb+1)*num_vcs_per_bank-1];
 
-	   wire [0:num_vcs_per_bank-1] 		shared_ivc_empty;
-	   assign shared_ivc_empty = shared_fb_empty_ivc[fb*num_vcs_per_bank:(fb+1)*num_vcs_per_bank-1];
-
 	   wire	shared_alloc_active;
-	   assign shared_alloc_active = shared_push_valid | ~& shared_ivc_empty;
+	   assign shared_alloc_active = shared_push_valid | ~& shared_empty_ivc;
 
 	   wire	shared_pop_active;
 	   assign shared_pop_active = shared_alloc_active;
@@ -657,8 +659,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	       .reset_type(reset_type))
 	   flb(.clk(clk),
 			.reset(reset),
-			.push_active(shared_push_active),
-			.push_valid(shared_push_valid),
+			.push_active(shared_push_active & (|shared_push_ivc)),
+			.push_valid(shared_push_valid & (|shared_push_ivc)),
 			.push_head(shared_push_head),
 			.push_tail(shared_push_tail),
 			.push_sel_ivc(shared_push_ivc),
@@ -721,6 +723,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		   .data_in(shared_sw_gnt_ip),
 		   .data_out(shared_sw_gnt));
 
+	wire [0:num_ports-1]	port_sel;
+	assign port_sel = memory_bank_grant[fb*num_ports:(fb+1)*num_ports-1];
+
     // generate the shared ivc control singals. 
    	genvar ivc_ctrl;
 	for (ivc_ctrl=fb*num_vcs_per_bank; ivc_ctrl<(fb+1)*num_vcs_per_bank;ivc_ctrl=ivc_ctrl+1)
@@ -777,12 +782,14 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
   	         .fb_mgmt_type(fb_mgmt_type),
   	         .explicit_pipeline_register(explicit_pipeline_register),
   	         .vc_id(ivc_ctrl),
-  	         .port_id(fb),// TODO: port id
+  	         .shared_ivc(1),
+			 .port_id(0),
   	         .reset_type(reset_type))
   	   ivcc
   	       (.clk(clk),
   	        .reset(reset),
-  	        .router_address(router_address),
+			.port_sel(port_sel),
+			.router_address(router_address),
   	        .flit_valid_in(shared_push_valid),
   	        .flit_head_in(shared_push_head),
   	        .flit_tail_in(shared_push_tail),
@@ -855,10 +862,10 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    	          .data_in(shared_spec_mask_ivc),
    	          .data_out(shared_spec_mask));
    	       
-   	       assign shared_flit_sent = shared_sw_gnt & shared_spec_mask;
+   	       assign shared_flit_sent = shared_sw_gnt & (|shared_pop_sel_ivc) & shared_spec_mask;
    	    end
    	   else
-   	    assign shared_flit_sent = shared_sw_gnt;
+   	    assign shared_flit_sent = shared_sw_gnt & (|shared_pop_sel_ivc);
 
   	   wire		flit_head;
    	   c_select_1ofn

@@ -1,5 +1,4 @@
+1. packet_source-> shared_vc
 2. memory_bank_grant_out
-6. route_op_orc好像有问题
-8. shared_ivc_ctrl-> port_id
-9. shared_ivc_ctrl-> num_vcs
+6. 运行过程中输出的信息中含有x。
 

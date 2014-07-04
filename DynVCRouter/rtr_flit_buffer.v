@@ -242,8 +242,7 @@ module rtr_flit_buffer
 			  .q(tail_q));
 		       
 		       wire [0:addr_width-1] 	     pop_addr;
-		       assign pop_addr
-			 = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
+		       assign pop_addr = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
 		       
 		       wire [0:buffer_size_per_vc-1] pop_mask;
 		       
@@ -465,8 +464,7 @@ module rtr_flit_buffer
 	   assign read_addr = pop_addr;
 	   
 	   wire [0:flit_data_width-1] pop_data_s, pop_data_q;
-	   assign pop_data_s
-	     = pop_valid ? (empty ? write_data : read_data) : pop_data_q;
+	   assign pop_data_s = pop_valid ? (empty ? write_data : read_data) : pop_data_q;
 	   c_dff
 	     #(.width(flit_data_width),
 	       .reset_type(reset_type))

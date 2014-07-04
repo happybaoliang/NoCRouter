@@ -30,7 +30,8 @@
 // based on routing restrictions
 //==============================================================================
 
-module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_op, route_out_orc, errors);
+module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_op, 
+		port_sel, route_out_orc, errors);
    
 `include "c_constants.v"
 `include "rtr_constants.v"
@@ -59,8 +60,7 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
    parameter num_nodes_per_router = 4;
    
    // filter out illegal destination ports
-   // (the intent is to allow synthesis to optimize away the logic associated 
-   // with such turns)
+   // (the intent is to allow synthesis to optimize away the logic associated with such turns)
    parameter restrict_turns = 1;
    
    // connectivity within each dimension
@@ -72,9 +72,10 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
    // select order of dimension traversal
    parameter dim_order = `DIM_ORDER_ASCENDING;
    
-   // ID of current input port
+   parameter shared_filter = 0;
+
    parameter port_id = 0;
-   
+
    // ID of current input VC
    parameter vc_id = 0;
    
@@ -98,24 +99,26 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
    
    // route information is valid
    input route_valid;
-   
+  
+   input [0:num_ports-1]				port_sel;
+
    // raw output port
-   input [0:num_ports-1] route_in_op;
+   input [0:num_ports-1] 				route_in_op;
    
    // raw output resource class
-   input [0:num_resource_classes-1] route_in_orc;
+   input [0:num_resource_classes-1] 	route_in_orc;
    
    // filtered output port
-   output [0:num_ports-1] 	    route_out_op;
-   wire [0:num_ports-1] 	    route_out_op;
+   output [0:num_ports-1] 	    		route_out_op;
+   wire [0:num_ports-1] 	    		route_out_op;
    
    // filtered output resource class
-   output [0:num_resource_classes-1] route_out_orc;
-   wire [0:num_resource_classes-1]   route_out_orc;
+   output [0:num_resource_classes-1] 	route_out_orc;
+   wire [0:num_resource_classes-1]   	route_out_orc;
    
    // internal error condition detected
-   output [0:1] 		     errors;
-   wire [0:1] 			     errors;   
+   output [0:1] 		     			errors;
+   wire [0:1] 			     			errors;
    
    
    //---------------------------------------------------------------------------
@@ -123,10 +126,11 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
    //---------------------------------------------------------------------------
    
    wire [0:num_ports-1] 	     error_op;
-   
-   genvar 			     op;
-   
+
+   genvar op;
    generate
+   if (shared_filter==0)
+   begin
       for(op = 0; op < num_ports; op = op + 1)
 	  begin:ops
 	    case(routing_type)
@@ -135,7 +139,7 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
 		  // handle network ports
 		  if(op < (num_ports - num_nodes_per_router))
 		    begin
-		       if(
+		      if(
 			  // for line and ring connectivity, packets can only
 			  // turn back when they reach an intermediate node;
 			  // however, when they reach the last intermediate
@@ -171,7 +175,7 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
 			    assign route_out_op[op] = 1'b0;
 			    assign error_op[op] = route_in_op[op];
 			 end
-		       else
+		     else
 			 begin
 			    assign route_out_op[op] = route_in_op[op];
 			    assign error_op[op] = 1'b0;
@@ -180,13 +184,13 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
 		  // handle injection/ejection ports
 		  else
 		    begin
-		       // a packet coming in on an injection/ejection port should never exit the router on the same port
-		       if(op == port_id)
+		     // a packet coming in on an injection/ejection port should never exit the router on the same port
+		     if(op == port_id)
 			 begin
 			    assign route_out_op[op] = 1'b0;
 			    assign error_op[op] = route_in_op[op];
 			 end
-		       else
+		     else
 			 begin
 			    assign route_out_op[op] = route_in_op[op];
 			    assign error_op[op] = 1'b0;
@@ -195,7 +199,26 @@ module rtr_route_filter(clk, route_valid, route_in_op, route_in_orc, route_out_o
 	       end
 	   endcase
 	end
+   end
+   else
+   begin
+		  // handle network ports 0
+assign {route_out_op[0],error_op[0]} = ((((connectivity == `CONNECTIVITY_LINE) || (connectivity == `CONNECTIVITY_RING)) && (port_id[4]) && (resource_class == (num_resource_classes - 1))) || ((connectivity == `CONNECTIVITY_FULL) && ((0 / num_neighbors_per_dim) == (port_id[2] | port_id[3])) && (resource_class == (num_resource_classes - 1))) || (((((dim_order == `DIM_ORDER_ASCENDING) || ((dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 0))) && ((0 / num_neighbors_per_dim) < (port_id[2] | port_id[3]))) || (((dim_order == `DIM_ORDER_DESCENDING) || (dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 1)) && ((0 / num_neighbors_per_dim) > (port_id[2] | port_id[3])))) && (resource_class == (num_resource_classes - 1)) && (~port_id[0]))) ? {1'b0,route_in_op[0]} : {route_in_op[0],1'b0};
+
+		  // handle network ports 1
+assign {route_out_op[1],error_op[1]} = ((((connectivity == `CONNECTIVITY_LINE) || (connectivity == `CONNECTIVITY_RING)) && (port_id[3]) && (resource_class == (num_resource_classes - 1))) || ((connectivity == `CONNECTIVITY_FULL) && ((1 / num_neighbors_per_dim) == (port_id[2] | port_id[3])) && (resource_class == (num_resource_classes - 1))) || (((((dim_order == `DIM_ORDER_ASCENDING) || ((dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 0))) && ((1 / num_neighbors_per_dim) < (port_id[2] | port_id[3]))) || (((dim_order == `DIM_ORDER_DESCENDING) || (dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 1)) && ((1 / num_neighbors_per_dim) > (port_id[2] | port_id[3])))) && (resource_class == (num_resource_classes - 1)) && (~port_id[0]))) ? {1'b0, route_in_op[1]} : {route_in_op[1],1'b0};
+
+		  // handle network ports 2
+assign {route_out_op[2],error_op[2]} = ((((connectivity == `CONNECTIVITY_LINE) || (connectivity == `CONNECTIVITY_RING)) && (port_id[2]) && (resource_class == (num_resource_classes - 1))) || ((connectivity == `CONNECTIVITY_FULL) && ((2 / num_neighbors_per_dim) == (port_id[2] | port_id[3])) && (resource_class == (num_resource_classes - 1))) || (((((dim_order == `DIM_ORDER_ASCENDING) || ((dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 0))) && ((2 / num_neighbors_per_dim) < (port_id[2] | port_id[3]))) || (((dim_order == `DIM_ORDER_DESCENDING) || (dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 1)) && ((2 / num_neighbors_per_dim) > (port_id[2] | port_id[3])))) && (resource_class == (num_resource_classes - 1)) && (~port_id[0]))) ? {1'b0, route_in_op[2]} : {route_in_op[2],1'b0};
+
+		  // handle network ports 3
+assign {route_out_op[3],error_op[3]} = ((((connectivity == `CONNECTIVITY_LINE) || (connectivity == `CONNECTIVITY_RING)) && (port_id[1]) && (resource_class == (num_resource_classes - 1))) || ((connectivity == `CONNECTIVITY_FULL) && ((3 / num_neighbors_per_dim) == (port_id[2] | port_id[3])) && (resource_class == (num_resource_classes - 1))) || (((((dim_order == `DIM_ORDER_ASCENDING) || ((dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 0))) && ((3 / num_neighbors_per_dim) < (port_id[2] | port_id[3]))) || (((dim_order == `DIM_ORDER_DESCENDING) || (dim_order == `DIM_ORDER_BY_CLASS) && ((message_class % 2) == 1)) && ((3 / num_neighbors_per_dim) > (port_id[2] | port_id[3])))) && (resource_class == (num_resource_classes - 1)) && (~port_id[0]))) ? {1'b0, route_in_op[3]} : {route_in_op[3],1'b0};
+
+		  // handle injection/ejection ports
+assign {route_out_op[4],error_op[4]} = (port_id[0]) ? {1'b0,route_in_op[4]} : {route_in_op[4],1'b0};
+   end
    endgenerate
+
    
     wire [0:num_resource_classes-1] error_orc;
    
