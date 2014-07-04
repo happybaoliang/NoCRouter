@@ -33,7 +33,7 @@
 parameter topology = `TOPOLOGY_MESH;
 
 // total buffer size per port in flits
-parameter buffer_size = 64;
+parameter buffer_size = 60;
 
 // number of message classes (e.g. request, reply)
 parameter num_message_classes = 1;
@@ -42,7 +42,7 @@ parameter num_message_classes = 1;
 parameter num_resource_classes = 1;
 
 // number of VCs per class
-parameter num_vcs_per_class = 16;
+parameter num_vcs_per_class = 10;
 
 // total number of nodes
 parameter num_nodes = 9;

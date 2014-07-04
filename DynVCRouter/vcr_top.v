@@ -318,10 +318,10 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 
    // mapping 'memory_bank_grant' to 'memory_bank_grant_out'
    wire [0:num_ports*num_ports-1] memory_bank_grant; // TODO: how to generate this signal
-   //assign memory_bank_grant = 25'b10000_01000_00100_00010_00001;
-   assign memory_bank_grant = 25'b00010_00010_00010_00010_00001;//pass
-   //assign memory_bank_grant = 25'b00010_00010_00010_00010_00010;
-   //assign memory_bank_grant = 25'b01000_01000_01000_01000_01000;
+   assign memory_bank_grant = 25'b10000_01000_00100_00010_00001;//pass
+   //assign memory_bank_grant = 25'b00010_00010_00010_00010_00001;//pass
+   //assign memory_bank_grant = 25'b00010_00010_00010_00010_00010;//pass
+   //assign memory_bank_grant = 25'b01000_01000_01000_01000_01000;//pass
    //assign memory_bank_grant = 25'b00100_00100_00100_00100_00100;
    //assign memory_bank_grant = 25'b00010_00010_00010_00010_00010;
 
@@ -1308,11 +1308,11 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
     else
 		assign error = 1'bx;
    endgenerate
-
+/*
    initial
    begin
    	$dumpfile("router.db");
    	$dumpvars(0,vcr_top);
    end
-
+*/
 endmodule

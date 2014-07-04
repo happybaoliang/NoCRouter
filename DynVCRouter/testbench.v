@@ -1925,7 +1925,7 @@ module testbench
       $display("%d flits in, %d flits out", count_in_flits, count_out_flits);
       
       $display("cooling down...");
-      
+    
       run = 1'b0;
       
       while((in_flits > out_flits) || (in_flits > in_creds))

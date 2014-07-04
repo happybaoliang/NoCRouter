@@ -297,13 +297,9 @@ begin
 	flit_valid_q<=flit_valid;
 end
 
-always @(posedge clk or posedge reset)
-if (flit_valid_q & flit_tail_q)
-	$display("rev:\n %7d %7d %7d %7d %7d %7d", dim2_addr, dim1_addr, src_addr_dim1, src_addr_dim2, pkt_cnt, ($time-10)/2);
 
-initial
-begin
-	//$dumpvars(1,flit_sink);
-end
+always @(posedge clk or posedge reset)
+if (flit_valid_q & flit_tail_q)//TODO: this condition might be wrong
+	$display("rev:\n %7d %7d %7d %7d %7d %7d", dim2_addr, dim1_addr, src_addr_dim1, src_addr_dim2, pkt_cnt, ($time-10)/2);
 
 endmodule
