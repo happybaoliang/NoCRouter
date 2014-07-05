@@ -127,8 +127,7 @@ module c_damq_ctrl
 	   
 	   initial
 	     begin
-		$display({"ERROR: DAMQ controller %m does not support ", 
-			  "fast_almost_empty=1."});
+		$display({"ERROR: DAMQ controller %m does not support ", "fast_almost_empty=1."});
 		$stop;
 	     end
 	   
@@ -139,8 +138,7 @@ module c_damq_ctrl
 	   
 	   initial
 	     begin
-		$display({"ERROR: DAMQ controller %m requires at least two ",
-			  "slots."});
+		$display({"ERROR: DAMQ controller %m requires at least two ", "slots."});
 		$stop;
 	     end
 	   
@@ -426,20 +424,17 @@ module c_damq_ctrl
 	     begin
 		if(multi_used)
 		  begin
-		     $display({"ERROR: slot %d is used by multiple queues in ",
-			       "%m."}, slot);
+		     $display({"ERROR: slot %d is used by multiple queues in ", "%m."}, slot);
 		     $stop;
 		  end
 		if(used_and_unused)
 		  begin
-		     $display({"ERROR: slot %d is both in use and in free ",
-			       "list in %m."}, slot);
+		     $display({"ERROR: slot %d is both in use and in free ", "list in %m."}, slot);
 		     $stop;
 		  end
 		if(used_nor_unused)
 		  begin
-		     $display({"ERROR: slot %d is neither in use nore in ",
-			       "free list in %m."}, slot);
+		     $display({"ERROR: slot %d is neither in use nore in ", "free list in %m."}, slot);
 		     $stop;
 		  end
 	     end
@@ -583,8 +578,7 @@ module c_damq_ctrl
 	     begin
 		
 		if(error_underflow)
-		  $display("ERROR: FIFO underflow in module %m, queue %d.", 
-			   queue);
+		  $display("ERROR: FIFO underflow in module %m, queue %d.", queue);
 		
 	     end
 	   
@@ -631,14 +625,12 @@ module c_damq_ctrl
 	     begin
 		if(~empty & ~used_q[head_addr])
 		  begin
-		     $display("ERROR: Invalid head pointer in queue %d in %m.",
-			      queue);
+		     $display("ERROR: Invalid head pointer in queue %d in %m.", queue);
 		     $stop;
 		  end
 		if(~empty & ~used_q[tail_addr])
 		  begin
-		     $display("ERROR: Invalid tail pointer in queue %d in %m.",
-			      queue);
+		     $display("ERROR: Invalid tail pointer in queue %d in %m.", queue);
 		     $stop;
 		  end
 	     end

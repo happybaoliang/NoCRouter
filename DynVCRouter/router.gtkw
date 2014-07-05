@@ -1,16 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Fri Jul  4 19:40:46 2014
+[*] Sat Jul  5 19:03:03 2014
 [*]
-[dumpfile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.db"
-[dumpfile_mtime] "Fri Jul  4 17:44:16 2014"
-[dumpfile_size] 106319351
-[savefile] "/home/happy/Dropbox/NoCRouter/DynVCRouter/router.gtkw"
-[timestart] 79
+[dumpfile] "/home/happy/NoCRouter/DynVCRouter/router.db"
+[dumpfile_mtime] "Sat Jul  5 19:02:55 2014"
+[dumpfile_size] 104105303
+[savefile] "/home/happy/NoCRouter/DynVCRouter/router.gtkw"
+[timestart] 20
 [size] 1215 776
 [pos] -1 -1
-*-2.000000 84 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-4.000000 66 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
+[treeopen] testbench.ips[7].
+[treeopen] testbench.ips[7].ps.
 [treeopen] testbench.rtr_0.vcr.fbs[2].ivc_ctrls[5].
 [treeopen] testbench.rtr_0.vcr.fbs[3].ivc_ctrls[6].
 [treeopen] testbench.rtr_0.vcr.ips[2].ipc.
@@ -208,9 +210,7 @@ testbench.rtr_3.vcr.alo.sw_sel_ip_shared_ivc[0:49]
 -group_end
 @22
 +{testbench.rtr_3.vcr.fbs[1]_shared_push_data[0:63]} testbench.rtr_3.vcr.fbs[1].flb.push_data[0:63]
-@23
 +{testbench.rtr_3.vcr.fbs[1]_shared_pop_data[0:63]} testbench.rtr_3.vcr.fbs[1].flb.pop_data[0:63]
-@22
 +{testbench.rtr_3.vcr.ips[3]_pop_data[0:63]} testbench.rtr_3.vcr.ips[3].ipc.fb.pop_data[0:63]
 +{testbench.rtr_3.vcr.ips[4]_pop_data[0:63]} testbench.rtr_3.vcr.ips[4].ipc.fb.pop_data[0:63]
 testbench.rtr_3.vcr.ops[2].opc.flit_data[0:63]
@@ -304,5 +304,87 @@ testbench.rtr_3.vcr.ops[2].opc.cho.channel_out[0:71]
 -group_end
 @1001200
 -group_end
+@800022
+testbench.ps_error_ip[0:8]
+@28
+(0)testbench.ps_error_ip[0:8]
+(1)testbench.ps_error_ip[0:8]
+(2)testbench.ps_error_ip[0:8]
+(3)testbench.ps_error_ip[0:8]
+testbench.ips[3].ps.error
+@22
+testbench.ips[3].ps.fcs_errors_ovc[0:19]
+@c00022
+testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+@28
+(0)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(1)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(2)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(3)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(4)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(5)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(6)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(7)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(8)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(9)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(10)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(11)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(12)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(13)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(14)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(15)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(16)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(17)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(18)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+(19)testbench.ips[3].ps.shared_fcs_errors_ovc[0:19]
+@1401200
+-group_end
+@28
+(4)testbench.ps_error_ip[0:8]
+(5)testbench.ps_error_ip[0:8]
+(6)testbench.ps_error_ip[0:8]
+(7)testbench.ps_error_ip[0:8]
+(8)testbench.ps_error_ip[0:8]
+@22
+testbench.ips[7].ps.shared_fcs_errors_ovc[0:19]
+@1001200
+-group_end
+@22
+testbench.fs_error_op[0:8]
+testbench.rchk_error[0:8]
+@28
+testbench.ips[7].ps.shared_fc_flit_valid
+testbench.ips[7].ps.flit_head_q
+testbench.ips[7].ps.flit_tail_q
+@22
+testbench.ips[7].ps.flit_sel_ovc_q[0:9]
+@28
+testbench.ips[7].ps.credit_for_shared
+testbench.ips[7].ps.shared_fc_active
+testbench.ips[7].ps.shared_fcs_active
+testbench.ips[7].ps.shared_fc_flit_valid
+testbench.ips[7].ps.shared_fc_event_valid
+@c00022
+testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+@28
+(0)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(1)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(2)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(3)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(4)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(5)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(6)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(7)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(8)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+(9)testbench.ips[7].ps.shared_fc_event_sel_ovc[0:9]
+@1401200
+-group_end
+@29
+testbench.ips[7].ps.fcs_active
+@28
+testbench.ips[7].ps.fc_flit_valid
+testbench.ips[7].ps.fc_event_valid
+@22
+testbench.ips[7].ps.fc_event_sel_ovc[0:9]
 [pattern_trace] 1
 [pattern_trace] 0

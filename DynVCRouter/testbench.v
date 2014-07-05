@@ -1166,7 +1166,7 @@ module testbench
      (.clk(clk),
       .reset(reset),
       .router_address(4'b0100),
-      .shared_vc_in({shared_vc_rtr1_ip0,shared_vc_rtr1_ip1,shared_vc_rtr1_ip2,shared_vc_rtr1_ip3,shared_vc_rtr0_ip4}),
+      .shared_vc_in({shared_vc_rtr1_ip0,shared_vc_rtr1_ip1,shared_vc_rtr1_ip2,shared_vc_rtr1_ip3,shared_vc_rtr1_ip4}),
       .shared_vc_out({shared_vc_rtr1_op0,shared_vc_rtr1_op1,shared_vc_rtr1_op2,shared_vc_rtr1_op3,shared_vc_rtr1_op4}),
       .credit_for_shared_in({credit_for_shared_rtr1_ip0,credit_for_shared_rtr1_ip1,credit_for_shared_rtr1_ip2, 
 			credit_for_shared_rtr1_ip3,credit_for_shared_rtr1_ip4}),
@@ -1858,7 +1858,7 @@ module testbench
    end
    
    always @(posedge clk)
-     begin
+    begin
 	if(|rtr_error)
 	  begin
 	     $display("internal error detected, cyc=%d", $time);
@@ -1903,20 +1903,20 @@ module testbench
       run = 1'b1;
 
       while(cycles < warmup_time)
-	begin
+	  begin
 	   cycles = cycles + 1;
 	   #(Tclk);
-	end
+	  end
       
       $display("measuring...");
       
       count_en = 1'b1;
       
       while(cycles < warmup_time + measure_time)
-	begin
+	  begin
 	   cycles = cycles + 1;
 	   #(Tclk);
-	end
+	  end
       
       count_en = 1'b0;
       
@@ -1944,5 +1944,10 @@ module testbench
       
    end
 
+   initial
+   begin
+   	$dumpfile("router.db");
+   	$dumpvars(0,testbench);
+   end
 endmodule
 

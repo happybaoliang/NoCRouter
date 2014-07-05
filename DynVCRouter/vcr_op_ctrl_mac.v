@@ -327,10 +327,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    wire [0:num_vcs-1] 	shared_flit_sel_ovc;
    
    generate
-      if(sw_alloc_spec)
-	assign flit_sent = flit_valid_q & (|(flit_sel_ovc|shared_flit_sel_ovc));
-      else
-	assign flit_sent = flit_valid_q; 
+   	if(sw_alloc_spec)
+		assign flit_sent = flit_valid_q & (|(flit_sel_ovc|shared_flit_sel_ovc));
+    else
+		assign flit_sent = flit_valid_q; 
    endgenerate
    
    wire  fcs_active;
