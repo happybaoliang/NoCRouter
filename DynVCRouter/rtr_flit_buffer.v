@@ -352,8 +352,7 @@ module rtr_flit_buffer
 		  genvar ivc;
 		  
 		  for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
-		    begin:ivcs
-		       
+		    begin:bivcs
 		       wire [0:addr_width-1] pop_addr;
 		       assign pop_addr
 			 = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];

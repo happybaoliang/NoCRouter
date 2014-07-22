@@ -365,7 +365,7 @@ module rtr_channel_input (clk, reset, active, channel_in, flit_valid_out, flit_h
 		    begin 
 			 genvar ivc;
 			 for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
-			   begin:ivcs
+			   begin:ivccs
 			      wire [0:flit_ctr_width-1] flit_ctr_next;
 			      wire [0:flit_ctr_width-1] flit_ctr_s, flit_ctr_q;
 			      assign flit_ctr_s = (flit_valid_out & flit_sel_out_ivc[ivc]) 

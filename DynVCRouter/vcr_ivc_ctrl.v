@@ -578,13 +578,6 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
       .route_out_op(route_op),
       .route_out_orc(route_orc),
       .errors(rf_errors));
-   
-	always @(posedge clk, posedge reset)
-		if (route_op!=route_unmasked_op)
-		begin
-			$display("filter asserted.");
-			$stop;
-		end
 
    wire 				       error_invalid_port;
    assign error_invalid_port = rf_errors[0];
