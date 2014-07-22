@@ -9,6 +9,9 @@ DynVCRouter/WORK/
 
 *.rep
 *.log
+*.sdc
+*.svf
+*.vh
 
 # database file
 *.db
