@@ -31,7 +31,7 @@
 
 module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_active, 
 		sw_gnt, sw_sel_ip, sw_sel_ivc, flit_valid, flit_tail, flit_sel, elig, full, 
-		vc_sel_shared_ivc, sw_sel_shared_ivc, full_prev, empty);
+		vc_sel_shared_ivc, sw_sel_shared_ivc, full_prev, allocated, empty);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -103,6 +103,9 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
    // ignoring the current flit, VC has no credits left
    input 		 		 full_prev;
    
+   output				 allocated;
+   wire					 allocated;
+
    // VC is empty
    input 		 		 empty;
    
@@ -114,9 +117,8 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
 // If this vc is assigned to an input vc, the allocated signal keeps on valid. 
    wire 		 alloc_active;
    assign alloc_active = vc_active | flit_valid;
-   
-   wire 		 allocated;
-   
+  
+
    wire 		 allocated_s, allocated_q;
    assign allocated_s = vc_gnt | allocated;
    c_dff

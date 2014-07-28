@@ -34,7 +34,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	sw_gnt, sw_sel_ip, sw_sel_ivc, flit_head, flit_tail, flit_data, channel_out, shared_vc_in,
 	shared_almost_full_ovc, almost_full_ovc, shared_full_ovc, full_ovc, elig_ovc, error, 
 	shared_elig_ovc, vc_gnt_shared_ovc, shared_vc_out, credit_for_shared, vc_sel_ovc_shared_ivc,
-	vc_sel_shared_ovc_shared_ivc, sw_sel_shared_ivc);
+	vc_sel_shared_ovc_shared_ivc, sw_sel_shared_ivc, shared_ovc_allocated);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -215,7 +215,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    // output VC is eligible for allocation (i.e., not currently allocated)
    output [0:num_vcs-1] 	        shared_elig_ovc;
    wire [0:num_vcs-1] 		        shared_elig_ovc;
- 
+
+   output [0:num_vcs-1]				shared_ovc_allocated;
+   wire [0:num_vcs-1]				shared_ovc_allocated;
+
    // internal error condition detected
    output 			                error;
    wire 			                error;
@@ -431,8 +434,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	   wire 		full_prev;
 	   assign full_prev = full_prev_ovc[ovc];
 	   
+	   wire			allocated;
 	   wire 		flit_sel;
 	   wire 		elig;
+
 	   vcr_ovc_ctrl
 	     #(.num_vcs(num_vcs),
 	       .num_ports(num_ports),
@@ -458,6 +463,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	      .elig(elig),
 	      .full(full),
 	      .full_prev(full_prev),
+		  .allocated(allocated),
 	      .empty(empty));
 	   
 	   assign flit_sel_ovc[ovc] = flit_sel;
@@ -486,6 +492,8 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	   
 	   wire 		shared_elig;
 	   wire 		shared_flit_sel;
+	   wire			shared_allocated;
+
 	   vcr_ovc_ctrl
 	     #(.num_vcs(num_vcs),
 	       .num_ports(num_ports),
@@ -511,8 +519,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	      .elig(shared_elig),
 	      .full(shared_full),
 	      .full_prev(shared_full_prev),
+		  .allocated(shared_allocated),
 	      .empty(shared_empty));
-	   
+	  
+	   assign shared_ovc_allocated[ovc] = shared_allocated;
 	   assign shared_flit_sel_ovc[ovc] = shared_flit_sel;
 	   assign shared_elig_ovc[ovc] = shared_elig;
 	 end

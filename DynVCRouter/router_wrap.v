@@ -33,7 +33,9 @@
 module router_wrap
   (clk, reset, router_address, channel_in_ip, memory_bank_grant_in, flow_ctrl_out_ip, 
    channel_out_op, memory_bank_grant_out, flow_ctrl_in_op, credit_for_shared_in, 
-   shared_vc_in, credit_for_shared_out, shared_vc_out, error);
+   shared_vc_in, credit_for_shared_out, shared_vc_out, ready_for_allocation_in,
+   ready_for_allocation_out, ip_shared_ivc_allocated_in, ip_shared_ivc_allocated_out, 
+   error);
    
 `include "c_functions.v"   
 `include "c_constants.v"
@@ -140,20 +142,27 @@ module router_wrap
    output [0:num_ports*channel_width-1]   channel_out_op;
    wire [0:num_ports*channel_width-1] 	  channel_out_op;
    
+   input [0:num_ports-1]				  ready_for_allocation_in;
+
+   output [0:num_ports-1]				  ready_for_allocation_out;
+   wire [0:num_ports-1]					  ready_for_allocation_out;
+
    // incoming flow control signals
    input [0:num_ports*flow_ctrl_width-1]  flow_ctrl_in_op;
    
+   input [0:num_ports*num_vcs-1]		  ip_shared_ivc_allocated_in;
+
+   output [0:num_ports*num_vcs-1]		  ip_shared_ivc_allocated_out;
+   wire [0:num_ports*num_vcs-1]			  ip_shared_ivc_allocated_out;
+
    // internal error condition detected
    output 				  error;
    wire 				  error;
    
-   generate
-      
+   generate   
       case(router_type)
-	
 	`ROUTER_TYPE_WORMHOLE:
 	  begin
-	     
 	     whr_top
 	       #(.buffer_size(buffer_size),
 		 .num_routers_per_dim(num_routers_per_dim),
@@ -189,12 +198,9 @@ module router_wrap
 		.channel_out_op(channel_out_op),
 		.flow_ctrl_in_op(flow_ctrl_in_op),
 		.error(error));
-	     
 	  end
-	
 	`ROUTER_TYPE_VC:
 	  begin
-	     
 	     vcr_top
 	       #(.buffer_size(buffer_size),
 		 .num_message_classes(num_message_classes),
@@ -243,13 +249,14 @@ module router_wrap
 		.credit_for_shared_out(credit_for_shared_out),
 		.channel_out_op(channel_out_op),
 		.flow_ctrl_in_op(flow_ctrl_in_op),
+		.ready_for_allocation_in(ready_for_allocation_in),
+		.ready_for_allocation_out(ready_for_allocation_out),
+		.ip_shared_ivc_allocated_in(ip_shared_ivc_allocated_in),
+		.ip_shared_ivc_allocated_out(ip_shared_ivc_allocated_out),
 		.error(error));
-	     
 	  end
-	
 	`ROUTER_TYPE_COMBINED:
 	  begin
-	     
 	     rtr_top
 	       #(.buffer_size(buffer_size),
 		 .num_message_classes(num_message_classes),
@@ -297,11 +304,8 @@ module router_wrap
 		.channel_out_op(channel_out_op),
 		.flow_ctrl_in_op(flow_ctrl_in_op),
 		.error(error));
-	     
 	  end
-	
       endcase
-      
    endgenerate
    
 endmodule
