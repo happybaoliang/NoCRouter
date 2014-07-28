@@ -1,11 +1,13 @@
 # directory
+conventional_router/src/WORK/
 conventional_router/verif/mesh_3x3/csrc/
 conventional_router/verif/mesh_3x3/results/
 conventional_router/verif/mesh_3x3/simv.daidir/
+
 DynVCRouter/csrc/
+DynVCRouter/WORK/
 DynVCRouter/simv.daidir/
 synopsys_cache_B-2008.09/
-DynVCRouter/WORK/
 
 *.rep
 *.log

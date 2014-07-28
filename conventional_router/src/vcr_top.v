@@ -560,10 +560,4 @@ module vcr_top
 		assign error = 1'bx;
    endgenerate
 
-   initial
-   begin
-   	$dumpfile("router.db");
-	$dumpvars(0,vcr_top);
-   end
-
 endmodule

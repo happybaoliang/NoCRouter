@@ -382,7 +382,7 @@ module rtr_channel_input
 			 genvar ivc;
 			 
 			 for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
-			   begin:ivcs
+			   begin:ivcss
 			      
 			      wire [0:flit_ctr_width-1] flit_ctr_next;
 			      wire [0:flit_ctr_width-1] flit_ctr_s, flit_ctr_q;

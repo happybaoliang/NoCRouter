@@ -33,19 +33,19 @@
 parameter topology = `TOPOLOGY_MESH;
 
 // total buffer size per port in flits
-parameter buffer_size = 16;
+parameter buffer_size = 60;
 
 // number of message classes (e.g. request, reply)
-parameter num_message_classes = 2;
+parameter num_message_classes = 1;
 
 // number of resource classes (e.g. minimal, adaptive)
 parameter num_resource_classes = 1;
 
 // number of VCs per class
-parameter num_vcs_per_class = 1;
+parameter num_vcs_per_class = 12;
 
 // total number of nodes
-parameter num_nodes = 64;
+parameter num_nodes = 16;
 
 // number of dimensions in network
 parameter num_dimensions = 2;
@@ -63,10 +63,10 @@ parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
 parameter flow_ctrl_bypass = 0;
 
 // maximum payload length (in flits)
-parameter max_payload_length = 4;
+parameter max_payload_length = 3;
 
 // minimum payload length (in flits)
-parameter min_payload_length = 0;
+parameter min_payload_length = 3;
 
 // select router implementation
 parameter router_type = `ROUTER_TYPE_VC;
@@ -102,7 +102,7 @@ parameter input_stage_can_hold = 0;
 parameter fb_regfile_type = `REGFILE_TYPE_FF_2D;
 
 // select flit buffer management scheme
-parameter fb_mgmt_type = `FB_MGMT_TYPE_STATIC;
+parameter fb_mgmt_type = `FB_MGMT_TYPE_DYNAMIC;
 
 // improve timing for peek access
 parameter fb_fast_peek = 1;
