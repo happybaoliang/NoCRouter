@@ -17,7 +17,7 @@ set my_toplevel router_syn
 set my_clock_pin clk
 
 #/* Target frequency in MHz for optimization       */
-set my_clk_freq_MHz 500
+set my_clk_freq_MHz 100
 
 #/* Delay of input signals (Clock-to-Q, Package etc.)  */
 set my_input_delay_ns 0.1

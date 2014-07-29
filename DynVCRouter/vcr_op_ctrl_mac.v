@@ -463,7 +463,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	      .elig(elig),
 	      .full(full),
 	      .full_prev(full_prev),
-		  .allocated(allocated),
+		  .allocated_ovc(allocated),
 	      .empty(empty));
 	   
 	   assign flit_sel_ovc[ovc] = flit_sel;
@@ -519,7 +519,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	      .elig(shared_elig),
 	      .full(shared_full),
 	      .full_prev(shared_full_prev),
-		  .allocated(shared_allocated),
+		  .allocated_ovc(shared_allocated),
 	      .empty(shared_empty));
 	  
 	   assign shared_ovc_allocated[ovc] = shared_allocated;

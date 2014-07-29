@@ -31,10 +31,10 @@ module testbench();
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 100;
+   parameter warmup_time = 1000;
    
    // measurement interval in cycles
-   parameter measure_time = 100;
+   parameter measure_time = 1000;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -149,10 +149,10 @@ module testbench();
 
 	genvar x_dim, y_dim;
 	generate      
-		for (y_dim = 0; y_dim <num_routers_per_dim; y_dim = y_dim +1)
-		begin:ydims
-			for(x_dim = 0; x_dim < num_routers_per_dim; x_dim = x_dim + 1)
-			begin:xdims
+		for(x_dim = 0; x_dim < num_routers_per_dim; x_dim = x_dim + 1)
+		begin:xdims
+			for (y_dim = 0; y_dim <num_routers_per_dim; y_dim = y_dim +1)
+			begin:ydims
 				wire [31:0] xdim_addr;
 				assign xdim_addr = x_dim;
 				
@@ -801,14 +801,12 @@ module testbench();
     
       run = 1'b0;
       
-      while(cycles<250)//(in_flits > out_flits) || (in_flits > in_creds))
+      while((in_flits > out_flits) || (in_flits > in_creds))
 	  begin
 	   cycles = cycles + 1;
 	   #(Tclk);
 	  end
 	 
-	  $display("in_flits=%d, out_flits=%d, in_creds=%d\n",in_flits, out_flits, in_creds);
-
       #(Tclk*10);
       
       $display("simulation ended after %d cycles", cycles);

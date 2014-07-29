@@ -31,7 +31,7 @@
 
 module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_active, 
 		sw_gnt, sw_sel_ip, sw_sel_ivc, flit_valid, flit_tail, flit_sel, elig, full, 
-		vc_sel_shared_ivc, sw_sel_shared_ivc, full_prev, allocated, empty);
+		vc_sel_shared_ivc, sw_sel_shared_ivc, full_prev, allocated_ovc, empty);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -103,8 +103,8 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
    // ignoring the current flit, VC has no credits left
    input 		 		 full_prev;
    
-   output				 allocated;
-   wire					 allocated;
+   output				 allocated_ovc;
+   wire					 allocated_ovc;
 
    // VC is empty
    input 		 		 empty;
@@ -119,6 +119,8 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
    assign alloc_active = vc_active | flit_valid;
   
 
+   wire allocated;
+
    wire 		 allocated_s, allocated_q;
    assign allocated_s = vc_gnt | allocated;
    c_dff
@@ -132,7 +134,9 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
       .q(allocated_q));
    
    assign allocated = allocated_q & ~(flit_valid & flit_sel & flit_tail);
-   
+
+   assign allocated_ovc = allocated_q;
+
 // tracker the owner (i.e. the corresponding input vc) of this output vc.
    wire [0:num_ports-1]  allocated_ip_s, allocated_ip_q;
    assign allocated_ip_s = allocated ? allocated_ip_q : vc_sel_ip;
