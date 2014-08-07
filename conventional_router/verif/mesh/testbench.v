@@ -613,9 +613,6 @@ module testbench();
    integer cycles;
    integer d;
    
-   wire [0:num_routers*num_ports*num_vcs*32-1] active_cycles;
-   integer x,y,p,vc;
-
    initial
    begin  
       reset = 1'b0;
@@ -682,37 +679,8 @@ module testbench();
       
       $display("%d flits received, %d flits sent", in_flits, out_flits);
 
-	  for (x=0;x<num_routers_per_dim;x=x+1)
-	  begin
-	  	for (y=0;y<num_routers_per_dim;y=y+1)
-		begin
-			$write("router%02d=[",x*num_routers_per_dim+y);
-			for (p=0;p<num_ports;p=p+1)
-			begin
-				for (vc=0;vc<num_vcs;vc=vc+1)
-				begin
-					$write("%d ",active_cycles[(x*num_routers_per_dim+y)*num_ports*num_vcs*32+p*num_vcs*32+vc*32+:32]);
-				end
-				$write("\n");
-			end
-			$display("];");
-		end
-	  end
       $finish;
    end
-
-
-   genvar xx, yy, pp;
-   generate
-	for (xx=0;xx<num_routers_per_dim;xx=xx+1)
-	begin:xs
-		for (yy=0;yy<num_routers_per_dim;yy=yy+1)
-		begin:ys
-			assign active_cycles[(xx*num_routers_per_dim+yy)*num_ports*num_vcs*32+:num_ports*num_vcs*32]
-							=testbench.xdims[xx].ydims[yy].rtr.vcr.alo.active_cycles[0:num_ports*num_vcs*32-1];
-		end
-	end
-   endgenerate
 
 
 endmodule
