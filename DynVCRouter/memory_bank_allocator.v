@@ -45,7 +45,7 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	generate
 	for (ip=0;ip<num_ports;ip=ip+1)
 	begin:ips
-		always @(posedge clk, reset)
+		always @(posedge clk or posedge reset)
 		if (reset)
 		begin
 			counter[ip*counter_width:(ip+1)*counter_width-1] <= {counter_width{1'b0}};
@@ -71,7 +71,7 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	reg [0:1] state;
 	reg [0:1] next_state;
 
-	always @(posedge clk, reset)
+	always @(posedge clk or posedge reset)
 	if (reset)
 	begin
 		congestion<=congestion_new;
@@ -104,7 +104,7 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 		endcase
 	end
 	
-	always @(posedge clk, reset)
+	always @(posedge clk or posedge reset)
 	if (reset)
 	begin
 		memory_bank_grant_out <= {5'b10000}>>bank_id;

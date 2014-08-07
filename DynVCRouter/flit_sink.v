@@ -25,7 +25,7 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-module flit_sink (clk, reset, channel, memory_bank_grant, shared_vc, flow_ctrl, credit_for_shared, error);
+module flit_sink (clk, reset, channel, memory_bank_grant, router_address, shared_vc, flow_ctrl, credit_for_shared, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -57,6 +57,9 @@ module flit_sink (clk, reset, channel, memory_bank_grant, shared_vc, flow_ctrl, 
 
    localparam num_vcs_per_bank = num_vcs/6;
    
+   // width of packet count register
+   parameter packet_count_reg_width = 32;
+   
    // select packet format
    parameter packet_format = `PACKET_FORMAT_EXPLICIT_LENGTH;
    
@@ -66,9 +69,19 @@ module flit_sink (clk, reset, channel, memory_bank_grant, shared_vc, flow_ctrl, 
    // width of flow control signals
    localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
 
-   localparam dim1_addr=(initial_seed-9)/3;
+   // number of dimensions in network
+   parameter num_dimensions = 2;
+  
+   parameter num_routers = 16;
 
-   localparam dim2_addr=(initial_seed-9)%3;
+   // number of routers in each dimension
+   localparam num_routers_per_dim = croot(num_routers, num_dimensions);
+   
+   // width required to select individual router in a dimension
+   localparam dim_addr_width = clogb(num_routers_per_dim);
+   
+   // width required to select individual router in entire network
+   localparam router_addr_width = num_dimensions * dim_addr_width;
    
    // maximum payload length (in flits)
    // (note: only used if packet_format==`PACKET_FORMAT_EXPLICIT_LENGTH)
@@ -124,6 +137,8 @@ module flit_sink (clk, reset, channel, memory_bank_grant, shared_vc, flow_ctrl, 
    input [0:channel_width-1] 	channel;
   
    input			shared_vc;
+
+   input [0:router_addr_width-1] router_address;
 
    output [0:num_ports-1]	memory_bank_grant;
    wire [0:num_ports-1]		memory_bank_grant;
@@ -271,14 +286,14 @@ assign credit_for_shared = 1'b0;
 
 assign memory_bank_grant = {num_ports{1'b0}};
 
-wire [0:31] pkt_cnt;
-assign pkt_cnt=pop_flit[flit_data_width-36:flit_data_width-5];
+wire [0:packet_count_reg_width-1] pkt_cnt;
+assign pkt_cnt=pop_flit[flit_data_width-packet_count_reg_width-router_addr_width:flit_data_width-router_addr_width-1];
 
 wire [0:1] src_addr_dim1;
-assign src_addr_dim1=pop_flit[flit_data_width-4:flit_data_width-3];
+assign src_addr_dim1=pop_flit[flit_data_width-router_addr_width:flit_data_width-dim_addr_width-1];
 
 wire [0:1] src_addr_dim2;
-assign src_addr_dim2=pop_flit[flit_data_width-2:flit_data_width-1];
+assign src_addr_dim2=pop_flit[flit_data_width-dim_addr_width:flit_data_width-1];
 
 
 // To syn with the consumed flit.
@@ -299,7 +314,13 @@ end
 
 
 always @(posedge clk or posedge reset)
-if (flit_valid_q & flit_tail_q)//TODO: this condition might be wrong
-	$display("rev:\n %7d %7d %7d %7d %7d %7d", dim2_addr, dim1_addr, src_addr_dim1, src_addr_dim2, pkt_cnt, ($time-10)/2);
+if (flit_valid_q & flit_tail_q)
+	$display("rev:\n %7d %7d %7d %7d %7d %7d", 
+					router_address[0:dim_addr_width-1], 
+					router_address[dim_addr_width:router_addr_width-1],
+					src_addr_dim1, 
+					src_addr_dim2, 
+					pkt_cnt, 
+					($time-10)/2);
 
 endmodule

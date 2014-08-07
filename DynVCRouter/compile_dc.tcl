@@ -17,7 +17,7 @@ set my_toplevel router_syn
 set my_clock_pin clk
 
 #/* Target frequency in MHz for optimization       */
-set my_clk_freq_MHz 100
+set my_clk_freq_MHz 200
 
 #/* Delay of input signals (Clock-to-Q, Package etc.)  */
 set my_input_delay_ns 0.1
@@ -59,6 +59,8 @@ current_design $my_toplevel
 
 link
 
+check_design
+
 uniquify
 
 set my_period [expr 1000 / $my_clk_freq_MHz]
@@ -89,6 +91,9 @@ write -f verilog -output $filename
 set filename [format "%s%s"  $my_toplevel ".sdc"]
 write_sdc $filename
 
+set filename [format "%s%s"  $my_toplevel ".sdf"]
+write_sdf $filename
+
 if {[shell_is_in_xg_mode]==0} {
 set filename [format "%s%s"  $my_toplevel ".db"]
 write -f db -hier -output $filename
@@ -96,8 +101,11 @@ write -f db -hier -output $filename
 set filename [format "%s%s" $my_toplevel ".ddc"]
 write -f ddc -hier -o $filename }
 
-redirect timing.rep { report_timing }
 redirect cell.rep { report_cell }
-redirect power.rep { report_power }
+redirect timing.rep { report_timing }
+redirect power.rep { report_power -nosplit -hier}
+redirect area.rep {report_area -nosplit -hierarchy}
+redirect resources.rep {report_resources -nosplit -hierarchy}
+redirect reference.rep {report_reference -nosplit -hierarchy}
 
 quit

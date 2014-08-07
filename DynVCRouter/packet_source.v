@@ -54,14 +54,14 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
    // total number of nodes
    parameter num_nodes = 64;
    
-   // number of dimensions in network
-   parameter num_dimensions = 2;
-   
    // number of nodes per router (a.k.a. concentration factor)
    parameter num_nodes_per_router = 4;
 
    // total number of routers
    localparam num_routers = (num_nodes + num_nodes_per_router - 1) / num_nodes_per_router;
+   
+   // number of dimensions in network
+   parameter num_dimensions = 2;
    
    // number of routers in each dimension
    localparam num_routers_per_dim = croot(num_routers, num_dimensions);
@@ -907,7 +907,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 			  $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) && (random_router_address == 
 					  router_address)) ? 1 : 0, num_routers_per_dim - 1)) % num_routers_per_dim;
 		    // TODO: delete this line
-			//dest_info[dest_info_width-addr_width:dest_info_width-1] = {addr_width{1'b0}};
 			dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
 		  end
 	     end

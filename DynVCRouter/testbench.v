@@ -1,3 +1,31 @@
+// $Id: testbench.v 5188 2012-08-30 00:31:31Z dub $
+
+/*
+ Copyright (c) 2007-2012, Trustees of The Leland Stanford Junior University
+ All rights reserved.
+
+ Copyright (c) 2007-2012, Trustees of The Leland Stanford Junior University
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ Redistributions of source code must retain the above copyright notice, this 
+ list of conditions and the following disclaimer.
+ Redistributions in binary form must reproduce the above copyright notice, this
+ list of conditions and the following disclaimer in the documentation and/or
+ other materials provided with the distribution.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 `default_nettype none
 
 module testbench();
@@ -31,10 +59,10 @@ module testbench();
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 1000;
+   parameter warmup_time = 50000;
    
    // measurement interval in cycles
-   parameter measure_time = 1000;
+   parameter measure_time = 50000;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -130,8 +158,13 @@ module testbench();
    reg clk;
    reg run;
    reg reset;
- 
-   
+  
+// port 0: West
+// port 1: East
+// port 2: South
+// port 3: North
+// port 4: Local
+
    wire [0:num_routers-1]							rtr_error;
    wire [0:num_routers-1] 							ps_error_ip;
    wire [0:num_routers-1]							fs_error_op;
@@ -573,10 +606,13 @@ module testbench();
 	   			flit_sink
 	     		#(.initial_seed(initial_seed + 2*num_routers + x_dim*num_routers_per_dim + y_dim),
 	       		  .consume_rate(consume_rate),
-	       		  .buffer_size(buffer_size),
+				  .buffer_size(buffer_size),
 	       		  .num_ports(num_ports),
 	       		  .num_vcs(num_vcs),
-	       		  .packet_format(packet_format),
+	       		  .num_routers(num_routers),
+				  .num_dimensions(num_dimensions),
+				  .packet_count_reg_width(packet_count_reg_width),
+				  .packet_format(packet_format),
 	       		  .flow_ctrl_type(flow_ctrl_type),
 	       		  .max_payload_length(max_payload_length),
 	       		  .min_payload_length(min_payload_length),
@@ -590,6 +626,7 @@ module testbench();
 	   			fs
 	     		 (.clk(clk),
 	      		  .reset(reset),
+	       		  .router_address(router_address),
 	      		  .channel(channel_to_fs_dly),
 	      		  .shared_vc(shared_vc_to_fs_dly),
 	      		  .memory_bank_grant(memory_bank_grant_from_fs),
@@ -747,6 +784,9 @@ module testbench();
    integer cycles;
    integer d;
    
+   wire [0:num_routers*num_ports*num_vcs*32-1] active_cycles;
+   integer x,y,p,vc;
+
    initial
    begin  
       reset = 1'b0;
@@ -812,16 +852,39 @@ module testbench();
       $display("simulation ended after %d cycles", cycles);
       
       $display("%d flits received, %d flits sent", in_flits, out_flits);
-      
+
+	  for (x=0;x<num_routers_per_dim;x=x+1)
+	  begin
+	  	for (y=0;y<num_routers_per_dim;y=y+1)
+		begin
+			$write("router%02d=[",x*num_routers_per_dim+y);
+			for (p=0;p<num_ports;p=p+1)
+			begin
+				for (vc=0;vc<num_vcs;vc=vc+1)
+				begin
+					$write("%d ",active_cycles[(x*num_routers_per_dim+y)*num_ports*num_vcs*32+p*num_vcs*32+vc*32+:32]);
+				end
+				$write("\n");
+			end
+			$display("];");
+		end
+	  end
       $finish;
-      
    end
 
-   initial
-   begin
-   	$dumpfile("router.db");
-   	$dumpvars(0,testbench);
-   end
+
+   genvar xx, yy, pp;
+   generate
+	for (xx=0;xx<num_routers_per_dim;xx=xx+1)
+	begin:xs
+		for (yy=0;yy<num_routers_per_dim;yy=yy+1)
+		begin:ys
+			assign active_cycles[(xx*num_routers_per_dim+yy)*num_ports*num_vcs*32+:num_ports*num_vcs*32]
+							=testbench.xdims[xx].ydims[yy].rtr.vcr.alo.active_cycles[0:num_ports*num_vcs*32-1];
+		end
+	end
+   endgenerate
+
 
 endmodule
 

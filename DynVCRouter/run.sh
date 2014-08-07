@@ -1,0 +1,10 @@
+dc_shell-t -f compile_dc_510.tcl | tee output_510.txt
+dc_shell-t -f compile_dc_520.tcl | tee output_520.txt
+dc_shell-t -f compile_dc_530.tcl | tee output_530.txt
+dc_shell-t -f compile_dc_540.tcl | tee output_540.txt
+#dc_shell-t -f compile_dc_500.tcl | tee output_500.txt
+#dc_shell-t -f compile_dc_600.tcl | tee output_600.txt
+#dc_shell-t -f compile_dc_700.tcl | tee output_700.txt
+#dc_shell-t -f compile_dc_800.tcl | tee output_800.txt
+#dc_shell-t -f compile_dc_900.tcl | tee output_900.txt
+#dc_shell-t -f compile_dc_1000.tcl | tee output_1000.txt

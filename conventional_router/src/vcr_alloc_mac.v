@@ -139,8 +139,8 @@ module vcr_alloc_mac
    wire [0:num_ports-1] 			          			sw_gnt_ip;
    
    // indicate which VC at a given port is granted (to input controller)
-   output [0:num_ports*num_vcs-1] 		      sw_sel_ip_ivc;
-   wire [0:num_ports*num_vcs-1] 		      sw_sel_ip_ivc;
+   output [0:num_ports*num_vcs-1] 		      			sw_sel_ip_ivc;
+   wire [0:num_ports*num_vcs-1] 		      			sw_sel_ip_ivc;
    
    // output port grants
    output [0:num_ports-1] 			      				sw_gnt_op;
@@ -151,12 +151,12 @@ module vcr_alloc_mac
    wire [0:num_ports*num_ports-1] 		  				sw_sel_op_ip;
    
    // selected output VCs for grants
-   output [0:num_ports*num_vcs-1] 		      sw_sel_op_ivc;
-   wire [0:num_ports*num_vcs-1] 		      sw_sel_op_ivc;
+   output [0:num_ports*num_vcs-1] 		      			sw_sel_op_ivc;
+   wire [0:num_ports*num_vcs-1] 		      			sw_sel_op_ivc;
    
    // which grants are for head flits
-   output [0:num_ports-1] 			      flit_head_op;
-   wire [0:num_ports-1] 			      flit_head_op;
+   output [0:num_ports-1] 			      				flit_head_op;
+   wire [0:num_ports-1] 			      				flit_head_op;
    
    // which grants are for tail flits
    output [0:num_ports-1] 			      				flit_tail_op;
@@ -166,11 +166,10 @@ module vcr_alloc_mac
    output [0:num_ports*num_ports-1] 	  				xbr_ctrl_op_ip;
    wire [0:num_ports*num_ports-1] 		  				xbr_ctrl_op_ip;
    
-   wire [0:num_ports*num_vcs-1] 		      vc_req_ip_ivc;
+   wire [0:num_ports*num_vcs-1] vc_req_ip_ivc;
    assign vc_req_ip_ivc = flit_valid_ip_ivc & ~allocated_ip_ivc;
    
-   wire [0:num_ports-1] 			      vc_active_ip;
-   
+   wire [0:num_ports-1]	 vc_active_ip;
    c_reduce_bits
      #(.num_ports(num_ports),
        .width(num_vcs),
@@ -188,8 +187,7 @@ module vcr_alloc_mac
       .data_out(vc_active_op));
    
    generate
-      
-      if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_IF)
+    if(vc_allocator_type == `VC_ALLOC_TYPE_SEP_IF)
 	begin
 	   vcr_vc_alloc_sep_if
 	     #(.num_message_classes(num_message_classes),
@@ -454,5 +452,50 @@ module vcr_alloc_mac
 	   assign xbr_ctrl_op_ip[op*num_ports:(op+1)*num_ports-1] = xbr_ctrl_ip;
 	end
    endgenerate
+  
+   reg [0:num_vcs*32-1] active_cycles0;
+   reg [0:num_vcs*32-1] active_cycles1;
+   reg [0:num_vcs*32-1] active_cycles2;
+   reg [0:num_vcs*32-1] active_cycles3;
+   reg [0:num_vcs*32-1] active_cycles4;
    
+   wire [0:num_ports*num_vcs*32-1] active_cycles;
+   assign active_cycles = {active_cycles0,active_cycles1,active_cycles2,active_cycles3,active_cycles4};
+
+   genvar it;
+   generate
+   	for (it=0;it<num_vcs;it=it+1)
+	begin:its
+		always @(posedge clk or posedge reset)
+		if (reset)
+			active_cycles0[it*32+:32]<=32'b0;
+		else if (vc_req_ip_ivc[it])
+			active_cycles0[it*32+:32]<=active_cycles0[it*32+:32]+1;
+		
+		always @(posedge clk or posedge reset)
+		if (reset)
+			active_cycles1[it*32+:32]<=32'b0;
+		else if (vc_req_ip_ivc[num_vcs+it])
+			active_cycles1[it*32+:32]<=active_cycles1[it*32+:32]+1;
+		
+		always @(posedge clk or posedge reset)
+		if (reset)
+			active_cycles2[it*32+:32]<=32'b0;
+		else if (vc_req_ip_ivc[2*num_vcs+it])
+			active_cycles2[it*32+:32]<=active_cycles2[it*32+:32]+1;
+		
+		always @(posedge clk or posedge reset)
+		if (reset)
+			active_cycles3[it*32+:32]<=32'b0;
+		else if (vc_req_ip_ivc[3*num_vcs+it])
+			active_cycles3[it*32+:32]<=active_cycles3[it*32+:32]+1;
+		
+		always @(posedge clk or posedge reset)
+		if (reset)
+			active_cycles4[it*32+:32]<=32'b0;
+		else if (vc_req_ip_ivc[4*num_vcs+it])
+			active_cycles4[it*32+:32]<=active_cycles4[it*32+:32]+1;
+	end
+   endgenerate
+
 endmodule
