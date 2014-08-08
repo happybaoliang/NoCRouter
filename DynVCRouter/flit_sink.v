@@ -289,10 +289,10 @@ assign memory_bank_grant = {num_ports{1'b0}};
 wire [0:packet_count_reg_width-1] pkt_cnt;
 assign pkt_cnt=pop_flit[flit_data_width-packet_count_reg_width-router_addr_width:flit_data_width-router_addr_width-1];
 
-wire [0:1] src_addr_dim1;
+wire [0:dim_addr_width-1] src_addr_dim1;
 assign src_addr_dim1=pop_flit[flit_data_width-router_addr_width:flit_data_width-dim_addr_width-1];
 
-wire [0:1] src_addr_dim2;
+wire [0:dim_addr_width-1] src_addr_dim2;
 assign src_addr_dim2=pop_flit[flit_data_width-dim_addr_width:flit_data_width-1];
 
 

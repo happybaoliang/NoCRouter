@@ -54,7 +54,7 @@ simvfast: $(SRCS) $(DUMP_CTRL) $(SRC_DIR)/*.v
 
 run: simv parser.cpp
 	g++ parser.cpp -o parser
-	./simv > stat.db
+	./simv | tee stat.db
 	./parser
 	
 clean:

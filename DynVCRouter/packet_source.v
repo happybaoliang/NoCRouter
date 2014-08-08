@@ -857,9 +857,10 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
       endcase
    endgenerate
    
+   integer d;
+   
    // the next code segment generate the random destination address.
    reg [0:router_addr_width-1] random_router_address;
-   integer 		       d;
    
    generate
    // if the number of nodes connected to a single router is greater than one, the next code segment
@@ -871,22 +872,24 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 	     assign node_address = port_id - (num_ports - num_nodes_per_router);
 	   else
 	     assign node_address = {node_addr_width{1'b0}};
+
 	   assign source_address[router_addr_width:addr_width-1] = node_address;
+	   
 	   reg [0:node_addr_width-1]  random_node_address;
 	   always @(posedge clk, posedge reset)
-	    begin
+	   begin
 		if(reset | packet_sent)
 		begin
 		     for(d = 0; d < num_dimensions; d = d + 1)
 		       random_router_address[d*dim_addr_width +: dim_addr_width] 
 			= (router_address[d*dim_addr_width +: dim_addr_width] +
 			    $dist_uniform(seed, 0, num_routers_per_dim-1)) % num_routers_per_dim;
+
 		     random_node_address = (node_address + $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) &&
-					 	(random_router_address == router_address)) ? 1 : 0, num_nodes_per_router - 1)) % 
-						 num_nodes_per_router;
+					 	(random_router_address == router_address)) ? 1 : 0, num_nodes_per_router - 1)) % num_nodes_per_router;
 		     dest_info[dest_info_width-addr_width:dest_info_width-1] = {random_router_address, random_node_address};
 		end		
-	    end
+	   end
 	end
     else // fill the corresponding destionation field.
 	begin
@@ -906,7 +909,7 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 		       = (router_address[router_addr_width-dim_addr_width:router_addr_width-1] +
 			  $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) && (random_router_address == 
 					  router_address)) ? 1 : 0, num_routers_per_dim - 1)) % num_routers_per_dim;
-		    // TODO: delete this line
+		    // TODO
 			dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
 		  end
 	     end
@@ -924,16 +927,20 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 		begin
 		     for(d = 0; d < num_dimensions - 1; d = d + 1)
 		       random_intm_address[d*dim_addr_width +: dim_addr_width]
-			 = (last_router_address[d*dim_addr_width +: dim_addr_width] +
-			    $dist_uniform(seed, 0, num_routers_per_dim-1)) % num_routers_per_dim;
+			 	= (last_router_address[d*dim_addr_width +: dim_addr_width] +
+			    	$dist_uniform(seed, 0, num_routers_per_dim-1)) % num_routers_per_dim;
+
 		     random_intm_address[router_addr_width-dim_addr_width:router_addr_width-1]
 		       = last_router_address[router_addr_width-dim_addr_width:router_addr_width-1];
-		     random_intm_address[router_addr_width-dim_addr_width:router_addr_width-1]
+		     
+			 random_intm_address[router_addr_width-dim_addr_width:router_addr_width-1]
 		       = (last_router_address[router_addr_width-dim_addr_width:router_addr_width-1] +
-			  $dist_uniform(seed, (random_router_address == last_router_address) ? 1 : 0, 
+			  	$dist_uniform(seed, (random_router_address == last_router_address) ? 1 : 0, 
 					num_routers_per_dim - 1)) % num_routers_per_dim;
-		     dest_info[i*router_addr_width +: router_addr_width] = random_intm_address;
-		     last_router_address = random_intm_address;
+		     
+			 dest_info[i*router_addr_width +: router_addr_width] = random_intm_address;
+		     
+			 last_router_address = random_intm_address;
 		  end
 	     end
 	end
@@ -1039,7 +1046,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 	   begin
 		if(reset | packet_sent)
 		begin
-			//TODO
 			random_shared <= $dist_uniform(seed, 0, 1);
 			random_vc <= $dist_uniform(seed, 0, num_vcs-1);
 		end
@@ -1060,7 +1066,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 		   (.data_in(sel_ovc),
 			.data_out(sel_bank));
 
-        //TODO:
 		assign shared_vc_out = (|(sel_bank & memory_bank_grant)) ? random_shared : 1'b0;
 
        // 'curr_dest_addr' seems not be used throughout this souce code.

@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 2000;
+   parameter packet_rate = 1000;
    
    // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
@@ -59,10 +59,10 @@ module testbench();
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 100;
+   parameter warmup_time = 10000;
    
    // measurement interval in cycles
-   parameter measure_time = 100;
+   parameter measure_time = 10000;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
