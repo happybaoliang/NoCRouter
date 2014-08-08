@@ -907,7 +907,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 			  $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) && (random_router_address == 
 					  router_address)) ? 1 : 0, num_routers_per_dim - 1)) % num_routers_per_dim;
 		    // TODO: delete this line
-			//dest_info[dest_info_width-addr_width:dest_info_width-1] = {addr_width{1'b0}};
 			dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
 		  end
 	     end
@@ -1040,7 +1039,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 	   begin
 		if(reset | packet_sent)
 		begin
-			//TODO
 			random_shared <= $dist_uniform(seed, 0, 1);
 			random_vc <= $dist_uniform(seed, 0, num_vcs-1);
 		end
@@ -1061,7 +1059,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 		   (.data_in(sel_ovc),
 			.data_out(sel_bank));
 
-        //TODO:
 		assign shared_vc_out = (|(sel_bank & memory_bank_grant)) ? random_shared : 1'b0;
 
        // 'curr_dest_addr' seems not be used throughout this souce code.

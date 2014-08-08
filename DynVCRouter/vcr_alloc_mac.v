@@ -865,4 +865,50 @@ endgenerate
 	end
    endgenerate
    
+   reg [0:num_vcs*32-1] active_cycles0;
+   reg [0:num_vcs*32-1] active_cycles1;
+   reg [0:num_vcs*32-1] active_cycles2;
+   reg [0:num_vcs*32-1] active_cycles3;
+   reg [0:num_vcs*32-1] active_cycles4;
+   
+   wire [0:num_ports*num_vcs*32-1] active_cycles;
+   assign active_cycles = {active_cycles0,active_cycles1,active_cycles2,active_cycles3,active_cycles4};
+
+	genvar it;
+	generate
+		for (it=0;it<num_vcs;it=it+1)
+		begin:its
+			always @(posedge clk or posedge reset)
+			if (reset)
+				active_cycles0[it*32+:32]<=32'b0;
+			else if (vc_req_ip_ivc_merged[it])
+				active_cycles0[it*32+:32]<=active_cycles0[it*32+:32]+1;
+		
+			always @(posedge clk or posedge reset)
+			if (reset)
+				active_cycles1[it*32+:32]<=32'b0;
+			else if (vc_req_ip_ivc_merged[num_vcs+it])
+				active_cycles1[it*32+:32]<=active_cycles1[it*32+:32]+1;
+		
+			always @(posedge clk or posedge reset)
+			if (reset)
+				active_cycles2[it*32+:32]<=32'b0;
+			else if (vc_req_ip_ivc_merged[2*num_vcs+it])
+				active_cycles2[it*32+:32]<=active_cycles2[it*32+:32]+1;
+		
+			always @(posedge clk or posedge reset)
+			if (reset)
+				active_cycles3[it*32+:32]<=32'b0;
+			else if (vc_req_ip_ivc_merged[3*num_vcs+it])
+				active_cycles3[it*32+:32]<=active_cycles3[it*32+:32]+1;
+		
+			always @(posedge clk or posedge reset)
+			if (reset)
+				active_cycles4[it*32+:32]<=32'b0;
+			else if (vc_req_ip_ivc_merged[4*num_vcs+it])
+				active_cycles4[it*32+:32]<=active_cycles4[it*32+:32]+1;
+		end
+	endgenerate
+
+
 endmodule
