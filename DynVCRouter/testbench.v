@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 10;
+   parameter packet_rate = 100;
    
    // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
