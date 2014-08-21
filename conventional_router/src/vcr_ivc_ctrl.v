@@ -665,9 +665,9 @@ module vcr_ivc_ctrl
    wire 				       reduce;
    
    generate
-      if(fb_mgmt_type == `FB_MGMT_TYPE_STATIC)
-	assign reduce = flit_sent;
-      else
+    if(fb_mgmt_type == `FB_MGMT_TYPE_STATIC)
+	    assign reduce = flit_sent;
+    else
 	begin
 	   c_select_1ofn
 	     #(.num_ports(num_ports),

@@ -12,11 +12,11 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	parameter num_ports = 5;
 	parameter counter_width = 4;
 	parameter dim_addr_width = 2;
-	parameter num_vcs_per_bank = 2;
 	parameter router_addr_width = 4;
 	parameter num_routers_per_dim = 4;
+	localparam num_vcs_per_bank = num_vcs / num_ports;
 	
-	parameter ENABLE_ALLOCATION = 2'b01;
+    parameter ENABLE_ALLOCATION = 2'b01;
 	parameter CHANGE_ALLOCATION = 2'b11;
 	parameter DISABLE_ALLOCATION = 2'b10;
 
@@ -35,6 +35,9 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	wire ready_for_allocation;
 
 
+	reg [0:1] state;
+	reg [0:1] next_state;
+
 	reg [0:num_ports-1] congestion;
 	wire [0:num_ports-1] congestion_new;
 	reg [0:num_ports*counter_width-1] counter;
@@ -50,7 +53,7 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 		begin
 			counter[ip*counter_width:(ip+1)*counter_width-1] <= {counter_width{1'b0}};
 		end
-		else if (&allocated_ip_ivc[ip*num_vcs+bank_id*num_vcs_per_bank+:num_vcs_per_bank])
+		else if ((&allocated_ip_ivc[ip*num_vcs+bank_id*num_vcs_per_bank+:num_vcs_per_bank]) && (state==ENABLE_ALLOCATION))
 		begin
 			if (counter[ip*counter_width:(ip+1)*counter_width-1]!={counter_width{1'b1}})
 				counter[ip*counter_width:(ip+1)*counter_width-1] <= counter[ip*counter_width:(ip+1)*counter_width-1] + 1;
@@ -67,9 +70,6 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	end
 	endgenerate
 
-
-	reg [0:1] state;
-	reg [0:1] next_state;
 
 	always @(posedge clk or posedge reset)
 	if (reset)
@@ -88,7 +88,9 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 								: (state==ENABLE_ALLOCATION) ? 1'b1 
 								: 1'b0;
 
-	always @(state)
+	//TODO
+    always @(state)
+    //always @(*)
 	begin
 		case(state)
 			DISABLE_ALLOCATION:
@@ -113,13 +115,16 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 		casex(congestion)
 			5'b10xxx: memory_bank_grant_out <= 5'b10000;
 			5'b01xxx: memory_bank_grant_out <= 5'b01000;
-			5'b11xxx: memory_bank_grant_out <= (router_address[dim_addr_width:2*dim_addr_width-1]>=num_routers_per_dim/2) 
-											? 5'b10000 : 5'b01000;
+			5'b11xxx: memory_bank_grant_out <= (router_address[dim_addr_width:2*dim_addr_width-1]>=num_routers_per_dim/2) ? 5'b10000 : 5'b01000;
 			5'b0001x: memory_bank_grant_out <= 5'b00010;
 			5'b0010x: memory_bank_grant_out <= 5'b00100;
-			5'b0011x: memory_bank_grant_out <= (router_address[0:dim_addr_width-1]<=num_routers_per_dim/2) 
-											? 5'b00010 : 5'b00100;
+			5'b0011x: memory_bank_grant_out <= (router_address[0:dim_addr_width-1]<=num_routers_per_dim/2) ? 5'b00010 : 5'b00100;
 			5'b00001: memory_bank_grant_out <= 5'b00001;
 		endcase
+
+    initial
+    begin
+        $monitor("memory_bank_grant_out=%b\n",memory_bank_grant_out);
+    end
 
 endmodule

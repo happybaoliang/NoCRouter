@@ -33,7 +33,8 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    flit_sel_in, header_info_in, fb_pop_tail, fb_pop_next_header_info, almost_full_op_ovc, 
    full_op_ovc, route_op, route_orc, vc_gnt, vc_sel_ovc, sw_gnt, sw_sel, sw_gnt_op, flit_valid, 
    flit_head, flit_tail, next_lar_info, fb_almost_empty, fb_empty, allocated, free_nonspec, 
-   shared_ovc_out, vc_sel_shared_ovc, free_spec, errors, port_sel);
+   shared_ovc_out, vc_sel_shared_ovc, free_spec, full_op_shared_ovc, almost_full_op_shared_ovc,
+   errors, port_sel);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -224,9 +225,13 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    // which output VC have only a single credit left?
    input [0:num_ports*num_vcs-1]   	almost_full_op_ovc;
    
+   input [0:num_ports*num_vcs-1]    almost_full_op_shared_ovc;
+
    // which output VC have no credit left?
    input [0:num_ports*num_vcs-1]   	full_op_ovc;
    
+   input [0:num_ports*num_vcs-1]    full_op_shared_ovc;
+
    input							vc_sel_shared_ovc;
 
    // destination port (1-hot)
@@ -667,25 +672,33 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    wire 				       cred_track_active;
    assign cred_track_active = pop_active | allocated;
    
-   wire [0:num_vcs-1] 			       almost_full_ovc;
+   wire [0:num_vcs-1]   almost_full_ovc;
+   wire [0:num_ports*num_vcs-1]   almost_op_ovc_full;//TODO
+   assign almost_op_ovc_full = allocated 
+                             ? (shared_ovc_out ? almost_full_op_shared_ovc : almost_full_op_ovc) 
+                             : (almost_full_op_ovc | almost_full_op_ovc);
    c_select_1ofn
      #(.num_ports(num_ports),
        .width(num_vcs))
    almost_full_ovc_sel
      (.select(route_op),
-      .data_in(almost_full_op_ovc),
+      .data_in(almost_op_ovc_full),
       .data_out(almost_full_ovc));
    
-   wire [0:num_vcs-1] 			       full_ovc;
+   wire [0:num_vcs-1]   full_ovc;
+   wire [0:num_ports*num_vcs-1]   op_ovc_full;//TODO
+   assign op_ovc_full = allocated
+                      ? (shared_ovc_out ? full_op_shared_ovc : full_op_ovc)
+                      : (full_op_shared_ovc | full_op_ovc);
    c_select_1ofn
      #(.num_ports(num_ports),
        .width(num_vcs))
    full_ovc_sel
      (.select(route_op),
-      .data_in(full_op_ovc),
+      .data_in(op_ovc_full),
       .data_out(full_ovc));
    
-   wire 				       reduce;
+   wire reduce;
    
    generate
     if(fb_mgmt_type == `FB_MGMT_TYPE_STATIC)
@@ -706,8 +719,7 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    assign next_free_ovc = ~full_ovc & ~(almost_full_ovc & {num_vcs{reduce}});
    
    wire [0:num_vcs_per_message_class-1]        next_free_orc_ocvc;
-   assign next_free_orc_ocvc = next_free_ovc[message_class*num_vcs_per_message_class
-   								:(message_class+1)*num_vcs_per_message_class-1];
+   assign next_free_orc_ocvc = next_free_ovc[message_class*num_vcs_per_message_class : (message_class+1)*num_vcs_per_message_class-1];
    
    wire free_nonspec_muxed;
    c_select_1ofn
@@ -748,15 +760,15 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    assign sw_gnt_sel = sw_gnt & sw_sel;
    
    generate
-      if(sw_alloc_spec)
+    if(sw_alloc_spec)
 	begin
 	   if(elig_mask == `ELIG_MASK_NONE)
 	     assign flit_sent = sw_gnt_sel & ((vc_gnt & free_spec) | allocated);
 	   else
 	     assign flit_sent = sw_gnt_sel & (vc_gnt | allocated);
 	end
-      else
-	assign flit_sent = sw_gnt_sel;
+    else
+	    assign flit_sent = sw_gnt_sel;
    endgenerate
    
    

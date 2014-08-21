@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define RTR_PER_DIM 5	
+#define RTR_PER_DIM 4
 #define RTR_CNT	RTR_PER_DIM*RTR_PER_DIM
  
 struct stat{
@@ -31,8 +31,8 @@ int main(int argc,char* argv[]){
 	int src_dim1,src_dim2;
 	int dst_dim1,dst_dim2;
 
-	min_lat=10000;
-	max_lat=-10000;
+	min_lat=100000000;
+	max_lat=-100000000;
 	total_lat.clear();
 
 	input.open("stat.db",ios::in);

@@ -35,7 +35,8 @@ free_nonspec_ivc, vc_gnt_ivc, vc_sel_ivc_ovc, vc_sel_ivc_shared_ovc, sw_gnt,
 sw_sel_ivc, sw_gnt_op, shared_ovc_ivc, almost_full_op_ovc, full_op_ovc, flit_data, 
 flow_ctrl_out, shared_fb_push_valid, shared_fb_push_head, shared_fb_push_head_ivc, 
 shared_fb_push_tail, shared_fb_push_tail_ivc, shared_fb_push_sel_ivc, shared_full,
-shared_fb_push_data, shared_vc_in, error);
+shared_fb_push_data, shared_vc_in, full_op_shared_ovc, almost_full_op_shared_ovc, 
+error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -273,9 +274,13 @@ shared_fb_push_data, shared_vc_in, error);
    
    // which output VC have only a single credit left?
    input [0:num_ports*num_vcs-1] 	     		almost_full_op_ovc;
-   
+
+   input [0:num_ports*num_vcs-1]                almost_full_op_shared_ovc;
+
    // which output VC have no credit left?
    input [0:num_ports*num_vcs-1] 	     		full_op_ovc;
+
+   input [0:num_ports*num_vcs-1]                full_op_shared_ovc;
    
    // outgoing flit data
    output [0:flit_data_width-1] 	     		flit_data;
@@ -516,7 +521,9 @@ shared_fb_push_data, shared_vc_in, error);
 	      .header_info_in(header_info_in),
 	      .fb_pop_tail(fb_pop_tail),
 	      .fb_pop_next_header_info(fb_pop_next_header_info),
+          .almost_full_op_shared_ovc(almost_full_op_shared_ovc),
 	      .almost_full_op_ovc(almost_full_op_ovc),
+          .full_op_shared_ovc(full_op_shared_ovc),
 	      .full_op_ovc(full_op_ovc),
 	      .route_op(route_op),
 	      .route_orc(route_orc),
@@ -526,7 +533,7 @@ shared_fb_push_data, shared_vc_in, error);
 	      .sw_sel(sw_sel),
 		  .vc_sel_shared_ovc(shared_ovc_in),
 	      .shared_ovc_out(shared_ovc),
-		  .sw_gnt_op(sw_gnt_op),// TODO: 当ovc和shared_ovc都almost_full的时候，这个所得的free_nonspec信号有一些问题
+		  .sw_gnt_op(sw_gnt_op),
 	      .flit_valid(flit_valid),
 	      .flit_head(flit_head),
 	      .flit_tail(flit_tail),

@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 1000;
+   parameter packet_rate = 70;
    
    // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
@@ -59,10 +59,10 @@ module testbench();
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 10000;
+   parameter warmup_time = 3000;
    
    // measurement interval in cycles
-   parameter measure_time = 10000;
+   parameter measure_time = 3000;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -610,6 +610,8 @@ module testbench();
 	  end
      end
    
+   wire [0:num_routers*num_ports*num_vcs*32-1] active_cycles;
+   integer x,y,p,vc;   
    integer cycles;
    integer d;
    
@@ -678,10 +680,45 @@ module testbench();
       $display("simulation ended after %d cycles", cycles);
       
       $display("%d flits received, %d flits sent", in_flits, out_flits);
-
-      $finish;
+/*
+      for (x=0;x<num_routers_per_dim;x=x+1)
+	  begin
+		for (y=0;y<num_routers_per_dim;y=y+1)
+		begin
+			$write("router%02d=[",x*num_routers_per_dim+y);
+			for (p=0;p<num_ports;p=p+1)
+			begin
+				for (vc=0;vc<num_vcs;vc=vc+1)
+				begin
+					$write("%d ",active_cycles[(x*num_routers_per_dim+y)*num_ports*num_vcs*32+p*num_vcs*32+vc*32+:32]);
+				end
+				$write("\n");
+			end
+			$display("];");
+		end
+	end
+ */    
+	$finish;
    end
-
-
+/*
+	genvar xx, yy, pp;
+	generate
+	for (xx=0;xx<num_routers_per_dim;xx=xx+1)
+	begin:xs
+		for (yy=0;yy<num_routers_per_dim;yy=yy+1)
+		begin:ys
+			assign active_cycles[(xx*num_routers_per_dim+yy)*num_ports*num_vcs*32+:num_ports*num_vcs*32]
+				=testbench.xdims[xx].ydims[yy].rtr.vcr.alo.active_cycles[0:num_ports*num_vcs*32-1];
+		end
+	end
+	endgenerate
+*/
+/*
+   initial
+   begin
+   	$dumpfile("router.db");
+	$dumpvars(0,testbench);
+   end
+*/
 endmodule
 

@@ -242,10 +242,10 @@ module vcr_alloc_mac (clk, reset, route_ip_ivc_op, route_ip_shared_ivc_op, route
    wire [0:num_ports*num_vcs-1] vc_req_ip_ivc_private;
    assign vc_req_ip_ivc_private = flit_valid_ip_ivc & ~allocated_ip_ivc;
    
-   wire [0:num_ports*num_vcs-1]			  shared_vc_req_ip_ivc;
+   wire [0:num_ports*num_vcs-1]	shared_vc_req_ip_ivc;
    assign shared_vc_req_ip_ivc = flit_valid_ip_shared_ivc & ~allocated_ip_shared_ivc;
   
-   wire [0:num_ports*num_vcs-1]			  vc_req_ip_ivc_merged;
+   wire [0:num_ports*num_vcs-1]	vc_req_ip_ivc_merged;
    assign vc_req_ip_ivc_merged = shared_vc_req_ip_ivc | vc_req_ip_ivc_private;
 
 
@@ -257,7 +257,6 @@ module vcr_alloc_mac (clk, reset, route_ip_ivc_op, route_ip_shared_ivc_op, route
    vc_active_ip_rb
      (.data_in(vc_req_ip_ivc_merged),
       .data_out(vc_active_ip_merged));
-
 
    wire [0:num_ports*num_vcs-1] elig_op_ovc_merged;
    assign elig_op_ovc_merged = elig_op_ovc | elig_op_shared_ovc;
@@ -864,7 +863,7 @@ endgenerate
 	   assign xbr_ctrl_op_ip[op*num_ports:(op+1)*num_ports-1] = xbr_ctrl_ip;
 	end
    endgenerate
-   
+/*   
 	reg [0:num_vcs*32-1] active_cycles0;
 	reg [0:num_vcs*32-1] active_cycles1;
 	reg [0:num_vcs*32-1] active_cycles2;
@@ -909,5 +908,5 @@ endgenerate
 			active_cycles4[it*32+:32]<=active_cycles4[it*32+:32]+1;
 	end
 endgenerate
- 
+*/
 endmodule

@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 1000;
+   parameter packet_rate = 1500;
    
    // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
@@ -851,7 +851,8 @@ module testbench();
       $display("simulation ended after %d cycles", cycles);
       
       $display("%d flits received, %d flits sent", in_flits, out_flits);
-   	
+
+/*   	
       for (x=0;x<num_routers_per_dim;x=x+1)
 	  begin
 		for (y=0;y<num_routers_per_dim;y=y+1)
@@ -868,10 +869,10 @@ module testbench();
 			$display("];");
 		end
 	end
-
+*/
     $finish;
    end
-
+/*
 	genvar xx, yy, pp;
 	generate
 	for (xx=0;xx<num_routers_per_dim;xx=xx+1)
@@ -883,14 +884,11 @@ module testbench();
 		end
 	end
 	endgenerate
-
-/*
    initial
    begin
    	$dumpfile("router.db");
 	$dumpvars(0,testbench);
    end
 */
-
 endmodule
 

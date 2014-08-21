@@ -42,10 +42,10 @@ parameter num_message_classes = 1;
 parameter num_resource_classes = 1;
 
 // number of VCs per class
-parameter num_vcs_per_class = 10;
+parameter num_vcs_per_class = 12;
 
 // total number of nodes
-parameter num_nodes = 9;
+parameter num_nodes = 16;
 
 // number of dimensions in network
 parameter num_dimensions = 2;
@@ -63,10 +63,10 @@ parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
 parameter flow_ctrl_bypass = 0;
 
 // maximum payload length (in flits)
-parameter max_payload_length = 3;
+parameter max_payload_length = 7;
 
 // minimum payload length (in flits)
-parameter min_payload_length = 3;
+parameter min_payload_length = 7;
 
 // select router implementation
 parameter router_type = `ROUTER_TYPE_VC;

@@ -370,17 +370,17 @@ module vcr_top
    //---------------------------------------------------------------------------
    // VC and switch allocator
    //---------------------------------------------------------------------------
-   wire [0:num_ports*num_vcs-1] 		elig_op_ovc;
-   wire [0:num_ports-1] 			vc_active_op;
-   wire [0:num_ports*num_vcs-1] 		vc_gnt_op_ovc;
+   wire [0:num_ports*num_vcs-1] 		    elig_op_ovc;
+   wire [0:num_ports-1] 			        vc_active_op;
+   wire [0:num_ports-1] 			        sw_active_op;
+   wire [0:num_ports*num_ports-1] 		    sw_sel_op_ip;
+   wire [0:num_ports-1] 			        flit_head_op;
+   wire [0:num_ports-1] 			        flit_tail_op;
+   wire [0:num_ports*num_vcs-1] 		    sw_sel_op_ivc;
+   wire [0:num_ports*num_vcs-1] 		    vc_gnt_op_ovc;
+   wire [0:num_ports*num_ports-1] 		    xbr_ctrl_op_ip;
    wire [0:num_ports*num_vcs*num_ports-1] 	vc_sel_op_ovc_ip;
    wire [0:num_ports*num_vcs*num_vcs-1] 	vc_sel_op_ovc_ivc;
-   wire [0:num_ports-1] 			sw_active_op;
-   wire [0:num_ports*num_ports-1] 		sw_sel_op_ip;
-   wire [0:num_ports*num_vcs-1] 		sw_sel_op_ivc;
-   wire [0:num_ports-1] 			flit_head_op;
-   wire [0:num_ports-1] 			flit_tail_op;
-   wire [0:num_ports*num_ports-1] 		xbr_ctrl_op_ip;
 
    vcr_alloc_mac
      #(.num_message_classes(num_message_classes),

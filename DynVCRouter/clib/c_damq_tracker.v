@@ -159,10 +159,10 @@ module c_damq_tracker (clk, reset, active, push_valid, push_sel_qu, pop_valid, p
       
    endgenerate
    
-   wire 		     shared_almost_full;
    wire 		     shared_full;
+   wire [0:1] 		 shared_errors;
    wire 		     shared_two_free;
-   wire [0:1] 		     shared_errors;
+   wire 		     shared_almost_full;
    c_fifo_tracker
      #(.depth(num_shared_slots),
        .fast_two_free(fast_two_free),

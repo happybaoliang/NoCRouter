@@ -215,67 +215,67 @@ module vcr_ip_ctrl_mac
    input reset;
    
    // current router's address
-   input [0:router_addr_width-1] router_address;
+   input [0:router_addr_width-1]             router_address;
    
    // incoming channel
-   input [0:channel_width-1] 	 channel_in;
+   input [0:channel_width-1] 	             channel_in;
    
    // destination port
-   output [0:num_vcs*num_ports-1] route_ivc_op;
-   wire [0:num_vcs*num_ports-1]   route_ivc_op;
+   output [0:num_vcs*num_ports-1]            route_ivc_op;
+   wire [0:num_vcs*num_ports-1]              route_ivc_op;
    
    // select next resource class
    output [0:num_vcs*num_resource_classes-1] route_ivc_orc;
    wire [0:num_vcs*num_resource_classes-1]   route_ivc_orc;
    
    // VC has an output VC allocated to it
-   output [0:num_vcs-1] 		     allocated_ivc;
-   wire [0:num_vcs-1] 			     allocated_ivc;
+   output [0:num_vcs-1] 		             allocated_ivc;
+   wire [0:num_vcs-1] 			             allocated_ivc;
    
    // VC has a flit available
-   output [0:num_vcs-1] 		     flit_valid_ivc;
-   wire [0:num_vcs-1] 			     flit_valid_ivc;
+   output [0:num_vcs-1] 		             flit_valid_ivc;
+   wire [0:num_vcs-1] 			             flit_valid_ivc;
    
    // flit is head flit
-   output [0:num_vcs-1] 		     flit_head_ivc;
-   wire [0:num_vcs-1] 			     flit_head_ivc;
+   output [0:num_vcs-1] 		             flit_head_ivc;
+   wire [0:num_vcs-1] 			             flit_head_ivc;
    
    // flit is tail flit
-   output [0:num_vcs-1] 		     flit_tail_ivc;
-   wire [0:num_vcs-1] 			     flit_tail_ivc;
+   output [0:num_vcs-1] 		             flit_tail_ivc;
+   wire [0:num_vcs-1] 			             flit_tail_ivc;
    
    // credit availability if output VC has been allocated
-   output [0:num_vcs-1] 		     free_nonspec_ivc;
-   wire [0:num_vcs-1] 			     free_nonspec_ivc;
+   output [0:num_vcs-1] 		             free_nonspec_ivc;
+   wire [0:num_vcs-1] 			             free_nonspec_ivc;
    
    // VC allocation successful
-   input [0:num_vcs-1] 			     vc_gnt_ivc;
+   input [0:num_vcs-1] 			             vc_gnt_ivc;
    
    // granted output VC
-   input [0:num_vcs*num_vcs-1] 		     vc_sel_ivc_ovc;
+   input [0:num_vcs*num_vcs-1] 		         vc_sel_ivc_ovc;
    
    // switch grant
-   input 				     sw_gnt;
+   input 				                     sw_gnt;
    
    // select VC for switch grant
-   input [0:num_vcs-1] 			     sw_sel_ivc;
+   input [0:num_vcs-1] 			             sw_sel_ivc;
 
    // switch grant for output ports
-   input [0:num_ports-1] 		     sw_gnt_op;
+   input [0:num_ports-1] 		             sw_gnt_op;
    
    // which output VC have only a single credit left?
-   input [0:num_ports*num_vcs-1] 	     almost_full_op_ovc;
+   input [0:num_ports*num_vcs-1] 	         almost_full_op_ovc;
    
    // which output VC have no credit left?
-   input [0:num_ports*num_vcs-1] 	     full_op_ovc;
+   input [0:num_ports*num_vcs-1] 	         full_op_ovc;
    
    // outgoing flit data
-   output [0:flit_data_width-1] 	     flit_data;
-   wire [0:flit_data_width-1] 		     flit_data;
+   output [0:flit_data_width-1] 	         flit_data;
+   wire [0:flit_data_width-1] 		         flit_data;
 
    // outgoing flow control signals
-   output [0:flow_ctrl_width-1] 	     flow_ctrl_out;
-   wire [0:flow_ctrl_width-1] 		     flow_ctrl_out;
+   output [0:flow_ctrl_width-1] 	         flow_ctrl_out;
+   wire [0:flow_ctrl_width-1] 		         flow_ctrl_out;
    
    // internal error condition detected
    output 				     error;
@@ -357,17 +357,17 @@ module vcr_ip_ctrl_mac
    //---------------------------------------------------------------------------
    // input vc controllers
    //---------------------------------------------------------------------------
-   wire [0:num_vcs-1] 	      	    fb_pop_tail_ivc;
-   wire [0:header_info_width-1]     fb_pop_next_header_info;
-   wire [0:num_vcs-1] 		    fb_almost_empty_ivc;
-   wire [0:num_vcs-1] 		    fb_empty_ivc;
+   wire [0:num_vcs-1] 	      	     fb_pop_tail_ivc;
+   wire [0:header_info_width-1]      fb_pop_next_header_info;
+   wire [0:num_vcs-1] 		         fb_almost_empty_ivc;
+   wire [0:num_vcs-1] 		         fb_empty_ivc;
    wire [0:num_vcs*lar_info_width-1] next_lar_info_ivc;
-   wire [0:num_vcs*3-1] 	     ivcc_errors_ivc;
+   wire [0:num_vcs*3-1] 	         ivcc_errors_ivc;
    
-   genvar 			     ivc;
+   genvar ivc;
    generate
-      for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
-	begin:ivcs	   
+   for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
+   begin:ivcs	   
 	   //-------------------------------------------------------------------
 	   // connect inputs
 	   //-------------------------------------------------------------------

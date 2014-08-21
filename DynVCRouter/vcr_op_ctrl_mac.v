@@ -65,6 +65,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    // number of input and output ports on router
    parameter num_ports = 5;
    
+   localparam num_vcs_per_bank = num_vcs / num_ports;
+
+   localparam memory_bank_size = buffer_size / num_ports;
+   
    // select packet format
    parameter packet_format = `PACKET_FORMAT_EXPLICIT_LENGTH;
    
@@ -76,9 +80,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    parameter flow_ctrl_bypass = 1;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // enable link power management
    parameter enable_link_pm = 1;
@@ -100,8 +102,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    parameter flit_data_width = 64;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // configure error checking logic
    parameter error_capture_mode = `ERROR_CAPTURE_MODE_NO_HOLD;
@@ -237,9 +238,10 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
    wire    flow_ctrl_active;
    assign flow_ctrl_active = fc_active;
    
-   wire	shared_fc_active;
+   wire	[0:num_ports-1] shared_fb_fc_active;
+
    wire	shared_flow_ctrl_active;
-   assign 	shared_flow_ctrl_active = shared_fc_active;
+   assign 	shared_flow_ctrl_active = |shared_fb_fc_active;
    
    wire    fc_event_valid;
    wire [0:num_vcs-1]   fc_event_sel_ovc;
@@ -379,34 +381,46 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 	wire					shared_fcs_flit_valid;
 	assign shared_fcs_flit_valid = shared_vc_q & flit_sent;
 
-    wire	shared_fcs_active;
-    assign shared_fcs_active = (shared_vc_q & flit_valid_q) | shared_fc_event_valid;
+    genvar fc;
+    generate
+	for (fc=0; fc<num_ports; fc=fc+1)
+    begin:fcss
+        wire shared_fb_fcs_flit_valid;
+        assign shared_fb_fcs_flit_valid = shared_fcs_flit_valid & (|shared_flit_sel_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]);
 
-	rtr_fc_state
-	  #(.num_vcs(num_vcs),
-	    .buffer_size(buffer_size),
-	    .flow_ctrl_type(flow_ctrl_type),
-	    .flow_ctrl_bypass(flow_ctrl_bypass),
-        .mgmt_type(fb_mgmt_type),
-        .fast_almost_empty(fast_almost_empty),
-        .disable_static_reservations(disable_static_reservations),
-        .reset_type(reset_type))
-    shared_fcs
-       (.clk(clk),
-        .reset(reset),
-        .active(shared_fcs_active),
-        .flit_valid(shared_fcs_flit_valid),
-        .flit_head(flit_head_q),
-        .flit_tail(flit_tail_q),
-        .flit_sel_ovc(shared_flit_sel_ovc),
-        .fc_event_valid(shared_fc_event_valid),
-        .fc_event_sel_ovc(shared_fc_event_sel_ovc),
-        .fc_active(shared_fc_active),
-        .empty_ovc(shared_empty_ovc),
-        .almost_full_ovc(shared_almost_full_ovc),
-        .full_ovc(shared_full_ovc), 
-        .full_prev_ovc(shared_full_prev_ovc),
-        .errors_ovc(shared_fcs_errors_ovc));
+        wire shared_fb_fc_event_valid;
+        assign shared_fb_fc_event_valid = shared_fc_event_valid & (|shared_fc_event_sel_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]);
+
+        wire	shared_fb_fcs_active;
+        assign shared_fb_fcs_active = shared_fb_fcs_flit_valid | shared_fb_fc_event_valid;
+
+        rtr_fc_state
+	        #(.num_vcs(num_vcs_per_bank),
+	          .buffer_size(memory_bank_size),
+	          .flow_ctrl_type(flow_ctrl_type),
+	          .flow_ctrl_bypass(flow_ctrl_bypass),
+              .mgmt_type(fb_mgmt_type),
+              .fast_almost_empty(fast_almost_empty),
+              .disable_static_reservations(disable_static_reservations),
+              .reset_type(reset_type))
+        shared_fcs
+             (.clk(clk),
+              .reset(reset),
+              .active(shared_fb_fcs_active),
+              .flit_valid(shared_fb_fcs_flit_valid),
+              .flit_head(flit_head_q),
+              .flit_tail(flit_tail_q),
+              .flit_sel_ovc(shared_flit_sel_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]),
+              .fc_event_valid(shared_fb_fc_event_valid),
+              .fc_event_sel_ovc(shared_fc_event_sel_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]),
+              .fc_active(shared_fb_fc_active[fc]),
+              .empty_ovc(shared_empty_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]),
+              .almost_full_ovc(shared_almost_full_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]),
+              .full_ovc(shared_full_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]), 
+              .full_prev_ovc(shared_full_prev_ovc[fc*num_vcs_per_bank+:num_vcs_per_bank]),
+              .errors_ovc(shared_fcs_errors_ovc[fc*num_vcs_per_bank*2+:2*num_vcs_per_bank]));
+    end
+    endgenerate
 
    
    genvar ovc;
