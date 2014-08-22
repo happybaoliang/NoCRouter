@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 1500;
+   parameter packet_rate = 80;
    
    // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
@@ -59,10 +59,10 @@ module testbench();
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 1000;
+   parameter warmup_time = 500;
    
    // measurement interval in cycles
-   parameter measure_time = 1000;
+   parameter measure_time = 500;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -165,6 +165,11 @@ module testbench();
 // port 3: North
 // port 4: Local
 
+// router arrangement
+// (0,3) (1,3) (2,3) (3,3)
+// (0,2) (1,2) (2,2) (3,2)
+// (0,1) (1,1) (2,1) (3,1)
+// (0,0) (1,0) (2,0) (3,0)
    wire [0:num_routers-1]							rtr_error;
    wire [0:num_routers-1] 							ps_error_ip;
    wire [0:num_routers-1]							fs_error_op;
@@ -840,6 +845,7 @@ module testbench();
     
       run = 1'b0;
       
+/*   	
       while((in_flits > out_flits) || (in_flits > in_creds))
 	  begin
 	   cycles = cycles + 1;
@@ -852,7 +858,6 @@ module testbench();
       
       $display("%d flits received, %d flits sent", in_flits, out_flits);
 
-/*   	
       for (x=0;x<num_routers_per_dim;x=x+1)
 	  begin
 		for (y=0;y<num_routers_per_dim;y=y+1)
@@ -884,11 +889,11 @@ module testbench();
 		end
 	end
 	endgenerate
+*/
    initial
    begin
    	$dumpfile("router.db");
 	$dumpvars(0,testbench);
    end
-*/
 endmodule
 

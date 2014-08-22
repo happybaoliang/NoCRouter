@@ -89,8 +89,8 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 								: 1'b0;
 
 	//TODO
-    always @(state)
-    //always @(*)
+    //always @(state)
+    always @(*)
 	begin
 		case(state)
 			DISABLE_ALLOCATION:

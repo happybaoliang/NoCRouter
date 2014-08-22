@@ -671,35 +671,32 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
    //---------------------------------------------------------------------------
    wire 				       cred_track_active;
    assign cred_track_active = pop_active | allocated;
-   
+  
+   wire [0:num_ports*num_vcs-1]   almost_full_op_ovc_merged;//TODO
+   assign almost_full_op_ovc_merged = shared_ovc_out ? almost_full_op_shared_ovc : almost_full_op_ovc;
+
    wire [0:num_vcs-1]   almost_full_ovc;
-   wire [0:num_ports*num_vcs-1]   almost_op_ovc_full;//TODO
-   assign almost_op_ovc_full = allocated 
-                             ? (shared_ovc_out ? almost_full_op_shared_ovc : almost_full_op_ovc) 
-                             : (almost_full_op_ovc | almost_full_op_ovc);
    c_select_1ofn
      #(.num_ports(num_ports),
        .width(num_vcs))
    almost_full_ovc_sel
      (.select(route_op),
-      .data_in(almost_op_ovc_full),
+      .data_in(almost_full_op_ovc_merged),
       .data_out(almost_full_ovc));
-   
+
+   wire [0:num_ports*num_vcs-1]   full_op_ovc_merged;//TODO
+   assign full_op_ovc_merged = shared_ovc_out ? full_op_shared_ovc : full_op_ovc;
+
    wire [0:num_vcs-1]   full_ovc;
-   wire [0:num_ports*num_vcs-1]   op_ovc_full;//TODO
-   assign op_ovc_full = allocated
-                      ? (shared_ovc_out ? full_op_shared_ovc : full_op_ovc)
-                      : (full_op_shared_ovc | full_op_ovc);
    c_select_1ofn
      #(.num_ports(num_ports),
        .width(num_vcs))
    full_ovc_sel
      (.select(route_op),
-      .data_in(op_ovc_full),
+      .data_in(full_op_ovc_merged),
       .data_out(full_ovc));
-   
+
    wire reduce;
-   
    generate
     if(fb_mgmt_type == `FB_MGMT_TYPE_STATIC)
 		assign reduce = flit_sent;
@@ -715,10 +712,10 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
 	end
    endgenerate
    
-   wire [0:num_vcs-1] 			       next_free_ovc;
+   wire [0:num_vcs-1]   next_free_ovc;
    assign next_free_ovc = ~full_ovc & ~(almost_full_ovc & {num_vcs{reduce}});
    
-   wire [0:num_vcs_per_message_class-1]        next_free_orc_ocvc;
+   wire [0:num_vcs_per_message_class-1] next_free_orc_ocvc;
    assign next_free_orc_ocvc = next_free_ovc[message_class*num_vcs_per_message_class : (message_class+1)*num_vcs_per_message_class-1];
    
    wire free_nonspec_muxed;
@@ -729,7 +726,7 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
      (.select(vc_allocated_next_orc_ocvc),
       .data_in(next_free_orc_ocvc),
       .data_out(free_nonspec_muxed));
-   
+
    wire free_nonspec_s, free_nonspec_q;
    assign free_nonspec_s = free_nonspec_muxed;
    c_dff

@@ -333,9 +333,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports*header_info_width-1]   			shared_fb_pop_next_header_info;  
 
 
-   // mapping 'memory_bank_grant' to 'memory_bank_grant_out'
    wire [0:num_ports*num_ports-1] memory_bank_grant;
-   //assign memory_bank_grant = 25'b10000_01000_00100_00010_00001;//pass
 
 
    genvar gnt1,gnt2;

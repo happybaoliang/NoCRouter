@@ -324,7 +324,7 @@ error);
    wire     fb_full;
    
    wire     input_stage_active; 
-   assign input_stage_active = (~fb_full) && (~shared_full);
+   assign input_stage_active = (~fb_full) || (~shared_full);
 
 
    wire 				     		flit_valid_o;
