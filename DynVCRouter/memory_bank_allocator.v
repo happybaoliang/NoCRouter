@@ -32,7 +32,7 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	reg [0:num_ports-1] memory_bank_grant_out;
 
 	output ready_for_allocation;
-	wire ready_for_allocation;
+	reg ready_for_allocation;
 
 
 	reg [0:1] state;
@@ -70,7 +70,7 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	end
 	endgenerate
 
-
+/*
 	always @(posedge clk or posedge reset)
 	if (reset)
 	begin
@@ -83,13 +83,9 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 		congestion<=congestion_new;
 	end
 
-	assign ready_for_allocation = (state==DISABLE_ALLOCATION) ? 1'b0 
-								: (state==CHANGE_ALLOCATION) ? 1'b0
-								: (state==ENABLE_ALLOCATION) ? 1'b1 
-								: 1'b0;
+	assign ready_for_allocation = (state==ENABLE_ALLOCATION) ? 1'b1 : 1'b0;
 
 	//TODO
-    //always @(state)
     always @(*)
 	begin
 		case(state)
@@ -97,7 +93,8 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 				if ((~(|shared_vc_allocated))&&(&shared_ivc_empty))
 					next_state = CHANGE_ALLOCATION;
 			CHANGE_ALLOCATION:
-				next_state = ENABLE_ALLOCATION;
+        //        if ((~(|shared_vc_allocated))&&(&shared_ivc_empty))
+				    next_state = ENABLE_ALLOCATION;
 			ENABLE_ALLOCATION:
 				if (congestion!=congestion_new)
 					next_state = DISABLE_ALLOCATION;
@@ -111,7 +108,7 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	begin
 		memory_bank_grant_out <= {5'b10000}>>bank_id;
 	end
-	else if (next_state==CHANGE_ALLOCATION)
+	else if (state==CHANGE_ALLOCATION)
 		casex(congestion)
 			5'b10xxx: memory_bank_grant_out <= 5'b10000;
 			5'b01xxx: memory_bank_grant_out <= 5'b01000;
@@ -121,10 +118,51 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 			5'b0011x: memory_bank_grant_out <= (router_address[0:dim_addr_width-1]<=num_routers_per_dim/2) ? 5'b00010 : 5'b00100;
 			5'b00001: memory_bank_grant_out <= 5'b00001;
 		endcase
+*/
 
-    initial
+    always @(posedge clk or posedge reset)
+    if (reset)
     begin
-        $monitor("memory_bank_grant_out=%b\n",memory_bank_grant_out);
+        memory_bank_grant_out <= {5'b10000}>>bank_id;
+        ready_for_allocation <= 1'b1;
+        state <= ENABLE_ALLOCATION;
+    end
+    else
+    begin
+        case (state)
+        ENABLE_ALLOCATION:
+        begin
+            ready_for_allocation <= 1'b1;
+            if (congestion!=congestion_new)
+            begin
+                state <= DISABLE_ALLOCATION;
+            end
+        end
+        CHANGE_ALLOCATION:
+        begin
+            state <= ENABLE_ALLOCATION;
+		    casex(congestion)
+			    5'b10xxx: memory_bank_grant_out <= 5'b10000;
+			    5'b01xxx: memory_bank_grant_out <= 5'b01000;
+			    5'b11xxx: memory_bank_grant_out <= (router_address[dim_addr_width:2*dim_addr_width-1]>=num_routers_per_dim/2) ? 5'b10000 : 5'b01000;
+			    5'b0001x: memory_bank_grant_out <= 5'b00010;
+			    5'b0010x: memory_bank_grant_out <= 5'b00100;
+			    5'b0011x: memory_bank_grant_out <= (router_address[0:dim_addr_width-1]<=num_routers_per_dim/2) ? 5'b00010 : 5'b00100;
+			    5'b00001: memory_bank_grant_out <= 5'b00001;
+		    endcase
+        end
+        DISABLE_ALLOCATION:
+        begin
+            ready_for_allocation <= 1'b0;
+            state <= CHANGE_ALLOCATION;
+        end
+        default:
+        begin
+            memory_bank_grant_out <= {5'b10000}>>bank_id;
+            ready_for_allocation <= 1'b1;
+            state <= ENABLE_ALLOCATION;
+        end
+        endcase
     end
 
 endmodule

@@ -549,8 +549,7 @@ endgenerate
    wire [0:num_ports*num_vcs-1] shared_sw_req_spec_ip_ivc;
    assign shared_sw_req_spec_ip_ivc = ~allocated_ip_shared_ivc & flit_valid_ip_shared_ivc;
    
-   wire [0:num_ports*num_vcs-1] sw_req_spec_ip_ivc_merged;//TODO
-   //assign sw_req_spec_ip_ivc_merged = {(num_ports*num_vcs){1'b0}};
+   wire [0:num_ports*num_vcs-1] sw_req_spec_ip_ivc_merged;
    assign sw_req_spec_ip_ivc_merged = private_sw_req_spec_ip_ivc | shared_sw_req_spec_ip_ivc;
 
    wire [0:num_ports-1] 	sw_active_ip_merged;

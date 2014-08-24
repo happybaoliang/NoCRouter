@@ -370,19 +370,26 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   wire [0:num_vcs-1] 	      sw_sel_ivc;
 	   assign sw_sel_ivc = sw_sel_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1];
 
-       wire	shared_full_fb;
-       assign shared_full_fb = &(shared_fb_full & memory_bank_grant_out);
-	   
 	   wire [0:channel_width-1] channel_in;
 	   assign channel_in = channel_in_ip[ip*channel_width:(ip+1)*channel_width-1];
 	   
+       genvar it;
+       wire [0:num_ports-1] bank_selector;
+       wire	[0:num_ports-1] shared_full_fb;
+       for (it=0;it<num_ports;it=it+1)
+       begin:its
+        assign shared_full_fb[it] = bank_selector[it] ? shared_fb_full[it] : 1'b0;
+       end
+
+       assign bank_selector = memory_bank_grant_out[ip*num_ports:(ip+1)*num_ports-1];
 	   wire [0:num_vcs-1] vc_sel_ivc_shared_ovc;
 	   assign vc_sel_ivc_shared_ovc = vc_sel_ip_ivc_shared_ovc[ip*num_vcs:(ip+1)*num_vcs-1];
 	   
 	   wire [0:num_vcs*num_vcs-1] vc_sel_ivc_ovc;
 	   assign vc_sel_ivc_ovc = vc_sel_ip_ivc_ovc[ip*num_vcs*num_vcs:(ip+1)*num_vcs*num_vcs-1];
-
-	   wire 				                    ipc_error;
+       
+	   
+       wire 				                    ipc_error;
 	   wire [0:flit_data_width-1] 		        flit_data;
 	   wire [0:num_vcs*num_ports-1] 	        route_ivc_op;
 	   wire [0:num_vcs*num_resource_classes-1]  route_ivc_orc;
@@ -455,7 +462,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
           .full_op_ovc(full_op_ovc),
 	      .flit_data(flit_data),
 	      .flow_ctrl_out(flow_ctrl_out),
-		  .shared_full(shared_full_fb),
+		  .shared_full(&shared_full_fb),
 		  .shared_ovc_ivc(shared_ovc_ivc),
 		  .shared_vc_in(shared_vc_in[ip]),
 	      .shared_fb_push_head_ivc(shared_push_head_ivc),
@@ -700,7 +707,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   memory_bank_allocator
 		#(.bank_id(fb),
 		  .num_vcs(num_vcs),
-		  .counter_width(2),
+		  .counter_width(3),
 		  .num_ports(num_ports),
 		  .dim_addr_width(dim_addr_width),
 		  .router_addr_width(router_addr_width),

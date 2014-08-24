@@ -919,10 +919,10 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 			  $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) && (random_router_address == 
 					  router_address)) ? 1 : 0, num_routers_per_dim - 1)) % num_routers_per_dim;
 		    // TODO
-			dest_info[dest_info_width-addr_width:dest_info_width-1] = 0;
+			//dest_info[dest_info_width-addr_width:dest_info_width-1] = 0;
 			//dest_info[dest_info_width-addr_width:dest_info_width-1] = ((router_address[0:dim_addr_width-1]*num_routers_per_dim
 			// + router_address[dim_addr_width:router_addr_width-1]) + 1) % num_routers_per_dim;
-			//dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
+			dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
 		  end
 	     end
 	end

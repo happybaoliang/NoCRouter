@@ -684,7 +684,7 @@ module vcr_ivc_ctrl (clk, reset, router_address, flit_valid_in, flit_head_in, fl
       .data_in(almost_full_op_ovc_merged),
       .data_out(almost_full_ovc));
 
-   wire [0:num_ports*num_vcs-1]   full_op_ovc_merged;//TODO
+   wire [0:num_ports*num_vcs-1]   full_op_ovc_merged;
    assign full_op_ovc_merged = shared_ovc_out ? full_op_shared_ovc : full_op_ovc;
 
    wire [0:num_vcs-1]   full_ovc;
