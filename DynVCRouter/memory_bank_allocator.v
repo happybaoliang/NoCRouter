@@ -70,56 +70,6 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	end
 	endgenerate
 
-/*
-	always @(posedge clk or posedge reset)
-	if (reset)
-	begin
-		congestion<=congestion_new;
-		state <= ENABLE_ALLOCATION;
-	end
-	else
-	begin
-		state <= next_state;
-		congestion<=congestion_new;
-	end
-
-	assign ready_for_allocation = (state==ENABLE_ALLOCATION) ? 1'b1 : 1'b0;
-
-	//TODO
-    always @(*)
-	begin
-		case(state)
-			DISABLE_ALLOCATION:
-				if ((~(|shared_vc_allocated))&&(&shared_ivc_empty))
-					next_state = CHANGE_ALLOCATION;
-			CHANGE_ALLOCATION:
-        //        if ((~(|shared_vc_allocated))&&(&shared_ivc_empty))
-				    next_state = ENABLE_ALLOCATION;
-			ENABLE_ALLOCATION:
-				if (congestion!=congestion_new)
-					next_state = DISABLE_ALLOCATION;
-			default:
-				next_state = ENABLE_ALLOCATION;
-		endcase
-	end
-	
-	always @(posedge clk or posedge reset)
-	if (reset)
-	begin
-		memory_bank_grant_out <= {5'b10000}>>bank_id;
-	end
-	else if (state==CHANGE_ALLOCATION)
-		casex(congestion)
-			5'b10xxx: memory_bank_grant_out <= 5'b10000;
-			5'b01xxx: memory_bank_grant_out <= 5'b01000;
-			5'b11xxx: memory_bank_grant_out <= (router_address[dim_addr_width:2*dim_addr_width-1]>=num_routers_per_dim/2) ? 5'b10000 : 5'b01000;
-			5'b0001x: memory_bank_grant_out <= 5'b00010;
-			5'b0010x: memory_bank_grant_out <= 5'b00100;
-			5'b0011x: memory_bank_grant_out <= (router_address[0:dim_addr_width-1]<=num_routers_per_dim/2) ? 5'b00010 : 5'b00100;
-			5'b00001: memory_bank_grant_out <= 5'b00001;
-		endcase
-*/
-
     always @(posedge clk or posedge reset)
     if (reset)
     begin

@@ -117,9 +117,8 @@ module router_syn
    // internal error condition detected
    output 				  error;
    wire 				  error;
-
-
-			router_wrap
+ 
+				router_wrap
      			#(.topology(topology),
        			  .buffer_size(buffer_size),
        			  .num_message_classes(num_message_classes),

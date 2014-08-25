@@ -1,8 +1,11 @@
+
 module router_syn
   (clk, reset, router_address, channel_in_ip, memory_bank_grant_in, flow_ctrl_out_ip, 
    channel_out_op, memory_bank_grant_out, flow_ctrl_in_op, credit_for_shared_in, 
-   shared_vc_in, credit_for_shared_out, shared_vc_out, error);
-   
+   shared_vc_in, credit_for_shared_out, shared_vc_out, ready_for_allocation_in,
+   ready_for_allocation_out, ip_shared_ivc_allocated_in, ip_shared_ivc_allocated_out, 
+   error);
+
 `include "c_functions.v"
 `include "c_constants.v"
 `include "rtr_constants.v"
@@ -10,35 +13,6 @@ module router_syn
 `include "parameters.v"
    
    parameter Tclk = 2;
-   
-   parameter initial_seed = 0;
-   
-   // maximum number of packets to generate (-1 = no limit)
-   parameter max_packet_count = -1;
-   
-   // packet injection rate (per 10k cycles)
-   parameter packet_rate = 2000;
-   
-   // flit consumption rate (per 10k cycles)
-   parameter consume_rate = 10000;
-   
-   // width of packet count register
-   parameter packet_count_reg_width = 32;
-   
-   // channel latency in cycles
-   parameter channel_latency = 1;
-   
-   // only inject traffic at the node ports
-   parameter inject_node_ports_only = 1;
-   
-   // warmup time in cycles
-   parameter warmup_time = 1000;
-   
-   // measurement interval in cycles
-   parameter measure_time = 1000;
-   
-   // select packet length mode (0: uniform random, 1: bimodal)
-   parameter packet_length_mode = 0;
    
    // width required to select individual resource class
    localparam resource_class_idx_width = clogb(num_resource_classes);
@@ -125,51 +99,58 @@ module router_syn
    // use atomic VC allocation
    localparam atomic_vc_allocation = (elig_mask == `ELIG_MASK_USED);
    
-   // number of pipeline stages in the channels
-   localparam num_channel_stages = channel_latency - 1;
-   
- 
+
    input clk;
+
    input reset;
    
    // current router's address
-   input [0:router_addr_width-1] router_address;
+   input [0:router_addr_width-1]          router_address;
    
    // incoming channels
-   input [0:num_ports*channel_width-1] channel_in_ip;
+   input [0:num_ports*channel_width-1]    channel_in_ip;
    
-   input [0:num_ports*num_ports-1] 	memory_bank_grant_in;
+   input [0:num_ports*num_ports-1] 	      memory_bank_grant_in;
 
-   output [0:num_ports*num_ports-1]	memory_bank_grant_out;
-   wire [0:num_ports*num_ports-1]	memory_bank_grant_out;
+   output [0:num_ports*num_ports-1]	      memory_bank_grant_out;
+   wire [0:num_ports*num_ports-1]	      memory_bank_grant_out;
 
-   input [0:num_ports-1]		shared_vc_in;
+   input [0:num_ports-1]		          shared_vc_in;
 
-   output [0:num_ports-1]		shared_vc_out;
-   wire [0:num_ports-1]			shared_vc_out;
+   output [0:num_ports-1]		          shared_vc_out;
+   wire [0:num_ports-1]			          shared_vc_out;
 
    // outgoing flow control signals
    output [0:num_ports*flow_ctrl_width-1] flow_ctrl_out_ip;
    wire [0:num_ports*flow_ctrl_width-1]   flow_ctrl_out_ip;
 
-   output [0:num_ports-1]		credit_for_shared_out;   
-   wire [0:num_ports-1]			credit_for_shared_out;
+   output [0:num_ports-1]		          credit_for_shared_out;   
+   wire [0:num_ports-1]			          credit_for_shared_out;
 
-   input [0:num_ports-1]		credit_for_shared_in;
+   input [0:num_ports-1]		          credit_for_shared_in;
 
    // outgoing channels
    output [0:num_ports*channel_width-1]   channel_out_op;
    wire [0:num_ports*channel_width-1] 	  channel_out_op;
    
+   input [0:num_ports-1]				  ready_for_allocation_in;
+
    // incoming flow control signals
    input [0:num_ports*flow_ctrl_width-1]  flow_ctrl_in_op;
    
+   output [0:num_ports-1]				  ready_for_allocation_out;
+   wire [0:num_ports-1]					  ready_for_allocation_out;
+
+   input [0:num_ports*num_vcs-1]		  ip_shared_ivc_allocated_in;
+
+   output [0:num_ports*num_vcs-1]		  ip_shared_ivc_allocated_out;
+   wire [0:num_ports*num_vcs-1]			  ip_shared_ivc_allocated_out;
+
    // internal error condition detected
    output 				  error;
    wire 				  error;
-
-
-			router_wrap
+ 
+				router_wrap
      			#(.topology(topology),
        			  .buffer_size(buffer_size),
        			  .num_message_classes(num_message_classes),
@@ -223,6 +204,10 @@ module router_syn
       			  .flow_ctrl_out_ip(flow_ctrl_out_ip),
       			  .channel_out_op(channel_out_op),
       			  .flow_ctrl_in_op(flow_ctrl_in_op),
+		          .ready_for_allocation_in(ready_for_allocation_in),
+		          .ready_for_allocation_out(ready_for_allocation_out),
+		          .ip_shared_ivc_allocated_in(ip_shared_ivc_allocated_in),
+		          .ip_shared_ivc_allocated_out(ip_shared_ivc_allocated_out),
       			  .error(error));
 			
 endmodule

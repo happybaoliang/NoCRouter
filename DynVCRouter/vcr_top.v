@@ -1306,6 +1306,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
        assign almost_full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = almost_full_ovc;
        assign full_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = full_ovc;
 	   assign elig_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = elig_ovc;
+	   assign opc_error_op[op] = opc_error;
 
 	   for (sb=0; sb<num_ports; sb=sb+1)
 	   begin:sbs
@@ -1324,8 +1325,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 					? shared_full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
 					: {num_vcs_per_bank{1'b1}};
 	   end
-
-	   assign opc_error_op[op] = opc_error;
 	end
    endgenerate
    

@@ -75,9 +75,7 @@ module vcr_op_ctrl_mac
    parameter flow_ctrl_bypass = 1;
    
    // width of flow control signals
-   localparam flow_ctrl_width
-     = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) :
-       -1;
+   localparam flow_ctrl_width = (flow_ctrl_type == `FLOW_CTRL_TYPE_CREDIT) ? (1 + vc_idx_width) : -1;
    
    // enable link power management
    parameter enable_link_pm = 1;
@@ -99,8 +97,7 @@ module vcr_op_ctrl_mac
    parameter flit_data_width = 64;
    
    // channel width
-   localparam channel_width
-     = link_ctrl_width + flit_ctrl_width + flit_data_width;
+   localparam channel_width = link_ctrl_width + flit_ctrl_width + flit_data_width;
    
    // configure error checking logic
    parameter error_capture_mode = `ERROR_CAPTURE_MODE_NO_HOLD;
@@ -126,6 +123,7 @@ module vcr_op_ctrl_mac
    parameter reset_type = `RESET_TYPE_ASYNC;
    
    input clk;
+
    input reset;
    
    // incoming flow control signals
@@ -157,10 +155,10 @@ module vcr_op_ctrl_mac
    
    // incoming flit is a head flit
    input 			                flit_head;
-   
+
    // incoming flit is a tail flit
    input 			                flit_tail;
-   
+
    // incoming flit data
    input [0:flit_data_width-1] 	    flit_data;
    
@@ -261,7 +259,7 @@ module vcr_op_ctrl_mac
 	assign flit_sent = flit_valid_q; 
    endgenerate
    
-   wire 			 fcs_active;
+   wire  fcs_active;
    assign fcs_active = flit_valid_q | fc_event_valid;
    
    wire [0:num_vcs-1] 	 empty_ovc;

@@ -144,12 +144,12 @@ module router_wrap
    
    input [0:num_ports-1]				  ready_for_allocation_in;
 
-   output [0:num_ports-1]				  ready_for_allocation_out;
-   wire [0:num_ports-1]					  ready_for_allocation_out;
-
    // incoming flow control signals
    input [0:num_ports*flow_ctrl_width-1]  flow_ctrl_in_op;
    
+   output [0:num_ports-1]				  ready_for_allocation_out;
+   wire [0:num_ports-1]					  ready_for_allocation_out;
+
    input [0:num_ports*num_vcs-1]		  ip_shared_ivc_allocated_in;
 
    output [0:num_ports*num_vcs-1]		  ip_shared_ivc_allocated_out;
