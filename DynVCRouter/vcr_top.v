@@ -270,7 +270,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 
    input [0:num_ports-1]		            credit_for_shared_in;
    
-   input [0:num_ports-1]					ready_for_allocation_in;
+   input [0:num_ports*num_ports-1]			ready_for_allocation_in;
 
    output [0:num_ports-1]					ready_for_allocation_out;
    wire [0:num_ports-1]						ready_for_allocation_out;
@@ -707,7 +707,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   memory_bank_allocator
 		#(.bank_id(fb),
 		  .num_vcs(num_vcs),
-		  .counter_width(3),
+		  .threshold(50),
 		  .num_ports(num_ports),
 		  .dim_addr_width(dim_addr_width),
 		  .router_addr_width(router_addr_width),
@@ -1308,11 +1308,14 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign elig_op_ovc[op*num_vcs:(op+1)*num_vcs-1] = elig_ovc;
 	   assign opc_error_op[op] = opc_error;
 
+       wire [0:num_ports-1] ready_for_allocation_sel;
+       assign ready_for_allocation_sel = ready_for_allocation_in[op*num_ports:(op+1)*num_ports-1];
+
 	   for (sb=0; sb<num_ports; sb=sb+1)
 	   begin:sbs
 	   	assign elig_op_shared_ovc[op*num_vcs+sb*num_vcs_per_bank:op*num_vcs+(sb+1)*num_vcs_per_bank-1] 
 	   			   = memory_bank_grant_in[op*num_ports+sb]
-				   ? (shared_elig_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]  & {num_vcs_per_bank{ready_for_allocation_in[sb]}})
+				   ? (shared_elig_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]  & {num_vcs_per_bank{ready_for_allocation_sel[sb]}})
 				   : {num_vcs_per_bank{1'b0}};
 
 		assign almost_full_op_shared_ovc[op*num_vcs+sb*num_vcs_per_bank:op*num_vcs+(sb+1)*num_vcs_per_bank-1]

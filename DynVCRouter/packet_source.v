@@ -3,7 +3,7 @@
 //==============================================================================
 
 module packet_source (clk, reset, router_address, channel, shared_vc, memory_bank_grant, 
-			flit_valid, flow_ctrl, credit_for_shared, run, error);
+			flit_valid, flow_ctrl, credit_for_shared, run, ready_for_allocation_in, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -226,6 +226,8 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 
    input 			 				credit_for_shared;
    
+   input [0:num_ports-1]            ready_for_allocation_in;
+
    input 			 				run;
    
    output 			 				error;
@@ -667,12 +669,13 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
    // only the 'flit_data' of header flit includes the header_info. 
    wire [0:header_info_width-1] header_info;
    assign flit_data[0:header_info_width-1] = flit_head ? header_info : data_q[0:header_info_width-1];
-   //   assign flit_data[header_info_width:flit_data_width-1] = data_q[header_info_width:flit_data_width-1];
+
+   //assign flit_data[header_info_width:flit_data_width-1] = data_q[header_info_width:flit_data_width-1];
    assign flit_data[header_info_width:flit_data_width-router_addr_width-packet_count_reg_width-1]
 		=data_q[header_info_width:flit_data_width-router_addr_width-packet_count_reg_width-1];
    assign flit_data[flit_data_width-router_addr_width-packet_count_reg_width:flit_data_width-router_addr_width-1]
 		=pkt_sent[0:packet_count_reg_width-1];
-   assign flit_data[flit_data_width-router_addr_width:flit_data_width-1]=router_address[0:2*dim_addr_width-1];
+   assign flit_data[flit_data_width-router_addr_width:flit_data_width-1]=router_address[0:router_addr_width-1];
  
    // This part of code checks whether a specific packet class (#message_class X #resource_class) request
    // their specific output virtual channel.
@@ -919,10 +922,10 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 			  $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) && (random_router_address == 
 					  router_address)) ? 1 : 0, num_routers_per_dim - 1)) % num_routers_per_dim;
 		    // TODO
-			//dest_info[dest_info_width-addr_width:dest_info_width-1] = 0;
+			dest_info[dest_info_width-addr_width:dest_info_width-1] = 0;
 			//dest_info[dest_info_width-addr_width:dest_info_width-1] = ((router_address[0:dim_addr_width-1]*num_routers_per_dim
 			// + router_address[dim_addr_width:router_addr_width-1]) + 1) % num_routers_per_dim;
-			dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
+			//dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
 		  end
 	     end
 	end
@@ -1077,9 +1080,18 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 		bank_sel
 		   (.data_in(sel_ovc),
 			.data_out(sel_bank));
-        
+
+        wire ready_for_alloc;
+        c_select_1ofn
+          #(.width(1),
+            .num_ports(num_ports))
+        ready_sel
+           (.select(sel_bank),
+            .data_in(ready_for_allocation_in),
+            .data_out(ready_for_alloc));
+
         //TODO
-	    assign shared_vc_out = (|(sel_bank & memory_bank_grant)) ? random_shared : 1'b0;
+	    assign shared_vc_out = ((|(sel_bank & memory_bank_grant)) && ready_for_alloc) ? random_shared : 1'b0;
 
         // 'curr_dest_addr' seems not be used throughout this souce code.
 	    assign curr_dest_addr = dest_info[((random_vc / num_vcs_per_class) % num_resource_classes)*router_addr_width +: router_addr_width];
@@ -1101,38 +1113,19 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 	always @(posedge clk, posedge reset)
 	if (reset)
 		pkt_gened<=0;
-	else if(packet_ready)
+	else if(new_packet)
 	begin
 		pkt_gened<=pkt_gened+1;
-		$display("gen:\n %7d %7d %7d %7d", 
-			router_address[0:dim_addr_width-1], 
-			router_address[dim_addr_width:2*dim_addr_width-1], 
-			pkt_gened, 
-			($time-8)/2);
+		$display("gen:\n %d %d %d %d", router_address[0:dim_addr_width-1], router_address[dim_addr_width:router_addr_width-1], pkt_gened, $time/2);
 	end
 
 
-	// Dump the destination time of each packet.
-	reg [0:dest_info_width-1] dest_info_q;
-
 	always @(posedge clk, posedge reset)
 	if (reset)
-		dest_info_q<=0;
-	else
-		#1 dest_info_q<=dest_info;
-
-	always @(negedge packet_sent, posedge reset)
-	if (reset)
 		pkt_sent<=0;
-	else if (!packet_sent)
+	else if (packet_sent)
 	begin
 	  pkt_sent<=pkt_sent+1;
-	  $display("dst:\n %7d %7d %7d %7d %7d",
-		router_address[0:dim_addr_width-1],
-		router_address[dim_addr_width:2*dim_addr_width-1], 
-	  	pkt_sent,
-		dest_info_q[0:dim_addr_width-1],
-		dest_info_q[dim_addr_width:2*dim_addr_width-1]);
 	end
 
 endmodule

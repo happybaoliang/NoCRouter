@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 1000;
+   parameter packet_rate = 80;
    
    // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
@@ -234,7 +234,11 @@ module testbench();
 				  .data_out(credit_shared_in));
 
 				wire [0:num_ports-1]		memory_bank_grant_to_ps;
-				assign memory_bank_grant_to_ps = rtr_memory_bank_grant_out[(x_dim*num_routers_per_dim+y_dim)*num_ports+4+:1];
+				assign memory_bank_grant_to_ps = 
+                        rtr_memory_bank_grant_out[(x_dim*num_routers_per_dim+y_dim)*num_ports*num_ports+4*num_ports+:num_ports];
+
+                wire [0:num_ports-1]        ready_for_alloc;
+                assign ready_for_alloc = rtr_ready_for_allocation[(x_dim*num_routers_per_dim+y_dim)*num_ports+:num_ports];
 
 				wire 			   			ps_error;
 				wire 			   			flit_valid;
@@ -279,6 +283,7 @@ module testbench();
 		   		  .flit_valid(flit_valid),
 		   		  .credit_for_shared(credit_shared_in),
 		   		  .flow_ctrl(flow_ctrl_to_ps_dly),
+                  .ready_for_allocation_in(ready_for_alloc),
 		   		  .run(run),
 		   		  .error(ps_error));
 
@@ -329,7 +334,7 @@ module testbench();
 				wire [0:num_ports-1]					credit_for_shared_in;
 				wire [0:num_ports*num_ports-1]			memory_bank_grant_in;
 	   			wire [0:flow_ctrl_width-1] 	            flow_ctrl_from_fs_dly;
-				wire [0:num_ports-1]					ready_for_allocation_in;
+				wire [0:num_ports*num_ports-1]			ready_for_allocation_in;
 	   			wire 						            shared_credit_from_fs_dly;
 				wire [0:num_ports-1]		            memory_bank_grant_from_fs;
 				wire [0:num_ports*num_vcs-1]			ip_shared_ivc_allocated_in;
@@ -338,10 +343,10 @@ module testbench();
 				begin
 					assign shared_vc_in[0] = 1'b0;
 					assign credit_for_shared_in[0] = 1'b0;
-					assign ready_for_allocation_in[0] = 1'b1;
 					assign memory_bank_grant_in[0:num_ports-1] = {num_ports{1'b0}};
 					assign channel_in_ip[0:channel_width-1] = {channel_width{1'b0}};
 					assign ip_shared_ivc_allocated_in[0:num_vcs-1] = {num_vcs{1'b0}};
+					assign ready_for_allocation_in[0:num_ports-1] = {num_ports{1'b1}};
 					assign flow_ctrl_in_op[0:flow_ctrl_width-1] = {flow_ctrl_width{1'b0}};
 				end
 				else
@@ -354,8 +359,8 @@ module testbench();
 						rtr_channel_out_op[((x_dim-1)*num_routers_per_dim+y_dim)*num_ports*channel_width+channel_width+:channel_width];
 					assign flow_ctrl_in_op[0:flow_ctrl_width-1] = 
 						rtr_flow_ctrl_out_ip[((x_dim-1)*num_routers_per_dim+y_dim)*num_ports*flow_ctrl_width+flow_ctrl_width+:flow_ctrl_width];
-					assign ready_for_allocation_in[0] = 
-						rtr_ready_for_allocation[((x_dim-1)*num_routers_per_dim+y_dim)*num_ports+1];
+					assign ready_for_allocation_in[0:num_ports-1] = 
+						rtr_ready_for_allocation[((x_dim-1)*num_routers_per_dim+y_dim)*num_ports+:num_ports];
 					assign ip_shared_ivc_allocated_in[0:num_vcs-1] =
 						rtr_ip_shared_ivc_allocated[((x_dim-1)*num_routers_per_dim+y_dim)*num_ports*num_vcs+num_vcs+:num_vcs];
 				end
@@ -364,11 +369,11 @@ module testbench();
 				begin
 					assign shared_vc_in[1] = 1'b0;
 					assign credit_for_shared_in[1] = 1'b0;
+					assign ip_shared_ivc_allocated_in[num_vcs:2*num_vcs-1] = {num_vcs{1'b0}};
 					assign memory_bank_grant_in[num_ports:2*num_ports-1] = {num_ports{1'b0}};
+					assign ready_for_allocation_in[num_ports:2*num_ports-1] = {num_ports{1'b1}};
 					assign channel_in_ip[channel_width:2*channel_width-1] = {channel_width{1'b0}};
 					assign flow_ctrl_in_op[flow_ctrl_width:2*flow_ctrl_width-1] = {flow_ctrl_width{1'b0}};
-					assign ready_for_allocation_in[1] = 1'b1;
-					assign ip_shared_ivc_allocated_in[num_vcs:2*num_vcs-1] = {num_vcs{1'b0}};
 				end
 				else
 				begin
@@ -381,7 +386,8 @@ module testbench();
 						rtr_channel_out_op[((x_dim+1)*num_routers_per_dim+y_dim)*num_ports*channel_width+:channel_width];
 					assign flow_ctrl_in_op[flow_ctrl_width:2*flow_ctrl_width-1] = 
 						rtr_flow_ctrl_out_ip[((x_dim+1)*num_routers_per_dim+y_dim)*num_ports*flow_ctrl_width+:flow_ctrl_width];
-					assign ready_for_allocation_in[1] = rtr_ready_for_allocation[((x_dim+1)*num_routers_per_dim+y_dim)*num_ports];
+					assign ready_for_allocation_in[num_ports:2*num_ports-1] = 
+                        rtr_ready_for_allocation[((x_dim+1)*num_routers_per_dim+y_dim)*num_ports+:num_ports];
 					assign ip_shared_ivc_allocated_in[num_vcs:2*num_vcs-1] =
 						rtr_ip_shared_ivc_allocated[((x_dim+1)*num_routers_per_dim+y_dim)*num_ports*num_vcs+:num_vcs];
 				end
@@ -391,10 +397,10 @@ module testbench();
 					assign shared_vc_in[2] = 1'b0;
 					assign credit_for_shared_in[2] = 1'b0;
 					assign memory_bank_grant_in[2*num_ports:3*num_ports-1] = {num_ports{1'b0}};
+					assign ip_shared_ivc_allocated_in[2*num_vcs:3*num_vcs-1] = {num_vcs{1'b0}};
+					assign ready_for_allocation_in[2*num_ports:3*num_ports-1] = {num_ports{1'b1}};
 					assign channel_in_ip[2*channel_width:3*channel_width-1] = {channel_width{1'b0}};
 					assign flow_ctrl_in_op[2*flow_ctrl_width:3*flow_ctrl_width-1] = {flow_ctrl_width{1'b0}};
-					assign ready_for_allocation_in[2] = 1'b1;
-					assign ip_shared_ivc_allocated_in[2*num_vcs:3*num_vcs-1] = {num_vcs{1'b0}};
 				end
 				else
 				begin
@@ -407,7 +413,8 @@ module testbench();
 						rtr_channel_out_op[(x_dim*num_routers_per_dim+y_dim-1)*num_ports*channel_width+3*channel_width+:channel_width];
 					assign flow_ctrl_in_op[2*flow_ctrl_width:3*flow_ctrl_width-1] = 
 						rtr_flow_ctrl_out_ip[(x_dim*num_routers_per_dim+y_dim-1)*num_ports*flow_ctrl_width+3*flow_ctrl_width+:flow_ctrl_width];
-					assign ready_for_allocation_in[2] = rtr_ready_for_allocation[(x_dim*num_routers_per_dim+y_dim-1)*num_ports+3];
+					assign ready_for_allocation_in[2*num_ports:3*num_ports-1] = 
+                        rtr_ready_for_allocation[(x_dim*num_routers_per_dim+y_dim-1)*num_ports+:num_ports];
 					assign ip_shared_ivc_allocated_in[2*num_vcs:3*num_vcs-1] =
 						rtr_ip_shared_ivc_allocated[(x_dim*num_routers_per_dim+y_dim-1)*num_ports*num_vcs+3*num_vcs+:num_vcs];
 				end
@@ -416,11 +423,11 @@ module testbench();
 				begin
 					assign shared_vc_in[3] = 1'b0;
 					assign credit_for_shared_in[3] =1'b0;
+					assign ip_shared_ivc_allocated_in[3*num_vcs:4*num_vcs-1] = {num_vcs{1'b0}};
 					assign memory_bank_grant_in[3*num_ports:4*num_ports-1] = {num_ports{1'b0}};
+					assign ready_for_allocation_in[3*num_ports:4*num_ports-1] = {num_ports{1'b1}};
 					assign channel_in_ip[3*channel_width:4*channel_width-1] = {channel_width{1'b0}};
 					assign flow_ctrl_in_op[3*flow_ctrl_width:4*flow_ctrl_width-1] = {flow_ctrl_width{1'b0}};
-					assign ready_for_allocation_in[3] = 1'b1;
-					assign ip_shared_ivc_allocated_in[3*num_vcs:4*num_vcs-1] = {num_vcs{1'b0}};
 				end
 				else
 				begin
@@ -433,15 +440,16 @@ module testbench();
 						rtr_channel_out_op[(x_dim*num_routers_per_dim+y_dim+1)*num_ports*channel_width+2*channel_width+:channel_width];
 					assign flow_ctrl_in_op[3*flow_ctrl_width:4*flow_ctrl_width-1] = 
 						rtr_flow_ctrl_out_ip[(x_dim*num_routers_per_dim+y_dim+1)*num_ports*flow_ctrl_width+2*flow_ctrl_width+:flow_ctrl_width];
-					assign ready_for_allocation_in[3] = rtr_ready_for_allocation[(x_dim*num_routers_per_dim+y_dim+1)*num_ports+2];
+					assign ready_for_allocation_in[3*num_ports:4*num_ports-1] = 
+                        rtr_ready_for_allocation[(x_dim*num_routers_per_dim+y_dim+1)*num_ports+:num_ports];
 					assign ip_shared_ivc_allocated_in[3*num_vcs:4*num_vcs-1] =
 						rtr_ip_shared_ivc_allocated[(x_dim*num_routers_per_dim+y_dim+1)*num_ports*num_vcs+2*num_vcs+:num_vcs];
 				end
 
-				assign ready_for_allocation_in[4] = 1'b1;
 				assign shared_vc_in[4] = shared_vc_from_ps_dly;
 				assign credit_for_shared_in[4] = shared_credit_from_fs_dly;
 				assign ip_shared_ivc_allocated_in[4*num_vcs:5*num_vcs-1] = {num_vcs{1'b0}};
+				assign ready_for_allocation_in[4*num_ports:5*num_ports-1] = {num_ports{1'b0}};
 				assign channel_in_ip[4*channel_width:5*channel_width-1] = channel_from_ps_dly;
 				assign memory_bank_grant_in[4*num_ports:5*num_ports-1] = memory_bank_grant_from_fs;
 				assign flow_ctrl_in_op[4*flow_ctrl_width:5*flow_ctrl_width-1] = flow_ctrl_from_fs_dly;

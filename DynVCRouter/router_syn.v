@@ -6,13 +6,44 @@ module router_syn
    ready_for_allocation_out, ip_shared_ivc_allocated_in, ip_shared_ivc_allocated_out, 
    error);
 
+
 `include "c_functions.v"
 `include "c_constants.v"
 `include "rtr_constants.v"
 `include "vcr_constants.v"
 `include "parameters.v"
    
+   
    parameter Tclk = 2;
+   
+   parameter initial_seed = 0;
+   
+   // maximum number of packets to generate (-1 = no limit)
+   parameter max_packet_count = -1;
+   
+   // packet injection rate (per 10k cycles)
+   parameter packet_rate = 1000;
+   
+   // flit consumption rate (per 10k cycles)
+   parameter consume_rate = 10000;
+   
+   // width of packet count register
+   parameter packet_count_reg_width = 32;
+   
+   // channel latency in cycles
+   parameter channel_latency = 1;
+   
+   // only inject traffic at the node ports
+   parameter inject_node_ports_only = 1;
+   
+   // warmup time in cycles
+   parameter warmup_time = 10000;
+   
+   // measurement interval in cycles
+   parameter measure_time = 10000;
+   
+   // select packet length mode (0: uniform random, 1: bimodal)
+   parameter packet_length_mode = 0;
    
    // width required to select individual resource class
    localparam resource_class_idx_width = clogb(num_resource_classes);
@@ -99,6 +130,8 @@ module router_syn
    // use atomic VC allocation
    localparam atomic_vc_allocation = (elig_mask == `ELIG_MASK_USED);
    
+   // number of pipeline stages in the channels
+   localparam num_channel_stages = channel_latency - 1;
 
    input clk;
 

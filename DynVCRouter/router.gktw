@@ -1,0 +1,87 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Thu Aug 28 10:58:44 2014
+[*]
+[dumpfile] "/home/happy/NoCRouter/DynVCRouter/router.db"
+[dumpfile_mtime] "Thu Aug 28 10:45:19 2014"
+[dumpfile_size] 394450280
+[savefile] "/home/happy/NoCRouter/DynVCRouter/router.gktw"
+[timestart] 2852
+[size] 1375 876
+[pos] -1 -1
+*-4.000000 2892 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.xdims[0].
+[treeopen] testbench.xdims[0].ydims[0].
+[treeopen] testbench.xdims[0].ydims[0].rtr.
+[treeopen] testbench.xdims[0].ydims[0].rtr.vcr.
+[treeopen] testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].
+[treeopen] testbench.xdims[1].ydims[0].
+[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.
+[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].
+[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].shared_fcs.
+[treeopen] testbench.xdims[1].ydims[1].rtr.
+[treeopen] testbench.xdims[1].ydims[1].rtr.vcr.
+[sst_width] 223
+[signals_width] 254
+[sst_expanded] 1
+[sst_vpaned_height] 257
+@28
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.clk
+testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.shared_fc_event_valid
+@22
+testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.shared_fc_event_sel_ovc[0:9]
+@28
+testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].shared_fcs.fc_event_valid
+testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].shared_fcs.fc_event_sel_ovc[0:1]
+@22
+testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.shared_flow_ctrl_in[0:4]
+@800022
+testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+@c00022
+#{testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[5:9]} (5)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (6)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (7)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (8)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (9)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+@28
+(5)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(6)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(7)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(8)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(9)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+@1401200
+-group_end
+@c00022
+#{testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[15:19]} (15)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (16)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (17)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (18)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (19)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+@28
+(15)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(16)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(17)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(18)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+(19)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
+@1401200
+-group_end
+@200
+-RTR[0,0].flb[4].allocator
+@22
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.congestion_new[0:4]
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.congestion_old[0:4]
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.counter[0:14]
+@28
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.state[0:1]
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_ivc_empty[0:1]
+@22
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
+@28
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.ready_for_allocation
+@22
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.memory_bank_grant_out[0:4]
+@28
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_valid
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_head
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_tail
+@23
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_data[0:63]
+@22
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.pop_data[0:63]
+@1001200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

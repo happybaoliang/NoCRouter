@@ -190,9 +190,9 @@ module flit_sink (clk, reset, channel, memory_bank_grant, router_address, shared
    reg 				consume;
    
    always @(posedge clk, posedge reset)
-     begin
+   begin
 	consume <= $dist_uniform(seed, 0, 9999) < consume_rate;
-     end
+   end
   
 // An indicator means the input vc is empty 
    wire [0:num_vcs-1] empty_ivc;
@@ -287,40 +287,19 @@ assign credit_for_shared = 1'b0;
 assign memory_bank_grant = {num_ports{1'b0}};
 
 wire [0:packet_count_reg_width-1] pkt_cnt;
-assign pkt_cnt=pop_flit[flit_data_width-packet_count_reg_width-router_addr_width:flit_data_width-router_addr_width-1];
+assign pkt_cnt=flit_data[flit_data_width-packet_count_reg_width-router_addr_width:flit_data_width-router_addr_width-1];
 
 wire [0:dim_addr_width-1] src_addr_dim1;
-assign src_addr_dim1=pop_flit[flit_data_width-router_addr_width:flit_data_width-dim_addr_width-1];
+assign src_addr_dim1=flit_data[flit_data_width-router_addr_width:flit_data_width-dim_addr_width-1];
 
 wire [0:dim_addr_width-1] src_addr_dim2;
-assign src_addr_dim2=pop_flit[flit_data_width-dim_addr_width:flit_data_width-1];
-
-
-// To syn with the consumed flit.
-reg flit_tail_q;
-reg flit_valid_q;
-
-always @(posedge clk or posedge reset)
-if (reset)
-begin
-	flit_tail_q<=0;
-	flit_valid_q<=0;
-end
-else
-begin
-	flit_tail_q<=flit_tail;
-	flit_valid_q<=flit_valid;
-end
+assign src_addr_dim2=flit_data[flit_data_width-dim_addr_width:flit_data_width-1];
 
 
 always @(posedge clk or posedge reset)
-if (flit_valid_q & flit_tail_q)
-	$display("rev:\n %7d %7d %7d %7d %7d %7d", 
-					router_address[0:dim_addr_width-1], 
-					router_address[dim_addr_width:router_addr_width-1],
-					src_addr_dim1, 
-					src_addr_dim2, 
-					pkt_cnt, 
-					($time-10)/2);
+if (flit_valid & flit_tail)
+	$display("rev:\n %d %d %d %d %d %d", router_address[0:dim_addr_width-1], 
+					router_address[dim_addr_width:router_addr_width-1], 
+                    src_addr_dim1, src_addr_dim2, pkt_cnt, $time/2);
 
 endmodule

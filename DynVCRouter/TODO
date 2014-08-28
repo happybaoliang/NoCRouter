@@ -1,9 +1,1 @@
-  309 Error:  ./vcr_op_ctrl_mac.v:128: Redeclaration of symbol 'reset_type' as parameter. (VER-116)
-  310 Error:  ./vcr_op_ctrl_mac.v:130: Redeclaration of port 'clk' is not allowed. (VER-121)
-  311 Error:  ./vcr_op_ctrl_mac.v:131: Redeclaration of port 'reset' is not allowed. (VER-121)
-  312 Error:  ./vcr_op_ctrl_mac.v:181: Redeclaration of port 'flit_head' is not allowed. (VER-121)
-  313 Error:  ./vcr_op_ctrl_mac.v:184: Redeclaration of port 'flit_tail' is not allowed. (VER-121)
-  314 Error:  ./vcr_op_ctrl_mac.v:224: Redeclaration of port 'error' is not allowed. (VER-121)
-
-
-Warning: Cell '*cell*15253/U1' (*GEN*319) cannot be exactly translated 1 for 1 into target library.  Ignoring set_compile_directives. (TRANS-9)
+2. memory_bank_allocator.v

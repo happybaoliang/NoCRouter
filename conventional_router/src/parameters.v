@@ -54,7 +54,7 @@ parameter num_dimensions = 2;
 parameter num_nodes_per_router = 1;
 
 // select packet format
-parameter packet_format = `PACKET_FORMAT_EXPLICIT_LENGTH;
+parameter packet_format = `PACKET_FORMAT_HEAD_TAIL;
 
 // select type of flow control
 parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
@@ -63,10 +63,10 @@ parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
 parameter flow_ctrl_bypass = 0;
 
 // maximum payload length (in flits)
-parameter max_payload_length = 3;
+parameter max_payload_length = 7;
 
 // minimum payload length (in flits)
-parameter min_payload_length = 3;
+parameter min_payload_length = 7;
 
 // select router implementation
 parameter router_type = `ROUTER_TYPE_VC;
@@ -114,7 +114,7 @@ parameter fb_fast_peek = 1;
 parameter disable_static_reservations = 0;
 
 // use explicit pipeline register between flit buffer and crossbar?
-parameter explicit_pipeline_register = 1;
+parameter explicit_pipeline_register = 0;
 
 // gate flit buffer write port if bypass succeeds
 // (requires explicit pipeline register; may increase cycle time)
@@ -137,7 +137,7 @@ parameter precomp_ivc_sel = 0;
 parameter precomp_ip_sel = 0;
 
 // select whether to exclude full or non-empty VCs from VC allocation
-parameter elig_mask = `ELIG_MASK_FULL;
+parameter elig_mask = `ELIG_MASK_USED;
 
 // select implementation variant for VC allocator
 parameter vc_alloc_type = `VC_ALLOC_TYPE_SEP_IF;
@@ -155,9 +155,9 @@ parameter sw_alloc_type = `SW_ALLOC_TYPE_SEP_IF;
 parameter sw_alloc_arbiter_type = `ARBITER_TYPE_ROUND_ROBIN_BINARY;
 
 // select speculation type for switch allocator
-parameter sw_alloc_spec_type = `SW_ALLOC_SPEC_TYPE_PRIO;
+parameter sw_alloc_spec_type = `SW_ALLOC_SPEC_TYPE_REQ;
 
 // select implementation variant for crossbar
-parameter crossbar_type = `CROSSBAR_TYPE_MUX;
+parameter crossbar_type = `CROSSBAR_TYPE_TRISTATE;
 
 parameter reset_type = `RESET_TYPE_ASYNC;

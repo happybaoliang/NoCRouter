@@ -10,10 +10,11 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 	parameter num_vcs = 1;
 	parameter bank_id = 0;
 	parameter num_ports = 5;
-	parameter counter_width = 4;
+	parameter threshold = 4;
 	parameter dim_addr_width = 2;
 	parameter router_addr_width = 4;
 	parameter num_routers_per_dim = 4;
+    localparam counter_width = clogb(threshold);
 	localparam num_vcs_per_bank = num_vcs / num_ports;
 	
     parameter ENABLE_ALLOCATION = 2'b01;
@@ -36,10 +37,9 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 
 
 	reg [0:1] state;
-	reg [0:1] next_state;
 
-	reg [0:num_ports-1] congestion;
-	wire [0:num_ports-1] congestion_new;
+	reg [0:num_ports-1] congestion_old;
+	reg [0:num_ports-1] congestion_new;
 	reg [0:num_ports*counter_width-1] counter;
 
 	wire [0:num_ports*num_vcs_per_bank-1] shared_vc_allocated;
@@ -53,10 +53,14 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 		begin
 			counter[ip*counter_width:(ip+1)*counter_width-1] <= {counter_width{1'b0}};
 		end
-		else if ((&allocated_ip_ivc[ip*num_vcs+bank_id*num_vcs_per_bank+:num_vcs_per_bank]) && (state==ENABLE_ALLOCATION))
-		begin
-			if (counter[ip*counter_width:(ip+1)*counter_width-1]!={counter_width{1'b1}})
+		else if (state==ENABLE_ALLOCATION)
+        begin
+            if((&allocated_ip_ivc[ip*num_vcs+bank_id*num_vcs_per_bank+:num_vcs_per_bank])
+                &&(counter[ip*counter_width:(ip+1)*counter_width-1]<threshold))
+            begin
 				counter[ip*counter_width:(ip+1)*counter_width-1] <= counter[ip*counter_width:(ip+1)*counter_width-1] + 1;
+            end
+            congestion_new[ip] <= counter[ip*counter_width:(ip+1)*counter_width-1] == threshold;
 		end
 		else
 		begin
@@ -65,10 +69,16 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 
 		assign shared_vc_allocated[ip*num_vcs_per_bank+:num_vcs_per_bank] = 
 							allocated_ip_shared_ivc[ip*num_vcs+bank_id*num_vcs_per_bank+:num_vcs_per_bank];
-
-		assign congestion_new[ip] = counter[ip*counter_width:(ip+1)*counter_width-1] == {counter_width{1'b1}};
 	end
 	endgenerate
+
+
+    always @(posedge clk or posedge reset)
+    if (reset)
+        congestion_old <= 5'b00000;
+    else if (state==CHANGE_ALLOCATION)
+        congestion_old <= congestion_new;
+    
 
     always @(posedge clk or posedge reset)
     if (reset)
@@ -82,16 +92,22 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
         case (state)
         ENABLE_ALLOCATION:
         begin
-            ready_for_allocation <= 1'b1;
-            if (congestion!=congestion_new)
+            if ((congestion_old!=congestion_new)&&(congestion_new!={num_ports{1'b0}}))
             begin
                 state <= DISABLE_ALLOCATION;
+                ready_for_allocation <= 1'b0;
+            end
+            else
+            begin
+                state <= ENABLE_ALLOCATION;
+                ready_for_allocation <= 1'b1;
             end
         end
         CHANGE_ALLOCATION:
         begin
             state <= ENABLE_ALLOCATION;
-		    casex(congestion)
+            ready_for_allocation <= 1'b1;
+		    casex(congestion_new)
 			    5'b10xxx: memory_bank_grant_out <= 5'b10000;
 			    5'b01xxx: memory_bank_grant_out <= 5'b01000;
 			    5'b11xxx: memory_bank_grant_out <= (router_address[dim_addr_width:2*dim_addr_width-1]>=num_routers_per_dim/2) ? 5'b10000 : 5'b01000;
@@ -99,12 +115,20 @@ module memory_bank_allocator(clk, reset, allocated_ip_ivc, allocated_ip_shared_i
 			    5'b0010x: memory_bank_grant_out <= 5'b00100;
 			    5'b0011x: memory_bank_grant_out <= (router_address[0:dim_addr_width-1]<=num_routers_per_dim/2) ? 5'b00010 : 5'b00100;
 			    5'b00001: memory_bank_grant_out <= 5'b00001;
+                default: memory_bank_grant_out <= {5'b10000}>>bank_id;
 		    endcase
         end
         DISABLE_ALLOCATION:
         begin
             ready_for_allocation <= 1'b0;
-            state <= CHANGE_ALLOCATION;
+            if ((~(|shared_vc_allocated))&&(&shared_ivc_empty))
+            begin
+                state <= CHANGE_ALLOCATION;
+            end
+            else
+            begin
+                state <= DISABLE_ALLOCATION;
+            end
         end
         default:
         begin

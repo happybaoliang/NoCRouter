@@ -9,7 +9,6 @@ using namespace std;
 #define RTR_CNT	RTR_PER_DIM*RTR_PER_DIM
  
 struct stat{
-	vector<int> dst;
 	vector<int> crt;
 	vector<int> lat[RTR_CNT];
 };
@@ -38,7 +37,6 @@ int main(int argc,char* argv[]){
 	input.open("stat.db",ios::in);
 	
 	for (int i=0;i<RTR_CNT;i++){
-		latency[i].dst.clear();
 		latency[i].crt.clear();
 		for (int j=0;j<RTR_CNT;j++){
 			latency[i].lat[j].clear();
@@ -64,12 +62,6 @@ int main(int argc,char* argv[]){
 					max_lat=time-create;
 				total_lat.push_back(time-create);
 				latency[dst_dim1*RTR_PER_DIM+dst_dim2].lat[src_dim1*RTR_PER_DIM+src_dim2].push_back(time-create);
-			}
-		} else if (line=="dst:"){
-			input>>src_dim1>>src_dim2>>pkt_num>>dst_dim1>>dst_dim2;
-			latency[src_dim1*RTR_PER_DIM+src_dim2].dst.push_back(dst_dim1*RTR_PER_DIM+dst_dim2);
-			if (latency[src_dim1*RTR_PER_DIM+src_dim2].dst.size()!=(pkt_num+1)){
-				cout<<"number dismatch occur when update dest"<<endl;
 			}
 		} else if (line=="measuring..."){
 			warmup=false;

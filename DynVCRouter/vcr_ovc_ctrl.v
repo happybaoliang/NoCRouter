@@ -114,7 +114,7 @@ module vcr_ovc_ctrl (clk, reset, vc_active, vc_gnt, vc_sel_ip, vc_sel_ivc, sw_ac
    // track whether this output VC is currently assigend to an input VC
    //---------------------------------------------------------------------------
   
-// If this vc is assigned to an input vc, the allocated signal keeps on valid. 
+   // If this vc is assigned to an input vc, the allocated signal keeps on valid. 
    wire 		 alloc_active;
    assign alloc_active = vc_active | flit_valid;
   

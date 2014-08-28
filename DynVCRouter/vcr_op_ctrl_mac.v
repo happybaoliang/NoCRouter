@@ -392,7 +392,9 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
     end
     endgenerate
 
-   
+
+   wire [0:num_vcs-1]   ovc_shared_allocated;
+
    genvar ovc;
    generate
       for(ovc = 0; ovc < num_vcs; ovc = ovc + 1)
@@ -506,7 +508,7 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 		  .allocated_ovc(shared_allocated),
 	      .empty(shared_empty));
 	  
-	   assign shared_ovc_allocated[ovc] = shared_allocated;
+	   assign ovc_shared_allocated[ovc] = shared_allocated;
 	   assign shared_flit_sel_ovc[ovc] = shared_flit_sel;
 	   assign shared_elig_ovc[ovc] = shared_elig;
 	 end
@@ -579,6 +581,35 @@ module vcr_op_ctrl_mac (clk, reset, flow_ctrl_in, vc_active, shared_vc_active, v
 		 .q(shared_vc_out_q));
 
    assign shared_vc_out = shared_vc_out_q;
+
+   wire [0:num_vcs-1]   shared_ovc_allocated_s;
+   wire [0:num_vcs-1]   shared_ovc_allocated_q;
+   assign shared_ovc_allocated_s = ovc_shared_allocated;
+
+   c_dff
+   #(.width(num_vcs),
+     .reset_type(reset_type))
+   shared_ovc_allocated_dq
+    (.clk(clk),
+     .reset(reset),
+     .active(cho_active),
+     .d(shared_ovc_allocated_s),
+     .q(shared_ovc_allocated_q));
+   
+   wire [0:num_vcs-1]   shared_ovc_allocated_ss;
+   wire [0:num_vcs-1]   shared_ovc_allocated_qq;
+   assign shared_ovc_allocated_ss = shared_ovc_allocated_q;
+
+   c_dff
+   #(.width(num_vcs),
+     .reset_type(reset_type))
+   shared_ovc_allocated_ddqq
+    (.clk(clk),
+     .reset(reset),
+     .active(cho_active),
+     .d(shared_ovc_allocated_ss),
+     .q(shared_ovc_allocated_qq));
+   assign shared_ovc_allocated = shared_ovc_allocated_qq | ovc_shared_allocated;
 
    //---------------------------------------------------------------------------
    // error checking
