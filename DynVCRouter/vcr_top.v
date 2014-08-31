@@ -707,7 +707,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   memory_bank_allocator
 		#(.bank_id(fb),
 		  .num_vcs(num_vcs),
-		  .threshold(50),
+		  .threshold(5),
 		  .num_ports(num_ports),
 		  .dim_addr_width(dim_addr_width),
 		  .router_addr_width(router_addr_width),

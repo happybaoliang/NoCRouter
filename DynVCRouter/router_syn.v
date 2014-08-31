@@ -166,7 +166,7 @@ module router_syn
    output [0:num_ports*channel_width-1]   channel_out_op;
    wire [0:num_ports*channel_width-1] 	  channel_out_op;
    
-   input [0:num_ports-1]				  ready_for_allocation_in;
+   input [0:num_ports*num_ports-1]		  ready_for_allocation_in;
 
    // incoming flow control signals
    input [0:num_ports*flow_ctrl_width-1]  flow_ctrl_in_op;

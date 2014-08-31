@@ -42,10 +42,10 @@ parameter num_message_classes = 1;
 parameter num_resource_classes = 1;
 
 // number of VCs per class
-parameter num_vcs_per_class = 10;
+parameter num_vcs_per_class = 5;
 
 // total number of nodes
-parameter num_nodes = 16;
+parameter num_nodes = 25;
 
 // number of dimensions in network
 parameter num_dimensions = 2;

@@ -1091,7 +1091,8 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
             .data_out(ready_for_alloc));
 
         //TODO
-	    assign shared_vc_out = ((|(sel_bank & memory_bank_grant)) && ready_for_alloc) ? random_shared : 1'b0;
+        assign shared_vc_out = 1'b0;
+	    //assign shared_vc_out = ((|(sel_bank & memory_bank_grant)) && ready_for_alloc) ? random_shared : 1'b0;
 
         // 'curr_dest_addr' seems not be used throughout this souce code.
 	    assign curr_dest_addr = dest_info[((random_vc / num_vcs_per_class) % num_resource_classes)*router_addr_width +: router_addr_width];
