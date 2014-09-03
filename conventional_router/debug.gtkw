@@ -1,0 +1,112 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Tue Aug 26 11:50:36 2014
+[*]
+[dumpfile] "/home/happy/NoCRouter/conventional_router/verif/mesh/router.db"
+[dumpfile_mtime] "Tue Aug 26 11:03:58 2014"
+[dumpfile_size] 452762374
+[savefile] "/home/happy/NoCRouter/conventional_router/verif/mesh/debug.gtkw"
+[timestart] 1036
+[size] 1375 876
+[pos] -1 -1
+*-4.000000 150 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.xdims[0].
+[treeopen] testbench.xdims[0].ydims[0].
+[treeopen] testbench.xdims[0].ydims[0].fs.
+[treeopen] testbench.xdims[0].ydims[1].
+[treeopen] testbench.xdims[1].
+[treeopen] testbench.xdims[1].ydims[0].
+[treeopen] testbench.xdims[1].ydims[0].ps.
+[sst_width] 223
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 257
+@800022
+testbench.xdims[0].ydims[0].ps.router_address[0:3]
+@28
+(0)testbench.xdims[0].ydims[0].ps.router_address[0:3]
+(1)testbench.xdims[0].ydims[0].ps.router_address[0:3]
+(2)testbench.xdims[0].ydims[0].ps.router_address[0:3]
+(3)testbench.xdims[0].ydims[0].ps.router_address[0:3]
+@800022
+testbench.xdims[0].ydims[1].ps.router_address[0:3]
+@28
+(0)testbench.xdims[0].ydims[1].ps.router_address[0:3]
+(1)testbench.xdims[0].ydims[1].ps.router_address[0:3]
+(2)testbench.xdims[0].ydims[1].ps.router_address[0:3]
+(3)testbench.xdims[0].ydims[1].ps.router_address[0:3]
+@800022
+testbench.xdims[1].ydims[0].ps.router_address[0:3]
+@28
+(0)testbench.xdims[1].ydims[0].ps.router_address[0:3]
+(1)testbench.xdims[1].ydims[0].ps.router_address[0:3]
+(2)testbench.xdims[1].ydims[0].ps.router_address[0:3]
+(3)testbench.xdims[1].ydims[0].ps.router_address[0:3]
+@1001200
+-group_end
+-group_end
+-group_end
+@22
+testbench.xdims[1].ydims[0].ps.pkt_sent[0:31]
+testbench.xdims[1].ydims[0].ps.pkt_gened[0:31]
+testbench.xdims[1].ydims[0].ps.cho.flit_data_out[0:63]
+@800022
+testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+@c00022
+#{testbench.xdims[0].ydims[0].fs.chi.flit_data_in[28:59]} (28)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (29)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (30)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (31)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (32)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (33)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (34)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (35)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (36)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (37)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (38)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (39)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (40)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (41)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (42)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (43)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (44)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (45)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (46)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (47)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (48)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (49)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (50)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (51)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (52)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (53)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (54)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (55)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (56)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (57)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (58)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (59)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+@28
+(28)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(29)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(30)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(31)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(32)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(33)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(34)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(35)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(36)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(37)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(38)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(39)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(40)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(41)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(42)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(43)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(44)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(45)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(46)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(47)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(48)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(49)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(50)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(51)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(52)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(53)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(54)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(55)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(56)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(57)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(58)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(59)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+@1401200
+-group_end
+@c00024
+#{testbench.xdims[0].ydims[0].fs.chi.flit_data_in[60:61]} (60)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (61)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+@28
+(60)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(61)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+@1401204
+-group_end
+@c00024
+#{testbench.xdims[0].ydims[0].fs.chi.flit_data_in[62:63]} (62)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63] (63)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+@28
+(62)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+(63)testbench.xdims[0].ydims[0].fs.chi.flit_data_in[0:63]
+@1401204
+-group_end
+@25
+testbench.xdims[0].ydims[0].fs.pkt_cnt[0:31]
+@1001200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

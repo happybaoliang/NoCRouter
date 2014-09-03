@@ -72,76 +72,57 @@ module c_regfile
    
    // contents of entries selected by read_address
    output [0:num_read_ports*width-1] 	  read_data;
-   wire [0:num_read_ports*width-1] 	  read_data;
+   wire [0:num_read_ports*width-1] 	      read_data;
    
    genvar 				  read_port;
    genvar 				  write_port;
    
-   generate
-      
-      case(regfile_type)
-	
+   generate  
+    case(regfile_type)
 	`REGFILE_TYPE_FF_2D:
 	  begin
-	     
 	     if(num_write_ports == 1)
-	       begin
-		  
+	     begin 
 		  reg [0:width-1] storage_2d [0:depth-1];
 		  
 		  always @(posedge clk)
 		    if(write_active)
 		      if(write_enable)
-			storage_2d[write_address] <= write_data;
+			    storage_2d[write_address] <= write_data;
 		  
-		  for(read_port = 0; read_port < num_read_ports; 
-		      read_port = read_port + 1)
-		    begin:read_ports_2d
-		       
+		  for(read_port = 0; read_port < num_read_ports; read_port = read_port + 1)
+		  begin:read_ports_2d     
 		       wire [0:addr_width-1] port_read_address;
-		       assign port_read_address
-			 = read_address[read_port*addr_width:
-					(read_port+1)*addr_width-1];
+		       assign port_read_address = read_address[read_port*addr_width:(read_port+1)*addr_width-1];
 		       
 		       wire [0:width-1]      port_read_data;
 		       assign port_read_data = storage_2d[port_read_address];
 		       
-		       assign read_data[read_port*width:(read_port+1)*width-1]
-			 = port_read_data;
-		       
+		       assign read_data[read_port*width:(read_port+1)*width-1] = port_read_data;
 		    end
-		  
 	       end
 	     else
-	       begin
-		  
+	     begin 
 		  // synopsys translate_off
 		  initial
-		    begin
+		  begin
 		       $display({"ERROR: Register file %m does not support ",
 				 "2D FF array register file models with %d ",
 				 "write ports."}, num_write_ports);
 		       $stop;
-		    end
+		  end
 		  // synopsys translate_on
-		  
-	       end
-	     
+	      end
 	  end
 	
 	`REGFILE_TYPE_FF_1D_MUX, `REGFILE_TYPE_FF_1D_SEL:
 	  begin
-	     
 	     wire [0:num_write_ports*depth-1] write_sel_by_port;
 
-	     for(write_port = 0; write_port < num_write_ports;
-		 write_port = write_port + 1)
-	       begin:write_ports_1d
-		  
+	     for(write_port = 0; write_port < num_write_ports; write_port = write_port + 1)
+	     begin:write_ports_1d 
 		  wire [0:addr_width-1] port_write_address;
-		  assign port_write_address
-		    = write_address[write_port*addr_width:
-				    (write_port+1)*addr_width-1];
+		  assign port_write_address = write_address[write_port*addr_width:(write_port+1)*addr_width-1];
 		  
 		  wire [0:depth-1] 	port_write_sel;
 		  c_decode
@@ -150,11 +131,8 @@ module c_regfile
 		    (.data_in(port_write_address),
 		     .data_out(port_write_sel));
 		  
-		  assign write_sel_by_port[write_port*depth:
-					   (write_port+1)*depth-1]
-		    = port_write_sel;
-		  
-	       end
+		  assign write_sel_by_port[write_port*depth:(write_port+1)*depth-1] = port_write_sel;
+	     end
 	     
 	     wire [0:depth*num_write_ports-1] write_sel_by_level;
 	     c_interleave
@@ -167,14 +145,10 @@ module c_regfile
 	     wire [0:depth*width-1] 	      storage_1d;
 	     
 	     genvar 			      level;
-	     
 	     for(level = 0; level < depth; level = level + 1)
-	       begin:levels
-		  
+	     begin:levels 
 		  wire [0:num_write_ports-1] lvl_write_sel;
-		  assign lvl_write_sel
-		    = write_sel_by_level[level*num_write_ports:
-					 (level+1)*num_write_ports-1];
+		  assign lvl_write_sel = write_sel_by_level[level*num_write_ports:(level+1)*num_write_ports-1];
 		  
 		  wire [0:num_write_ports-1] lvl_port_write;
 		  assign lvl_port_write = write_enable & lvl_write_sel;
@@ -196,28 +170,21 @@ module c_regfile
 		  always @(posedge clk)
 		    if(write_active)
 		      if(lvl_write_enable)
-			storage <= lvl_write_data;
+			    storage <= lvl_write_data;
 		  
 		  assign storage_1d[level*width:(level+1)*width-1] = storage;
-		  
-	       end
+	     end
 	     
-	     for(read_port = 0; read_port < num_read_ports; 
-		 read_port = read_port + 1)
-	       begin:read_ports_1d
-		  
+	     for(read_port = 0; read_port < num_read_ports; read_port = read_port + 1)
+	     begin:read_ports_1d 
 		  wire [0:addr_width-1] port_read_address;
-		  assign port_read_address
-		    = read_address[read_port*addr_width:
-				   (read_port+1)*addr_width-1];
+		  assign port_read_address = read_address[read_port*addr_width:(read_port+1)*addr_width-1];
 		  
 		  wire [0:width-1] 	port_read_data;
 		  
 		  case(regfile_type)
-		    
 		    `REGFILE_TYPE_FF_1D_SEL:
-		      begin
-			 
+		    begin 
 			 wire [0:depth-1] port_read_sel;
 			 c_decode
 			   #(.num_ports(depth))
@@ -232,46 +199,33 @@ module c_regfile
 			   (.select(port_read_sel),
 			    .data_in(storage_1d),
 			    .data_out(port_read_data));
-			 
-		      end
+		    end
 		    
 		    `REGFILE_TYPE_FF_1D_MUX:
-		      begin
-			 
-			 assign port_read_data
-			   = storage_1d[port_read_address*width +: width];
-			 
-		      end
-		    
+		    begin 
+			 assign port_read_data = storage_1d[port_read_address*width +: width];
+		   end 
 		  endcase
-		  
-		  assign read_data[read_port*width:(read_port+1)*width-1]
-		    = port_read_data;
-		  
-	       end
-	     
+
+		  assign read_data[read_port*width:(read_port+1)*width-1] = port_read_data;
+	    end 
 	  end
-	
       endcase
       
       
       //----------------------------------------------------------------------
       // check parameter validity
       //----------------------------------------------------------------------
-      
       // synopsys translate_off
-      
       if(depth < 2)
-	begin
+	  begin
 	   initial
-	     begin
+	   begin
 		$display({"ERROR: Register file module %m requires a depth ", "of two or more entries."});
 		$stop;
-	     end
+	   end
 	end
-      
       // synopsys translate_on
-      
    endgenerate
    
 endmodule

@@ -109,7 +109,10 @@ module router_wrap
    localparam memory_bank_size = buffer_size/num_ports;
 
    localparam num_vcs_per_bank = num_vcs/num_ports;
-   
+  
+   parameter threshold = 5;
+
+
    input clk;
    input reset;
    
@@ -234,7 +237,8 @@ module router_wrap
 		 .sw_alloc_arbiter_type(sw_alloc_arbiter_type),
 		 .sw_alloc_spec_type(sw_alloc_spec_type),
 		 .crossbar_type(crossbar_type),
-		 .reset_type(reset_type))
+		 .reset_type(reset_type),
+         .threshold(threshold))
 	     vcr
 	    (.clk(clk),
 		.reset(reset),

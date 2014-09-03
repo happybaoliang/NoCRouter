@@ -32,7 +32,8 @@
 module rtr_flit_buffer
   (clk, reset, push_active, push_valid, push_head, push_tail, push_sel_ivc, 
    push_data, pop_active, pop_valid, pop_sel_ivc, pop_data, pop_tail_ivc, 
-   pop_next_header_info, almost_empty_ivc, empty_ivc, full, errors_ivc);
+   pop_next_header_info, almost_empty_ivc, empty_ivc, full, errors_ivc,
+   flit_count);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -103,73 +104,89 @@ module rtr_flit_buffer
    input reset;
 
    // activity indicator for insertion
-   input push_active;
+   input                          push_active;
    
    // insert data
-   input push_valid;
+   input                          push_valid;
    
    // inserting head flit
-   input push_head;
+   input                          push_head;
    
    // inserting tail flit
-   input push_tail;
+   input                          push_tail;
    
    // VC to insert into
-   input [0:num_vcs-1] push_sel_ivc;
+   input [0:num_vcs-1]            push_sel_ivc;
    
    // data to be inserted
-   input [0:flit_data_width-1] push_data;
+   input [0:flit_data_width-1]    push_data;
    
    // activity indicator for read / removal
-   input 		       pop_active;
+   input 		                  pop_active;
    
    // read and remove data
-   input 		       pop_valid;
+   input 		                  pop_valid;
    
    // VC to remove from
-   input [0:num_vcs-1] 	       pop_sel_ivc;
+   input [0:num_vcs-1] 	          pop_sel_ivc;
    
    // read data
    // NOTE: This is valid in the cycle after pop_valid!
-   output [0:flit_data_width-1] pop_data;
-   wire [0:flit_data_width-1] 	pop_data;
+   output [0:flit_data_width-1]   pop_data;
+   wire [0:flit_data_width-1] 	  pop_data;
    
    // tail bit for the element to be read next in each VC
-   output [0:num_vcs-1] 	pop_tail_ivc;
-   wire [0:num_vcs-1] 		pop_tail_ivc;
+   output [0:num_vcs-1] 	      pop_tail_ivc;
+   wire [0:num_vcs-1] 		      pop_tail_ivc;
    
    // peek-ahead at the element in each VC after the one to be read next
    output [0:header_info_width-1] pop_next_header_info;
    wire [0:header_info_width-1]   pop_next_header_info;
    
    // VC state flags
-   output [0:num_vcs-1] 	  almost_empty_ivc;
-   wire [0:num_vcs-1] 		  almost_empty_ivc;
-   output [0:num_vcs-1] 	  empty_ivc;
-   wire [0:num_vcs-1] 		  empty_ivc;
-   output 			  full;
-   wire 			  full;
+   output [0:num_vcs-1] 	      almost_empty_ivc;
+   wire [0:num_vcs-1] 		      almost_empty_ivc;
+
+   output [0:addr_width-1]        flit_count;
+   reg [0:addr_width-1]           flit_count;
+
+   output [0:num_vcs-1] 	      empty_ivc;
+   wire [0:num_vcs-1] 		      empty_ivc;
+
+   output 			              full;
+   wire 			              full;
    
    // internal error conditions detected
-   output [0:num_vcs*2-1] 	  errors_ivc;
-   wire [0:num_vcs*2-1] 	  errors_ivc;
-   wire [0:addr_width-1] 	  push_addr;
+   output [0:num_vcs*2-1] 	      errors_ivc;
+   wire [0:num_vcs*2-1] 	      errors_ivc;
+
+   wire [0:addr_width-1] 	      push_addr;
    wire [0:num_vcs*addr_width-1]  pop_addr_ivc;
    wire [0:num_vcs*addr_width-1]  pop_next_addr_ivc;
    
+
+   always @(posedge clk  or posedge reset)
+   if (reset)
+    flit_count <= {addr_width{1'b0}};
+   else
+    case({push_valid,pop_valid})
+     2'b01:
+        flit_count <= flit_count-1;
+     2'b10:
+        flit_count <= flit_count+1;
+    endcase
+
+
    generate
-      //------------------------------------------------------------------------
-      // tail flit tracking (atomic)
-      //------------------------------------------------------------------------
-      if(atomic_vc_allocation)
+    //------------------------------------------------------------------------
+    // tail flit tracking (atomic)
+    //------------------------------------------------------------------------
+    if(atomic_vc_allocation)
 	begin
 	   wire [0:num_vcs-1] has_tail_ivc_s, has_tail_ivc_q;
-	   assign has_tail_ivc_s
-	     = push_valid ?
-	       ((has_tail_ivc_q & 
-		 ~({num_vcs{push_head}} & push_sel_ivc)) | 
-		({num_vcs{push_tail}} & push_sel_ivc)) : 
-	       has_tail_ivc_q;
+	   assign has_tail_ivc_s = push_valid ?
+	       ((has_tail_ivc_q & ~({num_vcs{push_head}} & push_sel_ivc)) | 
+		({num_vcs{push_tail}} & push_sel_ivc)) : has_tail_ivc_q;
 	   c_dff
 	     #(.width(num_vcs),
 	       .reset_type(reset_type))
@@ -182,7 +199,7 @@ module rtr_flit_buffer
 	   assign pop_tail_ivc = almost_empty_ivc & has_tail_ivc_q;
 	end
       
-      case(mgmt_type)
+    case(mgmt_type)
 	`FB_MGMT_TYPE_STATIC:
 	  begin
 	     //-----------------------------------------------------------------
@@ -190,7 +207,7 @@ module rtr_flit_buffer
 	     //-----------------------------------------------------------------
 	     wire [0:num_vcs*addr_width-1] push_addr_ivc;
 	     if(!atomic_vc_allocation)
-	       begin
+	     begin
 		  genvar ivc;
 		  for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
 		    begin:ivcs
@@ -207,13 +224,11 @@ module rtr_flit_buffer
 		       wire [0:buffer_size_per_vc-1] push_mask;
 		       
 		       if(buffer_size_per_vc == 1)
-			 assign push_mask = 1'b1;
+			    assign push_mask = 1'b1;
 		       else if(buffer_size_per_vc > 1)
-			 begin
-			    
+			   begin 
 			    wire [0:vc_addr_width-1] push_vc_addr;
-			    assign push_vc_addr
-			      = push_addr[addr_pad_width:addr_width-1];
+			    assign push_vc_addr = push_addr[addr_pad_width:addr_width-1];
 			    
 			    c_decode
 			      #(.num_ports(buffer_size_per_vc),
@@ -222,7 +237,6 @@ module rtr_flit_buffer
 			    push_mask_dec
 			      (.data_in(push_vc_addr),
 			       .data_out(push_mask));
-			    
 			 end
 		       
 		       wire [0:buffer_size_per_vc-1] tail_s, tail_q;
@@ -247,13 +261,11 @@ module rtr_flit_buffer
 		       wire [0:buffer_size_per_vc-1] pop_mask;
 		       
 		       if(buffer_size_per_vc == 1)
-			 assign pop_mask = 1'b1;
+			    assign pop_mask = 1'b1;
 		       else if(buffer_size_per_vc > 1)
-			 begin
-			    
+			   begin 
 			    wire [0:vc_addr_width-1] pop_vc_addr;
-			    assign pop_vc_addr
-			      = pop_addr[addr_pad_width:addr_width-1];
+			    assign pop_vc_addr = pop_addr[addr_pad_width:addr_width-1];
 			    
 			    c_decode
 			      #(.num_ports(buffer_size_per_vc),
@@ -262,7 +274,6 @@ module rtr_flit_buffer
 			    pop_mask_dec
 			      (.data_in(pop_vc_addr),
 			       .data_out(pop_mask));
-			    
 			 end
 		       
 		       wire 			     pop_tail;
@@ -319,14 +330,11 @@ module rtr_flit_buffer
 	
 	`FB_MGMT_TYPE_DYNAMIC:
 	  begin
-	     
 	     //-----------------------------------------------------------------
 	     // tail flit tracking (non-atomic)
 	     //-----------------------------------------------------------------
-	     
 	     if(!atomic_vc_allocation)
-	       begin
-		  
+	     begin
 		  wire [0:buffer_size-1] push_mask;
 		  c_decode
 		    #(.num_ports(buffer_size))
@@ -335,10 +343,7 @@ module rtr_flit_buffer
 		     .data_out(push_mask));
 		  
 		  wire [0:buffer_size-1] tail_s, tail_q;
-		  assign tail_s = push_valid ? 
-				  (({buffer_size{push_tail}} & push_mask) | 
-				   (tail_q & ~push_mask)) :
-				  tail_q;
+		  assign tail_s = push_valid ? (({buffer_size{push_tail}} & push_mask) | (tail_q & ~push_mask)) : tail_q;
 		  c_dff
 		    #(.width(buffer_size),
 		      .reset_type(reset_type))
@@ -350,12 +355,10 @@ module rtr_flit_buffer
 		     .q(tail_q));
 		  
 		  genvar ivc;
-		  
 		  for(ivc = 0; ivc < num_vcs; ivc = ivc + 1)
-		    begin:bivcs
+		  begin:bivcs
 		       wire [0:addr_width-1] pop_addr;
-		       assign pop_addr
-			 = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
+		       assign pop_addr = pop_addr_ivc[ivc*addr_width:(ivc+1)*addr_width-1];
 		       
 		       wire [0:buffer_size-1] pop_mask;
 		       c_decode
@@ -374,50 +377,42 @@ module rtr_flit_buffer
 			  .data_out(pop_tail));
 		       
 		       assign pop_tail_ivc[ivc] = pop_tail;
-		       
-		    end
-		  
+		    end 
 	       end
-	     
 	     
 	     //-----------------------------------------------------------------
 	     // buffer control
 	     //-----------------------------------------------------------------
-	     
 	     c_damq_ctrl
 	       #(.num_queues(num_vcs),
-		 .num_slots(buffer_size),
-		 .enable_bypass(enable_bypass),
-		 .fast_pop_next_addr(fast_peek),
-		 .reset_type(reset_type))
+    		 .num_slots(buffer_size),
+	    	 .enable_bypass(enable_bypass),
+		     .fast_pop_next_addr(fast_peek),
+		    .reset_type(reset_type))
 	     damqc
 	       (.clk(clk),
-		.reset(reset),
-		.push_active(push_active),
-		.push_valid(push_valid),
-		.push_sel_qu(push_sel_ivc),
-		.push_addr(push_addr),
-		.pop_active(pop_active),
-		.pop_valid(pop_valid),
-		.pop_sel_qu(pop_sel_ivc),
-		.pop_addr_qu(pop_addr_ivc),
-		.pop_next_addr_qu(pop_next_addr_ivc),
-		.almost_empty_qu(almost_empty_ivc),
-		.empty_qu(empty_ivc),
-		.full(full),
-		.errors_qu(errors_ivc));
-	     
+		    .reset(reset),
+	    	.push_active(push_active),
+		    .push_valid(push_valid),
+    		.push_sel_qu(push_sel_ivc),
+	    	.push_addr(push_addr),
+		    .pop_active(pop_active),
+    		.pop_valid(pop_valid),
+    		.pop_sel_qu(pop_sel_ivc),
+	    	.pop_addr_qu(pop_addr_ivc),
+		    .pop_next_addr_qu(pop_next_addr_ivc),
+    		.almost_empty_qu(almost_empty_ivc),
+    		.empty_qu(empty_ivc),
+	    	.full(full),
+		    .errors_qu(errors_ivc));
 	  end
-	
       endcase
-      
    endgenerate
    
    
    //---------------------------------------------------------------------------
    // storage
    //---------------------------------------------------------------------------
-   
    wire [0:addr_width-1] 		      pop_addr;
    c_select_1ofn
      #(.num_ports(num_vcs),
@@ -430,22 +425,20 @@ module rtr_flit_buffer
    wire 				      write_active;
    assign write_active = push_active;
    
-   wire [0:addr_width-1] 		      write_addr;
+   wire [0:addr_width-1] 	  write_addr;
    assign write_addr = push_addr;
    
-   wire [0:flit_data_width-1] 		      write_data;
+   wire [0:flit_data_width-1] write_data;
    assign write_data = push_data;
    
-   wire [0:flit_data_width-1] 		      read_data;
+   wire [0:flit_data_width-1] read_data;
    
    wire 				      write_enable;
-   wire [0:addr_width-1] 		      read_addr;
+   wire [0:addr_width-1]      read_addr;
    
-   generate
-      
-      if(explicit_pipeline_register)
+   generate  
+    if(explicit_pipeline_register)
 	begin
-	   
 	   wire empty;
 	   c_select_1ofn
 	     #(.num_ports(num_vcs),
@@ -474,12 +467,10 @@ module rtr_flit_buffer
 	      .d(pop_data_s),
 	      .q(pop_data_q));
 	   
-	   assign pop_data = pop_data_q;
-	   
+	   assign pop_data = pop_data_q;   
 	end
-      else
+    else
 	begin
-	   
 	   assign write_enable = push_valid;
 	   
 	   wire [0:addr_width-1] read_addr_s, read_addr_q;
@@ -495,14 +486,11 @@ module rtr_flit_buffer
 	      .q(read_addr_q));
 	   
 	   assign read_addr = read_addr_q;
-	   
 	   assign pop_data = read_data;
-	   
 	end
       
-      if(atomic_vc_allocation)
-	begin
-	   
+    if(atomic_vc_allocation)
+	begin   
 	   c_regfile
 	     #(.depth(buffer_size),
 	       .width(flit_data_width),
@@ -517,11 +505,9 @@ module rtr_flit_buffer
 	      .read_data(read_data));
 	   
 	   assign pop_next_header_info = {header_info_width{1'bx}};
-	   
 	end
-      else
+    else
 	begin
-	   
 	   wire [0:addr_width-1] pop_next_addr;
 	   c_select_1ofn
 	     #(.num_ports(num_vcs),
@@ -547,9 +533,7 @@ module rtr_flit_buffer
 	      .read_data({read_data, pop_next_data}));
 	   
 	   assign pop_next_header_info = pop_next_data[0:header_info_width-1];
-	   
 	end
-      
    endgenerate
    
 endmodule

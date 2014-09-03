@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define RTR_PER_DIM 5 
+#define RTR_PER_DIM 4
 #define RTR_CNT	RTR_PER_DIM*RTR_PER_DIM
  
 struct stat{

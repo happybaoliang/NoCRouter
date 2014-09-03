@@ -884,9 +884,7 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 	     assign node_address = port_id - (num_ports - num_nodes_per_router);
 	   else
 	     assign node_address = {node_addr_width{1'b0}};
-
 	   assign source_address[router_addr_width:addr_width-1] = node_address;
-	   
 	   reg [0:node_addr_width-1]  random_node_address;
 	   always @(posedge clk, posedge reset)
 	   begin
@@ -896,7 +894,6 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 		       random_router_address[d*dim_addr_width +: dim_addr_width] 
 			= (router_address[d*dim_addr_width +: dim_addr_width] +
 			    $dist_uniform(seed, 0, num_routers_per_dim-1)) % num_routers_per_dim;
-
 		     random_node_address = (node_address + $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) &&
 					 	(random_router_address == router_address)) ? 1 : 0, num_nodes_per_router - 1)) % num_nodes_per_router;
 		     dest_info[dest_info_width-addr_width:dest_info_width-1] = {random_router_address, random_node_address};
@@ -922,7 +919,9 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
 			  $dist_uniform(seed,((port_id >= (num_ports - num_nodes_per_router)) && (random_router_address == 
 					  router_address)) ? 1 : 0, num_routers_per_dim - 1)) % num_routers_per_dim;
 		    // TODO
-			dest_info[dest_info_width-addr_width:dest_info_width-1] = 0;
+			//dest_info[dest_info_width-addr_width:dest_info_width-1] = 0;
+            dest_info[dest_info_width-addr_width:dest_info_width-1] = 
+                {router_address[dim_addr_width:2*dim_addr_width-1],router_address[0:dim_addr_width-1]};
 			//dest_info[dest_info_width-addr_width:dest_info_width-1] = ((router_address[0:dim_addr_width-1]*num_routers_per_dim
 			// + router_address[dim_addr_width:router_addr_width-1]) + 1) % num_routers_per_dim;
 			//dest_info[dest_info_width-addr_width:dest_info_width-1] = random_router_address;
@@ -1091,8 +1090,7 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
             .data_out(ready_for_alloc));
 
         //TODO
-        assign shared_vc_out = 1'b0;
-	    //assign shared_vc_out = ((|(sel_bank & memory_bank_grant)) && ready_for_alloc) ? random_shared : 1'b0;
+	    assign shared_vc_out = ((|(sel_bank & memory_bank_grant)) && ready_for_alloc) ? random_shared : 1'b0;
 
         // 'curr_dest_addr' seems not be used throughout this souce code.
 	    assign curr_dest_addr = dest_info[((random_vc / num_vcs_per_class) % num_resource_classes)*router_addr_width +: router_addr_width];

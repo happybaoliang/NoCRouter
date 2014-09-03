@@ -1,123 +1,72 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Thu Aug 28 12:19:45 2014
+[*] Mon Sep  1 16:21:13 2014
 [*]
 [dumpfile] "/home/happy/NoCRouter/DynVCRouter/router.db"
-[dumpfile_mtime] "Thu Aug 28 12:17:42 2014"
-[dumpfile_size] 393277851
+[dumpfile_mtime] "Mon Sep  1 16:10:12 2014"
+[dumpfile_size] 592553130
 [savefile] "/home/happy/NoCRouter/DynVCRouter/router.gtkw"
-[timestart] 2857
+[timestart] 611
 [size] 1375 876
 [pos] -1 -1
-*-4.000000 2884 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-6.000000 750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
 [treeopen] testbench.xdims[0].
 [treeopen] testbench.xdims[0].ydims[0].
 [treeopen] testbench.xdims[0].ydims[0].rtr.
-[treeopen] testbench.xdims[0].ydims[0].rtr.vcr.ips[3].
-[treeopen] testbench.xdims[0].ydims[0].rtr.vcr.ops[2].opc.
-[treeopen] testbench.xdims[0].ydims[0].rtr.vcr.ops[2].opc.ovcs[8].
-[treeopen] testbench.xdims[0].ydims[0].rtr.vcr.ops[2].opc.ovcs[9].
-[treeopen] testbench.xdims[0].ydims[0].rtr.vcr.ops[4].opc.
-[treeopen] testbench.xdims[0].ydims[1].
-[treeopen] testbench.xdims[0].ydims[1].rtr.
-[treeopen] testbench.xdims[0].ydims[1].rtr.vcr.
-[treeopen] testbench.xdims[0].ydims[1].rtr.vcr.ops[2].
-[treeopen] testbench.xdims[0].ydims[1].rtr.vcr.ops[2].opc.
-[treeopen] testbench.xdims[0].ydims[1].rtr.vcr.ops[2].opc.ovcs[8].
-[treeopen] testbench.xdims[0].ydims[1].rtr.vcr.ops[4].
-[treeopen] testbench.xdims[0].ydims[1].rtr.vcr.ops[4].opc.
-[treeopen] testbench.xdims[1].
-[treeopen] testbench.xdims[1].ydims[0].
-[treeopen] testbench.xdims[1].ydims[0].rtr.
-[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.
-[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.
-[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].
-[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].shared_fcs.
-[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.ovcs[8].
-[treeopen] testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.ovcs[9].
-[treeopen] testbench.xdims[1].ydims[1].rtr.
-[treeopen] testbench.xdims[1].ydims[1].rtr.vcr.
 [sst_width] 223
-[signals_width] 254
+[signals_width] 246
 [sst_expanded] 1
 [sst_vpaned_height] 257
-@28
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.clk
-testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.shared_fc_event_valid
-@22
-testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.shared_fc_event_sel_ovc[0:9]
-@28
-testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].shared_fcs.fc_event_valid
-testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.fcss[4].shared_fcs.fc_event_sel_ovc[0:1]
-@22
-testbench.xdims[1].ydims[0].rtr.vcr.ops[0].opc.shared_flow_ctrl_in[0:4]
-@800022
-testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-@c00022
-#{testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[5:9]} (5)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (6)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (7)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (8)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (9)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-@28
-(5)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(6)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(7)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(8)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(9)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-@1401200
--group_end
-@c00022
-#{testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[15:19]} (15)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (16)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (17)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (18)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24] (19)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-@28
-(15)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(16)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(17)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(18)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-(19)testbench.xdims[0].ydims[0].rtr.vcr.flow_ctrl_out_ip[0:24]
-@1401200
--group_end
 @200
--RTR[0,0].flb[4].allocator
+-RTR[0,0]
 @22
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[0].allocator.congestion_new[0:4]
+@c00022
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[1].allocator.congestion_new[0:4]
+@28
+(0)testbench.xdims[0].ydims[0].rtr.vcr.fbs[1].allocator.congestion_new[0:4]
+(1)testbench.xdims[0].ydims[0].rtr.vcr.fbs[1].allocator.congestion_new[0:4]
+(2)testbench.xdims[0].ydims[0].rtr.vcr.fbs[1].allocator.congestion_new[0:4]
+(3)testbench.xdims[0].ydims[0].rtr.vcr.fbs[1].allocator.congestion_new[0:4]
+(4)testbench.xdims[0].ydims[0].rtr.vcr.fbs[1].allocator.congestion_new[0:4]
+@1401200
+-group_end
+@22
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[2].allocator.congestion_new[0:4]
+testbench.xdims[0].ydims[0].rtr.vcr.fbs[3].allocator.congestion_new[0:4]
 testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.congestion_new[0:4]
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.congestion_old[0:4]
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.counter[0:14]
+@c00022
+testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
 @28
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.state[0:1]
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_ivc_empty[0:1]
-@c00023
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-@28
-(0)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(1)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(2)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(3)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(4)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(5)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(6)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(7)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(8)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-(9)testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.shared_vc_allocated[0:9]
-@1401201
+(0)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(1)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(2)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(3)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(4)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(5)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(6)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(7)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(8)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(9)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(10)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(11)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(12)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(13)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(14)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(15)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(16)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(17)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(18)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(19)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(20)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(21)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(22)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(23)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+(24)testbench.xdims[0].ydims[0].rtr.vcr.memory_bank_grant_out[0:24]
+@1401200
 -group_end
-@28
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.ready_for_allocation
-@22
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].allocator.memory_bank_grant_out[0:4]
-@28
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_valid
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_head
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_tail
-@22
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.push_data[0:63]
-testbench.xdims[0].ydims[0].rtr.vcr.fbs[4].flb.pop_data[0:63]
-@1001200
--group_end
-@28
-testbench.xdims[0].ydims[1].rtr.vcr.ops[2].opc.ovcs[8].shared_ovcc.allocated
-testbench.xdims[0].ydims[1].rtr.vcr.ops[2].opc.shared_vc_in
-@22
-testbench.xdims[0].ydims[0].rtr.vcr.ops[4].opc.flit_data[0:63]
-@28
-testbench.xdims[0].ydims[1].rtr.vcr.ops[2].opc.shared_vc_out
-testbench.xdims[0].ydims[0].rtr.vcr.ips[3].ipc.shared_vc_out
+@201
+-RTR[0,1]
 [pattern_trace] 1
 [pattern_trace] 0

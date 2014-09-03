@@ -36,7 +36,7 @@ sw_sel_ivc, sw_gnt_op, shared_ovc_ivc, almost_full_op_ovc, full_op_ovc, flit_dat
 flow_ctrl_out, shared_fb_push_valid, shared_fb_push_head, shared_fb_push_head_ivc, 
 shared_fb_push_tail, shared_fb_push_tail_ivc, shared_fb_push_sel_ivc, shared_full,
 shared_fb_push_data, shared_vc_in, full_op_shared_ovc, almost_full_op_shared_ovc, 
-error);
+flit_count, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -45,6 +45,9 @@ error);
    
    // total buffer size per port in flits
    parameter buffer_size = 32;
+   
+   
+   localparam fb_addr_width = clogb(buffer_size);
    
    // number of message classes (e.g. request, reply)
    parameter num_message_classes = 2;
@@ -314,6 +317,9 @@ error);
    output [0:flit_data_width-1]		     		shared_fb_push_data;
    wire [0:flit_data_width-1]		     		shared_fb_push_data;
 
+   output [0:fb_addr_width-1]                   flit_count;
+   wire [0:fb_addr_width-1]                     flit_count;
+
    // internal error condition detected
    output 				     					error;
    wire 				     					error;
@@ -389,8 +395,7 @@ error);
 
    wire [0:header_info_width-1] 	     header_info_in;
    assign header_info_in = flit_data_in[0:header_info_width-1];
-  
-
+   
    //---------------------------------------------------------------------------
    // switch allocation
    //---------------------------------------------------------------------------
@@ -473,8 +478,7 @@ error);
 	   //-------------------------------------------------------------------
 	   wire 			    fb_empty;
 	   assign fb_empty = fb_empty_ivc[ivc];
-	  
-
+	   
 	   wire [0:num_ports-1] 	    	route_op;
 	   wire [0:num_resource_classes-1]  route_orc;
 	   wire 			    			allocated;
@@ -592,11 +596,11 @@ error);
    wire 				    fb_pop_valid;
    assign fb_pop_valid = flit_sent;
    
-   wire [0:num_vcs-1] 			    fb_pop_sel_ivc;
+   wire [0:num_vcs-1] 	    fb_pop_sel_ivc;
    assign fb_pop_sel_ivc = sw_sel_ivc;
    
-   wire [0:flit_data_width-1] 		    fb_pop_data;
-   wire [0:num_vcs*2-1] 		    fb_errors_ivc;
+   wire [0:flit_data_width-1] fb_pop_data;
+   wire [0:num_vcs*2-1] 	  fb_errors_ivc;
    rtr_flit_buffer
      #(.num_vcs(num_vcs),
        .buffer_size(buffer_size),
@@ -627,6 +631,7 @@ error);
       .pop_next_header_info(fb_pop_next_header_info),
       .almost_empty_ivc(fb_almost_empty_ivc),
       .empty_ivc(fb_empty_ivc),
+      .flit_count(flit_count),
       .full(fb_full),
       .errors_ivc(fb_errors_ivc));
    
@@ -735,7 +740,7 @@ error);
    // error checking
    //---------------------------------------------------------------------------
    generate
-      if(error_capture_mode != `ERROR_CAPTURE_MODE_NONE)
+    if(error_capture_mode != `ERROR_CAPTURE_MODE_NONE)
 	begin
 	   wire [0:num_vcs*3+num_vcs*2-1] errors_s, errors_q;
 	   assign errors_s = {ivcc_errors_ivc, fb_errors_ivc};
@@ -750,9 +755,9 @@ error);
 	      .errors_in(errors_s),
 	      .errors_out(errors_q));
 	   
-	   assign error = |errors_q;
+	   assign error = (|errors_q) | (flit_count==buffer_size+1);
 	end
-      else
-	assign error = 1'bx;
+    else
+	    assign error = 1'bx;
    endgenerate
 endmodule

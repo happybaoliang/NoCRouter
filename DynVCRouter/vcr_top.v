@@ -42,7 +42,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    
    // total buffer size per port in flits
    parameter buffer_size = 32;
-   
+
+   localparam fb_addr_width = clogb(buffer_size);
+
    // number of message classes (e.g. request, reply)
    parameter num_message_classes = 2;
    
@@ -234,7 +236,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    parameter crossbar_type = `CROSSBAR_TYPE_MUX;
    
    parameter reset_type = `RESET_TYPE_ASYNC;
-   
+  
+   parameter threshold = 5;
+
    input clk;
    input reset;
    
@@ -292,6 +296,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports-1] 			                    sw_gnt_op;
    wire [0:num_ports*num_vcs-1] 		                full_op_ovc;
    wire [0:num_ports-1] 			                    ipc_error_ip;
+   wire [0:num_ports*fb_addr_width-1]                   flit_count_ip;
    wire [0:num_ports*num_vcs-1] 		                sw_sel_ip_ivc;
    wire [0:num_ports*num_vcs-1] 		                vc_gnt_ip_ivc;
    wire [0:num_ports*flit_data_width-1] 	            xbr_data_in_ip;
@@ -391,6 +396,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   
        wire 				                    ipc_error;
 	   wire [0:flit_data_width-1] 		        flit_data;
+       wire [0:fb_addr_width-1]                 flit_count;
 	   wire [0:num_vcs*num_ports-1] 	        route_ivc_op;
 	   wire [0:num_vcs*num_resource_classes-1]  route_ivc_orc;
 	   wire [0:num_vcs-1] 			            allocated_ivc;
@@ -461,6 +467,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	      .full_op_shared_ovc(full_op_shared_ovc),
           .full_op_ovc(full_op_ovc),
 	      .flit_data(flit_data),
+          .flit_count(flit_count),
 	      .flow_ctrl_out(flow_ctrl_out),
 		  .shared_full(&shared_full_fb),
 		  .shared_ovc_ivc(shared_ovc_ivc),
@@ -482,6 +489,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign shared_fb_push_head[ip] = shared_push_head;
 	   assign shared_fb_push_tail[ip] = shared_push_tail;
 
+       assign flit_count_ip[ip*fb_addr_width:(ip+1)*fb_addr_width-1] = flit_count;
 	   assign route_ip_ivc_op[ip*num_vcs*num_ports:(ip+1)*num_vcs*num_ports-1] = route_ivc_op;
 	   assign route_ip_ivc_orc[ip*num_vcs*num_resource_classes:(ip+1)*num_vcs*num_resource_classes-1] = route_ivc_orc;
 	   assign allocated_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = allocated_ivc;
@@ -707,9 +715,10 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   memory_bank_allocator
 		#(.bank_id(fb),
 		  .num_vcs(num_vcs),
-		  .threshold(5),
+		  .threshold(threshold),
 		  .num_ports(num_ports),
-		  .dim_addr_width(dim_addr_width),
+		  .fb_addr_width(fb_addr_width),
+          .dim_addr_width(dim_addr_width),
 		  .router_addr_width(router_addr_width),
 		  .num_routers_per_dim(num_routers_per_dim))
    	   allocator
@@ -717,7 +726,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		  .reset(reset),
 		  .router_address(router_address),
 		  .shared_ivc_empty(shared_empty_ivc),
-		  .allocated_ip_ivc(allocated_ip_ivc),
+		  .flit_count_ip(flit_count_ip),
 		  .ready_for_allocation(ready_for_allocation),
 		  .allocated_ip_shared_ivc(ip_shared_ivc_allocated_in),
 		  .memory_bank_grant_out(memory_bank_grant[fb*num_ports:(fb+1)*num_ports-1]));
@@ -1151,7 +1160,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    //---------------------------------------------------------------------------
    // crossbars
    //---------------------------------------------------------------------------
-   
    wire [0:num_ports*flit_data_width-1]     xbr_data_out_op;
    rtr_crossbar_mac
      #(.num_ports(num_ports),
@@ -1166,7 +1174,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    //---------------------------------------------------------------------------
    // output ports
    //---------------------------------------------------------------------------
-   
    wire [0:num_ports-1]		opc_error_op;
 
    generate
