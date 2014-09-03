@@ -254,6 +254,9 @@ void  rmaPropagate16t0(UB  * pcode, UB  val);
 void  rmaPropagate17(UB  * pcode, scalar  val);
 void  rmaPropagate17f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate17r(UB  * pcode);
+void  rmaPropagate34(UB  * pcode, scalar  val);
+void  rmaPropagate34f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
+void  rmaPropagate34r(UB  * pcode);
 void  rmaPropagate35(UB  * pcode, scalar  val);
 void  rmaPropagate35f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate35r(UB  * pcode);
@@ -281,10 +284,7 @@ void  rmaPropagate42r(UB  * pcode);
 void  rmaPropagate43(UB  * pcode, scalar  val);
 void  rmaPropagate43f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate43r(UB  * pcode);
-void  rmaPropagate44(UB  * pcode, scalar  val);
-void  rmaPropagate44f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
-void  rmaPropagate44r(UB  * pcode);
-void  rmaPropagate44t0(UB  * pcode, UB  val);
+void  rmaPropagate43t0(UB  * pcode, UB  val);
 void  rmaPropagate56(UB  * pcode, scalar  val);
 void  rmaPropagate56f(UB  * pcode, scalar  val, U  frhs, scalar  * prhs);
 void  rmaPropagate56r(UB  * pcode);
@@ -375,6 +375,9 @@ FP rmaFunctionArray[] = {
 	(FP) rmaPropagate17,
 	(FP) rmaPropagate17f,
 	(FP) rmaPropagate17r,
+	(FP) rmaPropagate34,
+	(FP) rmaPropagate34f,
+	(FP) rmaPropagate34r,
 	(FP) rmaPropagate35,
 	(FP) rmaPropagate35f,
 	(FP) rmaPropagate35r,
@@ -402,10 +405,7 @@ FP rmaFunctionArray[] = {
 	(FP) rmaPropagate43,
 	(FP) rmaPropagate43f,
 	(FP) rmaPropagate43r,
-	(FP) rmaPropagate44,
-	(FP) rmaPropagate44f,
-	(FP) rmaPropagate44r,
-	(FP) rmaPropagate44t0,
+	(FP) rmaPropagate43t0,
 	(FP) rmaPropagate56,
 	(FP) rmaPropagate56f,
 	(FP) rmaPropagate56r,

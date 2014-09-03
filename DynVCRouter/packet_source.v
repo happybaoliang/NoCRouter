@@ -3,7 +3,7 @@
 //==============================================================================
 
 module packet_source (clk, reset, router_address, channel, shared_vc, memory_bank_grant, 
-			flit_valid, flow_ctrl, credit_for_shared, run, ready_for_allocation_in, error);
+	shared_ivc_allocated, flit_valid, flow_ctrl, credit_for_shared, run, ready_for_allocation_in, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -222,6 +222,9 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
    output 			 				flit_valid;
    wire 			 				flit_valid;
    
+   output [0:num_vcs-1]             shared_ivc_allocated;
+   wire [0:num_vcs-1]               shared_ivc_allocated;
+
    input [0:flow_ctrl_width-1] 	 	flow_ctrl;
 
    input 			 				credit_for_shared;
@@ -1090,7 +1093,11 @@ module packet_source (clk, reset, router_address, channel, shared_vc, memory_ban
             .data_out(ready_for_alloc));
 
         //TODO
-	    assign shared_vc_out = ((|(sel_bank & memory_bank_grant)) && ready_for_alloc) ? random_shared : 1'b0;
+        assign shared_vc_out = 1'b0;
+	    //assign shared_vc_out = ((|(sel_bank & memory_bank_grant)) && ready_for_alloc) ? random_shared : 1'b0;
+
+        //TODO
+        assign shared_ivc_allocated = shared_vc_out ? sel_ovc : {num_vcs{1'b0}};
 
         // 'curr_dest_addr' seems not be used throughout this souce code.
 	    assign curr_dest_addr = dest_info[((random_vc / num_vcs_per_class) % num_resource_classes)*router_addr_width +: router_addr_width];

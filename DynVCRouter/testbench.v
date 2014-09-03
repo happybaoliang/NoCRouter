@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 350;
+   parameter packet_rate = 400;
   
    // port congestion indicator
    parameter threshold = 5;
@@ -62,10 +62,10 @@ module testbench();
    parameter inject_node_ports_only = 1;
    
    // warmup time in cycles
-   parameter warmup_time = 500;
+   parameter warmup_time = 10000;
    
    // measurement interval in cycles
-   parameter measure_time = 500;
+   parameter measure_time = 10000;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -247,6 +247,7 @@ module testbench();
 				wire 			   			flit_valid;
 				wire [0:channel_width-1]	channel_from_ps;
 				wire						shared_vc_from_ps;
+                wire [0:num_vcs-1]          shared_ivc_allocated_from_ps;
 
 				packet_source
 		  		#(.initial_seed(initial_seed+x_dim*num_routers_per_dim+y_dim),
@@ -287,7 +288,8 @@ module testbench();
 		   		  .credit_for_shared(credit_shared_in),
 		   		  .flow_ctrl(flow_ctrl_to_ps_dly),
                   .ready_for_allocation_in(ready_for_alloc),
-		   		  .run(run),
+		   		  .shared_ivc_allocated(shared_ivc_allocated_from_ps),
+                  .run(run),
 		   		  .error(ps_error));
 
 				assign ps_error_ip[x_dim*num_routers_per_dim+y_dim] = ps_error;
@@ -451,11 +453,11 @@ module testbench();
 
 				assign shared_vc_in[4] = shared_vc_from_ps_dly;
 				assign credit_for_shared_in[4] = shared_credit_from_fs_dly;
-				assign ip_shared_ivc_allocated_in[4*num_vcs:5*num_vcs-1] = {num_vcs{1'b0}};
 				assign ready_for_allocation_in[4*num_ports:5*num_ports-1] = {num_ports{1'b0}};
 				assign channel_in_ip[4*channel_width:5*channel_width-1] = channel_from_ps_dly;
 				assign memory_bank_grant_in[4*num_ports:5*num_ports-1] = memory_bank_grant_from_fs;
 				assign flow_ctrl_in_op[4*flow_ctrl_width:5*flow_ctrl_width-1] = flow_ctrl_from_fs_dly;
+				assign ip_shared_ivc_allocated_in[4*num_vcs:5*num_vcs-1] = {num_vcs{1'b0}};//shared_ivc_allocated_from_ps;
 
 
 				wire 									router_error;
@@ -884,12 +886,12 @@ module testbench();
 		end
 	end
 	endgenerate
-*/
+
    initial
    begin
    	$dumpfile("router.db");
 	$dumpvars(0,testbench);
    end
-
+*/
 endmodule
 

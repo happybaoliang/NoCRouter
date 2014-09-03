@@ -165,16 +165,13 @@ module rtr_flit_buffer
    wire [0:num_vcs*addr_width-1]  pop_next_addr_ivc;
    
 
-   always @(posedge clk  or posedge reset)
+   always @(posedge clk, posedge reset)
    if (reset)
     flit_count <= {addr_width{1'b0}};
-   else
-    case({push_valid,pop_valid})
-     2'b01:
+   else if ({push_valid,pop_valid}==2'b01)
         flit_count <= flit_count-1;
-     2'b10:
+   else if ({push_valid,pop_valid}==2'b10)
         flit_count <= flit_count+1;
-    endcase
 
 
    generate

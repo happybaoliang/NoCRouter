@@ -264,6 +264,7 @@ wire [0:flit_data_width-1] pop_flit;
       .almost_empty_ivc(),
       .empty_ivc(empty_ivc),
       .full(),
+      .flit_count(),
       .errors_ivc(errors_ivc));
    
 // generates the neccessary flow control information.

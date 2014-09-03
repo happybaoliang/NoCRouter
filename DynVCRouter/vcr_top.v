@@ -358,6 +358,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	assign memory_bank_grant_out = memory_bank_grant_out_sel;
    endgenerate
 
+   
+   wire [0:num_ports*num_vcs-1] fb_empty_ivc;
 
    generate
     genvar ip;
@@ -397,6 +399,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
        wire 				                    ipc_error;
 	   wire [0:flit_data_width-1] 		        flit_data;
        wire [0:fb_addr_width-1]                 flit_count;
+       wire [0:num_vcs-1]                       empty_ivc;
 	   wire [0:num_vcs*num_ports-1] 	        route_ivc_op;
 	   wire [0:num_vcs*num_resource_classes-1]  route_ivc_orc;
 	   wire [0:num_vcs-1] 			            allocated_ivc;
@@ -468,6 +471,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
           .full_op_ovc(full_op_ovc),
 	      .flit_data(flit_data),
           .flit_count(flit_count),
+          .fb_empty_ivc(empty_ivc),
 	      .flow_ctrl_out(flow_ctrl_out),
 		  .shared_full(&shared_full_fb),
 		  .shared_ovc_ivc(shared_ovc_ivc),
@@ -498,8 +502,9 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign flit_tail_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = flit_tail_ivc;
 	   assign free_nonspec_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = free_nonspec_ivc;
 	   assign shared_ovc_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = shared_ovc_ivc;
+	   assign fb_empty_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = empty_ivc;
 	   assign ipc_error_ip[ip] = ipc_error;
-	
+
 	   wire [0:num_vcs-1]	shared_sw_sel_ivc;	
 	   assign shared_sw_sel_ivc = sw_sel_ip_shared_ivc[ip*num_vcs:(ip+1)*num_vcs-1];
 
@@ -701,6 +706,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 			.almost_empty_ivc(shared_almost_empty_ivc),
 			.empty_ivc(shared_empty_ivc),
 			.full(shared_full),
+            .flit_count(),
 			.errors_ivc(shared_errors_ivc));
 
 	   assign shared_fb_full[fb] = shared_full;
@@ -726,7 +732,8 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		  .reset(reset),
 		  .router_address(router_address),
 		  .shared_ivc_empty(shared_empty_ivc),
-		  .flit_count_ip(flit_count_ip),
+		  .fb_empty_ivc(fb_empty_ivc),
+          .flit_count_ip(flit_count_ip),
 		  .ready_for_allocation(ready_for_allocation),
 		  .allocated_ip_shared_ivc(ip_shared_ivc_allocated_in),
 		  .memory_bank_grant_out(memory_bank_grant[fb*num_ports:(fb+1)*num_ports-1]));

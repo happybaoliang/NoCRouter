@@ -36,7 +36,7 @@ sw_sel_ivc, sw_gnt_op, shared_ovc_ivc, almost_full_op_ovc, full_op_ovc, flit_dat
 flow_ctrl_out, shared_fb_push_valid, shared_fb_push_head, shared_fb_push_head_ivc, 
 shared_fb_push_tail, shared_fb_push_tail_ivc, shared_fb_push_sel_ivc, shared_full,
 shared_fb_push_data, shared_vc_in, full_op_shared_ovc, almost_full_op_shared_ovc, 
-flit_count, error);
+flit_count, fb_empty_ivc, error);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -320,6 +320,9 @@ flit_count, error);
    output [0:fb_addr_width-1]                   flit_count;
    wire [0:fb_addr_width-1]                     flit_count;
 
+   output [0:num_vcs-1]                         fb_empty_ivc;
+   wire [0:num_vcs-1] 		    	            fb_empty_ivc;
+
    // internal error condition detected
    output 				     					error;
    wire 				     					error;
@@ -432,7 +435,6 @@ flit_count, error);
    //---------------------------------------------------------------------------
    // input vc controllers
    //---------------------------------------------------------------------------
-   wire [0:num_vcs-1] 		    	fb_empty_ivc;
    wire [0:num_vcs-1] 	      	    fb_pop_tail_ivc;
    wire [0:num_vcs*3-1] 	     	ivcc_errors_ivc;
    wire [0:num_vcs*lar_info_width-1] next_lar_info_ivc;
