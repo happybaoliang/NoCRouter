@@ -544,10 +544,10 @@ endgenerate
    assign sw_req_nonspec_ip_ivc_merged = private_sw_req_nonspec_ip_ivc | shared_sw_req_nonspec_ip_ivc;
 
    wire [0:num_ports*num_vcs-1] private_sw_req_spec_ip_ivc;
-   assign private_sw_req_spec_ip_ivc = ~allocated_ip_ivc & flit_valid_ip_ivc;
+   assign private_sw_req_spec_ip_ivc = {num_ports*num_vcs{1'b0}};//~allocated_ip_ivc & flit_valid_ip_ivc;
    
    wire [0:num_ports*num_vcs-1] shared_sw_req_spec_ip_ivc;
-   assign shared_sw_req_spec_ip_ivc = ~allocated_ip_shared_ivc & flit_valid_ip_shared_ivc;
+   assign shared_sw_req_spec_ip_ivc = {num_ports*num_vcs{1'b0}};//~allocated_ip_shared_ivc & flit_valid_ip_shared_ivc;
    
    wire [0:num_ports*num_vcs-1] sw_req_spec_ip_ivc_merged;
    assign sw_req_spec_ip_ivc_merged = private_sw_req_spec_ip_ivc | shared_sw_req_spec_ip_ivc;
@@ -573,6 +573,7 @@ endgenerate
       .data_in(sw_route_ip_ivc_op_merged),
       .data_out(sw_active_op));
 
+
    genvar swp, swvc;
    generate
    	for (swp=0; swp<num_ports; swp=swp+1)
@@ -594,8 +595,7 @@ endgenerate
 			wire [0:num_ports-1]	private_op;
 			assign private_op = route_ip_ivc_op[swp*num_vcs*num_ports+swvc*num_ports+:num_ports];
 
-			assign sw_route_ip_ivc_op_merged[swp*num_vcs*num_ports+swvc*num_ports+:num_ports]
-						= shared_sw_req_sel[swvc] ? share_op : private_op;
+			assign sw_route_ip_ivc_op_merged[swp*num_vcs*num_ports+swvc*num_ports+:num_ports] = shared_sw_req_sel[swvc] ? share_op : private_op;
 		end
 
 		wire [0:num_vcs-1] sw_ivc_sel;
@@ -613,7 +613,6 @@ endgenerate
 		assign sw_sel_ip_ivc[swp*num_vcs:(swp+1)*num_vcs-1] = shared_sw_gnt_ip_sel ? {num_vcs{1'b0}} : sw_ivc_sel;
 	end
    endgenerate
-
 
    genvar swop;
    generate
@@ -863,7 +862,7 @@ endgenerate
 	   assign xbr_ctrl_op_ip[op*num_ports:(op+1)*num_ports-1] = xbr_ctrl_ip;
 	end
    endgenerate
-/*   
+   
 	reg [0:num_vcs*32-1] active_cycles0;
 	reg [0:num_vcs*32-1] active_cycles1;
 	reg [0:num_vcs*32-1] active_cycles2;
@@ -908,5 +907,5 @@ endgenerate
 			active_cycles4[it*32+:32]<=active_cycles4[it*32+:32]+1;
 	end
 endgenerate
-*/
+
 endmodule

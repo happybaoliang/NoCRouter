@@ -133,6 +133,9 @@ module router_syn
    // number of pipeline stages in the channels
    localparam num_channel_stages = channel_latency - 1;
 
+   parameter threshold = 5;
+
+
    input clk;
 
    input reset;
@@ -222,7 +225,8 @@ module router_syn
        			  .sw_alloc_arbiter_type(sw_alloc_arbiter_type),
        			  .sw_alloc_spec_type(sw_alloc_spec_type),
        			  .crossbar_type(crossbar_type),
-       			  .reset_type(reset_type))
+       			  .reset_type(reset_type),
+                  .threshold(threshold))
 				rtr
 				 (.clk(clk),
       			  .reset(reset),

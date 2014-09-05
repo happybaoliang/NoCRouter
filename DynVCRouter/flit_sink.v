@@ -50,9 +50,6 @@ module flit_sink (clk, reset, channel, memory_bank_grant, router_address, shared
    // buffer size per VC in flits
    localparam buffer_size_per_vc = buffer_size / num_vcs;
    
-   // width required to express number of flits in a VC
-   localparam flit_count_width = clogb(buffer_size_per_vc + 1);
-
    localparam memory_bank_size = buffer_size/6;
 
    localparam num_vcs_per_bank = num_vcs/6;
@@ -264,7 +261,6 @@ wire [0:flit_data_width-1] pop_flit;
       .almost_empty_ivc(),
       .empty_ivc(empty_ivc),
       .full(),
-      .flit_count(),
       .errors_ivc(errors_ivc));
    
 // generates the neccessary flow control information.

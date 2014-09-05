@@ -296,7 +296,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    wire [0:num_ports-1] 			                    sw_gnt_op;
    wire [0:num_ports*num_vcs-1] 		                full_op_ovc;
    wire [0:num_ports-1] 			                    ipc_error_ip;
-   wire [0:num_ports*fb_addr_width-1]                   flit_count_ip;
    wire [0:num_ports*num_vcs-1] 		                sw_sel_ip_ivc;
    wire [0:num_ports*num_vcs-1] 		                vc_gnt_ip_ivc;
    wire [0:num_ports*flit_data_width-1] 	            xbr_data_in_ip;
@@ -398,7 +397,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   
        wire 				                    ipc_error;
 	   wire [0:flit_data_width-1] 		        flit_data;
-       wire [0:fb_addr_width-1]                 flit_count;
        wire [0:num_vcs-1]                       empty_ivc;
 	   wire [0:num_vcs*num_ports-1] 	        route_ivc_op;
 	   wire [0:num_vcs*num_resource_classes-1]  route_ivc_orc;
@@ -470,7 +468,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	      .full_op_shared_ovc(full_op_shared_ovc),
           .full_op_ovc(full_op_ovc),
 	      .flit_data(flit_data),
-          .flit_count(flit_count),
           .fb_empty_ivc(empty_ivc),
 	      .flow_ctrl_out(flow_ctrl_out),
 		  .shared_full(&shared_full_fb),
@@ -493,7 +490,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 	   assign shared_fb_push_head[ip] = shared_push_head;
 	   assign shared_fb_push_tail[ip] = shared_push_tail;
 
-       assign flit_count_ip[ip*fb_addr_width:(ip+1)*fb_addr_width-1] = flit_count;
 	   assign route_ip_ivc_op[ip*num_vcs*num_ports:(ip+1)*num_vcs*num_ports-1] = route_ivc_op;
 	   assign route_ip_ivc_orc[ip*num_vcs*num_resource_classes:(ip+1)*num_vcs*num_resource_classes-1] = route_ivc_orc;
 	   assign allocated_ip_ivc[ip*num_vcs:(ip+1)*num_vcs-1] = allocated_ivc;
@@ -706,7 +702,6 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 			.almost_empty_ivc(shared_almost_empty_ivc),
 			.empty_ivc(shared_empty_ivc),
 			.full(shared_full),
-            .flit_count(),
 			.errors_ivc(shared_errors_ivc));
 
 	   assign shared_fb_full[fb] = shared_full;
@@ -722,18 +717,11 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		#(.bank_id(fb),
 		  .num_vcs(num_vcs),
 		  .threshold(threshold),
-		  .num_ports(num_ports),
-		  .fb_addr_width(fb_addr_width),
-          .dim_addr_width(dim_addr_width),
-		  .router_addr_width(router_addr_width),
-		  .num_routers_per_dim(num_routers_per_dim))
+		  .num_ports(num_ports))
    	   allocator
    	 	 (.clk(clk),
 		  .reset(reset),
-		  .router_address(router_address),
 		  .shared_ivc_empty(shared_empty_ivc),
-		  .fb_empty_ivc(fb_empty_ivc),
-          .flit_count_ip(flit_count_ip),
 		  .ready_for_allocation(ready_for_allocation),
 		  .allocated_ip_shared_ivc(ip_shared_ivc_allocated_in),
 		  .memory_bank_grant_out(memory_bank_grant[fb*num_ports:(fb+1)*num_ports-1]));
@@ -1043,8 +1031,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
             assign route_ip_shared_ivc_orc[sip*num_vcs*num_resource_classes+sop*num_vcs_per_bank*num_resource_classes:
                         sip*num_vcs*num_resource_classes+(sop+1)*num_vcs_per_bank*num_resource_classes-1]
                     = memory_bank_grant_out[sip*num_ports+sop]
-                    ? shared_route_ivc_orc[sop*num_vcs_per_bank*num_resource_classes
-						:(sop+1)*num_vcs_per_bank*num_resource_classes-1]
+                    ? shared_route_ivc_orc[sop*num_vcs_per_bank*num_resource_classes:(sop+1)*num_vcs_per_bank*num_resource_classes-1]
                     : {num_vcs_per_bank*num_resource_classes{1'b0}};
             
             assign flit_valid_ip_shared_ivc[sip*num_vcs+sop*num_vcs_per_bank:sip*num_vcs+(sop+1)*num_vcs_per_bank-1]
@@ -1335,12 +1322,12 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
 		assign almost_full_op_shared_ovc[op*num_vcs+sb*num_vcs_per_bank:op*num_vcs+(sb+1)*num_vcs_per_bank-1]
 					= memory_bank_grant_in[op*num_ports+sb]
 					? shared_almost_full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
-					: {num_vcs_per_bank{1'b1}};
+					: {num_vcs_per_bank{1'b0}};
 
 		assign full_op_shared_ovc[op*num_vcs+sb*num_vcs_per_bank:op*num_vcs+(sb+1)*num_vcs_per_bank-1]
 					= memory_bank_grant_in[op*num_ports+sb]
 					? shared_full_ovc[sb*num_vcs_per_bank:(sb+1)*num_vcs_per_bank-1]
-					: {num_vcs_per_bank{1'b1}};
+					: {num_vcs_per_bank{1'b0}};
 	   end
 	end
    endgenerate

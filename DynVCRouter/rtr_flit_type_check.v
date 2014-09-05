@@ -29,8 +29,7 @@
 // flit type checker module
 //==============================================================================
 
-module rtr_flit_type_check
-  (clk, reset, active, flit_valid, flit_head, flit_tail, error);
+module rtr_flit_type_check (clk, reset, active, flit_valid, flit_head, flit_tail, error);
    
 `include "c_constants.v"
    
@@ -62,9 +61,7 @@ module rtr_flit_type_check
    //---------------------------------------------------------------------------
    
    wire   packet_active_s, packet_active_q;
-   assign packet_active_s = flit_valid ? 
-			    ((packet_active_q | flit_head) & ~flit_tail) :
-			    packet_active_q;
+   assign packet_active_s = flit_valid ? ((packet_active_q | flit_head) & ~flit_tail) : packet_active_q;
    c_dff
      #(.width(1),
        .reset_type(reset_type))

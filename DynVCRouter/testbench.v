@@ -44,7 +44,7 @@ module testbench();
    parameter max_packet_count = -1;
    
    // packet injection rate (per 10k cycles)
-   parameter packet_rate = 400;
+   parameter packet_rate = 800;
   
    // port congestion indicator
    parameter threshold = 5;
@@ -65,7 +65,7 @@ module testbench();
    parameter warmup_time = 10000;
    
    // measurement interval in cycles
-   parameter measure_time = 10000;
+   parameter measure_time = 100000;
    
    // select packet length mode (0: uniform random, 1: bimodal)
    parameter packet_length_mode = 0;
@@ -840,7 +840,9 @@ module testbench();
       $display("cooling down...");
     
       run = 1'b0;
-      
+
+//      #(Tclk*500);
+
       while((in_flits > out_flits) || (in_flits > in_creds))
 	  begin
 	   cycles = cycles + 1;
@@ -853,7 +855,6 @@ module testbench();
       
       $display("%d flits received, %d flits sent", in_flits, out_flits);
 
-/*   	
       for (x=0;x<num_routers_per_dim;x=x+1)
 	  begin
 		for (y=0;y<num_routers_per_dim;y=y+1)
@@ -870,11 +871,10 @@ module testbench();
 			$display("];");
 		end
 	end
-*/
 
 	$finish;
    end
-/*
+
 	genvar xx, yy, pp;
 	generate
 	for (xx=0;xx<num_routers_per_dim;xx=xx+1)
@@ -886,7 +886,7 @@ module testbench();
 		end
 	end
 	endgenerate
-
+/*
    initial
    begin
    	$dumpfile("router.db");

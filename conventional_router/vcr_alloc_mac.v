@@ -268,7 +268,7 @@ module vcr_alloc_mac
    assign sw_req_nonspec_ip_ivc = allocated_ip_ivc & flit_valid_ip_ivc & free_nonspec_ip_ivc;
    
    wire [0:num_ports*num_vcs-1] sw_req_spec_ip_ivc;
-   assign sw_req_spec_ip_ivc =  ~allocated_ip_ivc & flit_valid_ip_ivc;
+   assign sw_req_spec_ip_ivc =  {num_ports*num_vcs{1'b0}};//~allocated_ip_ivc & flit_valid_ip_ivc;
    
    wire [0:num_ports-1] 	sw_active_ip;
    c_reduce_bits

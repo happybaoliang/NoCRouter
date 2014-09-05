@@ -32,8 +32,7 @@
 module rtr_flit_buffer
   (clk, reset, push_active, push_valid, push_head, push_tail, push_sel_ivc, 
    push_data, pop_active, pop_valid, pop_sel_ivc, pop_data, pop_tail_ivc, 
-   pop_next_header_info, almost_empty_ivc, empty_ivc, full, errors_ivc,
-   flit_count);
+   pop_next_header_info, almost_empty_ivc, empty_ivc, full, errors_ivc);
    
 `include "c_functions.v"
 `include "c_constants.v"
@@ -147,9 +146,6 @@ module rtr_flit_buffer
    output [0:num_vcs-1] 	      almost_empty_ivc;
    wire [0:num_vcs-1] 		      almost_empty_ivc;
 
-   output [0:addr_width-1]        flit_count;
-   reg [0:addr_width-1]           flit_count;
-
    output [0:num_vcs-1] 	      empty_ivc;
    wire [0:num_vcs-1] 		      empty_ivc;
 
@@ -164,16 +160,6 @@ module rtr_flit_buffer
    wire [0:num_vcs*addr_width-1]  pop_addr_ivc;
    wire [0:num_vcs*addr_width-1]  pop_next_addr_ivc;
    
-
-   always @(posedge clk, posedge reset)
-   if (reset)
-    flit_count <= {addr_width{1'b0}};
-   else if ({push_valid,pop_valid}==2'b01)
-        flit_count <= flit_count-1;
-   else if ({push_valid,pop_valid}==2'b10)
-        flit_count <= flit_count+1;
-
-
    generate
     //------------------------------------------------------------------------
     // tail flit tracking (atomic)
