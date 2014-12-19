@@ -721,7 +721,7 @@ module vcr_top (clk, reset, router_address, channel_in_ip, memory_bank_grant_in,
    	   allocator
    	 	 (.clk(clk),
 		  .reset(reset),
-		  .shared_ivc_empty(shared_empty_ivc),
+          .shared_ivc_empty(shared_empty_ivc),
 		  .ready_for_allocation(ready_for_allocation),
 		  .allocated_ip_shared_ivc(ip_shared_ivc_allocated_in),
 		  .memory_bank_grant_out(memory_bank_grant[fb*num_ports:(fb+1)*num_ports-1]));

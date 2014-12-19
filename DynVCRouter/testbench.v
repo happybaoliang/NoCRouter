@@ -47,7 +47,7 @@ module testbench();
    parameter packet_rate = 800;
   
    // port congestion indicator
-   parameter threshold = 5;
+   parameter threshold = 10;
 
    // flit consumption rate (per 10k cycles)
    parameter consume_rate = 10000;
@@ -840,8 +840,6 @@ module testbench();
       $display("cooling down...");
     
       run = 1'b0;
-
-//      #(Tclk*500);
 
       while((in_flits > out_flits) || (in_flits > in_creds))
 	  begin

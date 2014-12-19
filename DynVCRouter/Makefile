@@ -58,4 +58,4 @@ run: simv parser.cpp
 	./parser
 	
 clean:
-	rm -rf work simv simvfast simv.daidir simvfast.daidir transcript *.vcd *.vpd ucli.key vcs.key run.args csrc DVEfiles .vcsmx_rebuild *~
+	rm -rf WORK simv simvfast simv.daidir simvfast.daidir transcript *.vcd *.vpd ucli.key vcs.key run.args csrc DVEfiles .vcsmx_rebuild *~

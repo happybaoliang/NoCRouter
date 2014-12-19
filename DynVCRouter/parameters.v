@@ -33,7 +33,7 @@
 parameter topology = `TOPOLOGY_MESH;
 
 // total buffer size per port in flits
-parameter buffer_size = 50;
+parameter buffer_size = 20;
 
 // number of message classes (e.g. request, reply)
 parameter num_message_classes = 1;
@@ -63,10 +63,10 @@ parameter flow_ctrl_type = `FLOW_CTRL_TYPE_CREDIT;
 parameter flow_ctrl_bypass = 0;
 
 // maximum payload length (in flits)
-parameter max_payload_length = 7;
+parameter max_payload_length = 9;
 
 // minimum payload length (in flits)
-parameter min_payload_length = 7;
+parameter min_payload_length = 9;
 
 // select router implementation
 parameter router_type = `ROUTER_TYPE_VC;

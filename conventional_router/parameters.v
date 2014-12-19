@@ -33,7 +33,7 @@
 parameter topology = `TOPOLOGY_MESH;
 
 // total buffer size per port in flits
-parameter buffer_size = 60;
+parameter buffer_size = 24;
 
 // number of message classes (e.g. request, reply)
 parameter num_message_classes = 1;
@@ -102,7 +102,7 @@ parameter input_stage_can_hold = 0;
 parameter fb_regfile_type = `REGFILE_TYPE_FF_2D;
 
 // select flit buffer management scheme
-parameter fb_mgmt_type = `FB_MGMT_TYPE_DYNAMIC;
+parameter fb_mgmt_type = `FB_MGMT_TYPE_STATIC;
 
 // improve timing for peek access
 parameter fb_fast_peek = 1;

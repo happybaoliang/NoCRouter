@@ -117,8 +117,8 @@ module memory_bank_allocator(clk, reset, allocated_ip_shared_ivc, shared_ivc_emp
             end
         default:
             begin
-                direction <= EAST;
-                memory_bank_grant_out <= 5'b10000;
+                direction <= bank_id;
+                memory_bank_grant_out <= {5'b10000}>>bank_id;
             end
         endcase
     end
